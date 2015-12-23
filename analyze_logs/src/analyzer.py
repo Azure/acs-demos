@@ -28,8 +28,7 @@ def readSummary():
     summary = {'ERRORS': 0, 'WARNINGS':0, 'INFOS':0}
   return summary
 
-
-def complete():
+def completeAnalysis():
   log = readLog()
   summary = readSummary()
   summary['ERRORS'] = summary['ERRORS'] + count("ERROR", log)
@@ -40,3 +39,6 @@ def complete():
   with open(config.PROCESSED_LOG_FILE, 'a') as processed:
     processed.write(log)
   os.remove(config.UNPROCESSED_LOG_FILE)
+
+if __name__ == "__main__":
+    completeAnalysis()

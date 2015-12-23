@@ -8,4 +8,25 @@ This project consists of a number of Docker containers each desinged to perform 
 
 # Running the tests
 
-Configure the simulate_logging container to run always. Configure the analyze_logs container to run periodically (e.g. every 20 mins).
+Build the containers as described below.
+
+```
+docker create -v /logs --name base rgardler/acs-logging-test-base /bin/true
+docker run --volumes-from base --name simulate rgardler/acs-logging-test-simulate
+docker run --volumes-from base --name analyze rgardler/acs-logging-test-analyze
+docker run --volumes-from base --name cli rgardler/acs-logging-test-cli
+
+```
+
+
+# Building the containers
+
+## Building the base container
+
+```
+docker build -t rgardler/acs-logging-test-base .
+docker build -t rgardler/acs-logging-test-simulate simulated_logging
+docker build -t rgardler/acs-logging-test-analyze analyze_logs
+docker build -t rgardler/acs-logging-test-cli cli
+```
+

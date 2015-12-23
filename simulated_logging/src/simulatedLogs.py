@@ -6,7 +6,7 @@ import random
 
 logging.basicConfig(level=logging.DEBUG, format=' %(asctime)s - %(levelname)s - %(message)s')
 
-_action_count = 5
+_action_count = 1000 # number of actions to log, 0 means continue until killed
 _too_hot = 75
 _just_right = 70
 _too_cold = 68
@@ -40,12 +40,17 @@ def error(msg):
 
 def simulate():
   global queue, temp
-  logging.debug('Simulate ' + str(_action_count) + ' actions')
-  queue = open(config.UNPROCESSED_LOG_FILE, 'w')
+  if _action_count > 0:
+    logging.debug('Simulate ' + str(_action_count) + ' actions')
+  else:
+    logging.debug('Simulating until stopped')
+
+  queue = open(config.UNPROCESSED_LOG_FILE, 'w+')
 
   temp = 70;
 
-  for i in range(_action_count):
+  _actions = 1
+  while _action_count == 0 or _action_count - _actions > 0:
     change = random.randint(-1, 1)
     log_change(change)
 
@@ -65,4 +70,9 @@ def simulate():
     else:
       error('Can''t tell if it''s hot or cold')
 
+    _actions = _actions + 1
+
   queue.close()
+
+if __name__ == "__main__":
+    simulate()
