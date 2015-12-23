@@ -8,12 +8,27 @@ This project consists of a number of Docker containers each desinged to perform 
 
 # Running the tests
 
-Build the containers as described below.
+Ensure that the volume is created:
 
 ```
 docker create -v /logs --name base rgardler/acs-logging-test-base /bin/true
+```
+
+Simulate some test data (you might want to run this on a schedule):
+
+```
 docker run --volumes-from base --name simulate rgardler/acs-logging-test-simulate
+```
+
+Analyze the log data in the queue:
+
+```
 docker run --volumes-from base --name analyze rgardler/acs-logging-test-analyze
+```
+
+To get some insight into what has happened you can run the CLI container:
+
+```
 docker run --volumes-from base --name cli rgardler/acs-logging-test-cli
 
 ```
