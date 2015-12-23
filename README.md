@@ -30,9 +30,22 @@ To get some insight into what has happened you can run the CLI container:
 
 ```
 docker run --volumes-from base --name cli rgardler/acs-logging-test-cli
-
 ```
 
+# Automating the tests
+
+Run the setup script to ensure the containers are correctly installed:
+
+```
+setup.sh
+```
+
+Now add the following lines to your crontab:
+
+```
+*/5 * * * * docker start simulate
+*/22 * * * * docker start analyze
+```
 
 # Building the containers
 
