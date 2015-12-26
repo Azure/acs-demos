@@ -17,19 +17,19 @@ docker create -v /logs --name base rgardler/acs-logging-test-base /bin/true
 Simulate some test data (you might want to run this on a schedule):
 
 ```
-docker run --volumes-from base --name simulate rgardler/acs-logging-test-simulate
+docker run --rm --volumes-from base --name simulate rgardler/acs-logging-test-simulate
 ```
 
 Analyze the log data in the queue:
 
 ```
-docker run --volumes-from base --name analyze rgardler/acs-logging-test-analyze
+docker run --rm --volumes-from base --name analyze rgardler/acs-logging-test-analyze
 ```
 
 To get some insight into what has happened you can run the CLI container:
 
 ```
-docker run --volumes-from base --name cli rgardler/acs-logging-test-cli
+docker run -it --rm --volumes-from base --name cli rgardler/acs-logging-test-cli
 ```
 
 # Automating the tests
@@ -43,8 +43,8 @@ setup.sh
 Now add the following lines to your crontab:
 
 ```
-*/5 * * * * docker start simulate
-*/22 * * * * docker start analyze
+*/5 * * * * docker -H :2375 run --rm --volumes-from base rgardler/acs-logging-test-simulate
+*/22 * * * * docker -H :2375 run --rm --volumes-from base rgardler/acs-logging-test-analyze
 ```
 
 # Building the containers

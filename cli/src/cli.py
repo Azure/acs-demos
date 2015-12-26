@@ -37,6 +37,6 @@ def readSummary():
   return summary
 
 if __name__ == "__main__":
-  dumpLogs()
-  dumpUnprocessedLogs()
+  # dumpLogs()
+  # dumpUnprocessedLogs()
   printSummary()
