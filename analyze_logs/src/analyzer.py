@@ -2,6 +2,7 @@
 """
 
 import config
+import notify 
 
 import json
 import os
@@ -39,6 +40,7 @@ def completeAnalysis():
   with open(config.PROCESSED_LOG_FILE, 'a') as processed:
     processed.write(log)
   os.remove(config.UNPROCESSED_LOG_FILE)
+  notify.info("Analyzed message queue.\n " + json.dumps(summary))
 
 if __name__ == "__main__":
     completeAnalysis()

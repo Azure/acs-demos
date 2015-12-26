@@ -6,6 +6,10 @@ This project consists of a number of Docker containers each desinged to perform 
   * simulate_logging - a container that simluates a period of logging activity, writes log items into the queue
   * analyze_logs - reads log queue and creates summary log data
 
+## Slack Channel
+
+Messages from the test suite are sent to the Slack channel https://azurecontainerservice.slack.com
+
 # Running the tests
 
 Ensure that the volume is created:
@@ -58,3 +62,12 @@ docker build -t rgardler/acs-logging-test-analyze analyze_logs
 docker build -t rgardler/acs-logging-test-cli cli
 ```
 
+# Development
+
+Run your chosen container in interactive mode:
+
+```
+docker run --rm -it rgardler/acs-logging-test-simulate bash
+```
+
+Now you can run commands to test things out.

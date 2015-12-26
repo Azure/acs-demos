@@ -1,5 +1,7 @@
 # Create a simulated log file
 import config
+import notify
+
 import logging
 import os
 import random
@@ -73,6 +75,8 @@ def simulate():
     _actions = _actions + 1
 
   queue.close()
+
+  notify.info("Simulated " + str(_action_count) + " actions and added them to the queue")
 
 if __name__ == "__main__":
     simulate()
