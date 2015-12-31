@@ -1,10 +1,13 @@
 # Create a simulated log file
 import config
+import mailhandler
 import notify
 
 import logging
 import os
 import random
+import sys
+import traceback
 
 logging.basicConfig(level=logging.DEBUG, format=' %(asctime)s - %(levelname)s - %(message)s')
 
@@ -43,7 +46,7 @@ def error(msg):
 def simulate():
   global queue, temp
   if _action_count > 0:
-    logging.debug('Simulate ' + str(_action_count) + ' actions')
+    logging.debug('Attempting to simulate ' + str(_action_count) + ' actions')
   else:
     logging.debug('Simulating until stopped')
 
@@ -79,4 +82,10 @@ def simulate():
   notify.info("Simulated " + str(_action_count) + " actions and added them to the queue")
 
 if __name__ == "__main__":
-    simulate()
+    try:
+      simulate()
+    except:
+      e = sys.exc_info()[0]
+      logging.error("Unable to simulate logging", exc_info=True)
+      notify.error("ACS Logging simulation failed")
+      mailhandler.send("ACS Logging simulation failed", "Check logs for details")
