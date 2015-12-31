@@ -17,6 +17,9 @@ def send(msg, channel="general"):
 def info(msg):
     send(msg, 'info')
 
+def error(msg):
+    send(msg, 'error')
+
 if __name__ == "__main__":
     send("Test message from ACS Logging Test Slack Bot")
 
