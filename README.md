@@ -12,6 +12,17 @@ Messages from the test suite are sent to the Slack channel https://azurecontaine
 
 # Running the tests
 
+Copy src/config_tmpl.py to src/config.py and edit accordingly. 
+
+Build the containers with:
+
+```
+docker build -t rgardler/acs-logging-test-base .
+docker build -t rgardler/acs-logging-test-simulate simulated_logging
+docker build -t rgardler/acs-logging-test-analyze analyze_logs
+docker build -t rgardler/acs-logging-test-cli cli
+```
+
 Ensure that the volume is created:
 
 ```
@@ -49,17 +60,6 @@ Now add the following lines to your crontab:
 ```
 */5 * * * * docker -H :2375 run --rm --volumes-from base rgardler/acs-logging-test-simulate
 */22 * * * * docker -H :2375 run --rm --volumes-from base rgardler/acs-logging-test-analyze
-```
-
-# Building the containers
-
-## Building the base container
-
-```
-docker build -t rgardler/acs-logging-test-base .
-docker build -t rgardler/acs-logging-test-simulate simulated_logging
-docker build -t rgardler/acs-logging-test-analyze analyze_logs
-docker build -t rgardler/acs-logging-test-cli cli
 ```
 
 # Development
