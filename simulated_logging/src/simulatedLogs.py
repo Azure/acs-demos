@@ -6,6 +6,7 @@ import notify
 import logging
 import os
 import random
+import socket
 import sys
 import traceback
 
@@ -45,10 +46,11 @@ def error(msg):
 
 def simulate():
   global queue, temp
+  hostname = socket.gethostname()
   if _action_count > 0:
-    logging.debug('Attempting to simulate ' + str(_action_count) + ' actions')
+    logging.debug(hostname + ': Attempting to simulate ' + str(_action_count) + ' actions')
   else:
-    logging.debug('Simulating until stopped')
+    logging.debug(hostanme + ': Simulating until stopped')
 
   queue = open(config.UNPROCESSED_LOG_FILE, 'w+')
 
@@ -79,13 +81,14 @@ def simulate():
 
   queue.close()
 
-  notify.info("Simulated " + str(_action_count) + " actions and added them to the queue")
+  notify.info(hostname + ": Simulated " + str(_action_count) + " actions and added them to the queue")
 
 if __name__ == "__main__":
     try:
       simulate()
     except:
       e = sys.exc_info()[0]
+      hostname = socket.gethostname()
       logging.error("Unable to simulate logging", exc_info=True)
-      notify.error("ACS Logging simulation failed")
-      mailhandler.send("ACS Logging simulation failed", "Check logs for details")
+      notify.error(hostname + ": ACS Logging simulation failed")
+      mailhandler.send(hostname + ": ACS Logging simulation failed", "Check logs on " + hostname + " for details")
