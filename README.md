@@ -32,22 +32,24 @@ docker create -v /logs --name base rgardler/acs-logging-test-base /bin/true
 Simulate some test data (you might want to run this on a schedule):
 
 ```
-docker run --rm --volumes-from base --name simulate rgardler/acs-logging-test-simulate
+docker run --rm -e SMTP_PASSWORD=password --volumes-from base --name simulate rgardler/acs-logging-test-simulate
 ```
 
 Analyze the log data in the queue:
 
 ```
-docker run --rm --volumes-from base --name analyze rgardler/acs-logging-test-analyze
+docker run --rm -e SMTP_PASSWORD=password --volumes-from base --name analyze rgardler/acs-logging-test-analyze
 ```
 
 To get some insight into what has happened you can run the CLI container:
 
 ```
-docker run -it --rm --volumes-from base --name cli rgardler/acs-logging-test-cli
+docker run -it -e SMTP_PASSWORD=password --rm --volumes-from base --name cli rgardler/acs-logging-test-cli
 ```
 
 # Automating the tests
+
+Ensure DOCKER_HOST is set to your Swarm endpoint.
 
 Run the setup script to ensure the containers are correctly installed:
 
@@ -58,8 +60,8 @@ setup.sh
 Now add the following lines to your crontab:
 
 ```
-*/5 * * * * docker -H :2375 run --rm --volumes-from base rgardler/acs-logging-test-simulate
-*/22 * * * * docker -H :2375 run --rm --volumes-from base rgardler/acs-logging-test-analyze
+*/5 * * * * docker -H :2375 run -e SMTP_PASSWORD=password --rm --volumes-from base rgardler/acs-logging-test-simulate
+*/22 * * * * docker -H :2375 run -e SMTP_PASSWORD=password --rm --volumes-from base rgardler/acs-logging-test-analyze
 ```
 
 # Development
@@ -67,7 +69,7 @@ Now add the following lines to your crontab:
 Run your chosen container in interactive mode:
 
 ```
-docker run --rm -it rgardler/acs-logging-test-simulate bash
+docker run -e SMTP_PASSWORD=password --rm -it rgardler/acs-logging-test-simulate bash
 ```
 
 Now you can run commands to test things out.
