@@ -12,3 +12,9 @@ SMTP_USERNAME=
 SMTP_PASSWORD=os.environ.get('SMTP_PASSWORD')
 MAIL_FROM=
 MAIL_TO=
+
+
+# number of simulation events to create on each run (0 means conmtinue until stopped)
+SIMULATION_ACTIONS=1000
+# number of seconds to delay between each logging event
+SIMULATION_DELAY=30

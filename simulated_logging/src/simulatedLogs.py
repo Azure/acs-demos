@@ -8,11 +8,11 @@ import os
 import random
 import socket
 import sys
+import time
 import traceback
 
 logging.basicConfig(level=logging.DEBUG, format=' %(asctime)s - %(levelname)s - %(message)s')
 
-_action_count = 1000 # number of actions to log, 0 means continue until killed
 _too_hot = 75
 _just_right = 70
 _too_cold = 68
@@ -47,8 +47,8 @@ def error(msg):
 def simulate():
   global queue, temp
   hostname = socket.gethostname()
-  if _action_count > 0:
-    logging.debug(hostname + ': Attempting to simulate ' + str(_action_count) + ' actions')
+  if config.SIMULATION_ACTIONS > 0:
+    logging.debug(hostname + ': Attempting to simulate ' + str(config.SIMULATION_ACTIONS) + ' actions')
   else:
     logging.debug(hostanme + ': Simulating until stopped')
 
@@ -57,7 +57,7 @@ def simulate():
   temp = 70;
 
   _actions = 1
-  while _action_count == 0 or _action_count - _actions > 0:
+  while config.SIMULATION_ACTIONS == 0 or config.SIMULATION_ACTIONS - _actions > 0:
     change = random.randint(-1, 1)
     log_change(change)
 
@@ -78,10 +78,11 @@ def simulate():
       error('Can''t tell if it''s hot or cold')
 
     _actions = _actions + 1
+    time.sleep(config.SIMULATION_DELAY)
 
   queue.close()
 
-  notify.info(hostname + ": Simulated " + str(_action_count) + " actions and added them to the queue")
+  notify.info(hostname + ": Simulated " + str(config.SIMULATION_ACTIONS) + " actions and added them to the queue")
 
 if __name__ == "__main__":
     try:
