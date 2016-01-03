@@ -50,7 +50,7 @@ def simulate():
   if int(config.SIMULATION_ACTIONS) > 0:
     logging.debug(hostname + ': Attempting to simulate ' + str(config.SIMULATION_ACTIONS) + ' actions')
   else:
-    logging.debug(hostanme + ': Simulating until stopped')
+    logging.debug(hostname + ': Simulating until stopped')
 
   queue = open(config.UNPROCESSED_LOG_FILE, 'w+')
 

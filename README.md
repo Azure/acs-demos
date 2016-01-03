@@ -58,18 +58,22 @@ docker run -it -e SMTP_PASSWORD=password --rm --volumes-from base --name cli rga
 
 Ensure DOCKER_HOST is set to your Swarm endpoint.
 
-Run the setup script to ensure the containers are correctly installed:
+Ensure that the volume is created:
 
 ```
-setup.sh
+docker create -v /logs --name base rgardler/acs-logging-test-base /bin/true
 ```
 
-Now add the following lines to your crontab:
+Now add lines such as the following to the cronteb (use `crontab -e`):
 
 ```
 */5 * * * * docker -H :2375 run -e SMTP_PASSWORD=password --rm --volumes-from base rgardler/acs-logging-test-simulate
 */22 * * * * docker -H :2375 run -e SMTP_PASSWORD=password --rm --volumes-from base rgardler/acs-logging-test-analyze
 ```
+
+Alternatively just use the second line as a cron job and use a long running task for the first, such as:
+
+docker -H :2375 run -e SMTP_PASSWORD=password -e SIMULATION_ACTIONS=0 --rm --volumes-from base rgardler/acs-logging-test-simulate
 
 # Development
 
