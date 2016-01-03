@@ -35,6 +35,13 @@ Simulate some test data (you might want to run this on a schedule):
 docker run --rm -e SMTP_PASSWORD=password --volumes-from base --name simulate rgardler/acs-logging-test-simulate
 ```
 
+You can configure the simulattion with the following environment variables (which can be passed in the docker run commadn using `-e`):
+
+SIMULATION_ACTIONS: the number of actions to be simulated on this run (0 means continue until stopped)
+
+SIMULATION_DELAY: the delay between simulated events
+
+
 Analyze the log data in the queue:
 
 ```

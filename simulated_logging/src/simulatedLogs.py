@@ -47,7 +47,7 @@ def error(msg):
 def simulate():
   global queue, temp
   hostname = socket.gethostname()
-  if config.SIMULATION_ACTIONS > 0:
+  if int(config.SIMULATION_ACTIONS) > 0:
     logging.debug(hostname + ': Attempting to simulate ' + str(config.SIMULATION_ACTIONS) + ' actions')
   else:
     logging.debug(hostanme + ': Simulating until stopped')
@@ -56,8 +56,8 @@ def simulate():
 
   temp = 70;
 
-  _actions = 1
-  while config.SIMULATION_ACTIONS == 0 or config.SIMULATION_ACTIONS - _actions >= 0:
+  _actions = 0
+  while int(config.SIMULATION_ACTIONS == 0) or int(config.SIMULATION_ACTIONS) - _actions > 0:
     change = random.randint(-1, 1)
     log_change(change)
 
@@ -78,7 +78,7 @@ def simulate():
       error('Can''t tell if it''s hot or cold')
 
     _actions = _actions + 1
-    time.sleep(config.SIMULATION_DELAY)
+    time.sleep(int(config.SIMULATION_DELAY))
 
   queue.close()
 

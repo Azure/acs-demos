@@ -15,6 +15,6 @@ MAIL_TO=
 
 
 # number of simulation events to create on each run (0 means conmtinue until stopped)
-SIMULATION_ACTIONS=1000
+SIMULATION_ACTIONS=os.getenv('SIMULATION_ACTIONS', 5)
 # number of seconds to delay between each logging event
-SIMULATION_DELAY=30
+SIMULATION_DELAY=os.getenv('SIMULATION_DELAY', 30)
