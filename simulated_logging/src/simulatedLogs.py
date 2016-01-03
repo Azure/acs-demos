@@ -57,7 +57,7 @@ def simulate():
   temp = 70;
 
   _actions = 1
-  while config.SIMULATION_ACTIONS == 0 or config.SIMULATION_ACTIONS - _actions > 0:
+  while config.SIMULATION_ACTIONS == 0 or config.SIMULATION_ACTIONS - _actions >= 0:
     change = random.randint(-1, 1)
     log_change(change)
 
