@@ -36,6 +36,11 @@ def log_temp(temp):
   msg = "Current temperature: " + str(temp)
   info(msg)
 
+def debug(msg):
+  logging.debug(msg)
+  debug = "DEBUG - " + msg
+  notify.info(debug)
+
 def warn(msg):
   warning = "WARNING - " + msg
   log(warning)
@@ -48,16 +53,15 @@ def simulate():
   global queue, temp
   hostname = socket.gethostname()
   if int(config.SIMULATION_ACTIONS) > 0:
-    logging.debug(hostname + ': Attempting to simulate ' + str(config.SIMULATION_ACTIONS) + ' actions')
+    debug(hostname + ': Attempting to simulate ' + str(config.SIMULATION_ACTIONS) + ' actions')
   else:
-    logging.debug(hostname + ': Simulating until stopped')
-
-  queue = open(config.UNPROCESSED_LOG_FILE, 'w+')
+    debug(hostname + ': Simulating until stopped')
 
   temp = 70;
 
   _actions = 0
   while int(config.SIMULATION_ACTIONS) == 0 or int(config.SIMULATION_ACTIONS) - _actions > 0:
+    queue = open(config.UNPROCESSED_LOG_FILE, 'w+')
     change = random.randint(-1, 1)
     log_change(change)
 
@@ -77,10 +81,10 @@ def simulate():
     else:
       error('Can''t tell if it''s hot or cold')
 
+    queue.close()
+
     _actions = _actions + 1
     time.sleep(int(config.SIMULATION_DELAY))
-
-  queue.close()
 
   notify.info(hostname + ": Simulated " + str(config.SIMULATION_ACTIONS) + " actions and added them to the queue")
 
