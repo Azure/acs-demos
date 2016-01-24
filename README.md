@@ -41,7 +41,6 @@ SIMULATION_ACTIONS: the number of actions to be simulated on this run (0 means c
 
 SIMULATION_DELAY: the delay between simulated events
 
-
 Analyze the log data in the queue:
 
 ```

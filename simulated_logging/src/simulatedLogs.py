@@ -2,8 +2,9 @@
 import config
 import mailhandler
 import notify
+from log import Log
+from messageQueue import Queue
 
-import logging
 import os
 import random
 import socket
@@ -11,89 +12,67 @@ import sys
 import time
 import traceback
 
-logging.basicConfig(level=logging.DEBUG, format=' %(asctime)s - %(levelname)s - %(message)s')
-
 _too_hot = 75
 _just_right = 70
 _too_cold = 68
 
-global temp
-global queue
-
-def log(msg):
-  queue.write(msg + '\n')
-  logging.debug(msg)
-
-def info(msg):
-  msg = "INFO - " + msg
-  log(msg)
-  
-def log_change(change):
-  msg = "Change since last reading: " + str(change)
-  info(msg)
-
-def log_temp(temp):
-  msg = "Current temperature: " + str(temp)
-  info(msg)
-
-def debug(msg):
-  logging.debug(msg)
-  debug = "DEBUG - " + msg
-  notify.info(debug)
-
-def warn(msg):
-  warning = "WARNING - " + msg
-  log(warning)
-
-def error(msg):
-  error = "ERROR - " + msg
-  log(error)
-
 def simulate():
-  global queue, temp
+  log = Log()
   hostname = socket.gethostname()
+  msgQueue = Queue()
+
   if int(config.SIMULATION_ACTIONS) > 0:
-    debug(hostname + ': Attempting to simulate ' + str(config.SIMULATION_ACTIONS) + ' actions')
+    msg = hostname + ': Attempting to simulate ' + str(config.SIMULATION_ACTIONS) + ' actions'
+    log.debug(msg)
+    notify.info(msg)
   else:
-    debug(hostname + ': Simulating until stopped')
+    msg = hostname + ': Simulating until stopped'
+    log.debug(msg)
+    notify.info(msg)
 
   temp = 70;
 
   _actions = 0
   while int(config.SIMULATION_ACTIONS) == 0 or int(config.SIMULATION_ACTIONS) - _actions > 0:
-    queue = open(config.UNPROCESSED_LOG_FILE, 'w+')
     change = random.randint(-1, 1)
-    log_change(change)
+    msgQueue.enqueue("Change since last reading: " + str(change), "INFO")
 
     temp = temp + change
-    log_temp(temp)
+    msgQueue.enqueue("Current temperature: " + str(temp), "INFO")
 
     if temp == _just_right:
-      info("That's perfect");
+      msgQueue.enqueue("That's perfect", "INFO")
     elif temp < _just_right and temp > _too_cold:
-      warn('Getting a little chilly')
+      msgQueue.enqueue('Getting a little chilly', "WARNING")
     elif temp > _just_right and temp < _too_hot:
-      warn('Getting a touch warm')
+      msgQueue.enqueue('Getting a touch warm', "WARNING")
     elif temp <= _too_cold:
-      error('Too cold, how did this happen?')
+      msgQueue.enqueue('Too cold, how did this happen?', "ERROR")
     elif temp >= _too_hot:
-      error('Too hot, how did this happen?')
+      msgQueue.enqueue('Too hot, how did this happen?', "ERROR")
     else:
-      error('Can''t tell if it''s hot or cold')
+      msgQueue.enqueue('Can''t tell if it''s hot or cold', "ERROR")
 
-    queue.close()
+    msgQueue.close()
 
     _actions = _actions + 1
     time.sleep(int(config.SIMULATION_DELAY))
 
-  notify.info(hostname + ": Simulated " + str(config.SIMULATION_ACTIONS) + " actions and added them to the queue")
+  msg = hostname + ": Simulated " + str(config.SIMULATION_ACTIONS) + " actions and added them to the queue"
+  log.debug(msg)
+  notify.info(msg)
+
+def getQueueType():
+  return os.environ['ACS_LOGGING_QUEUE_TYPE']
 
 if __name__ == "__main__":
+    log = Log()
+    log.debug("Started to simulate logs")
     try:
       simulate()
     except:
       e = sys.exc_info()[0]
       hostname = socket.gethostname()
-      logging.error("Unable to simulate logging", exc_info=True)
+      log.error("Unable to simulate logging", exc_info=True)
       notify.error(hostname + ": ACS Logging simulation failed")
       mailhandler.send(hostname + ": ACS Logging simulation failed", "Check logs on " + hostname + " for details")

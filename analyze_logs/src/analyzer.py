@@ -1,46 +1,68 @@
-""" Count the number of errors in a log
+"""Count the number of each log event in a log and clear them from
+the queue.
+
 """
 
 import config
 import notify 
+from log import Log
+from messageQueue import Queue
 
 import json
 import os
 import re
+import sys
+import traceback
 
-def count(log_type, log):
-  """ Count the number of entries of a specific type
-      within a log.
-  """
-  regex = re.compile(log_type + ' - ')
-  mo = regex.findall(log)
-  return len(mo)
+global summary
 
-def readLog():
-  with open(config.UNPROCESSED_LOG_FILE, 'r') as f:
-    log = f.read()
-  return log
+def incrementCount(event_type):
+  global summary
+  log = Log()
 
-def readSummary():
   try:
-    with open(config.SUMMARY_LOG_FILE, 'r') as f:
-      summary = json.loads(f.read())
-  except FileNotFoundError:
-    summary = {'ERRORS': 0, 'WARNINGS':0, 'INFOS':0}
-  return summary
+    summary
+  except NameError:
+    summary = {'ERRORS': 0, 'WARNINGS':0, 'INFOS':0, 'OTHERS':0}
 
-def completeAnalysis():
-  log = readLog()
-  summary = readSummary()
-  summary['ERRORS'] = summary['ERRORS'] + count("ERROR", log)
-  summary['WARNINGS'] = summary['WARNINGS'] + count("WARNING", log)
-  summary['INFOS'] = summary['INFOS'] + count("INFO", log)
-  with open(config.SUMMARY_LOG_FILE, "w") as summary_file:
-    summary_file.write(json.dumps(summary))
-  with open(config.PROCESSED_LOG_FILE, 'a') as processed:
-    processed.write(log)
-  os.remove(config.UNPROCESSED_LOG_FILE)
-  notify.info("Analyzed message queue.\n " + json.dumps(summary))
+  summary[event_type] = summary[event_type] + 1
+  log.info(event_type + " count is now " + str(summary[event_type]))
+
+def processEvent(message):
+    log = Log()
+    msg = message.message_text
+    event_type = "OTHERS"
+
+    if msg.startswith("ERROR"):
+      event_type = "ERRORS"
+    elif msg.startswith("WARNING"):
+      event_type = "WARNINGS"
+    elif msg.startswith("INFO"):
+      event_type = "INFOS"
+
+    incrementCount(event_type)
+
+def fullAnalysis():
+  global summary
+  log = Log()
+  msgQueue = Queue()
+
+  while True:
+    events = msgQueue.dequeue()
+    if len(events) > 0:
+      for event in events:
+        log.info("Dequeued: " + event.message_text)
+        try:
+          processEvent(event)
+          msgQueue.delete(event)
+          log.info("Counted and deleted: " + event.message_text)
+        except:
+          e = sys.exc_info()[0]
+          log.error("Could not process: " + event.message_text + " because %s" % e)
+          traceback.print_exc(file=sys.stdout)
+    else:
+      notify.info("Analyzed messages in queue.\n " + json.dumps(summary))
+      break 
 
 if __name__ == "__main__":
-    completeAnalysis()
+    fullAnalysis()
