@@ -3,12 +3,22 @@ A basic CLI for examining the logs and their analysis.
 """
 
 import config
+import notify
+from log import Log
+from summaryTable import SummaryTable
 
 import json
 
 def printSummary():
-  print ("Summary of log activity")
-  print (json.dumps(readSummary()))
+  log = Log()
+  table = SummaryTable()
+  summary = "Errors: " + str(table.getCount("ERROR")) + "\n"
+  summary = summary + "Warnings: " + str(table.getCount("WARNING")) + "\n"
+  summary = summary + "Infos: " + str(table.getCount("INFO")) + "\n"
+  summary = summary + "Debugs: " + str(table.getCount("DEBUG")) + "\n"
+  summary = summary + "Others: " + str(table.getCount("OTHER")) + "\n"
+  log.info(summary)
+  notify.info("Analyzed messages in queue. New counts:\n" + summary)
 
 def dumpUnprocessedLogs():
   print ("Unproccessed logs")

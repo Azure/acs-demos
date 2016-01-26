@@ -14,14 +14,17 @@ class Queue:
         self.log.info("Queue type: " + self.queue_type)
 
         if self.queue_type == "AzureStorageQueue":
-            self.createAzureQueue()
+            self.createAzureQueues()
         elif self.queue_type == "LocalFile":
             self.file_queue = open(config.UNPROCESSED_LOG_FILE, 'w+')
         else:
             self.log.error("Unknown queue type: " + queue_type)
 
-    def createAzureQueue(self):
-        """ Create a queue in a Azure """
+    def createAzureQueues(self):
+        """Create a 'logqueue' for unprocessed log messages. Entries in the
+'logqueue' will be dequeued, processed and deleted upon success.
+        """
+
         # FIXME: remove hardcoded account name and key
         global queue_service 
         queue_service = QueueService(account_name='acstest', account_key='vCyk6qOZQWzGLQrBMMYsG+a2HQm0FuMyLEv1zqn1/8ll11kaAP37BrxVmfj9PWnFHSGmoEWSUXl4q6SCodFzYg==')
@@ -58,3 +61,7 @@ class Queue:
 
     def delete(self, message):
         queue_service.delete_message('logqueue', message.message_id, message.pop_receipt)
+        #  with open(config.PROCESSED_LOG_FILE, 'a') as processed:
+        #    processed.write(log)
+        #  os.remove(config.UNPROCESSED_LOG_FILE)
+
