@@ -5,6 +5,7 @@ A basic CLI for examining the logs and their analysis.
 import config
 import notify
 from log import Log
+from messageQueue import Queue
 from summaryTable import SummaryTable
 
 import json
@@ -12,13 +13,16 @@ import json
 def printSummary():
   log = Log()
   table = SummaryTable()
-  summary = "Errors: " + str(table.getCount("ERROR")) + "\n"
+  queue_service = Queue()
+  summary = "Queue Length is approximately: " + queue_service.getLength() + "\n\n"
+  summary = summary + "Processed events:\n"
+  summary = summary + "Errors: " + str(table.getCount("ERROR")) + "\n"
   summary = summary + "Warnings: " + str(table.getCount("WARNING")) + "\n"
   summary = summary + "Infos: " + str(table.getCount("INFO")) + "\n"
   summary = summary + "Debugs: " + str(table.getCount("DEBUG")) + "\n"
   summary = summary + "Others: " + str(table.getCount("OTHER")) + "\n"
   log.info(summary)
-  notify.info("Analyzed messages in queue. New counts:\n" + summary)
+  notify.info(summary)
 
 def dumpUnprocessedLogs():
   print ("Unproccessed logs")
