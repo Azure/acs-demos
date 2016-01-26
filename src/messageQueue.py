@@ -8,28 +8,35 @@ from azure.storage.queue import QueueService
 import os
 
 class Queue:
-    def __init__(self, queue_name="logqueue"):
+    def __init__(self, account_name, account_key, queue_name="logqueue"):
+        """Initialiaze a queue. The type is set by the
+        'ACS_LOGGING_QUEUE_TYPE' environment variable. If it is set to
+        'AzureStorageQueue' then values must be provided for
+        'account_name' and 'account_key' which are values associated
+        with the Azure Storage account. 'queue_name' is optional and
+        defaults to 'logqueue'.
+
+        """
         self.log = Log()
-        self.queue_type = os.environ['ACS_LOGGING_QUEUE_TYPE']
+        self.queue_type = config.ACS_LOGGING_QUEUE_TYPE
         self.queue_name = queue_name
         self.log.info("Queue type: " + self.queue_type)
 
         if self.queue_type == "AzureStorageQueue":
-            self.createAzureQueues()
+            self.createAzureQueues(account_name, account_key)
         elif self.queue_type == "LocalFile":
             self.file_queue = open(config.UNPROCESSED_LOG_FILE, 'w+')
         else:
             self.log.error("Unknown queue type: " + queue_type)
 
-    def createAzureQueues(self):
+    def createAzureQueues(self, account_name, account_key):
         """
         Create a queue for unprocessed log messages. Entries in the queue
         will be dequeued, processed and deleted upon success.
         """
 
-        # FIXME: remove hardcoded account name and key
         global queue_service 
-        queue_service = QueueService(account_name='acstest', account_key='vCyk6qOZQWzGLQrBMMYsG+a2HQm0FuMyLEv1zqn1/8ll11kaAP37BrxVmfj9PWnFHSGmoEWSUXl4q6SCodFzYg==')
+        queue_service = QueueService(account_name, account_key)
         queue_service.create_queue(self.queue_name)
 
     def close(self):
