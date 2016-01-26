@@ -6,6 +6,8 @@ This project consists of a number of Docker containers each desinged to perform 
   * simulate_logging - a container that simluates a period of logging activity, writes log items into the queue
   * analyze_logs - reads log queue and creates summary log data
 
+At present it uses Azure Storage Queues and Tables.
+
 ## Slack Channel
 
 Messages from the test suite are sent to the Slack channel https://azurecontainerservice.slack.com
