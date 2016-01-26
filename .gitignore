@@ -2,8 +2,10 @@ logs
 test
 config.py
 *.pyc
-
+docker-compose.yml
 
 __pycache__
 
 *~
+.#*
+*#
