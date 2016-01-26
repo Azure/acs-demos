@@ -1,3 +1,5 @@
+import config 
+
 import unittest
 import sys
 
@@ -8,7 +10,7 @@ class TestSummaryTable(unittest.TestCase):
   @classmethod
   def setUpClass(self):
     self.event_type = "test"
-    self.table = SummaryTable()
+    self.table = SummaryTable(config.AZURE_STORAGE_ACCOUNT_NAME, config.AZURE_STORAGE_ACCOUNT_KEY, 'testharness')
 
   def test_create(self):
     raised = False

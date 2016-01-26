@@ -10,7 +10,7 @@ At present it uses Azure Storage Queues and Tables.
 
 ## Slack Channel
 
-Messages from the test suite are sent to the Slack channel https://azurecontainerservice.slack.com
+Messages from the test suite are sent to the Slack channel https://azurecontainerservice.slack.com, this is configurable in config.py (see below)
 
 # Running the tests
 

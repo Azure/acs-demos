@@ -21,8 +21,8 @@ global summary
 class Analyzer:
   def __init__(self):
     self.log = Log()
-    self.msgQueue = Queue()
-    self.summary = SummaryTable()
+    self.msgQueue = Queue(account_name = config.AZURE_STORAGE_ACCOUNT_NAME, account_key=config.AZURE_STORAGE_ACCOUNT_KEY, queue_name=config.AZURE_STORAGE_QUEUE_NAME)
+    self.summary = SummaryTable(config.AZURE_STORAGE_ACCOUNT_NAME, config.AZURE_STORAGE_ACCOUNT_KEY, config.AZURE_STORAGE_SUMMARY_TABLE_NAME)
 
   def incrementCount(self, event_type):
     count = self.summary.getCount(event_type)

@@ -19,7 +19,7 @@ _too_cold = 68
 def simulate():
   log = Log()
   hostname = socket.gethostname()
-  msgQueue = Queue()
+  msgQueue = Queue(account_name = config.AZURE_STORAGE_ACCOUNT_NAME, account_key=config.AZURE_STORAGE_ACCOUNT_KEY, queue_name=config.AZURE_STORAGE_QUEUE_NAME)
 
   if int(config.SIMULATION_ACTIONS) > 0:
     msg = hostname + ': Attempting to simulate ' + str(config.SIMULATION_ACTIONS) + ' actions'

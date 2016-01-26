@@ -12,8 +12,8 @@ import json
 
 def printSummary():
   log = Log()
-  table = SummaryTable()
-  queue_service = Queue()
+  table = SummaryTable(config.AZURE_STORAGE_ACCOUNT_NAME, config.AZURE_STORAGE_ACCOUNT_KEY, config.AZURE_STORAGE_SUMMARY_TABLE_NAME)
+  queue_service = Queue(account_name = config.AZURE_STORAGE_ACCOUNT_NAME, account_key=config.AZURE_STORAGE_ACCOUNT_KEY, queue_name=config.AZURE_STORAGE_QUEUE_NAME)
   summary = "Queue Length is approximately: " + queue_service.getLength() + "\n\n"
   summary = summary + "Processed events:\n"
   summary = summary + "Errors: " + str(table.getCount("ERROR")) + "\n"
