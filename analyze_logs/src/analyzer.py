@@ -12,6 +12,7 @@ from summaryTable import SummaryTable
 import json
 import os
 import re
+import socket
 import sys
 import traceback
 
@@ -46,6 +47,9 @@ class Analyzer:
     self.incrementCount(event_type)
 
   def fullAnalysis(self):
+    hostname = socket.gethostname()
+    msg = hostname + ': Analyzing log event queue'
+    notify.info(msg)
     while True:
       events = self.msgQueue.dequeue()
       if len(events) > 0:
