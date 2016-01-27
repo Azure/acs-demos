@@ -36,7 +36,7 @@ Others: 0
 
 ### length
 
-Outputs the approxomate length of the queue.
+Outputs the approximate length of the queue.
 
 ## Slack Channel
 
