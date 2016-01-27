@@ -9,6 +9,7 @@ from messageQueue import Queue
 from summaryTable import SummaryTable
 
 import json
+import optparse
 
 def printSummary():
   log = Log()
@@ -21,7 +22,7 @@ def printSummary():
   summary = summary + "Infos: " + str(table.getCount("INFO")) + "\n"
   summary = summary + "Debugs: " + str(table.getCount("DEBUG")) + "\n"
   summary = summary + "Others: " + str(table.getCount("OTHER")) + "\n"
-  log.info(summary)
+  print(summary)
   notify.info(summary)
 
 def dumpUnprocessedLogs():
@@ -51,6 +52,19 @@ def readSummary():
   return summary
 
 if __name__ == "__main__":
-  # dumpLogs()
-  # dumpUnprocessedLogs()
-  printSummary()
+  log = Log()
+  queue_service = Queue(account_name = config.AZURE_STORAGE_ACCOUNT_NAME, account_key=config.AZURE_STORAGE_ACCOUNT_KEY, queue_name=config.AZURE_STORAGE_QUEUE_NAME)
+
+  usage = "usage: %prog [options] command"
+    
+  p = optparse.OptionParser(usage=usage)
+  options, arguments = p.parse_args()
+
+  cmd = arguments[0]
+
+  if cmd == "summary":
+    printSummary()
+  elif cmd == "length":
+    print(queue_service.getLength())
+  else:
+    log.error("Unkown command: " + cmd)

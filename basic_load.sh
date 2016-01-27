@@ -23,7 +23,7 @@ echo "Output the status of the queue every 5 seconds"
 echo "======================================================================================="
 for i in {1..3}
 do
-    docker run -e ACS_LOGGING_QUEUE_TYPE=AzureStorageQueue rgardler/acs-logging-test-cli
+    docker run -e ACS_LOGGING_QUEUE_TYPE=AzureStorageQueue rgardler/acs-logging-test-cli summary
     sleep 5
     echo "======================================================================================="
     echo ""
@@ -47,7 +47,7 @@ echo "Output the status of the queue every 5 seconds"
 echo "======================================================================================="
 for i in {1..5}
 do
-    docker run rgardler/acs-logging-test-cli
+    docker run rgardler/acs-logging-test-cli summary
     sleep 5
     echo "======================================================================================="
     echo ""
