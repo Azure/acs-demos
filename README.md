@@ -8,6 +8,36 @@ This project consists of a number of Docker containers each desinged to perform 
 
 At present it uses Azure Storage Queues and Tables.
 
+## Command Line Interface
+
+The CLI container provides basic tooling for interacting with the
+application. It is run with:
+
+```bash
+python ./acs.py COMMAND
+```
+
+Where COMMAND is replaced with one of the following available commands:
+
+### summary
+
+Prints a summary of the current status of the logging application, for example:
+
+```
+Queue Length is approximately: 0
+
+Processed events:
+Errors: 3941
+Warnings: 608
+Infos: 5803
+Debugs: 0
+Others: 0
+```
+
+### length
+
+Outputs the approxomate length of the queue.
+
 ## Slack Channel
 
 Messages from the test suite are sent to the Slack channel https://azurecontainerservice.slack.com, this is configurable in config.py (see below)
