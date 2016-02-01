@@ -10,6 +10,7 @@ from summaryTable import SummaryTable
 
 import json
 import optparse
+import pickle
 
 def printSummary():
   log = Log()
@@ -51,9 +52,13 @@ def readSummary():
     summary = {'ERRORS': 0, 'WARNINGS':0, 'INFOS':0}
   return summary
 
+def deleteQueue():
+  log = Log()
+  queue_service.delete_queue(config.AZURE_STORAGE_QUEUE_NAME)
+  log.info("Queue deleted: " + config.AZURE_STORAGE_QUEUE_NAME)
+
 if __name__ == "__main__":
   log = Log()
-  queue_service = Queue(account_name = config.AZURE_STORAGE_ACCOUNT_NAME, account_key=config.AZURE_STORAGE_ACCOUNT_KEY, queue_name=config.AZURE_STORAGE_QUEUE_NAME)
 
   usage = "usage: %prog [options] command"
     
@@ -61,10 +66,19 @@ if __name__ == "__main__":
   options, arguments = p.parse_args()
 
   cmd = arguments[0]
+  
+  if cmd == "config":
+    help(config)
+    exit()
+
+  queue_service = Queue(account_name = config.AZURE_STORAGE_ACCOUNT_NAME, account_key=config.AZURE_STORAGE_ACCOUNT_KEY, queue_name=config.AZURE_STORAGE_QUEUE_NAME)
+
 
   if cmd == "summary":
     printSummary()
   elif cmd == "length":
     print(queue_service.getLength())
+  elif cmd == "deleteQueue":
+    deleteQueue()
   else:
     log.error("Unkown command: " + cmd)

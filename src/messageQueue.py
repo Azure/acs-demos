@@ -74,6 +74,9 @@ class Queue:
         #    processed.write(log)
         #  os.remove(config.UNPROCESSED_LOG_FILE)
 
+    def delete_queue(self, queue_name):
+        queue_service.delete_queue(queue_name)
+
     def getLength(self):
         """
         Get the approximate length of the queue
