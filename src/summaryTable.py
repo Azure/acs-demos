@@ -32,6 +32,12 @@ class SummaryTable:
         self.table_service = TableService(self.account_name, self.account_key)
         self.table_service.create_table(self.table_name)
 
+    def deleteTable(self, name):
+        """
+        Delete a table in which summary results have been stored.
+        """
+        self.table_service.delete_table(name)
+
     def writeCount(self, count_type, count):
         entry = {'PartitionKey': "count", "RowKey": count_type, 'total_count' : count}
         self.table_service.insert_entity(self.table_name, entry)

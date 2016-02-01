@@ -56,7 +56,12 @@ def deleteQueue():
   log = Log()
   queue_service.delete_queue(config.AZURE_STORAGE_QUEUE_NAME)
   log.info("Queue deleted: " + config.AZURE_STORAGE_QUEUE_NAME)
-
+ 
+def deleteTable():
+  log = Log()
+  queue_service.delete_queue(config.AZURE_STORAGE_SUMMARY_TABLE_NAME)
+  log.info("Table deleted: " + config.AZURE_STORAGE_SUMMARY_TABLE_NAME)
+  
 if __name__ == "__main__":
   log = Log()
 
@@ -80,5 +85,7 @@ if __name__ == "__main__":
     print(queue_service.getLength())
   elif cmd == "deleteQueue":
     deleteQueue()
+  elif cmd == "deleteTable":
+    deleteTable()
   else:
     log.error("Unkown command: " + cmd)

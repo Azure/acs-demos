@@ -41,7 +41,7 @@ do
 
     if [ "$length" -gt 50 ]
     then
-	echo "Queue is too long ($length), scale up"
+	echo "Queue is too long ($length)"
 	docker-compose scale analyzer=10
     else 
 	echo "Queue is an acceptable length ($length)"
