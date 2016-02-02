@@ -15,7 +15,7 @@ import pickle
 def printSummary():
   log = Log()
   table = SummaryTable(config.AZURE_STORAGE_ACCOUNT_NAME, config.AZURE_STORAGE_ACCOUNT_KEY, config.AZURE_STORAGE_SUMMARY_TABLE_NAME)
-  queue_service = Queue(account_name = config.AZURE_STORAGE_ACCOUNT_NAME, account_key=config.AZURE_STORAGE_ACCOUNT_KEY, queue_name=config.AZURE_STORAGE_QUEUE_NAME)
+  queue_service = getQueueService()
   summary = "Queue Length is approximately: " + queue_service.getLength() + "\n\n"
   summary = summary + "Processed events:\n"
   summary = summary + "Errors: " + str(table.getCount("ERROR")) + "\n"
@@ -25,6 +25,10 @@ def printSummary():
   summary = summary + "Others: " + str(table.getCount("OTHER")) + "\n"
   print(summary)
   notify.info(summary)
+
+def getQueueService():
+  queue_service = Queue(account_name = config.AZURE_STORAGE_ACCOUNT_NAME, account_key=config.AZURE_STORAGE_ACCOUNT_KEY, queue_name=config.AZURE_STORAGE_QUEUE_NAME)
+  return queue_service
 
 def dumpUnprocessedLogs():
   print ("Unproccessed logs")
@@ -54,12 +58,18 @@ def readSummary():
 
 def deleteQueue():
   log = Log()
-  queue_service.delete_queue(config.AZURE_STORAGE_QUEUE_NAME)
+  getQueueService().delete_queue(config.AZURE_STORAGE_QUEUE_NAME)
   log.info("Queue deleted: " + config.AZURE_STORAGE_QUEUE_NAME)
- 
+
+def createQueue():
+  queue_service = getQueueService()
+
+def createTable():
+  table = SummaryTable(config.AZURE_STORAGE_ACCOUNT_NAME, config.AZURE_STORAGE_ACCOUNT_KEY, config.AZURE_STORAGE_SUMMARY_TABLE_NAME)
+
 def deleteTable():
   log = Log()
-  queue_service.delete_queue(config.AZURE_STORAGE_SUMMARY_TABLE_NAME)
+  getQueueService().delete_queue(config.AZURE_STORAGE_SUMMARY_TABLE_NAME)
   log.info("Table deleted: " + config.AZURE_STORAGE_SUMMARY_TABLE_NAME)
   
 if __name__ == "__main__":
@@ -76,16 +86,17 @@ if __name__ == "__main__":
     help(config)
     exit()
 
-  queue_service = Queue(account_name = config.AZURE_STORAGE_ACCOUNT_NAME, account_key=config.AZURE_STORAGE_ACCOUNT_KEY, queue_name=config.AZURE_STORAGE_QUEUE_NAME)
-
-
   if cmd == "summary":
     printSummary()
   elif cmd == "length":
-    print(queue_service.getLength())
+    print(getQueueService().getLength())
   elif cmd == "deleteQueue":
     deleteQueue()
+  elif cmd == "createQueue":
+    createQueue()
   elif cmd == "deleteTable":
     deleteTable()
-  else:
+  elif cmd == "createTable":
+    createTable()
+  else
     log.error("Unkown command: " + cmd)
