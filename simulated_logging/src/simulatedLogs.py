@@ -34,7 +34,12 @@ def simulate():
 
   _actions = 0
   while int(config.SIMULATION_ACTIONS) == 0 or int(config.SIMULATION_ACTIONS) - _actions > 0:
+
     change = random.randint(-1, 1)
+    if temp <= _too_cold:
+      change = 1
+    elif temp >= _too_hot:
+      change = -1
     msgQueue.enqueue("Change since last reading: " + str(change), "INFO")
 
     temp = temp + change
