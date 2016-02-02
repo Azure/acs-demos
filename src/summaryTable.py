@@ -36,7 +36,7 @@ class SummaryTable:
         """
         Delete a table in which summary results have been stored.
         """
-        self.table_service.delete_table(name)
+        self.table_service.delete_table(name, False)
 
     def writeCount(self, count_type, count):
         entry = {'PartitionKey': "count", "RowKey": count_type, 'total_count' : count}
