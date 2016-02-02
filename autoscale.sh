@@ -4,11 +4,11 @@
 # length of the queue.
 
 clear
-echo "Starting one producer and ten analyzer"
+echo "Starting one producer and one analyzer"
 echo "======================================================================================="
 echo ""
 docker-compose scale producer=1
-docker-compose scale analyzer=10
+docker-compose scale analyzer=1
 docker-compose up -d 
 docker-compose ps
 
@@ -20,7 +20,7 @@ echo "Output the status of the queue every 5 seconds"
 echo "======================================================================================="
 for i in {1..3}
 do
-    docker run -e ACS_LOGGING_QUEUE_TYPE=AzureStorageQueue rgardler/acs-logging-test-cli summary
+    docker run -it rgardler/acs-logging-test-cli summary
     echo ""
     docker-compose ps
     echo "======================================================================================="
@@ -35,7 +35,7 @@ clear
 
 for i in {1..10}
 do
-    length=$(docker run -e ACS_LOGGING_QUEUE_TYPE=AzureStorageQueue rgardler/acs-logging-test-cli length)
+    length=$(docker run -i rgardler/acs-logging-test-cli length)
 
     echo ""
 
@@ -51,3 +51,9 @@ do
     echo ""
     sleep 5
 done
+
+
+read -p "Press [Enter] key to shut things down"
+clear 
+
+docker-compose stop
