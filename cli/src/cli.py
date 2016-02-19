@@ -98,5 +98,5 @@ if __name__ == "__main__":
     deleteTable()
   elif cmd == "createTable":
     createTable()
-  else
+  else:
     log.error("Unkown command: " + cmd)
