@@ -3,12 +3,25 @@
 # Demonstrate the scaling up and down of analysers in response to the
 # length of the queue.
 
+SCALE_SET_NAME=swarm-agent-94077C7vmss-0
+
+PRODUCERS=1
+MAX_PRODUCERS=20
+ANALYZERS=1
+MAX_ANALYZERS=100
+
+STATUS_REPEATS=3
+STATUS_DELAY=5
+
+CONTAINER_SCALE_REPEATS=5
+CONTAINER_SCALE_DELAY=5
+
 clear
-echo "Starting one producer and one analyzer"
+echo "Starting $PRODUCERS producer and $ANALYZERS analyzer"
 echo "======================================================================================="
 echo ""
-docker-compose scale producer=1
-docker-compose scale analyzer=1
+docker-compose scale producer=$PRODUCERS
+docker-compose scale analyzer=$ANALYZERS
 docker-compose up -d 
 docker-compose ps
 
@@ -16,43 +29,51 @@ echo ""
 read -p "Press [Enter] key to see the effect on the queue"
 clear
 
-echo "Output the status of the queue every 5 seconds"
+echo "Output the status of the queue every $STATUS_DELAY seconds"
 echo "======================================================================================="
-for i in {1..3}
+for i in $(seq "$STATUS_REPEATS")
 do
     docker run -it rgardler/acs-logging-test-cli summary
     echo ""
     docker-compose ps
     echo "======================================================================================="
     echo ""
-    sleep 5
+    sleep $STATUS_DELAY
 done
 
-echo "Notice how a number of the analyzers have stopped (queue length went to 0)"
-echo "But, queue is starting to grow again"
+echo "Notice how the queue is starting to grow again"
 read -p "Press [Enter] key to turn on an auto-scaling algorithm"
 clear 
 
-for i in {1..10}
+for i in $(seq "$CONTAINER_SCALE_REPEATS")
 do
-    length=$(docker run -i rgardler/acs-logging-test-cli length)
+    LENGTH=$(docker run -i rgardler/acs-logging-test-cli length)
 
     echo ""
 
-    if [ "$length" -gt 50 ]
+    if [ "$LENGTH" -gt 50 ]
     then
-	echo "Queue is too long ($length)"
-	docker-compose scale analyzer=10
+	echo "Queue is too long ($LENGTH)"
+	NUM_ANALYZERS=expr $LENGTH / 100
+	if [ "$LENGTH" -gt "$MAX_ANALYZERS" ]
+	then
+	    case  in
+	    esac
+	    
+	    NUM_ANALYZERS=$MAX_ANALYZERS
+	fi
+	echo "Scaling to $NUM_ANALYZERS"
+	docker-compose scale analyzer=$NUM_ANALYZERS
     else 
 	echo "Queue is an acceptable length ($length)"
     fi
     docker-compose ps
     echo "======================================================================================="
     echo ""
-    sleep 5
+    sleep $CONTAINER_SCALE_DELAY
 done
 
-
+echo "That's all for our demo just now..."
 read -p "Press [Enter] key to shut things down"
 clear 
 
