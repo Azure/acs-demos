@@ -55,11 +55,8 @@ do
     then
 	echo "Queue is too long ($LENGTH)"
 	NUM_ANALYZERS=expr $LENGTH / 100
-	if [ "$LENGTH" -gt "$MAX_ANALYZERS" ]
+	if [ "$NUM_ANALYZERS" -gt "$MAX_ANALYZERS" ]
 	then
-	    case  in
-	    esac
-	    
 	    NUM_ANALYZERS=$MAX_ANALYZERS
 	fi
 	echo "Scaling to $NUM_ANALYZERS"
