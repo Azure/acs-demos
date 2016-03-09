@@ -62,9 +62,32 @@ Others: 0
 
 Outputs the approximate length of the queue.
 
+### createQueue
+
+Create the queue. It will automatically be recreted if you restart a
+producer. This is provided for testing purposes only.
+
+### deleteQueue
+
+Delete the queue. It will automatically be recreted if you restart a
+producer.
+
+### createTable
+
+Create the table. It will automatically be recreted if you restart a
+producer. This is provided for testing purposes only.
+
+### deleteTable
+
+Delete the table. It will automatically be recreted if you restart a
+producer.
+
+
 ## Slack Channel
 
-Messages from the test suite are sent to the Slack channel https://azurecontainerservice.slack.com, this is configurable in config.py (see below)
+Messages from the test suite are sent to the Slack channel
+https://azurecontainerservice.slack.com, this is configurable in
+config.py (see below)
 
 # Running the tests
 
