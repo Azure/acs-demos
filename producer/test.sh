@@ -9,8 +9,13 @@ docker ps -l
 echo "#### check it's alive"
 curl http://localhost:5000/
 
+
 echo "#### enqueue a message"
-curl -X PUT -d queue=testQueue -d message=messagetext http://localhost:5000/enqueue
+echo "BEFORE length"
+docker run --env-file ../env.conf rgardler/acs-logging-test-cli length
+curl -X PUT -d queue=acsdemo -d message=messagetext http://localhost:5000/enqueue
+echo "AFTER length"
+docker run --env-file ../env.conf rgardler/acs-logging-test-cli length
 
 echo "#### stop producer"
 docker stop $id
