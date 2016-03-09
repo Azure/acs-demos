@@ -8,7 +8,9 @@ will generate a message in the queue.
 
 # REST API
 
-Now POST to `http://localhost:5000/enqueue' with a a form data payload as
+## Enqueue
+
+POST to `http://localhost:5000/enqueue' with a a form data payload as
 follows: 
 
 `queue=<queue_name>&message=<message_text>`
@@ -20,6 +22,19 @@ following values (in env.conf).
 ```
 AZURE_STORAGE_ACCOUNT_NAME
 AZURE_STORAGE_ACCOUNT_KEY
+```
+
+### Response
+
+The response will be a JSON string that looks something like:
+
+```
+{
+    result: "success",
+    message: "The message posted to queue",
+    queue: "The queue posted to"
+    storage_account: "The storage account in which the queue exists"
+}
 ```
 
 # Building
