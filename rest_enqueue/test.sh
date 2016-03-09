@@ -1,11 +1,11 @@
 echo "#### building producer"
 echo
-docker build -t rgardler/acs-logging-test-producer:test .
+docker build -t rgardler/acs-logging-test-rest-enqueue:test .
 
 echo
 echo "#### running producer"
 echo
-id=$(docker run -d -p 5000:5000 --env-file ../env.conf rgardler/acs-logging-test-producer:test)
+id=$(docker run -d -p 5000:5000 --env-file ../env.conf rgardler/acs-logging-test-rest-enqueue:test)
 sleep 2
 docker ps -l
 

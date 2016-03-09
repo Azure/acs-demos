@@ -1,10 +1,9 @@
-Producer is the base container for event producers. It provides a rest
-endpoint (implemented by 'src/server.py'). When this API is called it
-will generate a message in the queue.
+rest-enqueue provides a REST interface that enables the posting of
+messages to a queue (implemented by 'src/server.py').
 
 # Running
 
-`docker run -d -p 5000:5000 --env-file env.conf rgardler/acs-logging-test-producer`
+`docker run -d -p 5000:5000 --env-file env.conf rgardler/acs-logging-test-rest-enqueue`
 
 # REST API
 
@@ -17,9 +16,10 @@ follows:
 
 The `message` will be added to the named queue. If the queue does not
 yet exist it will be created in the storage account identified in the
-following values (in env.conf).
+following values (in ../env.conf).
 
 ```
+AZURE_STORAGE_QUEUE_NAME
 AZURE_STORAGE_ACCOUNT_NAME
 AZURE_STORAGE_ACCOUNT_KEY
 ```
@@ -39,7 +39,7 @@ The response will be a JSON string that looks something like:
 
 # Building
 
-`docker build -t rgardler/acs-logging-test-producer .`
+`docker build -t rgardler/acs-logging-test-rest-enqueue .`
 
 # Testing
 
