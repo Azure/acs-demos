@@ -16,6 +16,7 @@ Create a storage account for your application to use. Then copy
 parameters:
 
 ```
+AZURE_STORAGE_QUEUE_NAME
 AZURE_STORAGE_ACCOUNT_NAME
 AZURE_STORAGE_ACCOUNT_KEY
 ```
