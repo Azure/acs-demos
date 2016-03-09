@@ -4,6 +4,7 @@ This project consists of a number of Docker containers each desinged to perform 
 
   * logging_base - the container on which all other containers are based
   * simulate_logging - a container that simluates a period of logging activity, writes log items into the queue
+  * rest_enqueue - provides a REST API for adding messages to the queue
   * analyze_logs - reads log queue and creates summary log data
   * cli - a simple CLI tool for working with the data produced by the simulateion and he analyzer
 
@@ -25,9 +26,38 @@ them to Docker Hub.
 
 ## Running the application
 
-Run `autoscale.sh` for a scripted demo of the application.
+### REST API
 
-You can run the application with `docker-compose up -d`
+To run the REST endpoint:
+
+`docker run -d -p 5000:5000 --env-file env.conf rgardler/acs-logging-test-rest-enqueue`
+
+To post messages to this endpoint:
+
+POST to `http://localhost:5000/enqueue' with a a form data payload as
+follows: 
+
+`queue=<queue_name>&message=<message_text>`
+
+For example:
+
+```
+curl -X POST -d queue=acsdemo -d message=messagetext http://localhost:5000/enqueue
+```
+
+For more information see the README in the [`rest_enqueue`](rest_enqueue) folder.
+
+### Simulation
+
+Run `autoscale.sh` for a scripted demo of the application, showing the
+scaling of the analyzer container.
+
+You can run the application with `docker-compose up -d`, this will
+start a simulated environment in which the temperature of a room is
+being controlled. It will throw errors if too hot or cold, warnings if
+a little warm or cold and info if just right. The analyzer in this
+demo counts the number of each type of message and stores the results
+in the table.
 
 You can scale components with commands such as `docker-compose scale
 analyzer=5` or `docker-compose scale producer=2`
