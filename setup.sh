@@ -15,7 +15,3 @@ docker push rgardler/acs-logging-test-cli
 # docker run -e ACS_LOGGING_QUEUE_TYPE=LocalFile --volumes-from base rgardler/acs-logging-test-analyze
 # docker run -e ACS_LOGGING_QUEUE_TYPE=LocalFile --volumes-from base rgardler/acs-logging-test-cli
 
-# If using Azure queue
-docker run -e ACS_LOGGING_QUEUE_TYPE=AzureStorageQueue -e SIMULATION_DELAY=0 rgardler/acs-logging-test-simulate
-docker run -e ACS_LOGGING_QUEUE_TYPE=AzureStorageQueue rgardler/acs-logging-test-analyze
-docker run -e ACS_LOGGING_QUEUE_TYPE=AzureStorageQueue rgardler/acs-logging-test-cli summary

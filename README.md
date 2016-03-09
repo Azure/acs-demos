@@ -8,13 +8,36 @@ This project consists of a number of Docker containers each desinged to perform 
 
 At present it uses Azure Storage Queues and Tables.
 
+## Setup
+
+Create a storage account for your application to use. Then copy
+`env.conf.tmpl` to `env.conf` and add values for the following
+parameters:
+
+```
+AZURE_STORAGE_ACCOUNT_NAME
+AZURE_STORAGE_ACCOUNT_KEY
+```
+
+Now run 'setup.sh', this will build all the containers and publish
+them to Docker Hub.
+
+## Running the application
+
+Run `autoscale.sh` for a scripted demo of the application.
+
+You can run the application with `docker-compose up -d`
+
+You can scale components with commands such as `docker-compose scale
+analyzer=5` or `docker-compose scale producer=2`
+
 ## Command Line Interface
 
 The CLI container provides basic tooling for interacting with the
 application. It is run with:
 
 ```bash
-python ./acs.py COMMAND
+docker run --env-file env.conf cli COMMAND
 ```
 
 Where COMMAND is replaced with one of the following available commands:

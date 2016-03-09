@@ -1,0 +1,11 @@
+producer:
+  image: rgardler/acs-logging-test-simulate
+  env_file:
+    - ./env.conf
+
+analyzer:
+  image: rgardler/acs-logging-test-analyze
+  env_file:
+    - ./env.conf
+
+

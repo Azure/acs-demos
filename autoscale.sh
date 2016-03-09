@@ -8,7 +8,7 @@ SCALE_SET_NAME=swarm-agent-94077C7vmss-0
 PRODUCERS=1
 MAX_PRODUCERS=20
 ANALYZERS=1
-MAX_ANALYZERS=100
+MAX_ANALYZERS=75
 
 STATUS_REPEATS=3
 STATUS_DELAY=5
@@ -33,7 +33,7 @@ echo "Output the status of the queue every $STATUS_DELAY seconds"
 echo "======================================================================================="
 for i in $(seq "$STATUS_REPEATS")
 do
-    docker run -it rgardler/acs-logging-test-cli summary
+    docker run -it --env-file env.conf rgardler/acs-logging-test-cli summary
     echo ""
     docker-compose ps
     echo "======================================================================================="
@@ -47,14 +47,14 @@ clear
 
 for i in $(seq "$CONTAINER_SCALE_REPEATS")
 do
-    LENGTH=$(docker run -i rgardler/acs-logging-test-cli length)
+    LENGTH=$(docker run -i --env-file env.conf rgardler/acs-logging-test-cli length)
 
     echo ""
 
     if [ "$LENGTH" -gt 50 ]
     then
 	echo "Queue is too long ($LENGTH)"
-	NUM_ANALYZERS=expr $LENGTH / 100
+	NUM_ANALYZERS=$(expr $LENGTH / 100)
 	if [ "$NUM_ANALYZERS" -gt "$MAX_ANALYZERS" ]
 	then
 	    NUM_ANALYZERS=$MAX_ANALYZERS

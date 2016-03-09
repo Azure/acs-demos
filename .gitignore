@@ -2,7 +2,7 @@ logs
 test
 config.py
 *.pyc
-docker-compose.yml
+env.conf
 
 __pycache__
 
