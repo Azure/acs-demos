@@ -5,6 +5,7 @@ This project consists of a number of Docker containers each desinged to perform 
   * logging_base - the container on which all other containers are based
   * simulate_logging - a container that simluates a period of logging activity, writes log items into the queue
   * analyze_logs - reads log queue and creates summary log data
+  * cli - a simple CLI tool for working with the data produced by the simulateion and he analyzer
 
 At present it uses Azure Storage Queues and Tables.
 
