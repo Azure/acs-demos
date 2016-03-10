@@ -33,16 +33,11 @@ class Analyzer:
   def processEvent(self, message):
     msg = message.message_text
 
-    if msg.startswith("ERROR"):
-      event_type = "ERROR"
-    elif msg.startswith("WARNING"):
-      event_type = "WARNING"
-    elif msg.startswith("INFO"):
-      event_type = "INFO"
-    elif msg.startswith("DEBUG"):
-      event_type = "DEBUG"
-    else:
+    split = msg.find(" - ")
+    if (not split):
       event_type = "OTHER"
+    else:
+      event_type = msg[:split]    
 
     self.incrementCount(event_type)
 
