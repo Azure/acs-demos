@@ -74,8 +74,15 @@ def deleteTable():
 if __name__ == "__main__":
   log = Log()
 
-  usage = "usage: %prog [options] command"
-    
+  usage = "usage: %prog [options] command\n\n"
+  usage += "summary\t\t- print approximate queue length and current analysis\n"
+  usage += "length\t\t- print approximate queue length\n"
+  usage += "createQueue\t- create the queue\n"
+  usage += "deleteQueue\t- delete the current queue\n"
+  usage += "createTable\t- create the table\n"
+  usage += "deleteTable\t- delete the table\n"
+  usage += "config\t\t- display the current configuration"
+
   p = optparse.OptionParser(usage=usage)
   options, arguments = p.parse_args()
 
@@ -99,3 +106,4 @@ if __name__ == "__main__":
     createTable()
   else:
     log.error("Unkown command: " + cmd)
+    print(usage)
