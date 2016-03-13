@@ -26,7 +26,6 @@ def printSummary():
   notify.info(summary)
 
 def getQueueService():
-  print("Creating or Getting queue with the name " + config.AZURE_STORAGE_QUEUE_NAME)
   queue_service = Queue(account_name = config.AZURE_STORAGE_ACCOUNT_NAME, account_key=config.AZURE_STORAGE_ACCOUNT_KEY, queue_name=config.AZURE_STORAGE_QUEUE_NAME)
   return queue_service
 
