@@ -13,23 +13,16 @@ At present it uses Azure Storage Queues and Tables.
 ## Setup
 
 Create a storage account for your application to use. Then copy
-`env.conf.tmpl` to `env.conf` and add values for the following
-parameters:
-
-```
-AZURE_STORAGE_QUEUE_NAME
-AZURE_STORAGE_ACCOUNT_NAME
-AZURE_STORAGE_ACCOUNT_KEY
-```
-
-Now run 'setup.sh', this will build all the containers and publish
-them to Docker Hub.
+`env.conf.tmpl` to `env.conf` and add values for all the properties
+that are necessary.
 
 ## Running the application
 
+You can run the complete application with `docker-compose up -d`.
+
 ### REST API
 
-To run the REST endpoint:
+To run the REST endpoint (if not already run with docker-compose):
 
 `docker run -d -p 5000:5000 --env-file env.conf rgardler/acs-logging-test-rest-enqueue`
 
@@ -118,11 +111,9 @@ producer.
 
 Messages from the test suite are sent to the Slack channel
 https://azurecontainerservice.slack.com, this is configurable in
-config.py (see below)
+env.conf.
 
 # Running the tests
-
-Copy src/config_tmpl.py to src/config.py and edit accordingly. 
 
 Build the containers with:
 
