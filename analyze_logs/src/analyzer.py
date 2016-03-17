@@ -19,26 +19,16 @@ import traceback
 
 global summary
 
-ANALYZER_KEEP_RUNNING=False
-ANALYZER_SLEEP_TIME_DEFAULT=0
-
 class Analyzer:
   def __init__(self):
     self.log = Log()
     self.log.info("Storage account: {0}".format(config.AZURE_STORAGE_ACCOUNT_NAME))
-    self.log.info("Keep running: {0}".format(config.ANALYZER_KEEP_RUNNING))
     self.msgQueue = Queue(account_name = config.AZURE_STORAGE_ACCOUNT_NAME, account_key=config.AZURE_STORAGE_ACCOUNT_KEY, queue_name=config.AZURE_STORAGE_QUEUE_NAME)
     self.summary = SummaryTable(config.AZURE_STORAGE_ACCOUNT_NAME, config.AZURE_STORAGE_ACCOUNT_KEY, config.AZURE_STORAGE_SUMMARY_TABLE_NAME)
-    try:
-      self.sleep_time = config.ANALYZER_SLEEP_TIME
-    except:
-      self.sleep_time = ANALYZER_SLEEP_TIME_DEFAULT
-
-    try:
-      self.keep_running = config.ANALYZER_KEEP_RUNNING
-    except:
-      self.keep_running = ANALYZER_KEEP_RUNNING
+    self.sleep_time = os.getenv("ANALYZER_SLEEP_TIME", 0)
     self.log.info("Sleep time between analyses: {0}".format(self.sleep_time))
+    self.keep_running = os.getenv("ANALYZER_KEEP_RUNNING", False)
+    self.log.info("Keep running: {0}".format(self.keep_running))
 
   def incrementCount(self, event_type):
     count = self.summary.getCount(event_type)
