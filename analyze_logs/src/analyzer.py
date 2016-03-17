@@ -25,7 +25,7 @@ class Analyzer:
     self.log.info("Storage account: {0}".format(config.AZURE_STORAGE_ACCOUNT_NAME))
     self.msgQueue = Queue(account_name = config.AZURE_STORAGE_ACCOUNT_NAME, account_key=config.AZURE_STORAGE_ACCOUNT_KEY, queue_name=config.AZURE_STORAGE_QUEUE_NAME)
     self.summary = SummaryTable(config.AZURE_STORAGE_ACCOUNT_NAME, config.AZURE_STORAGE_ACCOUNT_KEY, config.AZURE_STORAGE_SUMMARY_TABLE_NAME)
-    self.sleep_time = int(os.getenv("ANALYZER_SLEEP_TIME", 0))
+    self.sleep_time = float(os.getenv("ANALYZER_SLEEP_TIME", "0"))
     self.log.info("Sleep time between analyses: {0}".format(self.sleep_time))
     self.keep_running = os.getenv("ANALYZER_KEEP_RUNNING", False)
     self.log.info("Keep running: {0}".format(self.keep_running))
