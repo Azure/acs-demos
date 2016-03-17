@@ -19,7 +19,8 @@ import traceback
 
 global summary
 
-ANALYZER_SLEEP_TIME_DEFAULT=1
+ANALYZER_KEEP_RUNNING=False
+ANALYZER_SLEEP_TIME_DEFAULT=0
 
 class Analyzer:
   def __init__(self):
@@ -28,9 +29,14 @@ class Analyzer:
     self.msgQueue = Queue(account_name = config.AZURE_STORAGE_ACCOUNT_NAME, account_key=config.AZURE_STORAGE_ACCOUNT_KEY, queue_name=config.AZURE_STORAGE_QUEUE_NAME)
     self.summary = SummaryTable(config.AZURE_STORAGE_ACCOUNT_NAME, config.AZURE_STORAGE_ACCOUNT_KEY, config.AZURE_STORAGE_SUMMARY_TABLE_NAME)
     try:
-        self.sleep_time = config.ANALYZER_SLEEP_TIME
+      self.sleep_time = config.ANALYZER_SLEEP_TIME
     except:
-        self.sleep_time = ANALYZER_SLEEP_TIME_DEFAULT
+      self.sleep_time = ANALYZER_SLEEP_TIME_DEFAULT
+
+    try:
+      self.keep_running = config.ANALYZER_KEEP_RUNNING
+    except:
+      self.keep_running = ANALYZER_KEEP_RUNNING
 
   def incrementCount(self, event_type):
     count = self.summary.getCount(event_type)
@@ -66,6 +72,9 @@ class Analyzer:
             e = sys.exc_info()[0]
             self.log.error("Could not process: " + event.message_text + " because %s" % e)
             traceback.print_exc(file=sys.stdout)
+      else:
+        if not self.keep_running:
+          break
       time.sleep(self.sleep_time)   
 
 if __name__ == "__main__":
