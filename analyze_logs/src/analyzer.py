@@ -26,6 +26,7 @@ class Analyzer:
   def __init__(self):
     self.log = Log()
     self.log.info("Storage account: {0}".format(config.AZURE_STORAGE_ACCOUNT_NAME))
+    self.log.info("Keep running: {0}".format(config.ANALYZER_KEEP_RUNNING))
     self.msgQueue = Queue(account_name = config.AZURE_STORAGE_ACCOUNT_NAME, account_key=config.AZURE_STORAGE_ACCOUNT_KEY, queue_name=config.AZURE_STORAGE_QUEUE_NAME)
     self.summary = SummaryTable(config.AZURE_STORAGE_ACCOUNT_NAME, config.AZURE_STORAGE_ACCOUNT_KEY, config.AZURE_STORAGE_SUMMARY_TABLE_NAME)
     try:
