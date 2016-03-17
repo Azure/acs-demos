@@ -37,6 +37,7 @@ class Analyzer:
       self.keep_running = config.ANALYZER_KEEP_RUNNING
     except:
       self.keep_running = ANALYZER_KEEP_RUNNING
+    self.log.info("Sleep time between analyses: {0}".format(self.sleep_time))
 
   def incrementCount(self, event_type):
     count = self.summary.getCount(event_type)
