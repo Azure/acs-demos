@@ -14,6 +14,7 @@ import os
 import re
 import socket
 import sys
+import time
 import traceback
 
 global summary
@@ -38,6 +39,9 @@ class Analyzer:
       event_type = "OTHER"
     else:
       event_type = msg[:split]    
+      
+    # Sleep to simulated a longer running process
+    time.sleep(1)
 
     self.incrementCount(event_type)
 
