@@ -24,6 +24,8 @@ def printSummary():
   summary = summary + "Warnings: " + str(table_service.getCount("WARNING")) + "\n"
   summary = summary + "Infos: " + str(table_service.getCount("INFO")) + "\n"
   summary = summary + "Debugs: " + str(table_service.getCount("DEBUG")) + "\n"
+  summary = summary + "Correct: " + str(table_service.getCount("CORRECT")) + "\n"
+  summary = summary + "Incorrect: " + str(table_service.getCount("INCORRECT")) + "\n"
   summary = summary + "Others: " + str(table_service.getCount("OTHER")) + "\n"
   print(summary)
   notify.info(summary)
