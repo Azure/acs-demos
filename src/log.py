@@ -5,20 +5,25 @@ import logging
 import os
 
 class Log:
-    def __init__(self, name = "acs-simulated-log-test"):
+    def __init__(self, name = "acs-simulated-log-test", level = logging.DEBUG):
+        """
+        Create a logger with the supplied name and logging level. Level only
+        affects console output. There is an error.log and all.log file in the
+        logs directory that always provide error and debug level logging 
+        regardless of the level parameter.
+        """
+
         output_dir = 'logs'
 
         if not os.path.exists(output_dir):
             os.makedirs(output_dir)
 
-
         self.logger = logging.getLogger(name)
-        self.logger.setLevel(logging.DEBUG)
 
         if (not self.logger.handlers):
             # create console handler and set level to info
             handler = logging.StreamHandler()
-            handler.setLevel(logging.DEBUG)
+            handler.setLevel(level)
             formatter = logging.Formatter("%(levelname)s - %(message)s")
             handler.setFormatter(formatter)
             self.logger.addHandler(handler)

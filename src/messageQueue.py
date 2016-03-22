@@ -49,12 +49,13 @@ class Queue:
             self.log.error("Unknown queue type: " + queue_type)
         
 
-    def enqueue(self, msg, level = "INFO"):
-        msg = level + " - " + msg
+    def enqueue(self, msg):
         if self.queue_type == "LocalFile":
             file_queue.write(msg + '\n')
         elif self.queue_type == "AzureStorageQueue":
             self.queue_service.put_message(self.queue_name, msg)
+        else:
+            self.log.error("We don't know how to handle queues of type " + self.queue_type)
         self.log.debug(msg)
 
     def dequeue(self):

@@ -15,7 +15,7 @@ def enqueue():
     msgQueue = Queue(account_name = config.AZURE_STORAGE_ACCOUNT_NAME, account_key=config.AZURE_STORAGE_ACCOUNT_KEY, queue_name=queue)
 
     msg = request.form['message']
-    msgQueue.enqueue(msg, "INFO")
+    msgQueue.enqueue(msg)
 
     response = {
         "result": "success",
