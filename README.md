@@ -157,6 +157,13 @@ Analyze the log data in the queue:
 docker run --rm -e SMTP_PASSWORD=password --volumes-from base --name analyze rgardler/acs-logging-test-analyze
 ```
 
+You can control the behaviour of the analyzer task:
+
+ANALYZER_KEEP_RUNNING: If False, exit when there are no more items on the queue to analyze (default False) 
+
+ANALYZER_SLEEP_TIME: If ANALYZER_KEEP_RUNNING is True, this is the sleep time in seconds before checking for more items on the queue (default 0)
+
+
 To get some insight into what has happened you can run the CLI container:
 
 ```
