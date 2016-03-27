@@ -68,7 +68,7 @@ class Analyzer:
       else:
         if not self.keep_running:
           break
-        time.sleep(self.sleep_time)   
+      time.sleep(self.sleep_time)   
 
 if __name__ == "__main__":
   analyzer = Analyzer()  
