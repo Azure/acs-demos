@@ -25,10 +25,11 @@ class Analyzer:
     self.log.info("Storage account: {0}".format(config.AZURE_STORAGE_ACCOUNT_NAME))
     self.msgQueue = Queue(account_name = config.AZURE_STORAGE_ACCOUNT_NAME, account_key=config.AZURE_STORAGE_ACCOUNT_KEY, queue_name=config.AZURE_STORAGE_QUEUE_NAME)
     self.summary = SummaryTable(config.AZURE_STORAGE_ACCOUNT_NAME, config.AZURE_STORAGE_ACCOUNT_KEY, config.AZURE_STORAGE_SUMMARY_TABLE_NAME)
-    self.sleep_time = float(os.getenv("ANALYZER_SLEEP_TIME", "0"))
-    self.log.info("Sleep time between analyses: {0}".format(self.sleep_time))
-    self.keep_running = os.getenv("ANALYZER_KEEP_RUNNING", False)
+    self.keep_running = config.ANALYZER_KEEP_RUNNING
     self.log.info("Keep running: {0}".format(self.keep_running))
+    if self.keep_running:
+      self.sleep_time = config.ANALYZER_SLEEP_TIME 
+      self.log.info("Sleep time between analyses: {0}".format(self.sleep_time))
 
   def incrementCount(self, event_type):
     count = self.summary.getCount(event_type)
@@ -67,7 +68,7 @@ class Analyzer:
       else:
         if not self.keep_running:
           break
-      time.sleep(self.sleep_time)   
+        time.sleep(self.sleep_time)   
 
 if __name__ == "__main__":
   analyzer = Analyzer()  
