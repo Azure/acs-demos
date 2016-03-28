@@ -20,7 +20,7 @@ echo
 echo "BEFORE length"
 echo
 docker run --env-file ../env.conf rgardler/acs-logging-test-cli length
-curl http://localhost:8000/send
+curl -X POST -d "message=Test - Message from test harness" http://localhost:8000/send
 echo
 echo "AFTER length"
 echo
