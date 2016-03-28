@@ -5,7 +5,7 @@ docker build -t rgardler/acs-logging-test-web:test .
 echo
 echo "#### running web container"
 echo
-id=$(docker run -d -p 80:5000 --env-file ../env.conf rgardler/acs-logging-test-web:test)
+id=$(docker run -d -p 80:80 --env-file ../env.conf rgardler/acs-logging-test-web:test)
 sleep 2
 docker ps -l
 
