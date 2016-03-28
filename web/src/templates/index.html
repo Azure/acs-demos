@@ -1,6 +1,12 @@
 <!doctype html>
 <title>ACS Logging Demo</title>
 
+<form method="post" action="/send">
+  <label>Message</label><input type="text" name="message"></input>
+  <br/>
+  <input type="submit"></input>
+</form>
+
 <h1>Queue Length</h1>
 <p>Current queue length is approximately: {{ length }}</p>
 
@@ -39,3 +45,12 @@
     <td>{{ other }}</td>
   </tr>
 </table>
+
+<!--
+<h1>Most recent Unprocessed Messages</h1>
+<ul>
+{% for message in messages %}
+  <li>{{ message }}</li>
+{% endfor %}
+</ul>
+-->

@@ -15,6 +15,11 @@ def index(name=None):
     table_service = getTableService() 
     queue_service = getQueueService()
 
+#    queue_messages = queue_service.peek_messages(5)
+#    messages = []
+#    for msg in queue_messages:
+#        messages.append(msg.message_text)
+ 
     return render_template('index.html', length = queue_service.getLength(),
                            error = str(table_service.getCount("ERROR")),
                            warning = str(table_service.getCount("WARNING")),
@@ -22,13 +27,17 @@ def index(name=None):
                            debug = str(table_service.getCount("DEBUG")),
                            correct = str(table_service.getCount("CORRECT")),
                            incorrect = str(table_service.getCount("INCORRECT")),
-                           other = str(table_service.getCount("OTHER")))
+                           other = str(table_service.getCount("OTHER")),
+#                           messages = messages
+                       )
 
-@app.route("/send")
-def sendMessage():
+@app.route("/send", methods = ['POST'])
+def sendMessage(message=None):
+    message = request.form['message']
+
     queue_service = getQueueService()
-    queue_service.enqueue("Test - test message")
-
+    queue_service.enqueue(message)
+    
     return redirect(url_for('index'))
 
 
