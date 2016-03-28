@@ -83,3 +83,10 @@ class Queue:
         queue_metadata = self.queue_service.get_queue_metadata(self.queue_name)
         count = queue_metadata['x-ms-approximate-messages-count']
         return count
+
+    def peek_messages(self, num_messages):
+        """
+        Peek at the top messages in the queue. This method does not remove the
+        messages from the queue.
+        """
+        return self.queue_service.peek_messages(self.queue_name, num_messages)
