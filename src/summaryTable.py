@@ -29,7 +29,6 @@ class SummaryTable:
         """
         Create an Azure Table in which to store the summary results.
         """
-        self.log.debug("Creating table: " + self.table_name + " in storage account " + self.account_name)
         self.table_service = TableService(self.account_name, self.account_key)
         self.table_service.create_table(self.table_name)
 

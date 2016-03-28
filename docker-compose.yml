@@ -1,18 +1,24 @@
 producer:
-  image: rgardler/acs-logging-test-simulate
+  build: simulated_logging
   env_file:
     - ./env.conf
 
 analyzer:
-  image: rgardler/acs-logging-test-analyze
+  build: analyze_logs
   env_file:
     - ./env.conf
 
 rest_enqueue:
-  image: rgardler/acs-logging-test-rest-enqueue
+  build: rest-enqueue
   ports:
     - "5000:5000"
   env_file:
     - ./env.conf
 
+web:
+  build: web
+  ports:
+    - "8000:80"
+  env_file:
+    - ./env.conf
 

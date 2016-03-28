@@ -1,6 +1,5 @@
 logs
 test
-config.py
 *.pyc
 env.conf
 

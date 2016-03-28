@@ -1,0 +1,56 @@
+<!doctype html>
+<title>ACS Logging Demo</title>
+
+<form method="post" action="/send">
+  <label>Message</label><input type="text" name="message"></input>
+  <br/>
+  <input type="submit"></input>
+</form>
+
+<h1>Queue Length</h1>
+<p>Current queue length is approximately: {{ length }}</p>
+
+<h1>Summary Data</h1>
+<table>
+  <tr>
+    <th>Event</th>
+    <th>Count</th>
+  </tr>
+  <tr>
+    <td>Errors</td>
+    <td>{{ error }}</td>
+  </tr>
+  <tr>
+    <td>Warnings</td>
+    <td>{{ warning }}</td>
+  </tr>
+  <tr>
+    <td>Infos</td>
+    <td>{{ info }}</td>
+  </tr>
+  <tr>
+    <td>Debugs</td>
+    <td>{{ debug }}</td>
+  </tr>
+  <tr>
+    <td>Incorrect Answers</td>
+    <td>{{ incorrect }}</td>
+  </tr>
+  <tr>
+    <td>Correct Answers</td>
+    <td>{{ correct }}</td>
+  </tr>
+  <tr>
+    <td>Other</td>
+    <td>{{ other }}</td>
+  </tr>
+</table>
+
+<!--
+<h1>Most recent Unprocessed Messages</h1>
+<ul>
+{% for message in messages %}
+  <li>{{ message }}</li>
+{% endfor %}
+</ul>
+-->

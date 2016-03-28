@@ -40,23 +40,23 @@ def simulate():
       change = 1
     elif temp >= _too_hot:
       change = -1
-    msgQueue.enqueue("Change since last reading: " + str(change), "INFO")
+    msgQueue.enqueue("INFO - Change since last reading: " + str(change))
 
     temp = temp + change
-    msgQueue.enqueue("Current temperature: " + str(temp), "INFO")
+    msgQueue.enqueue("INFO - Current temperature: " + str(temp))
 
     if temp == _just_right:
-      msgQueue.enqueue("That's perfect", "INFO")
+      msgQueue.enqueue("INFO - That's perfect")
     elif temp < _just_right and temp > _too_cold:
-      msgQueue.enqueue('Getting a little chilly', "WARNING")
+      msgQueue.enqueue('WARNING - Getting a little chilly')
     elif temp > _just_right and temp < _too_hot:
-      msgQueue.enqueue('Getting a touch warm', "WARNING")
+      msgQueue.enqueue('WARNING - Getting a touch warm')
     elif temp <= _too_cold:
-      msgQueue.enqueue('Too cold, how did this happen?', "ERROR")
+      msgQueue.enqueue('ERROR - Too cold, how did this happen?')
     elif temp >= _too_hot:
-      msgQueue.enqueue('Too hot, how did this happen?', "ERROR")
+      msgQueue.enqueue('ERROR - Too hot, how did this happen?')
     else:
-      msgQueue.enqueue('Can''t tell if it''s hot or cold', "ERROR")
+      msgQueue.enqueue('ERROR - Can''t tell if it''s hot or cold')
 
     msgQueue.close()
 

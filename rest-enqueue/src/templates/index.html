@@ -1,0 +1,14 @@
+<!doctype html>
+<title>ACS Logging Demo</title>
+
+<p>This is the REST Enqueue service for the acs-logging-test
+application. Use the form below to send a test message to a
+queue.</p>
+
+<form method="post" action="/enqueue">
+  <label>Queue name</label><input type="text" name="queue" value="rgacsdemo"></input>
+  <br/>
+  <label>Message</label><input type="text" name="message" value="DEBUG - A message for debugging"></input>
+  <br/>
+  <input type="submit"></input>
+</form>
