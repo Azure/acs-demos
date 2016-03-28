@@ -47,7 +47,7 @@ class Analyzer:
       event_type = msg[:split]    
       
     # Sleep to simulated a longer running process
-    time.sleep(1)
+    time.sleep(self.sleep_time)
 
     self.incrementCount(event_type)
 
