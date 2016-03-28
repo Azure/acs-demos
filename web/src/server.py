@@ -6,26 +6,32 @@ import config
 from messageQueue import Queue
 from summaryTable import SummaryTable
 
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, redirect, request, render_template, url_for
 
 app = Flask(__name__)
 
 @app.route("/")
-def index():
+def index(name=None):
     table_service = getTableService() 
     queue_service = getQueueService()
 
-    summary = "Queue Length is approximately: " + queue_service.getLength() + "\n\n"
-    summary = summary + "<table><tr><th>Event</th><th>Count</th></tr>"
-    summary = summary + "<tr><td>Errors</td><td>" + str(table_service.getCount("ERROR")) + "</td></tr>"
-    summary = summary + "<tr><td>Warnings</td><td>" + str(table_service.getCount("WARNING")) + "</td></tr>"
-    summary = summary + "<tr><td>Infos</td><td>" + str(table_service.getCount("INFO")) + "</td></tr>"
-    summary = summary + "<tr><td>Debugs</td><td>" + str(table_service.getCount("DEBUG")) + "</td></tr>"
-    summary = summary + "<tr><td>Correct</td><td>" + str(table_service.getCount("CORRECT")) + "</td></tr>"
-    summary = summary + "<tr><td>Incorrect</td><td>" + str(table_service.getCount("INCORRECT")) + "</td></tr>"
-    summary = summary + "<tr><td>Others</td><td>" + str(table_service.getCount("OTHER")) + "</td></tr>"
-    summary = summary + "</table>"
-    return summary
+    return render_template('index.html', length = queue_service.getLength(),
+                           error = str(table_service.getCount("ERROR")),
+                           warning = str(table_service.getCount("WARNING")),
+                           info = str(table_service.getCount("INFO")),
+                           debug = str(table_service.getCount("DEBUG")),
+                           correct = str(table_service.getCount("CORRECT")),
+                           incorrect = str(table_service.getCount("INCORRECT")),
+                           other = str(table_service.getCount("OTHER")))
+
+@app.route("/send")
+def sendMessage():
+    queue_service = getQueueService()
+    queue_service.enqueue("Test - test message")
+
+    return redirect(url_for('index'))
+
+
 
 def getQueueService():
   queue_service = Queue(account_name = config.AZURE_STORAGE_ACCOUNT_NAME, account_key=config.AZURE_STORAGE_ACCOUNT_KEY, queue_name=config.AZURE_STORAGE_QUEUE_NAME)
