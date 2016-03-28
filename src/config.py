@@ -6,12 +6,12 @@ SUMMARY_LOG_FILE='/logs/summary.log'
 
 SLACK_WEBHOOK=os.getenv('SLACK_WEBHOOK')
 
-SMTP_SERVER='smtp-mail.outlook.com'
-SMTP_PORT=587
-SMTP_USERNAME='ross@gardler.org'
+SMTP_SERVER=os.getenv('SMTP_SERVER')
+SMTP_PORT=os.getenv('SMTP_PORT')
+SMTP_USERNAME=os.getenv('SMTP_USERNAME')
 SMTP_PASSWORD=os.environ.get('SMTP_PASSWORD')
-MAIL_FROM='ross@gardler.org'
-MAIL_TO='rogardle@microsoft.com'
+MAIL_FROM=os.getenv('MAIL_FROM')
+MAIL_TO=os.getenv('MAIL_TO')
 
 # Queue details
 ACS_LOGGING_QUEUE_TYPE=os.getenv('ACS_LOGGING_QUEUE_TYPE', 'AzureStorageQueue')
@@ -28,3 +28,10 @@ AZURE_STORAGE_SUMMARY_TABLE_NAME=os.getenv('AZURE_STORAGE_SUMMARY_TABLE_NAME')
 SIMULATION_ACTIONS=os.getenv('SIMULATION_ACTIONS', 2)
 # number of seconds to delay between each logging event
 SIMULATION_DELAY=os.getenv('SIMULATION_DELAY', 30)
+
+# By default, Analyzer exits once there is nothing left on the queue
+ANALYZER_KEEP_RUNNING=os.getenv('ANALYZER_KEEP_RUNNING', False)
+
+# If we're keeping running between analyses, once we've pulled everything off sleep this long before rechecking the queue
+ANALYZER_SLEEP_TIME=os.getenv('ANALYZER_SLEEP_TIME', 0)
+
