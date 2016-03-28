@@ -1,13 +1,13 @@
 import config
 from messageQueue import Queue
 
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, redirect, request, render_template, url_for
 
 app = Flask(__name__)
 
 @app.route("/")
 def hello():
-    return "This is the REST endpoint for the producer. POST to `/enqueue`"
+    return render_template('index.html')
 
 @app.route("/enqueue", methods = ['POST'])
 def enqueue():
