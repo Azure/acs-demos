@@ -50,7 +50,14 @@ class MatchAnalyzer:
             else:
                 break
 
+    def getPlayerStats(self, gamertag):
+        stats = {}
+        stats.player = { "gamertag": gamertag }
+        count_type = gamertag + "won"
+        count = self.summary,getCount(count_type)
+        print(str(count), wins)
+
 if __name__ == "__main__":
     analyzer = MatchAnalyzer()  
     analyzer.fullAnalysis()
-
+    
