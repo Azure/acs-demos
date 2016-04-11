@@ -1,0 +1,4 @@
+service:
+  build: .
+  env_file:
+    - ../env.conf
