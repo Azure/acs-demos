@@ -35,3 +35,6 @@ ANALYZER_KEEP_RUNNING=os.getenv('ANALYZER_KEEP_RUNNING', False)
 # If we're keeping running between analyses, once we've pulled everything off sleep this long before rechecking the queue
 ANALYZER_SLEEP_TIME=os.getenv('ANALYZER_SLEEP_TIME', 0)
 
+HALO_API_KEY=os.getenv('HALO_API_KEY')
+HALO_GAMERTAGS=os.getenv('HALO_GAMERTAGS')
+HALO_QUEUE_MATCH=os.getenv('HALO_QUEUE_MATCH')
