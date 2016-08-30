@@ -9,6 +9,7 @@ from log import Log
 from messageQueue import Queue
 from summaryTable import SummaryTable
 
+from flask import Flask, jsonify
 import json
 import os
 import re
@@ -20,6 +21,7 @@ import traceback
 global summary
 
 class Analyzer:
+
   def __init__(self):
     self.log = Log()
     self.log.debug("Storage account for analyzer: {0}".format(config.AZURE_STORAGE_ACCOUNT_NAME))
@@ -72,6 +74,22 @@ class Analyzer:
           break
       time.sleep(self.sleep_time)   
 
+
+app =Flask(__name__)
+
+@app.route("/")
+def scale():
+  response = {
+      "current": 0
+      }
+
+  return jsonify(response)
+  
 if __name__ == "__main__":
-  analyzer = Analyzer()  
+  app.debug = True
+  app.run(host='0.0.0.0', port = 5555)
+
+  analyzer = Analyzer()
   analyzer.fullAnalysis()
+
+  
