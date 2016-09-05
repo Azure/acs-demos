@@ -5,6 +5,8 @@ producer:
 
 analyzer:
   build: analyze_logs
+  ports:
+    - "5555:5000"
   env_file:
     - ./env.conf
 
