@@ -8,7 +8,7 @@ import json
 import requests
 
 def send(msg, channel=config.SLACK_GENERAL_CHANNEL):
-    if config.SLACK_WEBHOOK:
+    if not config.SLACK_WEBHOOK == "":
         payload = {
             "channel": "#" + channel,
             "text": msg
