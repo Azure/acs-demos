@@ -24,3 +24,7 @@ web:
   env_file:
     - ./env.conf
 
+microscaling:
+  build: microscaling
+  links:
+    - analyzer
