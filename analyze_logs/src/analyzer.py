@@ -96,12 +96,18 @@ def scale_need():
   else:
     status = 0
 
-  response = { "status": status }
+  hostname = socket.gethostname()
+
+  response = {
+    "container": hostname,
+    "status": status
+  }
 
   return jsonify(response)
 
 if __name__ == "__main__":
+  threading.Thread(target=analyzer.fullAnalysis).start()
+
   app.debug = True
   app.run(host='0.0.0.0')
 
-  threading.Thread(target=analyzer.fullAnalysis).start()
