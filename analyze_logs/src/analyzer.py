@@ -96,6 +96,7 @@ def scale_need():
   with current load.
   """
 
+  status = 0
   if analyzer.current_length > analyzer.max_length:
     # queue is over the max_length so we need to scale up now
     status = 100
