@@ -19,7 +19,7 @@ while True:
     for container in containers:
         resp = requests.get("http://" + container["name"] + ":5000")
         msg = "Scale need for analyzer: " + resp.text
-        notify(msg)
-        time.sleep(1)
+        notify.info(msg)
+        time.sleep(5)
 
 

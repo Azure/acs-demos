@@ -1,4 +1,4 @@
-FROM python
+FROM rgardler/acs-logging-test-base
 
 RUN pip install --upgrade pip
 
