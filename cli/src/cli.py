@@ -18,7 +18,7 @@ def printSummary():
 
   table_service = getTableService() 
   queue_service = getQueueService()
-  summary = "Queue Length is approximately: " + queue_service.getLength() + "\n\n"
+  summary = "Queue Length is approximately: " + str(queue_service.getLength()) + "\n\n"
   summary = summary + "Processed events:\n"
   summary = summary + "Errors: " + str(table_service.getCount("ERROR")) + "\n"
   summary = summary + "Warnings: " + str(table_service.getCount("WARNING")) + "\n"
@@ -106,7 +106,7 @@ if __name__ == "__main__":
   if cmd == "summary":
     printSummary()
   elif cmd == "length":
-    print(getQueueService().getLength())
+    print(str(getQueueService().getLength()))
   elif cmd == "deleteQueue":
     deleteQueue()
   elif cmd == "createQueue":

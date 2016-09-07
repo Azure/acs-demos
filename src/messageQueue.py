@@ -82,7 +82,7 @@ class Queue:
         """
         queue_metadata = self.queue_service.get_queue_metadata(self.queue_name)
         count = queue_metadata['x-ms-approximate-messages-count']
-        return count
+        return int(count)
 
     def peek_messages(self, num_messages):
         """
