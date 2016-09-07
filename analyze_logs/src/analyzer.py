@@ -23,17 +23,21 @@ global summary
 
 class Analyzer:
 
-  time_since_last_event = 10
+  time_since_last_event = None
   last_event_time = time.time()
+  current_length = 0
+  last_length = 0
+  max_length = 50  
   
   def __init__(self):
     self.log = Log()
     self.log.debug("Storage account for analyzer: {0}".format(config.AZURE_STORAGE_ACCOUNT_NAME))
     self.msgQueue = Queue(account_name = config.AZURE_STORAGE_ACCOUNT_NAME, account_key=config.AZURE_STORAGE_ACCOUNT_KEY, queue_name=config.AZURE_STORAGE_QUEUE_NAME)
+    self.current_length = self.msgQueue.getLength()
     self.summary = SummaryTable(config.AZURE_STORAGE_ACCOUNT_NAME, config.AZURE_STORAGE_ACCOUNT_KEY, config.AZURE_STORAGE_SUMMARY_TABLE_NAME)
     self.sleep_time = float(config.ANALYZER_SLEEP_TIME)
     self.log.debug("Sleep time between analyses: {0}".format(self.sleep_time))
-
+    
   def incrementCount(self, event_type):
     count = self.summary.getCount(event_type)
     count = count + 1
@@ -59,23 +63,26 @@ class Analyzer:
     msg = hostname + ': Analyzing log event queue'
     notify.info(msg)
     while True:
-      events = self.msgQueue.dequeue()
-      if len(events) > 0:
-        now = time.time()
-        self.time_since_last_event = now - self.last_event_time
-        self.last_event_time = now
-        for event in events:
-          self.log.info("Dequeued: " + event.message_text)
-          try:
-            self.processEvent(event)
-            self.msgQueue.delete(event)
-            self.log.info("Counted and deleted: " + event.message_text)
-          except:
-            e = sys.exc_info()[0]
-            self.log.error("Could not process: " + event.message_text + " because %s" % e)
-            traceback.print_exc(file=sys.stdout)
+      self.last_length = self.current_length
+      self.current_length = self.msgQueue.getLength()
+      if self.current_length > 0:
+        events = self.msgQueue.dequeue()
+        if len(events) > 0:
+          now = time.time()
+          for event in events:
+            self.time_since_last_event = now - self.last_event_time
+            self.last_event_time = now
+            self.log.info("Dequeued: " + event.message_text)
+            try:
+              self.processEvent(event)
+              self.msgQueue.delete(event)
+              self.current_length = self.current_length - 1
+              self.log.info("Counted and deleted: " + event.message_text)
+            except:
+              e = sys.exc_info()[0]
+              self.log.error("Could not process: " + event.message_text + " because %s" % e)
+              traceback.print_exc(file=sys.stdout)
       time.sleep(self.sleep_time)   
-
 
 app = Flask(__name__)
 analyzer = Analyzer()
@@ -89,18 +96,26 @@ def scale_need():
   with current load.
   """
 
-  if (analyzer.time_since_last_event < 2):
+  if analyzer.current_length > analyzer.max_length:
+    # queue is over the max_length so we need to scale up now
     status = 100
-  elif (analyzer.time_since_last_event > 5):
-    status = -100
-  else:
-    status = 0
-
+  elif analyzer.current_length == 0:
+      # queue is empty, scale down
+      status =-100
+  elif analyzer.current_length > analyzer.last_length:
+      # queue is growing but it's still under max_length, consider scaling up
+      status = 50
+  elif analyzer.current_length < analyzer.last_length:
+      # queue is shrinking but it's still under max_length>0, consider scaling down
+      status = -50
+      
   hostname = socket.gethostname()
 
   response = {
     "container": hostname,
-    "status": status
+    "status": status,
+    "timeSinceLastEvent": analyzer.time_since_last_event,
+    "currentQueueLength": analyzer.current_length
   }
 
   return jsonify(response)
