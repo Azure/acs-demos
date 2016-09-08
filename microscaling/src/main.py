@@ -30,6 +30,9 @@ class Microscaler:
         self.msgQueue = Queue(account_name = config.AZURE_STORAGE_ACCOUNT_NAME, account_key=config.AZURE_STORAGE_ACCOUNT_KEY, queue_name=config.AZURE_STORAGE_QUEUE_NAME)
 
     def scaleUp(self, container):
+        """Scale health indicates that we need to scale up, calculate the new
+        number of instances and issue the scale request."""
+
         self.last_scale_up_time = time.time()
     
         # Get current instance count
@@ -41,17 +44,13 @@ class Microscaler:
         # Increment count
         length = self.msgQueue.getLength()
         instances = instances + int(length / 10)
-    
-        # Put new instance count
-        url = "http://leader.mesos:8080/v2/apps" + container["id"]
-        data_packet = { "instances": instances }
-        notify.info("Scale Data Packet = \n" + str(data_packet))
-        resp = requests.put(url, data = json.dumps(data_packet))
 
-        msg = "Response to scale up request: " + resp.text
-        notify.info(msg)
+        self.scale(container["id"], instances)
 
     def scaleDown(self, container):
+        """Scale health indicates that we need to scale down so reduce the
+        number of instances by 1.  """
+
         self.last_scale_down_time = time.time()
     
         # Get current instance count
@@ -65,15 +64,23 @@ class Microscaler:
         if (instances <= 0):
             return
     
-        # Put new instance count
-        url = "http://leader.mesos:8080/v2/apps" + container["id"]
+        self.scale(container["id"], instances, True)
+
+    def scale(self, container_id, instances, force = False ):
+        """ Scale a container to a given number of instances"""
+                   
+        url = "http://leader.mesos:8080/v2/apps" + container_id
+        if force:
+            url = url + "?force=true"
+                   
         data_packet = { "instances": instances }
-        notify.info("Scale Data Packet = \n" + str(data_packet))
         resp = requests.put(url, data = json.dumps(data_packet))
 
-        msg = "Response to scale down request: " + resp.text
-        notify.info(msg)
-
+        if resp.status_code == 200:
+            self.log.debug("Scaling to " + str(instances))
+        else:
+            self.log.debug("Problem scaling the container. Status code = " + str(resp.status_code))
+                   
     def autoscale(self):
         while True:
             for container in self.containers:
