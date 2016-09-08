@@ -1,0 +1,214 @@
+{
+    "id": "/microscaling",
+    "dependencies": [],
+    "version": "2016-09-08T05:35:55.221Z",
+    "apps": [
+        {
+            "id": "/microscaling/analyzer",
+            "cmd": null,
+            "args": null,
+            "user": null,
+            "env": {
+                "AZURE_LOGGING_QUEUE_TYPE": "AzureStorageQueue",
+                "ANALYZER_KEEP_RUNNING": "True",
+                "SLACK_ERROR_CHANNEL": "general",
+                "AZURE_STORAGE_QUEUE_NAME": "FIXME....",
+                "AZURE_STORAGE_SUMMARY_TABLE_NAME": "FIXME....",
+                "SLACK_GENERAL_CHANNEL": "general",
+                "AZURE_STORAGE_ACCOUNT_NAME": "FIXME....",
+                "SLACK_INFO_CHANNEL": "general",
+                "AZURE_STORAGE_ACCOUNT_KEY": "FIXME....",
+                "SLACK_WEBHOOK": "FIXME....",
+                "ANALYZER_SLEEP_TIME": "1"
+            },
+            "instances": 11,
+            "cpus": 0.16,
+            "mem": 128,
+            "disk": 0,
+            "executor": "",
+            "constraints": [],
+            "uris": [],
+            "fetch": [],
+            "storeUrls": [],
+            "ports": [
+                10001
+            ],
+            "portDefinitions": [
+                {
+                    "port": 10001,
+                    "protocol": "tcp",
+                    "labels": {}
+                }
+            ],
+            "requirePorts": false,
+            "backoffSeconds": 1,
+            "backoffFactor": 1.15,
+            "maxLaunchDelaySeconds": 3600,
+            "container": {
+                "type": "DOCKER",
+                "volumes": [],
+                "docker": {
+                    "image": "rgardler/acs-logging-test-analyze",
+                    "network": "HOST",
+                    "privileged": false,
+                    "parameters": [],
+                    "forcePullImage": true
+                }
+            },
+            "healthChecks": [],
+            "readinessChecks": [],
+            "dependencies": [],
+            "upgradeStrategy": {
+                "minimumHealthCapacity": 1,
+                "maximumOverCapacity": 1
+            },
+            "labels": {},
+            "acceptedResourceRoles": null,
+            "ipAddress": null,
+            "version": "2016-09-08T05:35:55.221Z",
+            "residency": null,
+            "versionInfo": {
+                "lastScalingAt": "2016-09-08T05:35:55.221Z",
+                "lastConfigChangeAt": "2016-09-08T02:19:33.998Z"
+            }
+        },
+        {
+            "id": "/microscaling/microscaling",
+            "cmd": null,
+            "args": null,
+            "user": null,
+            "env": {
+                "AZURE_LOGGING_QUEUE_TYPE": "AzureStorageQueue",
+                "SLACK_ERROR_CHANNEL": "general",
+                "AZURE_STORAGE_QUEUE_NAME": "FIXME...",
+                "SLACK_GENERAL_CHANNEL": "general",
+                "AZURE_STORAGE_ACCOUNT_NAME": "FIXME...",
+                "SLACK_INFO_CHANNEL": "general",
+                "AZURE_STORAGE_ACCOUNT_KEY": "FIXME...",
+                "SLACK_WEBHOOK": "FIXME..."
+            },
+            "instances": 1,
+            "cpus": 0.15,
+            "mem": 128,
+            "disk": 0,
+            "executor": "",
+            "constraints": [],
+            "uris": [],
+            "fetch": [],
+            "storeUrls": [],
+            "ports": [
+                10002
+            ],
+            "portDefinitions": [
+                {
+                    "port": 10002,
+                    "protocol": "tcp",
+                    "labels": {}
+                }
+            ],
+            "requirePorts": false,
+            "backoffSeconds": 1,
+            "backoffFactor": 1.15,
+            "maxLaunchDelaySeconds": 3600,
+            "container": {
+                "type": "DOCKER",
+                "volumes": [],
+                "docker": {
+                    "image": "rgardler/acs-logging-test-microscaling",
+                    "network": "HOST",
+                    "privileged": false,
+                    "parameters": [],
+                    "forcePullImage": true
+                }
+            },
+            "healthChecks": [],
+            "readinessChecks": [],
+            "dependencies": [],
+            "upgradeStrategy": {
+                "minimumHealthCapacity": 1,
+                "maximumOverCapacity": 1
+            },
+            "labels": {},
+            "acceptedResourceRoles": null,
+            "ipAddress": null,
+            "version": "2016-09-08T02:51:26.292Z",
+            "residency": null,
+            "versionInfo": {
+                "lastScalingAt": "2016-09-08T02:51:26.292Z",
+                "lastConfigChangeAt": "2016-09-08T01:58:59.714Z"
+            }
+        },
+        {
+            "id": "/microscaling/producer",
+            "cmd": null,
+            "args": null,
+            "user": null,
+            "env": {
+                "AZURE_LOGGING_QUEUE_TYPE": "AzureStorageQueue",
+                "ANALYZER_KEEP_RUNNING": "True",
+                "SLACK_ERROR_CHANNEL": "general",
+                "AZURE_STORAGE_QUEUE_NAME": "FIXME...",
+                "AZURE_STORAGE_SUMMARY_TABLE_NAME": "FIXME...",
+                "SLACK_GENERAL_CHANNEL": "general",
+                "SIMULATION_ACTIONS": "0",
+                "SIMULATION_DELAY": "1",
+                "AZURE_STORAGE_ACCOUNT_NAME": "FIXME...",
+                "SLACK_INFO_CHANNEL": "general",
+                "AZURE_STORAGE_ACCOUNT_KEY": "FIXME...",
+                "SLACK_WEBHOOK": "FIXME..."
+            },
+            "instances": 2,
+            "cpus": 0.2,
+            "mem": 128,
+            "disk": 0,
+            "executor": "",
+            "constraints": [],
+            "uris": [],
+            "fetch": [],
+            "storeUrls": [],
+            "ports": [
+                10000
+            ],
+            "portDefinitions": [
+                {
+                    "port": 10000,
+                    "protocol": "tcp",
+                    "labels": {}
+                }
+            ],
+            "requirePorts": false,
+            "backoffSeconds": 1,
+            "backoffFactor": 1.15,
+            "maxLaunchDelaySeconds": 3600,
+            "container": {
+                "type": "DOCKER",
+                "volumes": [],
+                "docker": {
+                    "image": "rgardler/acs-logging-test-simulate",
+                    "network": "HOST",
+                    "privileged": false,
+                    "parameters": [],
+                    "forcePullImage": true
+                }
+            },
+            "healthChecks": [],
+            "readinessChecks": [],
+            "dependencies": [],
+            "upgradeStrategy": {
+                "minimumHealthCapacity": 1,
+                "maximumOverCapacity": 1
+            },
+            "labels": {},
+            "acceptedResourceRoles": null,
+            "ipAddress": null,
+            "version": "2016-09-08T02:58:23.540Z",
+            "residency": null,
+            "versionInfo": {
+                "lastScalingAt": "2016-09-08T02:58:23.540Z",
+                "lastConfigChangeAt": "2016-09-06T06:13:19.781Z"
+            }
+        }
+    ],
+    "groups": []
+}
+

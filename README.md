@@ -16,7 +16,38 @@ Create a storage account for your application to use. Then copy
 `env.conf.tmpl` to `env.conf` and add values for all the properties
 that are necessary.
 
-## Running the application
+## Running on Azure Container Service
+
+Create an
+[ACS cluster](https://azure.microsoft.com/en-us/documentation/articles/container-service-deployment/)
+and open up an
+[SSH tunnel](https://azure.microsoft.com/en-us/documentation/articles/container-service-connect/)
+to it. Then proceed as described in the section below "Running on DC/OS".
+
+Alternatively you can use the unnofficial
+[ACS CLI](https://github.com/rgardler/acs-cli).
+
+```
+acs service create
+acs app deploy --app-config=marathon.json
+```
+
+See the next section for details on how to create the marathon.json
+file.
+
+## Running on DC/OS
+
+Assuming you have a (DC/OS)[http://dcos.io] cluster available:
+
+Copy `marathon.json.tmpl` to `marathon.json` and replace all
+occurences of `FIXME... with appropriate values. Then deploy the
+application with.
+
+``` bash
+curl -X POST -d @marathon.json http://leader.mesos:8080/v2/groups 
+```
+
+## Running the application locally
 
 You can run the complete application with `docker-compose up -d`.
 

@@ -2,6 +2,7 @@ logs
 test
 *.pyc
 env.conf
+marathon.json
 
 __pycache__
 
