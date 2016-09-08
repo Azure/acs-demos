@@ -1,18 +1,36 @@
-A simple logging simulator used to test long running microservices on Azure Container Service.
+A simple logging simulator used to test long running microservices on
+Azure Container Service. A simple autoscaler is included.
 
-This project consists of a number of Docker containers each desinged to perform a specific function. The main containers are:
+This project consists of a number of Docker containers each desinged
+to perform a specific function. The main containers are:
 
-  * logging_base - the container on which all other containers are based
+  * logging_base - the container on which all other containers are
+    based
   * simulate_logging - a container that simluates a period of logging activity, writes log items into the queue
   * rest_enqueue - provides a REST API for adding messages to the queue
   * analyze_logs - reads log queue and creates summary log data
+  * microscaling - an autoscaler that scales te analyer up and down depending on the amount of work needed
   * cli - a simple CLI tool for working with the data produced by the simulateion and he analyzer
 
 At present it uses Azure Storage Queues and Tables.
 
+## How it works
+
+One or more "producer" containers put "work" into a queue.
+
+One or more "consumer" containers pull work from the queue, process
+it and write some summary data to a table.
+
+[Optionally] A rest service allows "work" to be placed into the queue
+
+[Optionally - DC/OS only] a "microscaler" scales the consumers up/down
+in response to the amount of work in the queue.
+
+[Optionally] The CLI is used to query the state of the queue and table
+
 ## Setup
 
-Create a storage account for your application to use. Then copy
+Create a n Azure Storage Account for your application to use. Then copy
 `env.conf.tmpl` to `env.conf` and add values for all the properties
 that are necessary.
 
