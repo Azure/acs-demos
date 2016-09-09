@@ -1,56 +1,62 @@
 <!doctype html>
-<title>ACS Logging Demo</title>
+<html lang="en">
+  <head>
+    <title>Simple Worker/Consumer Demo</title>
+    <script src="https://cdn.plot.ly/plotly-1.2.0.min.js"></script>
+    <script>
+      function plotSummary() {
+        var trace1 = {
+          x: ['Error', 'Warning', 'Debug', 'Info'],
+          y: [{{ error }}, {{ warning }}, {{ debug }}, {{ info }}],
+          name: 'Worker/Consumer Demo',
+          type: 'bar'
+        };
 
-<form method="post" action="/send">
-  <label>Message</label><input type="text" name="message"></input>
-  <br/>
-  <input type="submit"></input>
-</form>
+        var data = [trace1];
 
-<h1>Queue Length</h1>
-<p>Current queue length is approximately: {{ length }}</p>
+        var layout = {barmode: 'group'};
 
-<h1>Summary Data</h1>
-<table>
-  <tr>
-    <th>Event</th>
-    <th>Count</th>
-  </tr>
-  <tr>
-    <td>Errors</td>
-    <td>{{ error }}</td>
-  </tr>
-  <tr>
-    <td>Warnings</td>
-    <td>{{ warning }}</td>
-  </tr>
-  <tr>
-    <td>Infos</td>
-    <td>{{ info }}</td>
-  </tr>
-  <tr>
-    <td>Debugs</td>
-    <td>{{ debug }}</td>
-  </tr>
-  <tr>
-    <td>Incorrect Answers</td>
-    <td>{{ incorrect }}</td>
-  </tr>
-  <tr>
-    <td>Correct Answers</td>
-    <td>{{ correct }}</td>
-  </tr>
-  <tr>
-    <td>Other</td>
-    <td>{{ other }}</td>
-  </tr>
-</table>
+        Plotly.newPlot('summaryChart', data, layout);
+      }
 
-<!--
-<h1>Most recent Unprocessed Messages</h1>
-<ul>
-{% for message in messages %}
-  <li>{{ message }}</li>
-{% endfor %}
-</ul>
--->
+      function plotQueueChart() {
+        function iteration() {
+          setTimeout(iteration, 1000);
+          document.getElementById("queueLength").innerHTML = "{{ length }}";
+        }
+        
+        iteration();
+      }
+    </script>
+  </head
+   <body>
+    <title>ACS Logging Demo</title>
+
+    <form method="post" action="/send">
+      <label>Message</label><input type="text" name="message"></input>
+      <br/>
+      <input type="submit"></input>
+    </form>
+    
+    <h1>Queue Length: <span id="queueLength">Unknown</span></h1>
+    
+    <h2>Summary Data</h2>
+    <div id="summaryChart" style="width: 480px; height: 400px;"><!-- Plotly chart will be drawn inside this DIV --></div>
+    
+    </table>
+    
+    <!--
+	<h1>Most recent Unprocessed Messages</h1>
+	<ul>
+	  {% for message in messages %}
+	  <li>{{ message }}</li>
+	  {% endfor %}
+	</ul>
+	-->
+
+    <script>
+      plotSummary();
+      plotQueueChart();
+    </script>
+  </body>
+</html>
