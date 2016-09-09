@@ -28,32 +28,43 @@
         iteration();
       }
     </script>
+    <style type="text/css">
+      #wrap {
+        width: 100%
+        margin: 0 auto;
+      }
+      #left-col {
+        float: left;
+        width: 30%;
+      }
+      #right-col {
+        float: right;
+        width: 68%;
+        height: 600px;      
+      }
+      </style>
   </head
    <body>
     <title>ACS Logging Demo</title>
 
-    <form method="post" action="/send">
-      <label>Message</label><input type="text" name="message"></input>
-      <br/>
-      <input type="submit"></input>
-    </form>
+    <div id="wrap">
+      <div id="left-col">
+	<form method="post" action="/send">
+	  <label>Message</label><input type="text" name="message"></input>
+	  <input type="submit"></input>
+	</form>
     
-    <h1>Queue Length: <span id="queueLength">Unknown</span></h1>
+	<h1>Queue Length: <span id="queueLength">Unknown</span></h1>
     
-    <h2>Summary Data</h2>
-    <div id="summaryChart" style="width: 480px; height: 400px;"><!-- Plotly chart will be drawn inside this DIV --></div>
+	<h2>Summary Data</h2>
+	<div id="summaryChart" style="width: 480px; height: 400px;"><!-- Plotly chart will be drawn inside this DIV --></div>
+      </div>
+      
+      <div id="right-col">
+	<iframe src="http://leader.mesos/service/marathon" height="100%" width="100%"></iframe>
+      </div>
+    </div>
     
-    </table>
-    
-    <!--
-	<h1>Most recent Unprocessed Messages</h1>
-	<ul>
-	  {% for message in messages %}
-	  <li>{{ message }}</li>
-	  {% endfor %}
-	</ul>
-	-->
-
     <script>
       plotSummary();
       plotQueueChart();
