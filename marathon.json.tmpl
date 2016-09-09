@@ -207,7 +207,60 @@
                 "lastScalingAt": "2016-09-08T02:58:23.540Z",
                 "lastConfigChangeAt": "2016-09-06T06:13:19.781Z"
             }
-        }
+        },
+	{
+	    "id": "/microscaling/web",
+	    "cmd": null,
+	    "cpus": 0.2,
+	    "mem": 128,
+	    "disk": 0,
+	    "instances": 1,
+	    "acceptedResourceRoles": [
+		"slave_public"
+	    ],
+	    "container": {
+		"type": "DOCKER",
+		"volumes": [],
+		"docker": {
+		    "image": "rgardler/acs-logging-test-web",
+		    "network": "BRIDGE",
+		    "portMappings": [
+			{
+			    "containerPort": 80,
+			    "hostPort": 80,
+			    "servicePort": 10003,
+			    "protocol": "tcp",
+			    "name": "web",
+			    "labels": {}
+			}
+		    ],
+		    "privileged": false,
+		    "parameters": [],
+		    "forcePullImage": true
+		}
+	    },
+	    "env": {
+	       "AZURE_LOGGING_QUEUE_TYPE": "AzureStorageQueue",
+                "ANALYZER_KEEP_RUNNING": "True",
+                "SLACK_ERROR_CHANNEL": "general",
+                "AZURE_STORAGE_QUEUE_NAME": "FIXME...",
+                "AZURE_STORAGE_SUMMARY_TABLE_NAME": "FIXME...",
+                "SLACK_GENERAL_CHANNEL": "general",
+                "SIMULATION_ACTIONS": "0",
+                "SIMULATION_DELAY": "1",
+                "AZURE_STORAGE_ACCOUNT_NAME": "FIXME...",
+                "SLACK_INFO_CHANNEL": "general",
+                "AZURE_STORAGE_ACCOUNT_KEY": "FIXME...",
+                "SLACK_WEBHOOK": "FIXME..."
+            },
+	    "portDefinitions": [
+		{
+		    "port": 10003,
+		    "protocol": "tcp",
+		    "labels": {}
+		}
+	    ]
+	}
     ],
     "groups": []
 }
