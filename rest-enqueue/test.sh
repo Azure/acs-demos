@@ -1,9 +1,11 @@
-echo "#### building producer"
+# This is not a real test suite, just a lazy convenience when developing
+
+echo "#### building rest-enqueue"
 echo
 docker build -t rgardler/acs-logging-test-rest-enqueue:test .
 
 echo
-echo "#### running producer"
+echo "#### running rest-enqueue"
 echo
 id=$(docker run -d -p 5000:5000 --env-file ../env.conf rgardler/acs-logging-test-rest-enqueue:test)
 sleep 2
@@ -27,11 +29,11 @@ echo
 docker run --env-file ../env.conf rgardler/acs-logging-test-cli length
 
 echo
-echo "#### stop producer"
+echo "#### stop rest-enqueue"
 echo
 docker stop $id
 
 echo
-echo "####  producer logs"
+echo "####  rest-enqueue logs"
 echo
 docker logs $id
