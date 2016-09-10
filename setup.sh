@@ -6,5 +6,6 @@ docker build -t rgardler/acs-logging-test-rest-enqueue rest-enqueue
 docker build -t rgardler/acs-logging-test-analyze analyze_logs
 docker build -t rgardler/acs-logging-test-cli cli
 docker build -t rgardler/acs-logging-test-microscaling microscaling
+docker build -t rgardler/acs-logging-test-master-proxy master-proxy
 docker build -t rgardler/acs-logging-test-halo-pull halo_pull
 

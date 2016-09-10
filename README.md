@@ -6,11 +6,19 @@ to perform a specific function. The main containers are:
 
   * logging_base - the container on which all other containers are
     based
-  * simulate_logging - a container that simluates a period of logging activity, writes log items into the queue
+  * simulate_logging - a container that simluates a period of logging
+    activity, writes log items into the queue
   * rest_enqueue - provides a REST API for adding messages to the queue
   * analyze_logs - reads log queue and creates summary log data
-  * microscaling - an autoscaler that scales te analyer up and down depending on the amount of work needed
-  * cli - a simple CLI tool for working with the data produced by the simulateion and he analyzer
+  * microscaling - an autoscaler that scales te analyer up and down
+    depending on the amount of work needed
+  * web - a simple Web UI that shows the status of the queue and
+    summary table. If the master-proxy is also available this page
+    will also show the management UI for the cluster.
+  * master-proxy - an INSECURE proxy that allows access to the cluster
+    masters without an SSH tunnel (use http://YOUR_FQDN:8080)
+  * cli - a simple CLI tool for working with the data produced by the
+    simulateion and he analyzer
 
 At present it uses Azure Storage Queues and Tables.
 
@@ -25,6 +33,10 @@ it and write some summary data to a table.
 
 [Optionally - DC/OS only] a "microscaler" scales the consumers up/down
 in response to the amount of work in the queue.
+
+[Optionally] - A web interface that shows the current status of the
+queue and summary table, along with INSECURE access to the cluster
+(note this will only work if the master-proxy is running)
 
 [Optionally] The CLI is used to query the state of the queue and table
 

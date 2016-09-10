@@ -1,7 +1,7 @@
 {
     "id": "/microscaling",
     "dependencies": [],
-    "version": "2016-09-08T05:35:55.221Z",
+    "version": "2016-09-10T03:53:28.242Z",
     "apps": [
         {
             "id": "/microscaling/analyzer",
@@ -12,16 +12,16 @@
                 "AZURE_LOGGING_QUEUE_TYPE": "AzureStorageQueue",
                 "ANALYZER_KEEP_RUNNING": "True",
                 "SLACK_ERROR_CHANNEL": "general",
-                "AZURE_STORAGE_QUEUE_NAME": "FIXME....",
-                "AZURE_STORAGE_SUMMARY_TABLE_NAME": "FIXME....",
+                "AZURE_STORAGE_QUEUE_NAME": "acsloggingdev",
+                "AZURE_STORAGE_SUMMARY_TABLE_NAME": "acsloggingdev",
                 "SLACK_GENERAL_CHANNEL": "general",
-                "AZURE_STORAGE_ACCOUNT_NAME": "FIXME....",
+                "AZURE_STORAGE_ACCOUNT_NAME": "acstests",
                 "SLACK_INFO_CHANNEL": "general",
-                "AZURE_STORAGE_ACCOUNT_KEY": "FIXME....",
-                "SLACK_WEBHOOK": "FIXME....",
+                "AZURE_STORAGE_ACCOUNT_KEY": "YOUR_STORAGE_ACCOUNT_KEY",
+                "SLACK_WEBHOOK": "YOUR_SLACK_WEBHOOK",
                 "ANALYZER_SLEEP_TIME": "1"
             },
-            "instances": 11,
+            "instances": 1,
             "cpus": 0.16,
             "mem": 128,
             "disk": 0,
@@ -65,11 +65,80 @@
             "labels": {},
             "acceptedResourceRoles": null,
             "ipAddress": null,
-            "version": "2016-09-08T05:35:55.221Z",
+            "version": "2016-09-10T01:15:00.202Z",
             "residency": null,
             "versionInfo": {
-                "lastScalingAt": "2016-09-08T05:35:55.221Z",
+                "lastScalingAt": "2016-09-10T01:15:00.202Z",
                 "lastConfigChangeAt": "2016-09-08T02:19:33.998Z"
+            }
+        },
+        {
+            "id": "/microscaling/master-proxy",
+            "cmd": null,
+            "args": null,
+            "user": null,
+            "env": {},
+            "instances": 1,
+            "cpus": 0.2,
+            "mem": 128,
+            "disk": 0,
+            "executor": "",
+            "constraints": [],
+            "uris": [],
+            "fetch": [],
+            "storeUrls": [],
+            "ports": [
+                10004
+            ],
+            "portDefinitions": [
+                {
+                    "port": 10004,
+                    "protocol": "tcp",
+                    "labels": {}
+                }
+            ],
+            "requirePorts": false,
+            "backoffSeconds": 1,
+            "backoffFactor": 1.15,
+            "maxLaunchDelaySeconds": 3600,
+            "container": {
+                "type": "DOCKER",
+                "volumes": [],
+                "docker": {
+                    "image": "rgardler/acs-logging-test-master-proxy",
+                    "network": "BRIDGE",
+                    "portMappings": [
+                        {
+                            "containerPort": 8080,
+                            "hostPort": 8080,
+                            "servicePort": 10004,
+                            "protocol": "tcp",
+                            "name": "8080",
+                            "labels": {}
+                        }
+                    ],
+                    "privileged": false,
+                    "parameters": [],
+                    "forcePullImage": true
+                }
+            },
+            "healthChecks": [],
+            "readinessChecks": [],
+            "dependencies": [],
+            "upgradeStrategy": {
+                "minimumHealthCapacity": 1,
+                "maximumOverCapacity": 1
+            },
+            "labels": {},
+            "acceptedResourceRoles": [
+                "slave_public"
+            ],
+            "ipAddress": null,
+            "version": "2016-09-10T03:20:25.682Z",
+            "residency": null,
+            "versionInfo": {
+                "lastScalingAt": "2016-09-10T03:20:25.682Z",
+                "lastConfigChangeAt": "2016-09-10T03:20:25.682Z"
             }
         },
         {
@@ -80,12 +149,12 @@
             "env": {
                 "AZURE_LOGGING_QUEUE_TYPE": "AzureStorageQueue",
                 "SLACK_ERROR_CHANNEL": "general",
-                "AZURE_STORAGE_QUEUE_NAME": "FIXME...",
+                "AZURE_STORAGE_QUEUE_NAME": "acsloggingdev",
                 "SLACK_GENERAL_CHANNEL": "general",
-                "AZURE_STORAGE_ACCOUNT_NAME": "FIXME...",
+                "AZURE_STORAGE_ACCOUNT_NAME": "acstests",
                 "SLACK_INFO_CHANNEL": "general",
-                "AZURE_STORAGE_ACCOUNT_KEY": "FIXME...",
-                "SLACK_WEBHOOK": "FIXME..."
+                "AZURE_STORAGE_ACCOUNT_KEY": "YOUR_STORAGE_ACCOUNT_KEY",
+                "SLACK_WEBHOOK": "YOUR_SLACK_WEBHOOK"
             },
             "instances": 1,
             "cpus": 0.15,
@@ -147,17 +216,17 @@
                 "AZURE_LOGGING_QUEUE_TYPE": "AzureStorageQueue",
                 "ANALYZER_KEEP_RUNNING": "True",
                 "SLACK_ERROR_CHANNEL": "general",
-                "AZURE_STORAGE_QUEUE_NAME": "FIXME...",
-                "AZURE_STORAGE_SUMMARY_TABLE_NAME": "FIXME...",
+                "AZURE_STORAGE_QUEUE_NAME": "acsloggingdev",
+                "AZURE_STORAGE_SUMMARY_TABLE_NAME": "acsloggingdev",
                 "SLACK_GENERAL_CHANNEL": "general",
                 "SIMULATION_ACTIONS": "0",
                 "SIMULATION_DELAY": "1",
-                "AZURE_STORAGE_ACCOUNT_NAME": "FIXME...",
+                "AZURE_STORAGE_ACCOUNT_NAME": "acstests",
                 "SLACK_INFO_CHANNEL": "general",
-                "AZURE_STORAGE_ACCOUNT_KEY": "FIXME...",
-                "SLACK_WEBHOOK": "FIXME..."
+                "AZURE_STORAGE_ACCOUNT_KEY": "YOUR_STORAGE_ACCOUNT_KEY",
+                "SLACK_WEBHOOK": "YOUR_SLACK_WEBHOOK"
             },
-            "instances": 2,
+            "instances": 0,
             "cpus": 0.2,
             "mem": 128,
             "disk": 0,
@@ -201,67 +270,94 @@
             "labels": {},
             "acceptedResourceRoles": null,
             "ipAddress": null,
-            "version": "2016-09-08T02:58:23.540Z",
+            "version": "2016-09-10T01:13:28.834Z",
             "residency": null,
             "versionInfo": {
-                "lastScalingAt": "2016-09-08T02:58:23.540Z",
+                "lastScalingAt": "2016-09-10T01:13:28.834Z",
                 "lastConfigChangeAt": "2016-09-06T06:13:19.781Z"
             }
         },
-	{
-	    "id": "/microscaling/web",
-	    "cmd": null,
-	    "cpus": 0.2,
-	    "mem": 128,
-	    "disk": 0,
-	    "instances": 1,
-	    "acceptedResourceRoles": [
-		"slave_public"
-	    ],
-	    "container": {
-		"type": "DOCKER",
-		"volumes": [],
-		"docker": {
-		    "image": "rgardler/acs-logging-test-web",
-		    "network": "BRIDGE",
-		    "portMappings": [
-			{
-			    "containerPort": 80,
-			    "hostPort": 80,
-			    "servicePort": 10003,
-			    "protocol": "tcp",
-			    "name": "web",
-			    "labels": {}
-			}
-		    ],
-		    "privileged": false,
-		    "parameters": [],
-		    "forcePullImage": true
-		}
-	    },
-	    "env": {
-	       "AZURE_LOGGING_QUEUE_TYPE": "AzureStorageQueue",
+        {
+            "id": "/microscaling/web",
+            "cmd": null,
+            "args": null,
+            "user": null,
+            "env": {
+                "AZURE_LOGGING_QUEUE_TYPE": "AzureStorageQueue",
                 "ANALYZER_KEEP_RUNNING": "True",
                 "SLACK_ERROR_CHANNEL": "general",
-                "AZURE_STORAGE_QUEUE_NAME": "FIXME...",
-                "AZURE_STORAGE_SUMMARY_TABLE_NAME": "FIXME...",
+                "AZURE_STORAGE_QUEUE_NAME": "acsloggingdev",
+                "AZURE_STORAGE_SUMMARY_TABLE_NAME": "acsloggingdev",
                 "SLACK_GENERAL_CHANNEL": "general",
-                "SIMULATION_ACTIONS": "0",
-                "SIMULATION_DELAY": "1",
-                "AZURE_STORAGE_ACCOUNT_NAME": "FIXME...",
+                "AZURE_STORAGE_ACCOUNT_NAME": "acstests",
                 "SLACK_INFO_CHANNEL": "general",
-                "AZURE_STORAGE_ACCOUNT_KEY": "FIXME...",
-                "SLACK_WEBHOOK": "FIXME..."
+                "AZURE_STORAGE_ACCOUNT_KEY": "YOUR_STORAGE_ACCOUNT_KEY",
+                "SLACK_WEBHOOK": "YOUR_SLACK_WEBHOOK",
+                "ANALYZER_SLEEP_TIME": "1"
             },
-	    "portDefinitions": [
-		{
-		    "port": 10003,
-		    "protocol": "tcp",
-		    "labels": {}
-		}
-	    ]
-	}
+            "instances": 1,
+            "cpus": 0.2,
+            "mem": 128,
+            "disk": 0,
+            "executor": "",
+            "constraints": [],
+            "uris": [],
+            "fetch": [],
+            "storeUrls": [],
+            "ports": [
+                10003
+            ],
+            "portDefinitions": [
+                {
+                    "port": 10003,
+                    "protocol": "tcp",
+                    "labels": {}
+                }
+            ],
+            "requirePorts": false,
+            "backoffSeconds": 1,
+            "backoffFactor": 1.15,
+            "maxLaunchDelaySeconds": 3600,
+            "container": {
+                "type": "DOCKER",
+                "volumes": [],
+                "docker": {
+                    "image": "rgardler/acs-logging-test-web",
+                    "network": "BRIDGE",
+                    "portMappings": [
+                        {
+                            "containerPort": 80,
+                            "hostPort": 80,
+                            "servicePort": 10003,
+                            "protocol": "tcp",
+                            "name": "80",
+                            "labels": {}
+                        }
+                    ],
+                    "privileged": false,
+                    "parameters": [],
+                    "forcePullImage": true
+                }
+            },
+            "healthChecks": [],
+            "readinessChecks": [],
+            "dependencies": [],
+            "upgradeStrategy": {
+                "minimumHealthCapacity": 1,
+                "maximumOverCapacity": 1
+            },
+            "labels": {},
+            "acceptedResourceRoles": [
+                "slave_public"
+            ],
+            "ipAddress": null,
+            "version": "2016-09-10T03:53:28.242Z",
+            "residency": null,
+            "versionInfo": {
+                "lastScalingAt": "2016-09-10T03:53:28.242Z",
+                "lastConfigChangeAt": "2016-09-10T02:25:27.565Z"
+            }
+        }
     ],
     "groups": []
 }
-

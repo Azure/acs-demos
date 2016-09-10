@@ -27,6 +27,10 @@
         
         iteration();
       }
+
+      function getMasterURL() {
+        return 
+      }
     </script>
     <style type="text/css">
       #wrap {
@@ -61,13 +65,14 @@
       </div>
       
       <div id="right-col">
-	<iframe src="http://localhost/service/marathon" height="100%" width="100%"></iframe>
+	<iframe id="manage-containers" height="100%" width="100%"></iframe>
       </div>
     </div>
     
     <script>
       plotSummary();
       plotQueueChart();
+      document.getElementById('manage-containers').src = "http://" + window.location.hostname + ":8080/service/marathon/ui/#/group/%2Fmicroscaling";
     </script>
   </body>
 </html>
