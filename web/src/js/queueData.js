@@ -16,16 +16,27 @@ function plotQueue(queueId) {
     function updateLength() {
         queueEndpoint = "http://" + window.location.hostname + ":5555/queue/" + queueId;
         $.ajax({url: queueEndpoint, success: function(result){
-            $("#queueLength").text(result.length);
+            $("#queueLength").text(result.queuelength);
+	    if (typeof dataX == 'undefined') {
+		dataX = [0];
+		dataY = [0];
+	    } else {
+		dataX.push(dataX.length + 1);
+		dataY.push(result.queue_length);
+	    }
+	    trace = {
+		x: dataX,
+		y: dataY,
+		type: 'scatter'
+	    };
+	    var data = [trace];
+	    Plotly.newPlot('lengthChart', data);
+	    setTimeout(function() {
+		updateLength(queueId);
+	    }, 1000);
         }});
-	
-        length = Math.random()
-        
-        setTimeout(function() {
-	    updateLength(queueId);
-	}, 1000);
     }
-    
+
     updateLength();
 }
 
