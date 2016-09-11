@@ -8,7 +8,10 @@ to perform a specific function. The main containers are:
     based
   * simulate_logging - a container that simluates a period of logging
     activity, writes log items into the queue
-  * rest_enqueue - provides a REST API for adding messages to the queue
+  * rest-enqueue - provides a REST API for adding messages to the
+    queue. At present this is not visible to the public internet.
+  * rest-query - provides a REST API for querying the state of the
+    application data. This is accessible on port 8080.
   * analyze_logs - reads log queue and creates summary log data
   * microscaling - an autoscaler that scales te analyer up and down
     depending on the amount of work needed
@@ -49,41 +52,38 @@ that are necessary.
 ## Running on Azure Container Service
 
 Create an
-[ACS cluster](https://azure.microsoft.com/en-us/documentation/articles/container-service-deployment/)
-and open up an
-[SSH tunnel](https://azure.microsoft.com/en-us/documentation/articles/container-service-connect/)
-to it. Then proceed as described in the section below "Running on DC/OS".
+[ACS cluster](https://azure.microsoft.com/en-us/documentation/articles/container-service-deployment/).
 
-Alternatively you can use the unnofficial
-[ACS CLI](https://github.com/rgardler/acs-cli).
-
-```
-acs service create
-acs app deploy --app-config=marathon.json
-```
-
-See the next section for details on how to create the marathon.json
-file.
-
-## Running on DC/OS
-
-Assuming you have a (DC/OS)[http://dcos.io] cluster available:
+For convenience we will use the unnofficial
+[ACS CLI](https://github.com/rgardler/acs-cli) to create and manage
+the cluster. We provide an example cluster config file in
+`acs-logging.ini`, you can use this or you can create your own using
+this as a template..
 
 Copy `marathon.json.tmpl` to `marathon.json` and replace all
 occurences of `FIXME... with appropriate values. Then deploy the
 application with.
 
-``` bash
-curl -X POST -d @marathon.json http://leader.mesos:8080/v2/groups 
+To create the cluster:
+
+```
+acs --config-file=acs-logging.ini service create
+acs --config-file=acs-logging.ini app deploy --app-config=marathon.json
 ```
 
-## Running the application locally
+### OPTIONAL: Open Rest API port
 
-You can run the complete application with `docker-compose up -d`.
+If you want to use the REST API from the public Internet then you will
+need to open port 5555 in your cluster. To do this with the cli tool
+run the following:
 
-### REST API
+``` bash
+acs --config-file=acs-logging.ini lb open --port=5555
+```
 
-To run the REST endpoint (if not already run with docker-compose):
+### REST Enqueue API
+
+To run the REST endpoint:
 
 `docker run -d -p 5000:5000 --env-file env.conf rgardler/acs-logging-test-rest-enqueue`
 
