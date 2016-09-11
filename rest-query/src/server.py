@@ -3,6 +3,7 @@ from messageQueue import Queue
 
 from flask import Flask, render_template
 from flask_restful import Resource, Api
+import time
 
 app = Flask(__name__)
 api = Api(app)
@@ -22,9 +23,11 @@ class QueueAPI(Resource):
 
         queue = self.getMessageQueue(queue_id)
         length = self.queue.getLength()
+        
         resp = {
             'queue_name': queue_id,
-            'length': length
+            'queue_length': length,
+            'time': time.strftime("%H:%M")
             }
         return resp
 
