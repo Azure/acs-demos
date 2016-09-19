@@ -16,14 +16,20 @@ function plotQueue(queueId) {
     function updateLength() {
         queueEndpoint = "http://" + window.location.hostname + ":5555/queue/" + queueId;
         $.ajax({url: queueEndpoint, success: function(result){
-            $("#queueLength").text(result.queue_length);
-	    $("#processing_time").text(result.last_duration);
+            $("#queue_length").text(result.queue_length);
+	    duration = parseFloat(result.last_duration);
+	    duration = Math.round(duration) / 1000;
+	    $("#processing_time").text(duration);
 	    if (typeof dataX == 'undefined') {
 		dataX = [0];
 		dataY = [0];
 	    } else {
 		dataX.push(dataX.length + 1);
 		dataY.push(result.queue_length);
+	    }
+	    if (dataX.length > 60) {
+		dataX = dataX.splice(1, dataX.length - 1)
+		dataY = dataY.splice(1, dataY.length - 1)
 	    }
 	    trace = {
 		x: dataX,
