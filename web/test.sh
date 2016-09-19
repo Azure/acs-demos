@@ -1,3 +1,5 @@
+# This is not a real test suite. It's more of a convenience when developing.
+
 echo "#### building web container"
 echo
 docker build -t rgardler/acs-logging-test-web:test .
@@ -5,27 +7,16 @@ docker build -t rgardler/acs-logging-test-web:test .
 echo
 echo "#### running web container"
 echo
-id=$(docker run -d -p 8000:80 --env-file ../env.conf rgardler/acs-logging-test-web:test)
+id=$(docker run -d -p 80:80 --env-file ../env.conf rgardler/acs-logging-test-web:test)
 sleep 2
 docker ps -l
 
 echo
 echo "#### check it's alive"
 echo
-curl http://localhost:8000
+curl http://localhost
 
-echo
-echo "#### enqueue a message"
-echo
-echo "BEFORE length"
-echo
-docker run --env-file ../env.conf rgardler/acs-logging-test-cli length
-curl -X POST -d "message=Test - Message from test harness" http://localhost:8000/send
-echo
-echo "AFTER length"
-echo
-docker run --env-file ../env.conf rgardler/acs-logging-test-cli length
-
+read -p "If the previous message is an HTML response from the server then it is listening on port 80. Hit return to close it down"
 
 echo
 echo "#### stop web container"

@@ -43,9 +43,9 @@ class Microscaler:
     
         # Increment count
         length = self.msgQueue.getLength()
-        instances = instances + int(length / 10)
+        new_instances = instances + 1 + int(length / 10)
 
-        self.scale(container["id"], instances)
+        self.scale(container["id"], new_instances)
 
     def scaleDown(self, container):
         """Scale health indicates that we need to scale down so reduce the
@@ -89,25 +89,20 @@ class Microscaler:
         
                 status = scale_health["status"]
                 now = time.time()
-                if self.last_scale_down_time < self.last_scale_up_time:
-                    time_since_last_scale = now - self.last_scale_down_time
+                if status <= -100:
+                    self.scaleDown(container)  
+                elif status >= 100:
+                    self.scaleUp(container)  
                 else:
-                    time_since_last_scale = now - self.last_scale_up_time
-                if time_since_last_scale > self.cool_off_period:
-                    if status < 0:
+                    if self.last_scale_down_time < self.last_scale_up_time:
                         time_since_last_scale = now - self.last_scale_down_time
-                        status = status - (time_since_last_scale * self.scale_factor)
-                    elif status > 0:
+                    else:
                         time_since_last_scale = now - self.last_scale_up_time
-                        status = status + (time_since_last_scale * self.scale_factor)
-
-                    msg = "Scale need for analyzer: " + str(status) + "\n (time since last scale = " + str(time_since_last_scale) + ", scale factor = " + str(self.scale_factor) + ", scale health from container = " + str(scale_health["status"]) + ")"
-                    notify.info(msg)
-            
-                if  status >= 100:
-                    self.scaleUp(container)
-                elif status <= -100:
-                    self.scaleDown(container)
+                    if time_since_last_scale > self.cool_off_period:
+                        if  status >= 100:
+                            self.scaleUp(container)
+                        elif status <= 0:
+                            self.scaleDown(container)
 
             time.sleep(5)
 

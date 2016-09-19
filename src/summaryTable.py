@@ -62,3 +62,28 @@ class SummaryTable:
             count = entries[0].total_count
 
         return count
+
+    def writeLastProcessingTime(self, processing_time):
+        entry = {'PartitionKey': "processing", "RowKey": "last", 'duration' : str(processing_time)}
+        self.table_service.insert_entity(self.table_name, entry)
+
+    def updateLastProcessingTime(self, processing_time):
+        last_time = self.table_service.query_entities(self.table_name, "PartitionKey eq 'processing' and RowKey eq 'last'")
+
+        entry = {"duration" : str(processing_time)}
+        self.table_service.update_entity(self.table_name, "processing", "last", entry)
+
+    def getLastProcessingTime(self):
+        """Gete the processing time for the last processed event."""
+        last = self.table_service.query_entities(self.table_name, "PartitionKey eq 'processing' and RowKey eq 'last'")
+
+        if len(last) == 0:
+            print("No last processing duration, creating record")
+            self.writeLastProcessingTime(0)
+            return 0
+        elif len(last) > 1:
+            raise Exception('We have more than one summary entry for last processing duration')
+        else:
+            duration = last[0].duration
+            print("Last processing duration: " + duration)
+            return duration

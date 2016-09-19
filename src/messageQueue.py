@@ -29,6 +29,9 @@ class Queue:
         else:
             self.log.error("Unknown queue type: " + queue_type)
 
+    def getName(self):
+        return self.queue_name
+        
     def createAzureQueues(self, account_name, account_key):
         """
         Create a queue for unprocessed log messages. Entries in the queue
@@ -47,7 +50,6 @@ class Queue:
             self.file_queue.close()
         else:
             self.log.error("Unknown queue type: " + queue_type)
-        
 
     def enqueue(self, msg):
         if self.queue_type == "LocalFile":

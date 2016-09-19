@@ -2,35 +2,15 @@
 <html lang="en">
   <head>
     <title>Simple Worker/Consumer Demo</title>
-    <script src="https://cdn.plot.ly/plotly-1.2.0.min.js"></script>
-    <script>
-      function plotSummary() {
-        var trace1 = {
-          x: ['Error', 'Warning', 'Debug', 'Info'],
-          y: [{{ error }}, {{ warning }}, {{ debug }}, {{ info }}],
-          name: 'Worker/Consumer Demo',
-          type: 'bar'
-        };
-
-        var data = [trace1];
-
-        var layout = {barmode: 'group'};
-
-        Plotly.newPlot('summaryChart', data, layout);
-      }
-
-      function plotQueueChart() {
-        function iteration() {
-          setTimeout(iteration, 1000);
-          document.getElementById("queueLength").innerHTML = "{{ length }}";
-        }
-        
-        iteration();
-      }
-
-      function getMasterURL() {
-        return 
-      }
+    <script type="text/javascript" src="https://cdn.plot.ly/plotly-1.2.0.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-3.1.0.min.js"></script>
+    <script type="text/javascript" src="/js/queueData.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function(){
+        <!-- plotSummary({{ error }}, {{ warning }}, {{ debug }}, {{ info }}); -->
+        plotQueue("{{ queue_name }}");
+        document.getElementById('manage-containers').src = "http://" + window.location.hostname + ":8080/service/marathon/ui/#/group/%2Fmicroscaling";
+      });
     </script>
     <style type="text/css">
       #wrap {
@@ -47,8 +27,8 @@
         height: 600px;      
       }
       </style>
-  </head
-   <body>
+  </head>
+  <body>
     <title>ACS Logging Demo</title>
 
     <div id="wrap">
@@ -58,21 +38,22 @@
 	  <input type="submit"></input>
 	</form>
     
-	<h1>Queue Length: <span id="queueLength">Unknown</span></h1>
-    
+	<h1>Queue Length: <span id="queue_length">Retrieving...</span></h1>
+	<h1>Processing Time: <span id="processing_time">Retrieving...</span> ms</h1>
+	<div id="lengthChart" style="width: 480px; height: 400px;">
+	  <!-- Plotly chart will be drawn inside this DIV -->
+	</div>
+
+	<!--
 	<h2>Summary Data</h2>
-	<div id="summaryChart" style="width: 480px; height: 400px;"><!-- Plotly chart will be drawn inside this DIV --></div>
+	<div id="summaryChart" style="width: 480px; height: 400px;">
+	</div>
+	-->
       </div>
       
-      <div id="right-col">
-	<iframe id="manage-containers" height="100%" width="100%"></iframe>
+      <div id="right-col">	
+<iframe id="manage-containers" height="100%" width="100%"></iframe>
       </div>
     </div>
-    
-    <script>
-      plotSummary();
-      plotQueueChart();
-      document.getElementById('manage-containers').src = "http://" + window.location.hostname + ":8080/service/marathon/ui/#/group/%2Fmicroscaling";
-    </script>
   </body>
 </html>
