@@ -27,7 +27,7 @@ class Analyzer:
   last_event_time = time.time()
   current_length = 0
   last_length = 0
-  max_length = 50  
+  max_length = 5  
   
   def __init__(self):
     self.log = Log()
@@ -52,6 +52,7 @@ class Analyzer:
     event_type = data["type"]
     now = time.time() * 1000.0
     duration = now - data["time"]
+    print("Duration of last event processing: " + str(duration))
     
     self.incrementCount(event_type)
     self.summary.updateLastProcessingTime(duration)
@@ -100,7 +101,7 @@ def scale_need():
     status = 100
   elif analyzer.current_length == 0:
       # queue is empty, scale down
-      status =-100
+      status = -100
   elif analyzer.current_length > analyzer.last_length:
       # queue is growing but it's still under max_length, consider scaling up
       status = 50
