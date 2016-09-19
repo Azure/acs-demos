@@ -18,7 +18,9 @@ def printSummary():
 
   table_service = getTableService() 
   queue_service = getQueueService()
-  summary = "Queue Length is approximately: " + str(queue_service.getLength()) + "\n\n"
+
+  summary = "Queue Length is approximately: " + str(queue_service.getLength()) + "\n"
+  summary = summary + "Processing of last event took: " + str(table_service.getLastProcessingTime()) + "ms\n\n"
   summary = summary + "Processed events:\n"
   summary = summary + "Errors: " + str(table_service.getCount("ERROR")) + "\n"
   summary = summary + "Warnings: " + str(table_service.getCount("WARNING")) + "\n"
