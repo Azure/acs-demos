@@ -5,6 +5,7 @@ import notify
 from log import Log
 from messageQueue import Queue
 
+import json
 import os
 import random
 import socket
@@ -15,6 +16,14 @@ import traceback
 _too_hot = 75
 _just_right = 70
 _too_cold = 68
+
+def get_payload(payload_type, message):
+  """Get the JSON payload to put into the queue"""
+  data = {}
+  data["type"] = payload_type
+  data["message"] = message
+  data["time"] = time.time() * 1000.0
+  return json.dumps(data)
 
 def simulate():
   log = Log()
@@ -40,23 +49,32 @@ def simulate():
       change = 1
     elif temp >= _too_hot:
       change = -1
-    msgQueue.enqueue("INFO - Change since last reading: " + str(change))
+
+    payload = get_payload("INFO", "Change since last reading: " + str(change))
+    msgQueue.enqueue(payload)
 
     temp = temp + change
-    msgQueue.enqueue("INFO - Current temperature: " + str(temp))
+    payload = get_payload("INFO", "Current temperature: " + str(temp))
+    msgQueue.enqueue(payload)
 
     if temp == _just_right:
-      msgQueue.enqueue("INFO - That's perfect")
+      payload = get_payload("INFO", "That's perfect")
+      msgQueue.enqueue(payload)
     elif temp < _just_right and temp > _too_cold:
-      msgQueue.enqueue('WARNING - Getting a little chilly')
+      payload = get_payload("WARNING", "getting a little chilly")
+      msgQueue.enqueue(payload)
     elif temp > _just_right and temp < _too_hot:
-      msgQueue.enqueue('WARNING - Getting a touch warm')
+      payload = get_payload('WARNING', 'Getting a touch warm')
+      msgQueue.enqueue(payload)
     elif temp <= _too_cold:
-      msgQueue.enqueue('ERROR - Too cold, how did this happen?')
+      payload = get_payload('ERROR', 'Too cold, how did this happen?')
+      msgQueue.enqueue(payload)
     elif temp >= _too_hot:
-      msgQueue.enqueue('ERROR - Too hot, how did this happen?')
+      payload = get_payload('ERROR', 'Too hot, how did this happen?')
+      msgQueue.enqueue(payload)
     else:
-      msgQueue.enqueue('ERROR - Can''t tell if it''s hot or cold')
+      payload = get_payload('ERROR' , 'Can''t tell if it''s hot or cold')
+      msgQueue.enqueue(payload)
 
     msgQueue.close()
 

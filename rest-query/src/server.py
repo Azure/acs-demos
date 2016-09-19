@@ -1,5 +1,6 @@
 import config
 from messageQueue import Queue
+from summaryTable import SummaryTable
 
 from flask import Flask, render_template
 from flask_restful import Resource, Api
@@ -23,14 +24,19 @@ class QueueAPI(Resource):
 
         queue = self.getMessageQueue(queue_id)
         length = self.queue.getLength()
+        duration = self.getTableService().getLastProcessingTime()
         
         resp = {
             'queue_name': queue_id,
             'queue_length': length,
+            'last_duration': duration,
             'time': time.strftime("%H:%M")
             }
         return resp
 
+    def getTableService(self):
+        return SummaryTable(config.AZURE_STORAGE_ACCOUNT_NAME, config.AZURE_STORAGE_ACCOUNT_KEY, config.AZURE_STORAGE_SUMMARY_TABLE_NAME)
+    
     def getMessageQueue(self, queue_id):
         self.queue = Queue(account_name = config.AZURE_STORAGE_ACCOUNT_NAME, account_key=config.AZURE_STORAGE_ACCOUNT_KEY, queue_name=queue_id)
     

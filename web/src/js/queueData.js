@@ -16,7 +16,8 @@ function plotQueue(queueId) {
     function updateLength() {
         queueEndpoint = "http://" + window.location.hostname + ":5555/queue/" + queueId;
         $.ajax({url: queueEndpoint, success: function(result){
-            $("#queueLength").text(result.queuelength);
+            $("#queueLength").text(result.queue_length);
+	    $("#LastDuration").text(result.processing_time);
 	    if (typeof dataX == 'undefined') {
 		dataX = [0];
 		dataY = [0];

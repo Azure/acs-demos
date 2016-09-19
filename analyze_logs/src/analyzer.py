@@ -45,18 +45,16 @@ class Analyzer:
     self.log.info(event_type + " count is now " + str(count))
 
   def processEvent(self, message):
-    msg = message.message_text
-
-    split = msg.find(" - ")
-    if (not split):
-      event_type = "OTHER"
-    else:
-      event_type = msg[:split]    
-      
     # Sleep to simulated a longer running process
     time.sleep(self.sleep_time)
 
+    data = json.loads(message.message_text)
+    event_type = data["type"]
+    now = time.time() * 1000.0
+    duration = now - data["time"]
+    
     self.incrementCount(event_type)
+    self.summary.updateLastProcessingTime(duration)
 
   def fullAnalysis(self):
     hostname = socket.gethostname()
@@ -79,9 +77,9 @@ class Analyzer:
               self.current_length = self.current_length - 1
               self.log.info("Counted and deleted: " + event.message_text)
             except:
-              e = sys.exc_info()[0]
-              self.log.error("Could not process: " + event.message_text + " because %s" % e)
-              traceback.print_exc(file=sys.stdout)
+              e = sys.exc_info()
+              self.log.error("Could not process: " + event.message_text + " because %s" % e[0])
+              self.log.error(traceback.format_tb(e[2]))
       time.sleep(self.sleep_time)   
 
 app = Flask(__name__)
