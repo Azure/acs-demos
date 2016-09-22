@@ -14,17 +14,13 @@
     </script>
     <style type="text/css">
       #wrap {
-        width: 100%
-        margin: 0 auto;
+        display: flex;
       }
       #left-col {
-        float: left;
-        width: 30%;
+        width: 320px;
       }
       #right-col {
-        float: right;
-        width: 68%;
-        height: 600px;      
+        flex: 1;
       }
       </style>
   </head>
@@ -33,14 +29,21 @@
 
     <div id="wrap">
       <div id="left-col">
+	<!-- Submit a message via the rest-enque service
 	<form method="post" action="/send">
 	  <label>Message</label><input type="text" name="message"></input>
 	  <input type="submit"></input>
 	</form>
-    
-	<h1>Queue Length: <span id="queue_length">Retrieving...</span></h1>
-	<h1>Processing Time: <span id="processing_time">Retrieving...</span> s</h1>
-	<div id="lengthChart" style="width: 480px; height: 400px;">
+	-->
+	
+	<h2>
+	  Queue Length: <span id="queue_length">Retrieving...</span>
+	</h2>
+	<h2>
+	  Processing Time: <span id="processing_time">Retrieving...</span> s
+	</h2>
+
+	<div id="lengthChart" style="width: 300px; height: 300px;">
 	  <!-- Plotly chart will be drawn inside this DIV -->
 	</div>
 

@@ -54,13 +54,7 @@ function plotQueue(queueId) {
 	    var data = [length, time];
 
 	    var layout = {
-		title:'Queue Length and Processing Duration',
-		xaxis: {
-		    title: 'time'
-		},
-		yaxis: {
-		    title: "Length and Time (s)"
-		}
+		showlegend: false
 	    };
 	    
 	    Plotly.newPlot('lengthChart', data, layout);
