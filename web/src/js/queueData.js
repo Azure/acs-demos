@@ -14,7 +14,9 @@ function plotSummary(error, warning, debug, info) {
 
 function plotQueue(queueId) {
     function updateLength() {
-        queueEndpoint = "http://" + window.location.hostname + ":5555/queue/" + queueId;
+	d = new Date();
+	now = d.getTime()
+        queueEndpoint = "http://" + window.location.hostname + ":5555/queue/" + queueId + "?time=" + now;
         $.ajax({url: queueEndpoint, success: function(result){
             $("#queue_length").text(result.queue_length);
 	    duration = parseFloat(result.last_duration);
