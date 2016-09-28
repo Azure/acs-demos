@@ -17,6 +17,10 @@ class Microscaler:
         {
             "id": "/microscaling/analyzer",
             "name": "analyzer-microscaling.marathon.slave.mesos"
+        },
+        {
+            "id": "/microscaling/batch",
+            "name": "batch-microscaling.marathon.slave.mesos"
         }
     ]
 
@@ -84,25 +88,28 @@ class Microscaler:
     def autoscale(self):
         while True:
             for container in self.containers:
-                resp = requests.get("http://" + container["name"] + ":5000")
-                scale_health = json.loads(resp.text)
+                try:
+                    resp = requests.get("http://" + container["name"] + ":5000")
+                    scale_health = json.loads(resp.text)
         
-                status = scale_health["status"]
-                now = time.time()
-                if status <= -100:
-                    self.scaleDown(container)  
-                elif status >= 100:
-                    self.scaleUp(container)  
-                else:
-                    if self.last_scale_down_time < self.last_scale_up_time:
-                        time_since_last_scale = now - self.last_scale_down_time
+                    status = scale_health["status"]
+                    now = time.time()
+                    if status <= -100:
+                        self.scaleDown(container)  
+                    elif status >= 100:
+                        self.scaleUp(container)  
                     else:
-                        time_since_last_scale = now - self.last_scale_up_time
-                    if time_since_last_scale > self.cool_off_period:
-                        if  status >= 100:
-                            self.scaleUp(container)
-                        elif status <= 0:
-                            self.scaleDown(container)
+                        if self.last_scale_down_time < self.last_scale_up_time:
+                            time_since_last_scale = now - self.last_scale_down_time
+                        else:
+                            time_since_last_scale = now - self.last_scale_up_time
+                        if time_since_last_scale > self.cool_off_period:
+                            if  status >= 100:
+                                self.scaleUp(container)
+                            elif status < 0:
+                                self.scaleDown(container)
+                except:
+                    self.log.debug("Error checking scale health of " + container["id"])
 
             time.sleep(5)
 
