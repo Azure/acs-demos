@@ -34,22 +34,26 @@ class Batch:
         queue = json.loads(resp.text)["queue"]
         isOtherWaiting = False
         isBatchWaiting = False
+        isBatchDelayed = False
         for item in queue:
             if item["app"]["id"] != "/microscaling/batch":
                 isOtherWaiting = True
-            else:
+            elif item["delay"]["overdue"]:
                 isBatchWaiting = True
+            else:
+                isBatchDelayed = True
                 
         status = 0
-        if isOtherWaiting:
+        if isOtherWaiting or isBatchDelayed:
             # A deployment is waiting for resources so this container should scale down
+            # or we can't deploy another batch container, so scale down the batch requests
             status = -100
         elif not isBatchWaiting:
             # There isn't a deployment of batch in the queue so lets add another
             status = 100
         else:
-            # We are already waiting for a new version of the batch job so don't request another
-            status = 0
+            # We are already waiting for a new version of the batch job so don't request another, but think about scaling down
+            status = -50
             
         hostname = socket.gethostname()
 
