@@ -46,8 +46,11 @@ class Microscaler:
         instances = app_data["app"]["instances"]
     
         # Increment count
-        length = self.msgQueue.getLength()
-        new_instances = instances + 1 + int(length / 10)
+        if container["id"] == "/microscaling/analyzer":
+            length = self.msgQueue.getLength()
+            new_instances = instances + 1 + int(length / 10)
+        else:
+            new_instances = instances + 1
 
         self.scale(container["id"], new_instances)
 
