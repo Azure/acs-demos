@@ -21,7 +21,7 @@ echo "#### enqueue a message"
 echo
 echo "GET Length"
 echo
-curl http://localhost:5000/queue/acsloggingdev
+curl -i http://localhost:5000/queue/acsloggingdev
 
 echo
 echo "#### stop rest-query"

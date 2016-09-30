@@ -3,10 +3,12 @@ from messageQueue import Queue
 from summaryTable import SummaryTable
 
 from flask import Flask, render_template
+from flask_cors import CORS, cross_origin
 from flask_restful import Resource, Api
 import time
 
 app = Flask(__name__)
+CORS(app)
 api = Api(app)
 
 class QueueAPI(Resource):
