@@ -7,6 +7,7 @@ docker build -t rgardler/acs-logging-test-rest-query rest-query
 docker build -t rgardler/acs-logging-test-analyze analyze_logs
 docker build -t rgardler/acs-logging-test-cli cli
 docker build -t rgardler/acs-logging-test-microscaling microscaling
+docker build -t rgardler/acs-logging-test-batch batch
 docker build -t rgardler/acs-logging-test-master-proxy master-proxy
 docker build -t rgardler/acs-logging-test-halo-pull halo_pull
 

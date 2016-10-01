@@ -27,7 +27,7 @@ class Analyzer:
   last_event_time = time.time()
   current_length = 0
   last_length = 0
-  max_length = 5  
+  max_length = 10
   
   def __init__(self):
     self.log = Log()
