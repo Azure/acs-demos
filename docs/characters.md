@@ -49,5 +49,5 @@ brother, Foo, who is equally as forgettable, but likable.
 
 Bar's special abliity is that she can dig deep into her energy
 reserves and keep going longer than most other characters. Bar gets a
-'+2' on Dexterity.
+'+2' on Stamina.
 					
