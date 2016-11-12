@@ -19,16 +19,15 @@ weight lifting. Each character has the following traits:
 		
   * Strength
   * Dexterity
-  * Intelligence
-  * Charisma
   * Reactions
+  * Speed
   * Stamina
+  * Precision
 					
 Characters have a number of points that can be distributed across
 these traits. They receive 10 point per trait currently in use in the
-game. Early versions of the game have 6 traits and thus each character
-has 60 points to distribute. These can be used in any way as long as
-each trait has at least one point assigned to it.
+game. These can be used in any way as long as each trait has at least
+one point assigned to it.
 					
 ## Example characters
 					

@@ -50,5 +50,9 @@ interaction. There is really no limit to what could be implemented.
 
 This section de3scribes random ideas about how the ganme might develop.
 
-  1. Equipment cards - these give characters specials boosts, for example, running shoes might increase speed by 1 point. FOr pole vault challenge there may be a special pole that gives +1 dexterity.
+  1. Equipment cards - these give characters specials boosts, for
+     example, running shoes might increase speed by 1 point. FOr pole
+     vault challenge there may be a special pole that gives +1
+     dexterity. Equipment is awarded when a players wins, for example,
+     10 wins may allow player to draw one equipment card.
 
