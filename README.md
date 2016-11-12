@@ -28,9 +28,10 @@ Challenge.
 
 ### Team Building
 
-Players will build teams from a range of charactrers. These characters
-will be entered into a series of competitions. The goal is to win as
-many of the competitions as possible.
+Players will build teams from a range of
+[charactrers](docs/characters.md). These characters will be entered
+into a series of competitions. The goal is to win as many of the
+competitions as possible.
 
 Each charactrer will have one special ability and a set of stats that
 determine how well they perform in the various competitions. For
@@ -45,11 +46,11 @@ will give them an advantage over other characters at the start of a
 competition while "Never Stumble" means that the character will never
 suffer from a fall while running.
 
-### Stats
+### Traits
 
 Players can customize their characters by assigning points to each of
-the character traits. Every character has the same fixed number of
-points to distribute across their traits.
+the character [traits](characters.md#traits). Every character has the
+same fixed number of points to distribute across their traits.
 
 ### Competitions
 
