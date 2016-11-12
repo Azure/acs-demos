@@ -65,5 +65,9 @@ traits. So, in the example of the 100m sprint the winner might be
 involve some random number generation, experience or user
 interaction. There is really no limit to what could be implemented.
 
+# Development Ideas
 
+This section de3scribes random ideas about how the ganme might develop.
+
+  1. Equipment cards - these give characters specials boosts, for example, running shoes might increase speed by 1 point. FOr pole vault challenge there may be a special pole that gives +1 dexterity.
 
