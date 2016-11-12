@@ -29,7 +29,7 @@ Challenge.
 ### Team Building
 
 Players will build teams from a range of
-[charactrers](docs/characters.md). These characters will be entered
+[characters](docs/characters.md). These characters will be entered
 into a series of competitions. The goal is to win as many of the
 competitions as possible.
 
@@ -49,8 +49,8 @@ suffer from a fall while running.
 ### Traits
 
 Players can customize their characters by assigning points to each of
-the character [traits](characters.md#traits). Every character has the
-same fixed number of points to distribute across their traits.
+the character [traits](docs/characters.md#traits). Every character has
+the same fixed number of points to distribute across their traits.
 
 ### Competitions
 
