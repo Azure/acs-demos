@@ -32,6 +32,12 @@ Here's some game ideas, listed in alphabetic order:
 3. [Sharks and Sands](../../wiki/Hen-Game::Sharks-and-Sands)
 	
 
+## PiSwarm: A Docker Swarm Cluster
+
+Card games have to be run somewhere, why not on a [Raspberry Pi
+Docker Swarm Cluster](docs/piswarm/index.md)?
+
+
 ## PiKube: A Kubernetes Cluster
 
 Card games have to be run somewhere, why not on a [Raspberry Pi
