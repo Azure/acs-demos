@@ -40,6 +40,20 @@ which is a Raspian based OS with Docker included.
 claims to make it easy to install a secure Kubernetes cluster on
 Ubuntu and HypriotOS.
 
+## Configuring Kubernetes
+
+### Demo Optimizations
+
+If you are going to use the cluster in demo's it is a good idea to
+[reduce the failure detection periods](https://medium.com/google-cloud/everything-you-need-to-know-about-the-kubernetes-raspberry-pi-cluster-2a2413bfa0fa#.3l4ot66dt)
+in the controller manager.
+
+# Building Containers
+
+A good place to start for your base images for containers is the
+[Hypriot provided image](https://hub.docker.com/u/hypriot/) on Docker
+Hub.
+
 # Resources
 
   * [Installing Kubernetes on Linux with kubeadm](http://kubernetes.io/docs/getting-started-guides/kubeadm/)
