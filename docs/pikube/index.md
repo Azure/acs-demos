@@ -53,4 +53,5 @@ Ubuntu and HypriotOS.
 ## Cases
 
   * [Lego](https://github.com/Project31/kubernetes-installer-rpi/wiki)
-  * [3D Printing](https://fuzzychef.smugmug.com/Computers/ContanersContainersContainers/i-p4c7Gjk/A)
+  * [3D Printing 1](http://www.thingiverse.com/thing:1307094)
+  * [3D Printing 2](https://fuzzychef.smugmug.com/Computers/ContanersContainersContainers/i-p4c7Gjk/A)
