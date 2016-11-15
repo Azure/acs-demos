@@ -16,8 +16,33 @@ Over time this will become a tutorial, for now it's a bunch of links
 to useful resources relating to building a Raspberry Pi cluster
 managed by Kubernetes.
 
+# Shopping List
+
+You will need:
+  
+  * At least 3 Raspberry Pi 3 Model B
+  * As many 8Gb SD-cards (Class 10) as you have Pis
+  * Ethernet Switch with as many ports as you have Pis
+  * 60W USB power supply with as many ports as you have Pis
+  * Stackable Pi Case (or build your own with Lego ;-)
+  * As many 1ft USB cables as you have Pis
+  * As many 1ft Ethernet cables as you have Pis
+
+# Configuring the Pis
+
+We will use
+[HypriotOS](http://blog.hypriot.com/getting-started-with-docker-on-your-arm-device/),
+which is a Raspian based OS with Docker included.
+
+# Installing Kubernetes
+
+[kubadm](http://kubernetes.io/docs/getting-started-guides/kubeadm/)
+claims to make it easy to install a secure Kubernetes cluster on
+Ubuntu and HypriotOS.
+
 # Resources
 
+  * [Installing Kubernetes on Linux with kubeadm](http://kubernetes.io/docs/getting-started-guides/kubeadm/)
   * [Creating a Raspberry Pi cluster running Kubernetes, the shopping list (Part 1)](http://blog.kubernetes.io/2015/11/creating-a-Raspberry-Pi-cluster-running-Kubernetes-the-shopping-list-Part-1.html)
   * [Creating a Raspberry Pi cluster running Kubernetes, the installation (Part 2) ](http://blog.kubernetes.io/2015/12/creating-raspberry-pi-cluster-running.html)
   * [Everything you need to know about the Kubernetes Raspberry Pi cluster](https://opensource.com/life/16/2/build-a-kubernetes-cloud-with-raspberry-pi)
