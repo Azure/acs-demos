@@ -27,9 +27,9 @@ source, so go do what you can with it.
 
 Here's some game ideas, listed in alphabetic order:
 
-1. [Narhumo](wiki/Narhumo-Rules)
+1. [Narhumo](../../wiki/Narhumo-Rules)
 2. [Olympics](docs/olympics/intro.md)
-3. [Sharks and ands](wiki/Hen-Game::Sharks-and-Sands)
+3. [Sharks and Sands](../../wiki/Hen-Game::Sharks-and-Sands)
 	
 
 ## PiKube: A Kubernetes Cluster
