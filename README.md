@@ -21,4 +21,5 @@ so go do what you can with it.
 
 # Games
 
-  1. [Olympics](docs/olympics/intro.md\)
+  1. [Olympics](docs/olympics/intro.md)
+
