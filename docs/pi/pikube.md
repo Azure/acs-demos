@@ -1,38 +1,6 @@
-Card games have to be run somewhere, why not on a Raspberry Pi
-Kubernetes Cluster?
-
-The Raspeberry Pi is a very cheap single board computer. Kubernetes is
-a container orchestrator. Why do we need it to run the games? Well, we
-don't, but it's a hardware and infrastrcuture project that some people
-might be interested in - who doesn't want to build their own data
-center? 
-
-By using Docker containers for the management of
-the application we make it easier for everyone to get
-involved. Finally, if we make it work on the Raspberry Pi we can make
-it work in the cloud too, if we wnat to.
-
-Over time this will become a tutorial, for now it's a bunch of links
-to useful resources relating to building a Raspberry Pi cluster
-managed by Kubernetes.
-
-# Shopping List
-
-You will need:
-  
-  * At least 3 Raspberry Pi 3 Model B
-  * As many 8Gb SD-cards (Class 10) as you have Pis
-  * Ethernet Switch with as many ports as you have Pis
-  * 60W USB power supply with as many ports as you have Pis
-  * Stackable Pi Case (or build your own with Lego ;-)
-  * As many 1ft USB cables as you have Pis
-  * As many 1ft Ethernet cables as you have Pis
-
-# Configuring the Pis
-
-We will use
-[HypriotOS](http://blog.hypriot.com/getting-started-with-docker-on-your-arm-device/),
-which is a Raspian based OS with Docker included.
+Once you have built your [cluster](cluster.md) it's time to install
+the orchestration software. You can use Kubernetes (this document) or
+[Docker Swarm](piswarm.md).
 
 # Installing Kubernetes
 

@@ -1,6 +1,6 @@
-As well as running the application in a [PiKube](../pikube/index/md)
-(Raspberry Pi with Kubernetes) we might want to run it in a PiSwarm
-(Raspberry Pi with Swarm). Here's how.
+Once you have built your [cluster](cluster.md) it's time to install
+the orchestration software. You can use Kubernetes (this document) or
+[Docker Swarm](piswarm.md).
 
 # Resources
 
