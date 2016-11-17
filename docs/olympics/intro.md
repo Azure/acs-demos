@@ -8,7 +8,7 @@ Challenge.
 ### Team Building
 
 Players will build teams from a range of
-[characters](docs/olympics/characters.md). These characters will be
+[characters](characters.md). These characters will be
 entered into a series of competitions. The goal is to win as many of
 the competitions as possible.
 
@@ -28,14 +28,14 @@ suffer from a fall while running.
 ### Traits
 
 Players can customize their characters by assigning points to each of
-the character [traits](docs/olympics/characters.md#traits). Every
+the character [traits](characters.md#traits). Every
 character has the same fixed number of points to distribute across
 their traits.
 
 ### Competitions
 
 There are many different kinds of
-[competitions](docs/olympics/competitions.md) that your characters can
+[competitions](competitions.md) that your characters can
 enter. Initially these will be based on the Olympics, but we should
 not restrict ourselves to the real world olympics. Imagination is
 important here.
