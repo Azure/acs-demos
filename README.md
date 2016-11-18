@@ -1,7 +1,7 @@
 # The Big Little Challenge
 
 The goal of this project is to introduce young and old programmers to
-open osurce collaboration while building a game. It's about fun and
+open source collaboration while building a game. It's about fun and
 learning. The code outputs are secondary. It's a playground with
 enough structure around it to provide common ground for participants.
 
