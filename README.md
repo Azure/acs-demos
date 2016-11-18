@@ -18,7 +18,7 @@ At the simplest level we are building card games. They are simple
 games. They aren't intended to be a AAA best seller, or even a bargain
 bin item. We are creating them for fun, so lets enjoy. 
 
-See our ['Generalized Description of Card Games'](wiki/Card-Game-Treatise).
+See our ['Generalized Description of Card Games'](../../wiki/Card-Game-Treatise).
 
 Of course, if we happen to produce something valuable it's open
 source, so go do what you can with it.
@@ -32,7 +32,19 @@ Here's some game ideas, listed in alphabetic order:
 3. [Sharks and Sands](../../wiki/Hen-Game::Sharks-and-Sands)
 	
 
-## PiKube: A Kubernetes Cluster
+## Hosting the game
+
+Since the game is deploye din Docker containers you can run the game
+anywhere that Docker containers can be run. However, it's much mroe
+fun to build your own data center and run it there:
+
+### PiSwarm: A Docker Swarm Cluster
 
 Card games have to be run somewhere, why not on a [Raspberry Pi
-Kubernetes Cluster](docs/pikube/index.md)?
+Docker Swarm Cluster](docs/pi/piswarm.md)?
+
+
+### PiKube: A Kubernetes Cluster
+
+Card games have to be run somewhere, why not on a [Raspberry Pi
+Kubernetes Cluster](docs/pi/pikube.md)?
