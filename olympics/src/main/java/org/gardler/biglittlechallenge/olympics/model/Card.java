@@ -1,23 +1,10 @@
 package org.gardler.biglittlechallenge.olympics.model;
 
-public class Card {
-	
-	String name;
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
+public class Card extends org.gardler.biglittlechallenge.core.model.Card {
 
 	public Card(String name) {
-		this.setName(name);
+		super(name);
 	}
 	
-	public String toString() {
-		return getName();
-	}
-
+  
 }

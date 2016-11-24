@@ -1,8 +1,8 @@
 package org.gardler.biglittlechallenge.olympics;
 
-import org.gardler.biglittlechallenge.olympics.model.Card;
 import org.gardler.biglittlechallenge.olympics.model.Deck;
 import org.gardler.biglittlechallenge.olympics.model.Player;
+import org.gardler.biglittlechallenge.olympics.model.Card;
 
 /**
  * Hello world!
