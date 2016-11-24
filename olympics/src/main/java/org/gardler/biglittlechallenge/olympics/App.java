@@ -16,12 +16,8 @@ public class App
     	
     	Deck deck = new Deck("Player 1 First Deck");
     	Card card = new Card("Foo");
-    	card.setProperty("suite", "Heart");
-    	card.setProperty("pips", "10");
     	deck.addCard(card);
     	card = new Card("Potato");
-    	card.setProperty("suite", "Spade");
-    	card.setProperty("pips", "1");
     	deck.addCard(card);
     	player1.setDeck(deck);
     	
