@@ -2,7 +2,7 @@ package org.gardler.biglittlechallenge.olympics.model;
 
 import java.util.Random;
 
-public class Card extends org.gardler.biglittlechallenge.core.model.Card {
+public class Character extends org.gardler.biglittlechallenge.core.model.Card {
 	
 	private static int NUM_OF_TRAITS = 6;
 	private static int POINTS_PER_TRAIT = 10;
@@ -13,7 +13,7 @@ public class Card extends org.gardler.biglittlechallenge.core.model.Card {
 	 * 
 	 * @param name
 	 */
-	public Card(String name) {
+	public Character(String name) {
 		super(name);
 		int assignedPoints = NUM_OF_TRAITS;
 		int allowedPoints = POINTS_PER_TRAIT * NUM_OF_TRAITS;

@@ -2,7 +2,7 @@ package org.gardler.biglittlechallenge.olympics;
 
 import org.gardler.biglittlechallenge.olympics.model.Deck;
 import org.gardler.biglittlechallenge.olympics.model.Player;
-import org.gardler.biglittlechallenge.olympics.model.Card;
+import org.gardler.biglittlechallenge.olympics.model.Character;
 
 /**
  * Hello world!
@@ -15,17 +15,17 @@ public class App
     	Player player1 = new Player("Player One");
     	
     	Deck deck = new Deck("Player 1 First Deck");
-    	Card card = new Card("Foo");
+    	Character card = new Character("Foo");
     	deck.addCard(card);
-    	card = new Card("Potato");
+    	card = new Character("Potato");
     	deck.addCard(card);
     	player1.setDeck(deck);
     	
     	Player player2 = new Player("Player Two");
     	deck = new Deck("Player 2 First Deck");
-    	card = new Card("Foo");
+    	card = new Character("Foo");
     	deck.addCard(card);
-    	card = new Card("Pie");
+    	card = new Character("Pie");
     	deck.addCard(card);
     	player2.setDeck(deck);
     	
