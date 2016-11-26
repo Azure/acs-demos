@@ -10,16 +10,25 @@ import org.gardler.biglittlechallenge.olympics.model.Player;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public abstract class AbstractEvent {
+public class Event {
 
 	protected List<Player> players;
 	protected Player winner = null;
 	protected String name;
+	private LinkedHashMap<String, Double> ratingFormula;
 
-	private static Logger logger = LoggerFactory.getLogger(AbstractEvent.class);
+	private static Logger logger = LoggerFactory.getLogger(Event.class);
 
-	public AbstractEvent(String name, List<Player> players) {
+	/**
+	 * Create a new Event.
+	 * 
+	 * @param name of the event
+	 * @param formula for calculating the ratings of characters in this event (see getRatingForumla)
+	 * @param players the players that will participate in this event
+	 */
+	public Event(String name, LinkedHashMap<String, Double> formula, List<Player> players) {
 		this.name = name;
+		this.ratingFormula = formula;
 		this.players = players;
 	}
 	
@@ -64,8 +73,10 @@ public abstract class AbstractEvent {
 	 * <"Speed", 1.0>
 	 * <"Reactions", 0.5>
 	 */
-	protected abstract LinkedHashMap<String, Double> getRatingFormula();
-
+	protected LinkedHashMap<String, Double> getRatingFormula() {
+		return this.ratingFormula;
+	}
+	
 	/**
 	 * Calculate a characters rating in this event.
 	 */

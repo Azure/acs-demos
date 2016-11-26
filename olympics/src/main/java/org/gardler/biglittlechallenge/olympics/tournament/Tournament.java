@@ -1,11 +1,10 @@
 package org.gardler.biglittlechallenge.olympics.tournament;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import org.gardler.biglittlechallenge.olympics.model.Player;
-import org.gardler.biglittlechallenge.olympics.tournament.event.Track100m;
-import org.gardler.biglittlechallenge.olympics.tournament.event.Track8000m;
 
 /**
  * A Tournament is a single game of Olympics. It consists of a number of events.
@@ -14,11 +13,21 @@ import org.gardler.biglittlechallenge.olympics.tournament.event.Track8000m;
  */
 public class Tournament {
 	
-	List<AbstractEvent> events = new ArrayList<AbstractEvent>();
+	List<Event> events = new ArrayList<Event>();
 
 	public Tournament(List<Player> players) {
-    	events.add(new Track100m(players));
-    	events.add(new Track8000m(players));
+		LinkedHashMap<String, Double> formula = new LinkedHashMap<String, Double>();
+		formula.put("Speed", 1.0);
+		formula.put("Reactions", 0.5);
+		Event event = new Event("Track: 100m Sprint", formula, players);
+    	events.add(event);
+    	
+		formula = new LinkedHashMap<String, Double>();
+		formula.put("Stamina", 1.0);
+		formula.put("Speed", 0.25);
+		formula.put("Dexterity", 1.0);
+		event = new Event("Track: 8000m", formula, players);
+    	events.add(event);
 	}
 	
 	public void start() {
