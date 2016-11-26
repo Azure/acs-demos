@@ -1,5 +1,8 @@
 package org.gardler.biglittlechallenge.olympics;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.gardler.biglittlechallenge.olympics.ai.DumbPlayer;
 import org.gardler.biglittlechallenge.olympics.model.Player;
 import org.gardler.biglittlechallenge.olympics.tournament.Tournament;
@@ -21,12 +24,12 @@ public class App
     {
         logger.debug("Starting the Olympics card game.");
         
-    	DumbPlayer player1 = new DumbPlayer("AI Player One");
-    	DumbPlayer player2 = new DumbPlayer("AI Player Two");
-    	DumbPlayer player3 = new DumbPlayer("AI Player Three");
-    	DumbPlayer player4 = new DumbPlayer("AI Player Four");
-    	DumbPlayer player5 = new DumbPlayer("AI Player Five");
-    	Player[] players = { player1, player2, player3, player4, player5 };
+    	List<Player> players = new ArrayList<Player>();
+    	players.add(new DumbPlayer("AI Player One"));
+    	players.add(new DumbPlayer("AI Player Two"));
+    	players.add(new DumbPlayer("AI Player Three"));
+    	players.add(new DumbPlayer("AI Player Four"));
+    	players.add(new DumbPlayer("AI Player Five"));
     	
     	Tournament tournament = new Tournament(players);
     	tournament.start();

@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 
 public class Track100m extends Event {
 	
-	Player[] players;
+	List<Player> players;
 	
 	private static Logger logger = LoggerFactory.getLogger(Track100m.class);
 	
@@ -19,7 +19,7 @@ public class Track100m extends Event {
 	 * Create a new tournament involving the players provided.
 	 * @param players
 	 */
-	public Track100m(Player[] players) {
+	public Track100m(List<Player> players) {
 		this.players = players;
 	}
 	
@@ -32,9 +32,9 @@ public class Track100m extends Event {
 		List <Character> characters = new ArrayList<Character>();
 		List <Integer> ratings = new ArrayList<Integer>();
 		
-		int numOfPlayers = players.length;
+		int numOfPlayers = players.size();
 		for (int i = 0; i < numOfPlayers; i++) {
-			Character character = players[i].playCharacter();
+			Character character = players.get(i).playCharacter();
 			characters.add(character);
 			Integer rating = character.getSpeed() + character.getReactions();
 			ratings.add(rating);
@@ -45,7 +45,7 @@ public class Track100m extends Event {
     	for (int i = 0; i < numOfPlayers; i++ ) {
     		if (highestRating < ratings.get(i)) {
     			highestRating = ratings.get(i);
-    			winner = players[i];
+    			winner = players.get(i);
     		}
     	}
 

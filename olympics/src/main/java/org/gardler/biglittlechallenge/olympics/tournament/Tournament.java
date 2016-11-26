@@ -16,7 +16,7 @@ public class Tournament {
 	
 	List<Event> events = new ArrayList<Event>();
 
-	public Tournament(Player[] players) {
+	public Tournament(List<Player> players) {
     	events.add(new Track100m(players));
     	events.add(new Track8000m(players));
 	}
