@@ -30,6 +30,10 @@ public class Event {
 		this.ratingFormula = formula;
 	}
 	
+	public String getName() {
+		return this.name;
+	}
+	
     /**
      * Play the event (hand).
      * 
@@ -38,13 +42,15 @@ public class Event {
 	protected void playHand(List<Player> players) {
 		List <Character> characters = new ArrayList<Character>();
 		List <Double> ratings = new ArrayList<Double>();
-		
+		logger.info("Starting event " + this.getName());
 		int numOfPlayers = players.size();
 		for (int i = 0; i < numOfPlayers; i++) {
-			Character character = players.get(i).playCharacter();
+			Player player = players.get(i);
+			Character character = player.playCharacter();
 			characters.add(character);
 			Double rating = calculateRating(character);
 			ratings.add(rating);
+			logger.info(player.getName() + " plays " + character.getName() + " with rating " + rating);
 		}
 		    	
     	Player winner = null;
