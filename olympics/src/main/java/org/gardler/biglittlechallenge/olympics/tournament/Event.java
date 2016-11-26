@@ -1,7 +1,9 @@
 package org.gardler.biglittlechallenge.olympics.tournament;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.gardler.biglittlechallenge.olympics.model.Character;
 import org.gardler.biglittlechallenge.olympics.model.Player;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,11 +20,40 @@ public abstract class Event {
 		this.name = name;
 		this.players = players;
 	}
+	
+    /**
+     * Play the event (hand).
+     * 
+     * @param players
+     */
+	protected void playHand() {
+		List <Character> characters = new ArrayList<Character>();
+		List <Integer> ratings = new ArrayList<Integer>();
+		
+		int numOfPlayers = players.size();
+		for (int i = 0; i < numOfPlayers; i++) {
+			Character character = players.get(i).playCharacter();
+			characters.add(character);
+			Integer rating = calculateRating(character);
+			ratings.add(rating);
+		}
+		    	
+    	Player winner = null;
+    	Integer highestRating = 0;
+    	for (int i = 0; i < numOfPlayers; i++ ) {
+    		if (highestRating < ratings.get(i)) {
+    			highestRating = ratings.get(i);
+    			winner = players.get(i);
+    		}
+    	}
 
+    	recordWinner(winner);
+	}
+	
 	/**
-	 * Play a hand that represents this event.
+	 * Calculate a characters rating in this event.
 	 */
-	public abstract void playHand();
+	protected abstract Integer calculateRating(Character character);
 
 	/**
 	 * Record the details of the winner and ensure the player receives their
