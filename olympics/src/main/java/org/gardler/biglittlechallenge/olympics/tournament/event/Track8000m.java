@@ -1,14 +1,15 @@
-package org.gardler.biglittlechallenge.olympics.tournament;
+package org.gardler.biglittlechallenge.olympics.tournament.event;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.gardler.biglittlechallenge.olympics.model.Character;
 import org.gardler.biglittlechallenge.olympics.model.Player;
+import org.gardler.biglittlechallenge.olympics.tournament.Event;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class Track8000m {
+public class Track8000m extends Event {
 	
 	Player[] players;
 	

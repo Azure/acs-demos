@@ -2,13 +2,14 @@ package org.gardler.biglittlechallenge.olympics;
 
 import org.gardler.biglittlechallenge.olympics.ai.DumbPlayer;
 import org.gardler.biglittlechallenge.olympics.model.Player;
-import org.gardler.biglittlechallenge.olympics.tournament.Track100m;
-import org.gardler.biglittlechallenge.olympics.tournament.Track8000m;
+import org.gardler.biglittlechallenge.olympics.tournament.Tournament;
+import org.gardler.biglittlechallenge.olympics.tournament.event.Track100m;
+import org.gardler.biglittlechallenge.olympics.tournament.event.Track8000m;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Hello world!
+ * This is the main application class. We run this to start a game.
  *
  */
 public class App 
@@ -27,11 +28,8 @@ public class App
     	DumbPlayer player5 = new DumbPlayer("AI Player Five");
     	Player[] players = { player1, player2, player3, player4, player5 };
     	
-    	Track100m sprint = new Track100m(players);
-    	sprint.playHand();
-    	
-    	Track8000m track8000 = new Track8000m(players);
-    	track8000.playHand();
+    	Tournament tournament = new Tournament(players);
+    	tournament.start();
     }
 
 
