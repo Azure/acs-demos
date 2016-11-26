@@ -5,10 +5,14 @@ import java.util.List;
 
 import org.gardler.biglittlechallenge.olympics.model.Character;
 import org.gardler.biglittlechallenge.olympics.model.Player;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Sprint100m {
 	
 	Player[] players;
+	
+	private static Logger logger = LoggerFactory.getLogger(Sprint100m.class);
 	
 	/**
 	 * Create a new tournament involving the players provided.
@@ -29,7 +33,6 @@ public class Sprint100m {
 		
 		int numOfPlayers = players.length;
 		for (int i = 0; i < numOfPlayers; i++) {
-			System.out.println(players[i]);
 			Character character = players[i].playCharacter();
 			characters.add(character);
 			Integer rating = character.getSpeed() + character.getReactions();
@@ -46,9 +49,9 @@ public class Sprint100m {
     	}
 
     	if (winner != null) {
-    		System.out.println("Winner of 100m sprint is " + winner.getName());
+    		logger.info("Winner of 100m sprint is " + winner.getName());
     	} else {
-    		System.out.println("100m sprint was a draw");
+    		logger.info("100m sprint was a draw");
     	}
 	}
 }

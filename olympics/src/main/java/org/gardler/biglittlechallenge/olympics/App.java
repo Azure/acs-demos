@@ -3,6 +3,8 @@ package org.gardler.biglittlechallenge.olympics;
 import org.gardler.biglittlechallenge.olympics.ai.DumbPlayer;
 import org.gardler.biglittlechallenge.olympics.model.Player;
 import org.gardler.biglittlechallenge.olympics.tournament.Sprint100m;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Hello world!
@@ -10,8 +12,13 @@ import org.gardler.biglittlechallenge.olympics.tournament.Sprint100m;
  */
 public class App 
 {
+	
+	private static Logger logger = LoggerFactory.getLogger(App.class);
+        
     public static void main( String[] args )
     {
+        logger.debug("Starting the Olympics card game.");
+        
     	DumbPlayer player1 = new DumbPlayer("AI Player One");
     	DumbPlayer player2 = new DumbPlayer("AI Player Two");
     	DumbPlayer player3 = new DumbPlayer("AI Player Three");
