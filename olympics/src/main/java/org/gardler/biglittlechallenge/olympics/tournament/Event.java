@@ -12,7 +12,6 @@ import org.slf4j.LoggerFactory;
 
 public class Event {
 
-	protected List<Player> players;
 	protected Player winner = null;
 	protected String name;
 	private LinkedHashMap<String, Double> ratingFormula;
@@ -26,10 +25,9 @@ public class Event {
 	 * @param formula for calculating the ratings of characters in this event (see getRatingForumla)
 	 * @param players the players that will participate in this event
 	 */
-	public Event(String name, LinkedHashMap<String, Double> formula, List<Player> players) {
+	public Event(String name, LinkedHashMap<String, Double> formula) {
 		this.name = name;
 		this.ratingFormula = formula;
-		this.players = players;
 	}
 	
     /**
@@ -37,7 +35,7 @@ public class Event {
      * 
      * @param players
      */
-	protected void playHand() {
+	protected void playHand(List<Player> players) {
 		List <Character> characters = new ArrayList<Character>();
 		List <Double> ratings = new ArrayList<Double>();
 		

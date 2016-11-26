@@ -14,25 +14,28 @@ import org.gardler.biglittlechallenge.olympics.model.Player;
 public class Tournament {
 	
 	List<Event> events = new ArrayList<Event>();
-
+	List<Player> players;
+	
 	public Tournament(List<Player> players) {
+		this.players = players;
+		
 		LinkedHashMap<String, Double> formula = new LinkedHashMap<String, Double>();
 		formula.put("Speed", 1.0);
 		formula.put("Reactions", 0.5);
-		Event event = new Event("Track: 100m Sprint", formula, players);
+		Event event = new Event("Track: 100m Sprint", formula);
     	events.add(event);
     	
 		formula = new LinkedHashMap<String, Double>();
 		formula.put("Stamina", 1.0);
 		formula.put("Speed", 0.25);
 		formula.put("Dexterity", 1.0);
-		event = new Event("Track: 8000m", formula, players);
+		event = new Event("Track: 8000m", formula);
     	events.add(event);
 	}
 	
 	public void start() {
 		for (int i = 0; i < events.size(); i++) {
-			events.get(i).playHand();
+			events.get(i).playHand(this.players);
 		}
 	}
 }
