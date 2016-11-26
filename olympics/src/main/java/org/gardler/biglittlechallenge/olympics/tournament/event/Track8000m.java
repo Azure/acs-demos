@@ -1,6 +1,5 @@
 package org.gardler.biglittlechallenge.olympics.tournament.event;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.gardler.biglittlechallenge.olympics.model.Character;
@@ -20,33 +19,9 @@ public class Track8000m extends Event {
 	public Track8000m(List<Player> players) {
 		super("8000m track", players);
 	}
-	
-    /**
-     * Play the 100M sprint with the supplied players.
-     * 
-     * @param players
-     */
-	public void playHand() {
-		List <Character> characters = new ArrayList<Character>();
-		List <Integer> ratings = new ArrayList<Integer>();
-		
-		int numOfPlayers = players.size();
-		for (int i = 0; i < numOfPlayers; i++) {
-			Character character = players.get(i).playCharacter();
-			characters.add(character);
-			Integer rating = character.getStamina() + (character.getSpeed() / 4) + character.getDexterity();
-			ratings.add(rating);
-		}
-		    	
-    	Player winner = null;
-    	Integer highestRating = 0;
-    	for (int i = 0; i < numOfPlayers; i++ ) {
-    		if (highestRating < ratings.get(i)) {
-    			highestRating = ratings.get(i);
-    			winner = players.get(i);
-    		}
-    	}
 
-    	recordWinner(winner);
+	@Override
+	protected Integer calculateRating(Character character) {
+		return character.getStamina() + (character.getSpeed() / 4) + character.getDexterity();
 	}
 }
