@@ -10,15 +10,15 @@ import org.gardler.biglittlechallenge.olympics.model.Player;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public abstract class Event {
+public abstract class AbstractEvent {
 
 	protected List<Player> players;
 	protected Player winner = null;
 	protected String name;
 
-	private static Logger logger = LoggerFactory.getLogger(Event.class);
+	private static Logger logger = LoggerFactory.getLogger(AbstractEvent.class);
 
-	public Event(String name, List<Player> players) {
+	public AbstractEvent(String name, List<Player> players) {
 		this.name = name;
 		this.players = players;
 	}

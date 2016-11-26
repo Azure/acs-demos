@@ -14,7 +14,7 @@ import org.gardler.biglittlechallenge.olympics.tournament.event.Track8000m;
  */
 public class Tournament {
 	
-	List<Event> events = new ArrayList<Event>();
+	List<AbstractEvent> events = new ArrayList<AbstractEvent>();
 
 	public Tournament(List<Player> players) {
     	events.add(new Track100m(players));

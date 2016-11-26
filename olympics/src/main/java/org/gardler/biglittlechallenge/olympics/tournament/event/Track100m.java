@@ -4,11 +4,11 @@ import java.util.LinkedHashMap;
 import java.util.List;
 
 import org.gardler.biglittlechallenge.olympics.model.Player;
-import org.gardler.biglittlechallenge.olympics.tournament.Event;
+import org.gardler.biglittlechallenge.olympics.tournament.AbstractEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class Track100m extends Event {
+public class Track100m extends AbstractEvent {
 
 	private static Logger logger = LoggerFactory.getLogger(Track100m.class);
 
