@@ -1,5 +1,9 @@
 package org.gardler.biglittlechallenge.olympics.ai;
 
+import java.util.Random;
+import java.util.Set;
+
+import org.gardler.biglittlechallenge.core.model.Card;
 import org.gardler.biglittlechallenge.olympics.model.Character;
 import org.gardler.biglittlechallenge.olympics.model.Deck;
 import org.gardler.biglittlechallenge.olympics.model.Player;
@@ -16,6 +20,7 @@ public class DumbPlayer extends Player {
 		createDeck(name + "'s Deck");
 	}
 
+	@Override
 	public void createDeck(String name) {
 		Deck deck = new Deck(name);
     	Character card = new Character("Foo");
@@ -24,5 +29,17 @@ public class DumbPlayer extends Player {
     	deck.addCard(card);
     	this.setDeck(deck);
 	}
+
+	@Override
+	public Card playCard() {
+		Deck deck = (Deck)this.getDeck();
+		Set<String> keys = this.getDeck().getCards().keySet();
+
+		Random rand = new Random();
+		int idx = rand.nextInt(keys.size());
+		String key = (String) keys.toArray()[idx];
+		return  deck.getCharacter(key);
+	}
+	
 
 }

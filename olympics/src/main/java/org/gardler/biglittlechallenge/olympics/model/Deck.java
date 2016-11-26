@@ -6,4 +6,8 @@ public class Deck extends org.gardler.biglittlechallenge.core.model.Deck {
 		super(name);
 	}
 
+	public Character getCharacter(String key) {
+		return (Character)getCards().get(key);
+	}
+
 }

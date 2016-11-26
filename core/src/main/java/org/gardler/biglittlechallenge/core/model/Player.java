@@ -21,10 +21,25 @@ public abstract class Player {
 		this.name = name;
 	}
 
+	/**
+	 * Create a Deck for this player.
+	 * @param name the name of the deck
+	 */
 	public abstract void createDeck(String name);
+	
+	/**
+	 * Select a card to play in the current hand.
+	 * @return
+	 */
+	public abstract Card playCard();
 
 	public Player(String name) {
 		this.setName(name);
 	}
 	
+	public String toString() {
+		String result = this.getName();
+		result = result + this.getDeck().toString();
+		return result;
+	}
 }
