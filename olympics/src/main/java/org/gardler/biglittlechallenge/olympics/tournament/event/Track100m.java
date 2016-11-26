@@ -11,16 +11,14 @@ import org.slf4j.LoggerFactory;
 
 public class Track100m extends Event {
 	
-	List<Player> players;
-	
 	private static Logger logger = LoggerFactory.getLogger(Track100m.class);
 	
 	/**
-	 * Create a new tournament involving the players provided.
+	 * Create a new event involving the players provided.
 	 * @param players
 	 */
 	public Track100m(List<Player> players) {
-		this.players = players;
+		super("100m Sprint", players);
 	}
 	
     /**
@@ -40,7 +38,7 @@ public class Track100m extends Event {
 			ratings.add(rating);
 		}
 		    	
-    	Player winner = null;
+		Player winner = null;
     	Integer highestRating = 0;
     	for (int i = 0; i < numOfPlayers; i++ ) {
     		if (highestRating < ratings.get(i)) {
@@ -48,11 +46,7 @@ public class Track100m extends Event {
     			winner = players.get(i);
     		}
     	}
-
-    	if (winner != null) {
-    		logger.info("Winner of 100m sprint is " + winner.getName());
-    	} else {
-    		logger.info("100m sprint was a draw");
-    	}
+    	
+    	recordWinner(winner);
 	}
 }

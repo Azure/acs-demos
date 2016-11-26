@@ -11,8 +11,6 @@ import org.slf4j.LoggerFactory;
 
 public class Track8000m extends Event {
 	
-	List<Player> players;
-	
 	private static Logger logger = LoggerFactory.getLogger(Track8000m.class);
 	
 	/**
@@ -20,7 +18,7 @@ public class Track8000m extends Event {
 	 * @param players
 	 */
 	public Track8000m(List<Player> players) {
-		this.players = players;
+		super("8000m track", players);
 	}
 	
     /**
@@ -49,10 +47,6 @@ public class Track8000m extends Event {
     		}
     	}
 
-    	if (winner != null) {
-    		logger.info("Winner of 8000m track event is " + winner.getName());
-    	} else {
-    		logger.info("8000m track event is a draw");
-    	}
+    	recordWinner(winner);
 	}
 }

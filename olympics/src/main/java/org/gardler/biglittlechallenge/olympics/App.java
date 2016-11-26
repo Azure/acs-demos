@@ -6,8 +6,6 @@ import java.util.List;
 import org.gardler.biglittlechallenge.olympics.ai.DumbPlayer;
 import org.gardler.biglittlechallenge.olympics.model.Player;
 import org.gardler.biglittlechallenge.olympics.tournament.Tournament;
-import org.gardler.biglittlechallenge.olympics.tournament.event.Track100m;
-import org.gardler.biglittlechallenge.olympics.tournament.event.Track8000m;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
