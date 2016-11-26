@@ -9,5 +9,9 @@ public abstract class Player extends org.gardler.biglittlechallenge.core.model.P
 	public Player(String name) {
 		super(name);
 	}
+	
+	public Character playCharacter() {
+		return (Character)playCard();
+	}
 
 }

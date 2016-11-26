@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class Character extends org.gardler.biglittlechallenge.core.model.Card {
 	
-	private static int NUM_OF_TRAITS = 6;
+	private static int NUM_OF_TRAITS = 7;
 	private static int POINTS_PER_TRAIT = 10;
 
 	/**
@@ -37,7 +37,11 @@ public class Character extends org.gardler.biglittlechallenge.core.model.Card {
 		points = getRandomPoints(allowedPoints - assignedPoints);
 		setStamina(points);
 		assignedPoints = assignedPoints + points - 1;
-		
+
+		points = getRandomPoints(allowedPoints - assignedPoints);
+		setSpeed(points);
+		assignedPoints = assignedPoints + points - 1;
+
 		setReactions(allowedPoints - assignedPoints);
 	}
 	
@@ -49,8 +53,18 @@ public class Character extends org.gardler.biglittlechallenge.core.model.Card {
 		setProperty("Dexterity", Integer.toString(points));
 	}
 	
-	private void setReactions(int points) {
+	public void setReactions(int points) {
 		setProperty("Reactions", Integer.toString(points));
+	}
+	public int getReactions() {
+		return Integer.parseInt(getProperty("Reactions"));
+	}
+	
+	public void setSpeed(int points) {
+		setProperty("Speed", Integer.toString(points));
+	}
+	public int getSpeed() {
+		return Integer.parseInt(getProperty("Speed"));
 	}
 	
 	private void setIntelligence(int points) {
@@ -67,14 +81,10 @@ public class Character extends org.gardler.biglittlechallenge.core.model.Card {
 		
 	private int getRandomPoints(int allowedPoints) {
 		Random rand = new Random();
-		return rand.nextInt((allowedPoints - 1) + 1) + 1;
+		if (allowedPoints > POINTS_PER_TRAIT * 2) {
+			allowedPoints = POINTS_PER_TRAIT * 2;
+		}
+		return rand.nextInt(allowedPoints) + 1;
 	}
-	
-	public int strength;
-	public int dexterity;
-	public int intelligence;
-	public int charisma;
-	public int reactions;
-	public int stamina;
 					
 }
