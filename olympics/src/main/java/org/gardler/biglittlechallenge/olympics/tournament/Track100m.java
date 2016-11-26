@@ -8,17 +8,17 @@ import org.gardler.biglittlechallenge.olympics.model.Player;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class Sprint100m {
+public class Track100m {
 	
 	Player[] players;
 	
-	private static Logger logger = LoggerFactory.getLogger(Sprint100m.class);
+	private static Logger logger = LoggerFactory.getLogger(Track100m.class);
 	
 	/**
 	 * Create a new tournament involving the players provided.
 	 * @param players
 	 */
-	public Sprint100m(Player[] players) {
+	public Track100m(Player[] players) {
 		this.players = players;
 	}
 	
