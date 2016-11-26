@@ -38,5 +38,4 @@ public class Card {
 	public String getProperty(String key) {
 		return properties.get(key);
 	}
-
 }

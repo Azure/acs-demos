@@ -1,6 +1,6 @@
 package org.gardler.biglittlechallenge.core.model;
 
-public class Player {
+public abstract class Player {
 
 	String name;
 	Deck deck;
@@ -20,6 +20,8 @@ public class Player {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	public abstract void createDeck(String name);
 
 	public Player(String name) {
 		this.setName(name);
