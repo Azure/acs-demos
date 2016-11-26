@@ -1,8 +1,8 @@
 package org.gardler.biglittlechallenge.olympics.tournament.event;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 
-import org.gardler.biglittlechallenge.olympics.model.Character;
 import org.gardler.biglittlechallenge.olympics.model.Player;
 import org.gardler.biglittlechallenge.olympics.tournament.Event;
 import org.slf4j.Logger;
@@ -21,7 +21,11 @@ public class Track8000m extends Event {
 	}
 
 	@Override
-	protected Integer calculateRating(Character character) {
-		return character.getStamina() + (character.getSpeed() / 4) + character.getDexterity();
+	protected LinkedHashMap<String, Double> getRatingFormula() {
+		LinkedHashMap<String, Double> formula = new LinkedHashMap<String, Double>();
+		formula.put("Stamina", 1.0);
+		formula.put("Speed", 0.25);
+		formula.put("Dexterity", 1.0);
+		return formula;
 	}
 }

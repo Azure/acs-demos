@@ -38,4 +38,9 @@ public class Card {
 	public String getProperty(String key) {
 		return properties.get(key);
 	}
+
+	public Integer getPropertyAsInteger(String key) {
+		return Integer.parseInt(properties.get(key));
+	}
+
 }
