@@ -1,9 +1,11 @@
 package org.gardler.biglittlechallenge.olympics;
 
-import org.gardler.biglittlechallenge.core.model.Card;
-import org.gardler.biglittlechallenge.olympics.model.Character;
 import org.gardler.biglittlechallenge.olympics.ai.DumbPlayer;
 import org.gardler.biglittlechallenge.olympics.model.Player;
+import org.gardler.biglittlechallenge.olympics.tournament.Track100m;
+import org.gardler.biglittlechallenge.olympics.tournament.Track8000m;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Hello world!
@@ -11,38 +13,26 @@ import org.gardler.biglittlechallenge.olympics.model.Player;
  */
 public class App 
 {
+	
+	private static Logger logger = LoggerFactory.getLogger(App.class);
+        
     public static void main( String[] args )
     {
+        logger.debug("Starting the Olympics card game.");
+        
     	DumbPlayer player1 = new DumbPlayer("AI Player One");
     	DumbPlayer player2 = new DumbPlayer("AI Player Two");
-
-    	Character player1card = player1.playCharacter();
-    	Character player2card = player2.playCharacter();
+    	DumbPlayer player3 = new DumbPlayer("AI Player Three");
+    	DumbPlayer player4 = new DumbPlayer("AI Player Four");
+    	DumbPlayer player5 = new DumbPlayer("AI Player Five");
+    	Player[] players = { player1, player2, player3, player4, player5 };
     	
-    	// Play 100M Sprint
-    	int player1Rating = player1card.getSpeed() + player1card.getReactions();
-    	int player2Rating = player2card.getSpeed() + player2card.getReactions();
+    	Track100m sprint = new Track100m(players);
+    	sprint.playHand();
     	
-    	Player winner;
-    	if (player1Rating > player2Rating) {
-    		winner = player1;
-    	} else if (player1Rating < player2Rating) {
-    		winner = player2;
-    	} else {
-    		winner = null;
-    	}
-
-    	System.out.println(player1.toString());
-    	System.out.println("Player 1 rating for 100m Sprint = " + player1Rating);
-
-    	System.out.println(player2.toString());
-    	System.out.println("Player 2 rating for 100m Spring = " + player2Rating);
-    	System.out.println("");
-    	
-    	if (winner != null) {
-    		System.out.println("Winner of 100m sprint is " + winner.getName());
-    	} else {
-    		System.out.println("100m sprint was a draw");
-    	}
+    	Track8000m track8000 = new Track8000m(players);
+    	track8000.playHand();
     }
+
+
 }
