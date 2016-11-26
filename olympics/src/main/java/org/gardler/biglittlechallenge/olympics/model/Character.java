@@ -52,6 +52,9 @@ public class Character extends org.gardler.biglittlechallenge.core.model.Card {
 	private void setDexterity(int points) {
 		setProperty("Dexterity", Integer.toString(points));
 	}
+	public int getDexterity() {
+		return Integer.parseInt(getProperty("Dexterity"));
+	}
 	
 	public void setReactions(int points) {
 		setProperty("Reactions", Integer.toString(points));
@@ -75,10 +78,13 @@ public class Character extends org.gardler.biglittlechallenge.core.model.Card {
 		setProperty("Charisma", Integer.toString(points));
 	}
 	
-	private void setStamina(int points) {
+	public void setStamina(int points) {
 		setProperty("Stamina", Integer.toString(points));
 	}
-		
+	public int getStamina() {
+		return Integer.parseInt(getProperty("Stamina"));
+	}
+	
 	private int getRandomPoints(int allowedPoints) {
 		Random rand = new Random();
 		if (allowedPoints > POINTS_PER_TRAIT * 2) {
