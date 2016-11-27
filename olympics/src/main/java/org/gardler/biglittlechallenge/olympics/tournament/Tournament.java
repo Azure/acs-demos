@@ -46,12 +46,6 @@ public class Tournament {
     	events.add(event);
 	}
 	
-	public void start() {
-		for (int i = 0; i < events.size(); i++) {
-			events.get(i).playHand(this.players);
-		}
-	}
-	
 	public List<Event> getEvents() {
 		return this.events;
 	}
