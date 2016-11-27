@@ -1,3 +1,9 @@
+## Implementation
+
+This is the first game we have programmed. It's fairly rudimentary, 
+but it works. See our [application documentation](application.md) 
+for more information.
+
 ## Game Design
 
 Think of a Deck Building game (Pokemon, Magic The Gathering etc.), a
