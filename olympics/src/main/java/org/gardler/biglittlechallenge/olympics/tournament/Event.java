@@ -14,7 +14,6 @@ import org.slf4j.LoggerFactory;
 public class Event extends Hand {
 
 	protected Player winner = null;
-	protected String name;
 	private LinkedHashMap<String, Double> ratingFormula;
 
 	private static Logger logger = LoggerFactory.getLogger(Event.class);
@@ -27,12 +26,8 @@ public class Event extends Hand {
 	 * @param players the players that will participate in this event
 	 */
 	public Event(String name, LinkedHashMap<String, Double> formula) {
-		this.name = name;
+		super(name);
 		this.ratingFormula = formula;
-	}
-	
-	public String getName() {
-		return this.name;
 	}
 	
     /**
@@ -108,9 +103,5 @@ public class Event extends Hand {
     	} else {
     		logger.info(this + " was a draw");
     	}
-	}
-	
-	public String toString() {
-		return this.name;
 	}
 }

@@ -10,6 +10,9 @@ public abstract class Player {
 	Deck deck;
 	
 	public Deck getDeck() {
+		if (deck == null) {
+			createDeck(name + "'s Deck");
+		}
 		return deck;
 	}
 
@@ -65,7 +68,6 @@ public abstract class Player {
 	public Player(String name, AbstractUI ui) {
 		this.setName(name);
 		this.setUI(ui);
-		createDeck(name + "'s Deck");
 	}
 	
 	public String toString() {

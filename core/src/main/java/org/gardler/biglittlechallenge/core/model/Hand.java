@@ -6,4 +6,18 @@ package org.gardler.biglittlechallenge.core.model;
  */
 public abstract class Hand {
 
+	protected String name;
+	
+	public Hand(String name) {
+		this.name = name;
+	}
+
+	public String getName() {
+		return this.name;
+	}
+	
+	public String toString() {
+		return getName();
+	}
+
 }
