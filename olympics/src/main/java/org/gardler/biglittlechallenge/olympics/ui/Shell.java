@@ -157,14 +157,14 @@ public class Shell extends AbstractUI {
 
 	@Override
 	public Card selectCard(org.gardler.biglittlechallenge.core.model.Player player, Hand hand) {
-		print("\nYour hand currently contains the following cards:");
+		print("\n" + player.getName() + " Your hand currently contains the following cards:\n");
 		
 		Deck deck = (Deck) player.getDeck();
 		
 		Iterator<Card> cards = player.getDeck().getCards().values().iterator();
 		while (cards.hasNext()) {
 			Card card = cards.next();
-			print("\t" + card.toString());
+			print(card.toString());
 		}
 		
 		while (true) {
@@ -189,6 +189,7 @@ public class Shell extends AbstractUI {
 			String name = inString();
 			if (! name.toLowerCase().equals("done")) {
 				Character card = new Character(name);
+				print(card.toString());
 				deck.addCard(card);
 			} else {
 				isDone = true;
