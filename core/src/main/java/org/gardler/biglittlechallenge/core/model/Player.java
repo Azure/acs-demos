@@ -1,6 +1,10 @@
 package org.gardler.biglittlechallenge.core.model;
 
+import org.gardler.biglittlechallenge.core.ui.AbstractUI;
+
 public abstract class Player {
+	
+	AbstractUI ui;
 
 	String name;
 	Deck deck;
@@ -12,7 +16,25 @@ public abstract class Player {
 	public void setDeck(Deck deck) {
 		this.deck = deck;
 	}
+	
+	/**
+	 * Set the user interface to be used by this player.
+	 * 
+	 * @param ui
+	 */
+	public void setUI(AbstractUI ui) {
+		this.ui = ui;
+	}
 
+	/**
+	 * Get the user interface to be used by this player.
+	 * 
+	 * @param ui
+	 */
+	public AbstractUI getUI() {
+		return this.ui;
+	}
+	
 	public String getName() {
 		return name;
 	}
@@ -27,14 +49,19 @@ public abstract class Player {
 	 */
 	public abstract void createDeck(String name);
 	
+
 	/**
-	 * Select a card to play in the current hand.
+	 * Get the character to be played in a specific event.
+	 * @param event
 	 * @return
 	 */
-	public abstract Card playCard();
-
-	public Player(String name) {
+	public Card getCardForHand(Hand hand) {
+		return this.getUI().selectCard(this, hand);
+	}
+	
+	public Player(String name, AbstractUI ui) {
 		this.setName(name);
+		this.setUI(ui);
 	}
 	
 	public String toString() {

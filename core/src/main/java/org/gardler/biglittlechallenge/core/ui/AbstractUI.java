@@ -1,0 +1,21 @@
+package org.gardler.biglittlechallenge.core.ui;
+
+import org.gardler.biglittlechallenge.core.model.Card;
+import org.gardler.biglittlechallenge.core.model.Player;
+import org.gardler.biglittlechallenge.core.model.Hand;
+
+/**
+ * Provides the core UI class that allows objects to interact with the user.
+ *
+ */
+public abstract class AbstractUI {
+	
+	/**
+	 * Get a player to select a card to play in a particular hand.
+	 * 
+	 * @param player
+	 * @param hand
+	 */
+	public abstract Card selectCard(Player player, Hand hand);
+
+}

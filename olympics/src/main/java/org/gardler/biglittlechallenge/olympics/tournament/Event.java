@@ -5,12 +5,13 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 
+import org.gardler.biglittlechallenge.core.model.Hand;
 import org.gardler.biglittlechallenge.olympics.model.Character;
 import org.gardler.biglittlechallenge.olympics.model.Player;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class Event {
+public class Event extends Hand {
 
 	protected Player winner = null;
 	protected String name;
@@ -46,7 +47,7 @@ public class Event {
 		int numOfPlayers = players.size();
 		for (int i = 0; i < numOfPlayers; i++) {
 			Player player = players.get(i);
-			Character character = player.playCharacter();
+			Character character = (Character) player.getCardForHand(this);
 			characters.add(character);
 			Double rating = calculateRating(character);
 			ratings.add(rating);

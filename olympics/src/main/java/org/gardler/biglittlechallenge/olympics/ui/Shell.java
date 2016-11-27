@@ -3,21 +3,42 @@ package org.gardler.biglittlechallenge.olympics.ui;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
+import java.util.Set;
 
+import org.gardler.biglittlechallenge.core.model.Card;
+import org.gardler.biglittlechallenge.core.model.Hand;
+import org.gardler.biglittlechallenge.core.ui.AbstractUI;
+import org.gardler.biglittlechallenge.olympics.model.Deck;
 import org.gardler.biglittlechallenge.olympics.model.Player;
 import org.gardler.biglittlechallenge.olympics.tournament.Event;
 import org.gardler.biglittlechallenge.olympics.tournament.Tournament;
 
-public class Shell {
+public class Shell extends AbstractUI {
 
 	private Tournament tournament;
 	private List<Player> players;
 
-	public Shell(Tournament tournament, List<Player> players) {
+	public Tournament getTournament() {
+		return tournament;
+	}
+
+	public void setTournament(Tournament tournament) {
 		this.tournament = tournament;
+	}
+
+	public List<Player> getPlayers() {
+		return players;
+	}
+
+	public void setPlayers(List<Player> players) {
 		this.players = players;
 	}
 
+	public Shell() {
+		super();
+	}
+	
 	public void run() throws IOException {
 		print("Welcome to the Olympics");
 		while (true) {
@@ -28,23 +49,28 @@ public class Shell {
 				print(tournament.toString());
 				break;
 			case 2:
-				Iterator<Event> events = tournament.getEvents().iterator();
-				while (events.hasNext()) {
-					Event event = events.next();
-					displayEventMenu(event);
-					choice = getChoice("\nSelect option: ");
-					switch (choice) {
-					case 1:
-						event.playHand(players);
-						break;
-					case 9:
-						quit();
-					default:
-						print("Invalid selection");
-					}
-				}
+				runTournament();
 				break;
 			case 9: 
+				quit();
+			default:
+				print("Invalid selection");
+			}
+		}
+	}
+
+	private void runTournament() {
+		int choice;
+		Iterator<Event> events = tournament.getEvents().iterator();
+		while (events.hasNext()) {
+			Event event = events.next();
+			displayEventMenu(event);
+			choice = getChoice("\nSelect option: ");
+			switch (choice) {
+			case 1:
+				play(event);
+				break;
+			case 9:
 				quit();
 			default:
 				print("Invalid selection");
@@ -123,6 +149,34 @@ public class Shell {
 				dummy = System.in.read();
 		} catch (java.io.IOException e) {
 			System.out.println("Input error");
+		}
+	}
+
+	public void play(Event event) {
+		event.playHand(players);
+	}
+
+	@Override
+	public Card selectCard(org.gardler.biglittlechallenge.core.model.Player player, Hand hand) {
+		print("\nYour hand currently contains the following cards:");
+		
+		Deck deck = (Deck) player.getDeck();
+		
+		Iterator<Card> cards = player.getDeck().getCards().values().iterator();
+		while (cards.hasNext()) {
+			Card card = cards.next();
+			print("\t" + card.toString());
+		}
+		
+		while (true) {
+			print("Enter the name of the card you wish to play:");
+			String key = inString();
+			
+			if (deck.getCards().containsKey(key)) {	
+				return deck.getCharacter(key);
+			} else {
+				print("That's not a valid card name.");
+			}
 		}
 	}
 }

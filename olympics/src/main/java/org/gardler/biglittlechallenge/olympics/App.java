@@ -23,6 +23,8 @@ public class App
     public static void main( String[] args )
     {
         logger.debug("Starting the Olympics card game.");
+
+    	Shell shell = new Shell();
         
     	List<Player> players = new ArrayList<Player>();
     	players.add(new DumbPlayer("AI Player One"));
@@ -30,10 +32,13 @@ public class App
     	players.add(new DumbPlayer("AI Player Three"));
     	players.add(new DumbPlayer("AI Player Four"));
     	players.add(new DumbPlayer("AI Player Five"));
+    	players.add(new Player("Ross", shell));
+    	players.add(new Player("Zeph", shell));
+    	shell.setPlayers(players);
     	
     	Tournament tournament = new Tournament(players);
+    	shell.setTournament(tournament);
     	
-    	Shell shell = new Shell(tournament, players);
     	try {
 			shell.run();
 		} catch (IOException e) {
