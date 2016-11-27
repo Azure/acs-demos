@@ -3,14 +3,13 @@ package org.gardler.biglittlechallenge.olympics.ui;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Random;
-import java.util.Set;
 
 import org.gardler.biglittlechallenge.core.model.Card;
+import org.gardler.biglittlechallenge.core.model.Deck;
 import org.gardler.biglittlechallenge.core.model.Hand;
+import org.gardler.biglittlechallenge.core.model.Player;
 import org.gardler.biglittlechallenge.core.ui.AbstractUI;
-import org.gardler.biglittlechallenge.olympics.model.Deck;
-import org.gardler.biglittlechallenge.olympics.model.Player;
+import org.gardler.biglittlechallenge.olympics.model.Character;
 import org.gardler.biglittlechallenge.olympics.tournament.Event;
 import org.gardler.biglittlechallenge.olympics.tournament.Tournament;
 
@@ -173,10 +172,30 @@ public class Shell extends AbstractUI {
 			String key = inString();
 			
 			if (deck.getCards().containsKey(key)) {	
-				return deck.getCharacter(key);
+				return deck.getCard(key);
 			} else {
 				print("That's not a valid card name.");
 			}
 		}
+	}
+	
+	@Override
+	public Deck createDeck(Player player) {
+		Deck deck = new Deck(player.getName());
+		
+		boolean isDone = false;
+		while (!isDone) {
+			print(player.getName() + " enter the name of a card (or 'done') once completed");
+			String name = inString();
+			if (! name.toLowerCase().equals("done")) {
+				Character card = new Character(name);
+				deck.addCard(card);
+			} else {
+				isDone = true;
+			}
+		}
+    	
+		player.setDeck(deck);
+    	return deck;
 	}
 }

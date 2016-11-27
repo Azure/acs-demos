@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 
-import org.gardler.biglittlechallenge.olympics.model.Player;
+import org.gardler.biglittlechallenge.core.model.Player;
 
 /**
  * A Tournament is a single game of Olympics. It consists of a number of events.

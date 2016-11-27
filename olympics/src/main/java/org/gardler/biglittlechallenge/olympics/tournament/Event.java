@@ -6,8 +6,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 
 import org.gardler.biglittlechallenge.core.model.Hand;
+import org.gardler.biglittlechallenge.core.model.Player;
 import org.gardler.biglittlechallenge.olympics.model.Character;
-import org.gardler.biglittlechallenge.olympics.model.Player;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

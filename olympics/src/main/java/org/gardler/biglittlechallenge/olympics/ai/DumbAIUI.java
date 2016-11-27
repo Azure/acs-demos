@@ -7,6 +7,7 @@ import org.gardler.biglittlechallenge.core.model.Card;
 import org.gardler.biglittlechallenge.core.model.Hand;
 import org.gardler.biglittlechallenge.core.model.Player;
 import org.gardler.biglittlechallenge.core.ui.AbstractUI;
+import org.gardler.biglittlechallenge.olympics.model.Character;
 import org.gardler.biglittlechallenge.olympics.model.Deck;
 
 public class DumbAIUI extends AbstractUI {
@@ -20,5 +21,15 @@ public class DumbAIUI extends AbstractUI {
 		int idx = rand.nextInt(keys.size());
 		String key = (String) keys.toArray()[idx];
 		return  deck.getCharacter(key);
+	}
+
+	@Override
+	public org.gardler.biglittlechallenge.core.model.Deck createDeck(Player player) {
+		Deck deck = new Deck(player.getName());
+    	Character card = new Character("Foo");
+    	deck.addCard(card);
+    	card = new Character("Potato");
+    	deck.addCard(card);
+    	return deck;
 	}
 }

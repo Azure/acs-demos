@@ -45,9 +45,12 @@ public abstract class Player {
 
 	/**
 	 * Create a Deck for this player.
+	 * 
 	 * @param name the name of the deck
 	 */
-	public abstract void createDeck(String name);
+	public void createDeck(String name) {
+		this.setDeck(this.getUI().createDeck(this));
+	}
 	
 
 	/**
@@ -62,6 +65,7 @@ public abstract class Player {
 	public Player(String name, AbstractUI ui) {
 		this.setName(name);
 		this.setUI(ui);
+		createDeck(name + "'s Deck");
 	}
 	
 	public String toString() {
