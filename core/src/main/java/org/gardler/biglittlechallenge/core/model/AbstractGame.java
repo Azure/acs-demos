@@ -9,7 +9,7 @@ import java.util.List;
  */
 public abstract class AbstractGame {
 
-	protected List<Hand> hands = new ArrayList<Hand>();
+	protected AbstractHands hands;
 	protected List<Player> players;
 	
 	public AbstractGame(List<Player> players) {
@@ -18,12 +18,15 @@ public abstract class AbstractGame {
 	}
 	
 	/**
-	 * Set the rounds to be played in this game.
+	 * Set the hands to be played in this game.
 	 */
 	protected abstract void setHands();
 	
-	public List<Hand> getHands() {
-		return hands;
+	/**
+	 * Get an ordered List of the hands to be played in this game.
+	 */
+	public ArrayList<Hand> getHands() {
+		return hands.getAsList();
 	}
 
 }

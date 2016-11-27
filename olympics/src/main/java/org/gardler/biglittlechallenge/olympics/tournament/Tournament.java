@@ -1,12 +1,16 @@
 package org.gardler.biglittlechallenge.olympics.tournament;
 
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 
 import org.gardler.biglittlechallenge.core.model.AbstractGame;
+import org.gardler.biglittlechallenge.core.model.AbstractHands;
 import org.gardler.biglittlechallenge.core.model.Hand;
 import org.gardler.biglittlechallenge.core.model.Player;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * A Tournament is a single game of Olympics. It consists of a number of events.
@@ -15,11 +19,22 @@ import org.gardler.biglittlechallenge.core.model.Player;
  */
 public class Tournament extends AbstractGame {
 	
+	private static Logger logger = LoggerFactory.getLogger(Tournament.class);
+			
 	public Tournament(List<Player> players) {
 		super(players);
 	}
 	
 	protected void setHands() {
+		try {
+			hands = AbstractHands.load();
+			return;
+		} catch (ClassNotFoundException e) {
+			logger.error("Unable to load hands definition, using default hands.", e);
+		} catch (IOException e) {
+			logger.error("Unable to load hands definition, using default hands.", e);
+		}
+		hands = new Hands();
 		LinkedHashMap<String, Double> formula = new LinkedHashMap<String, Double>();
 		formula.put("Speed", 1.0);
 		formula.put("Reactions", 0.5);
