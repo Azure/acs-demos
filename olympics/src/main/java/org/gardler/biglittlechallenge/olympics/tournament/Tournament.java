@@ -28,8 +28,20 @@ public class Tournament {
 		formula = new LinkedHashMap<String, Double>();
 		formula.put("Stamina", 1.0);
 		formula.put("Speed", 0.25);
-		formula.put("Dexterity", 1.0);
 		event = new Event("Track: 8000m", formula);
+    	events.add(event);
+    	
+    	formula = new LinkedHashMap<String, Double>();
+		formula.put("Stamina", 1.0);
+		formula.put("Speed", 0.25);
+		formula.put("Dexterity", 1.0);
+		event = new Event("Track: 8000m Steeple Chase", formula);
+    	events.add(event);
+    	
+    	formula = new LinkedHashMap<String, Double>();
+    	formula.put("Dexterity", 1.0);
+		formula.put("Strength", 0.5);
+		event = new Event("Field: Pole Vault", formula);
     	events.add(event);
 	}
 	
@@ -37,5 +49,9 @@ public class Tournament {
 		for (int i = 0; i < events.size(); i++) {
 			events.get(i).playHand(this.players);
 		}
+	}
+	
+	public List<Event> getEvents() {
+		return this.events;
 	}
 }
