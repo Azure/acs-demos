@@ -16,12 +16,15 @@ public class Shell {
 		print("Welcome to the Olympics");
 		while (true) {
 			displayMainMenu();
-			int choice = getChoice(" Select option: ");
+			int choice = getChoice("\nSelect option: ");
 			switch (choice) {
 			case 1:
+				print(tournament.toString());
+				break;
+			case 2:
 				tournament.start();
 				break;
-			case 2: 
+			case 3: 
 				print("Thanks for playing.");
 				System.exit(1);
 			default:
@@ -50,8 +53,11 @@ public class Shell {
 	}
 
 	protected void displayMainMenu() {
-		print("1. Start Tournament");
-		print("2. Quit game");
+		print("\nOptions");
+		print("=======");
+		print("\t1. Describe Tournament");
+		print("\t2. Start Tournament");
+		print("\t3. Quit game");
 	}
 
 	public static String inString() {
@@ -76,7 +82,9 @@ public class Shell {
 
 	// Ensure the input stream is empty
 	protected static void inputFlush() {
+		@SuppressWarnings("unused")
 		int dummy;
+		@SuppressWarnings("unused")
 		int bAvail;
 
 		try {

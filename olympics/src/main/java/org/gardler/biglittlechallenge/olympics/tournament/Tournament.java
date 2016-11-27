@@ -1,6 +1,7 @@
 package org.gardler.biglittlechallenge.olympics.tournament;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -53,5 +54,15 @@ public class Tournament {
 	
 	public List<Event> getEvents() {
 		return this.events;
+	}
+	
+	public String toString() {
+		String result = "This tournament consists of " + events.size() + " events.\n";
+		Iterator<Event> itr = events.iterator();
+		while (itr.hasNext()) {
+			Event event = itr.next();
+			result = result + "\t" + event.getName() + "\n";
+		}
+		return result;
 	}
 }
