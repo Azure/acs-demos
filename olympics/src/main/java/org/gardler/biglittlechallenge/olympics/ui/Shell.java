@@ -204,16 +204,20 @@ public class Shell extends AbstractUI {
 							print("You are not done, you have spent " + Math.abs(spareValue) + " too many points.");
 						}
 					} else {
-						Integer value = card.getPropertyAsInteger(trait);
-						int desiredValue = inInt("What value do you want " + trait + " to be?");
-						spareValue = spareValue + (value - desiredValue);
-						card.setProperty(trait, Integer.toString(desiredValue));
-						if (spareValue == 0) {
-							print("You have spent all your points");
-						} else if (spareValue < 0) {
-							print("You have overspent by " + Math.abs(spareValue) + " please reduce one or more traits.");
-						} else {
-							print("You have underspent by " + spareValue + " please increase one or more traits.");
+						try {
+							Integer value = card.getPropertyAsInteger(trait);
+							int desiredValue = inInt("What value do you want " + trait + " to be?");
+							spareValue = spareValue + (value - desiredValue);
+							card.setProperty(trait, Integer.toString(desiredValue));
+							if (spareValue == 0) {
+								print("You have spent all your points");
+							} else if (spareValue < 0) {
+								print("You have overspent by " + Math.abs(spareValue) + " please reduce one or more traits.");
+							} else {
+								print("You have underspent by " + spareValue + " please increase one or more traits.");
+							}
+						} catch (IllegalArgumentException e) {
+							print("That is not a valid input, please try again");
 						}
 					}
 				}

@@ -40,7 +40,11 @@ public class Card {
 	}
 
 	public Integer getPropertyAsInteger(String key) {
-		return Integer.parseInt(properties.get(key));
+		if (properties.containsKey(key)) {
+			return Integer.parseInt(properties.get(key));
+		} else {
+			throw new IllegalArgumentException("Card property '" + key + "' does not exist.");
+		}
 	}
 
 }
