@@ -33,7 +33,7 @@ public class App
     	
     	Tournament tournament = new Tournament(players);
     	
-    	Shell shell = new Shell(tournament);
+    	Shell shell = new Shell(tournament, players);
     	try {
 			shell.run();
 		} catch (IOException e) {

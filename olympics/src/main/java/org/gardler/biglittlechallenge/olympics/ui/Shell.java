@@ -1,15 +1,21 @@
 package org.gardler.biglittlechallenge.olympics.ui;
 
 import java.io.IOException;
+import java.util.Iterator;
+import java.util.List;
 
+import org.gardler.biglittlechallenge.olympics.model.Player;
+import org.gardler.biglittlechallenge.olympics.tournament.Event;
 import org.gardler.biglittlechallenge.olympics.tournament.Tournament;
 
 public class Shell {
 
 	private Tournament tournament;
+	private List<Player> players;
 
-	public Shell(Tournament tournament) {
+	public Shell(Tournament tournament, List<Player> players) {
 		this.tournament = tournament;
+		this.players = players;
 	}
 
 	public void run() throws IOException {
@@ -22,15 +28,33 @@ public class Shell {
 				print(tournament.toString());
 				break;
 			case 2:
-				tournament.start();
+				Iterator<Event> events = tournament.getEvents().iterator();
+				while (events.hasNext()) {
+					Event event = events.next();
+					displayEventMenu(event);
+					choice = getChoice("\nSelect option: ");
+					switch (choice) {
+					case 1:
+						event.playHand(players);
+						break;
+					case 9:
+						quit();
+					default:
+						print("Invalid selection");
+					}
+				}
 				break;
-			case 3: 
-				print("Thanks for playing.");
-				System.exit(1);
+			case 9: 
+				quit();
 			default:
 				print("Invalid selection");
 			}
 		}
+	}
+
+	private void quit() {
+		print("Thanks for playing.");
+		System.exit(1);
 	}
 
 	protected int getChoice(String msg) {
@@ -57,7 +81,14 @@ public class Shell {
 		print("=======");
 		print("\t1. Describe Tournament");
 		print("\t2. Start Tournament");
-		print("\t3. Quit game");
+		print("\t9. Quit game");
+	}
+	
+	protected void displayEventMenu(Event event) {
+		print("\nOptions");
+		print("=======");
+		print("\t1. Play hand - " + event.getName());
+		print("\t9. Quit game");
 	}
 
 	public static String inString() {

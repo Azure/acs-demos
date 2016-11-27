@@ -39,7 +39,7 @@ public class Event {
      * 
      * @param players
      */
-	protected void playHand(List<Player> players) {
+	public void playHand(List<Player> players) {
 		List <Character> characters = new ArrayList<Character>();
 		List <Double> ratings = new ArrayList<Double>();
 		logger.info("Starting event " + this.getName());
