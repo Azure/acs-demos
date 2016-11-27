@@ -60,9 +60,9 @@ public class Shell extends AbstractUI {
 
 	private void runTournament() {
 		int choice;
-		Iterator<Event> events = tournament.getEvents().iterator();
+		Iterator<Hand> events = tournament.getHands().iterator();
 		while (events.hasNext()) {
-			Event event = events.next();
+			Event event = (Event)events.next();
 			displayEventMenu(event);
 			choice = inInt("\nSelect option: ");
 			switch (choice) {

@@ -1,10 +1,11 @@
 package org.gardler.biglittlechallenge.olympics.tournament;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 
+import org.gardler.biglittlechallenge.core.model.AbstractGame;
+import org.gardler.biglittlechallenge.core.model.Hand;
 import org.gardler.biglittlechallenge.core.model.Player;
 
 /**
@@ -12,49 +13,44 @@ import org.gardler.biglittlechallenge.core.model.Player;
  * Players will enter each of the events in a tournament.
  * 
  */
-public class Tournament {
-	
-	List<Event> events = new ArrayList<Event>();
-	List<Player> players;
+public class Tournament extends AbstractGame {
 	
 	public Tournament(List<Player> players) {
-		this.players = players;
-		
+		super(players);
+	}
+	
+	protected void setHands() {
 		LinkedHashMap<String, Double> formula = new LinkedHashMap<String, Double>();
 		formula.put("Speed", 1.0);
 		formula.put("Reactions", 0.5);
 		Event event = new Event("Track: 100m Sprint", formula);
-    	events.add(event);
+    	hands.add(event);
     	
 		formula = new LinkedHashMap<String, Double>();
 		formula.put("Stamina", 1.0);
 		formula.put("Speed", 0.25);
 		event = new Event("Track: 8000m", formula);
-    	events.add(event);
+    	hands.add(event);
     	
     	formula = new LinkedHashMap<String, Double>();
 		formula.put("Stamina", 1.0);
 		formula.put("Speed", 0.25);
 		formula.put("Dexterity", 1.0);
 		event = new Event("Track: 8000m Steeple Chase", formula);
-    	events.add(event);
+    	hands.add(event);
     	
     	formula = new LinkedHashMap<String, Double>();
     	formula.put("Dexterity", 1.0);
 		formula.put("Strength", 0.5);
 		event = new Event("Field: Pole Vault", formula);
-    	events.add(event);
-	}
-	
-	public List<Event> getEvents() {
-		return this.events;
+    	hands.add(event);
 	}
 	
 	public String toString() {
-		String result = "This tournament consists of " + events.size() + " events.\n";
-		Iterator<Event> itr = events.iterator();
+		String result = "This tournament consists of " + hands.size() + " events.\n";
+		Iterator<Hand> itr = hands.iterator();
 		while (itr.hasNext()) {
-			Event event = itr.next();
+			Event event = (Event)itr.next();
 			result = result + "\t" + event.getName() + "\n";
 		}
 		return result;
