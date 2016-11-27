@@ -12,8 +12,12 @@ import org.gardler.biglittlechallenge.core.ui.AbstractUI;
 import org.gardler.biglittlechallenge.olympics.model.Character;
 import org.gardler.biglittlechallenge.olympics.tournament.Event;
 import org.gardler.biglittlechallenge.olympics.tournament.Tournament;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Shell extends AbstractUI {
+	
+	private static Logger logger = LoggerFactory.getLogger(Shell.class);
 
 	private Tournament tournament;
 	private List<Player> players;
@@ -168,7 +172,8 @@ public class Shell extends AbstractUI {
 		}
 		
 		while (true) {
-			print("Enter the name of the card you wish to play:");
+			print("Current hand is " + hand.toString());
+			print("Enter the name of the card you wish to play for this hand:");
 			String key = inString();
 			
 			if (deck.getCards().containsKey(key)) {	
@@ -181,50 +186,48 @@ public class Shell extends AbstractUI {
 	
 	@Override
 	public Deck createDeck(Player player) {
+		logger.info("Creating deck for " + player.getName());
 		Deck deck = new Deck(player.getName());
+		int numOfHands = this.tournament.getHands().size();
 		
-		boolean isDone = false;
-		while (!isDone) {
-			print(player.getName() + " enter the name of a card (or 'done' once completed)");
+		while (numOfHands > deck.getCards().size()) {
+			print(player.getName() + " enter the name of a card (you need to create " + (numOfHands - deck.getCards().size()) + " more cards)");
 			String name = inString();
-			if (! name.toLowerCase().equals("done")) {
-				Character card = new Character(name);
-				boolean isCardDone = false;
-				int spareValue = 0;
-				while (! isCardDone) {
-					print(card.toString());
-					print(player.getName() + " enter the name of a trait you would like to change (or 'done' once completed)");
-					String trait = inString();
-					if (trait.toLowerCase().equals("done")) {
-						if (spareValue == 0) {
-							isCardDone = true;
-						} else if (spareValue > 0) {
-							print("You are not done, you still have " + spareValue + " points to allocate.");
-						} else {
-							print("You are not done, you have spent " + Math.abs(spareValue) + " too many points.");
-						}
+			Character card = new Character(name);
+
+			boolean isCardDone = false;
+			int spareValue = 0;
+			while (! isCardDone) {
+				print(card.toString());
+				print(player.getName() + " enter the name of a trait you would like to change (or 'done' once completed)");
+				String trait = inString();
+				if (trait.toLowerCase().equals("done")) {
+					if (spareValue == 0) {
+						isCardDone = true;
+					} else if (spareValue > 0) {
+						print("You are not done, you still have " + spareValue + " points to allocate.");
 					} else {
-						try {
-							Integer value = card.getPropertyAsInteger(trait);
-							int desiredValue = inInt("What value do you want " + trait + " to be?");
-							spareValue = spareValue + (value - desiredValue);
-							card.setProperty(trait, Integer.toString(desiredValue));
-							if (spareValue == 0) {
-								print("You have spent all your points");
-							} else if (spareValue < 0) {
-								print("You have overspent by " + Math.abs(spareValue) + " please reduce one or more traits.");
-							} else {
-								print("You have underspent by " + spareValue + " please increase one or more traits.");
-							}
-						} catch (IllegalArgumentException e) {
-							print("That is not a valid input, please try again");
+						print("You are not done, you have spent " + Math.abs(spareValue) + " too many points.");
+					}
+				} else {
+					try {
+						Integer value = card.getPropertyAsInteger(trait);
+						int desiredValue = inInt("What value do you want " + trait + " to be?");
+						spareValue = spareValue + (value - desiredValue);
+						card.setProperty(trait, Integer.toString(desiredValue));
+						if (spareValue == 0) {
+							print("You have spent all your points");
+						} else if (spareValue < 0) {
+							print("You have overspent by " + Math.abs(spareValue) + " please reduce one or more traits.");
+						} else {
+							print("You have underspent by " + spareValue + " please increase one or more traits.");
 						}
+					} catch (IllegalArgumentException e) {
+						print("That is not a valid input, please try again");
 					}
 				}
-				deck.addCard(card);
-			} else {
-				isDone = true;
 			}
+			deck.addCard(card);
 		}
     	
 		player.setDeck(deck);

@@ -48,7 +48,7 @@ public class Tournament extends AbstractGame {
 	
 	public String toString() {
 		String result = "This tournament consists of " + hands.size() + " events.\n";
-		Iterator<Hand> itr = hands.iterator();
+		Iterator<Hand> itr = getHands().iterator();
 		while (itr.hasNext()) {
 			Event event = (Event)itr.next();
 			result = result + "\t" + event.getName() + "\n";
