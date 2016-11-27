@@ -42,7 +42,7 @@ public class Shell extends AbstractUI {
 		print("Welcome to the Olympics");
 		while (true) {
 			displayMainMenu();
-			int choice = getChoice("\nSelect option: ");
+			int choice = inInt("\nSelect option: ");
 			switch (choice) {
 			case 1:
 				print(tournament.toString());
@@ -64,7 +64,7 @@ public class Shell extends AbstractUI {
 		while (events.hasNext()) {
 			Event event = events.next();
 			displayEventMenu(event);
-			choice = getChoice("\nSelect option: ");
+			choice = inInt("\nSelect option: ");
 			switch (choice) {
 			case 1:
 				play(event);
@@ -82,7 +82,7 @@ public class Shell extends AbstractUI {
 		System.exit(1);
 	}
 
-	protected int getChoice(String msg) {
+	protected int inInt(String msg) {
 		while (true) {
 			inputFlush();
 			print(msg);
@@ -185,11 +185,38 @@ public class Shell extends AbstractUI {
 		
 		boolean isDone = false;
 		while (!isDone) {
-			print(player.getName() + " enter the name of a card (or 'done') once completed");
+			print(player.getName() + " enter the name of a card (or 'done' once completed)");
 			String name = inString();
 			if (! name.toLowerCase().equals("done")) {
 				Character card = new Character(name);
-				print(card.toString());
+				boolean isCardDone = false;
+				int spareValue = 0;
+				while (! isCardDone) {
+					print(card.toString());
+					print(player.getName() + " enter the name of a trait you would like to change (or 'done' once completed)");
+					String trait = inString();
+					if (trait.toLowerCase().equals("done")) {
+						if (spareValue == 0) {
+							isCardDone = true;
+						} else if (spareValue > 0) {
+							print("You are not done, you still have " + spareValue + " points to allocate.");
+						} else {
+							print("You are not done, you have spent " + Math.abs(spareValue) + " too many points.");
+						}
+					} else {
+						Integer value = card.getPropertyAsInteger(trait);
+						int desiredValue = inInt("What value do you want " + trait + " to be?");
+						spareValue = spareValue + (value - desiredValue);
+						card.setProperty(trait, Integer.toString(desiredValue));
+						if (spareValue == 0) {
+							print("You have spent all your points");
+						} else if (spareValue < 0) {
+							print("You have overspent by " + Math.abs(spareValue) + " please reduce one or more traits.");
+						} else {
+							print("You have underspent by " + spareValue + " please increase one or more traits.");
+						}
+					}
+				}
 				deck.addCard(card);
 			} else {
 				isDone = true;
