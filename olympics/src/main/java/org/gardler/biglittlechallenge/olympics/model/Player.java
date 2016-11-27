@@ -1,17 +1,20 @@
 package org.gardler.biglittlechallenge.olympics.model;
 
+import org.gardler.biglittlechallenge.core.ui.AbstractUI;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * Player represents a player in a game, this may be an AI or a human player.
  *
  */
-public abstract class Player extends org.gardler.biglittlechallenge.core.model.Player{
+public class Player extends org.gardler.biglittlechallenge.core.model.Player {
 
-	public Player(String name) {
-		super(name);
-	}
+	private static Logger logger = LoggerFactory.getLogger(Player.class);
 	
-	public Character playCharacter() {
-		return (Character)playCard();
+	public Player(String name, AbstractUI ui) {
+		super(name, ui);		
+		logger.debug("Created a player using the " + ui.getClass() + " UI");
 	}
 
 }

@@ -23,6 +23,10 @@ public class Deck {
 		return cards;
 	}
 	
+	public Card getCard(String key) {
+		return cards.get(key);
+	}
+	
 	public void addCard(Card card) {
 		cards.put(card.getName(), card);
 	}

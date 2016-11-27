@@ -21,12 +21,12 @@ public class Card {
 	}
 	
 	public String toString() {
-		String result = getName();
+		String result = getName() + "\n";
 		Iterator<String> itr = properties.keySet().iterator();
 		while (itr.hasNext()) {
 			String key = itr.next();
 			String value = properties.get(key);
-			result = result + " " + key + " = " + value;
+			result = result + "\t" + key + " = " + value + "\n";
 		}
 		return result;
 	}
@@ -38,4 +38,9 @@ public class Card {
 	public String getProperty(String key) {
 		return properties.get(key);
 	}
+
+	public Integer getPropertyAsInteger(String key) {
+		return Integer.parseInt(properties.get(key));
+	}
+
 }
