@@ -32,10 +32,7 @@ public class App
     	players.add(new DumbPlayer("AI Player One"));
     	players.add(new DumbPlayer("AI Player Two"));
     	players.add(new DumbPlayer("AI Player Three"));
-    	players.add(new DumbPlayer("AI Player Four"));
-    	players.add(new DumbPlayer("AI Player Five"));
-    	players.add(new org.gardler.biglittlechallenge.olympics.model.Player("Ross", shell));
-    	players.add(new org.gardler.biglittlechallenge.olympics.model.Player("Zeph", shell));
+    	players.add(new org.gardler.biglittlechallenge.olympics.model.Player("Human player 1", shell));
     	shell.setPlayers(players);
     	
     	logger.debug("Create tournament");
