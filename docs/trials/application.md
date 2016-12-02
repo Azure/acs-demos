@@ -11,26 +11,47 @@ to be reusable across different kinds of card games. They provide
 basic building blocks for such games. However, the Core module
 does not include any rules or game specific items.
 
-# Trials Module
+# Trials Modules
 
-The Trials module (Java packages in 
-`org.gardler.biglittlechallenge.trials.*` extend
-the Core module and add game specific rules and objects.
+## trials-ai
 
-To play a game of Trials simply execute the main method in
-`org.gardler.biglittlechallenge.trials.App`.
-If you want to learn how to build your own game, or contribute
-Trials this is the place to start.
+This module contains an autonomous AI player. A game can consist of 
+0 or more of these.
 
-## How it Works
+## trials-engine
 
-At the time of writing (and therefore not necessarily at the time 
-you are reading) control is centered around a class that extends 
-`org.gardler.biglittlechallenge.core.ui.AbstractUI`.
-This class must provide all interaction with the players and will
-manage the flow of the game. Currently we only have a Shell UI for
-the game (`org.gardler.biglittlechallenge.trials.ui.Shell`)
-which will use a standard console for input and output.
+This module contains the game engine. All `players` and `ai` 
+players interact with the engine to play the game. 
 
-If you want to implement an AI player then they will be implemented 
-as an `AbstractUI`
+## trials-model
+
+This module contains shared code used by other trials modules. 
+There is no executable code (other than tests) in this module.
+
+## trials-player
+
+This module contains the UI necessary to allow a human player 
+to interact with the engine.
+
+# How it Works
+
+An engine exposes a REST API that allows a game to be played. 
+AI and human players also expose a REST API allowing the 
+engine to pro-actively engage with the players. The flow of a 
+game is:
+
+Players register intent to play
+
+When engine has enough players, each player is notified game 
+is ready to start. Players must respond with a time period or 
+the game is aborted and engine waits for more players.
+
+Once all players have indicated they are ready to play the 
+engine informs all players of the event being played. Players 
+respond with their chosen cards (within a required time or they 
+forfeit the hand).
+
+The engine calculates the result of the event and informs all 
+players.
+
+The process is repeated for all events in the tournament.
