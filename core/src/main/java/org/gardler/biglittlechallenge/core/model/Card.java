@@ -1,10 +1,11 @@
 package org.gardler.biglittlechallenge.core.model;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Iterator;
 
-public class Card {
-	
+public class Card implements Serializable {
+	private static final long serialVersionUID = -2423089035312679270L;
 	String name;
 	HashMap<String, String> properties = new HashMap<String, String>();
 	

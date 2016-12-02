@@ -1,13 +1,13 @@
-package org.gardler.biglittlechallenge.olympics;
+package org.gardler.biglittlechallenge.trials;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.gardler.biglittlechallenge.core.model.Player;
-import org.gardler.biglittlechallenge.olympics.ai.DumbPlayer;
-import org.gardler.biglittlechallenge.olympics.tournament.Tournament;
-import org.gardler.biglittlechallenge.olympics.ui.Shell;
+import org.gardler.biglittlechallenge.trials.ai.DumbPlayer;
+import org.gardler.biglittlechallenge.trials.tournament.Tournament;
+import org.gardler.biglittlechallenge.trials.ui.Shell;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,7 +22,7 @@ public class App
         
     public static void main( String[] args )
     {
-        logger.debug("Starting the Olympics card game.");
+        logger.debug("Starting the trials card game.");
 
         logger.debug("Create Shell UI");
     	Shell shell = new Shell();
@@ -32,7 +32,7 @@ public class App
     	players.add(new DumbPlayer("AI Player One"));
     	players.add(new DumbPlayer("AI Player Two"));
     	players.add(new DumbPlayer("AI Player Three"));
-    	players.add(new org.gardler.biglittlechallenge.olympics.model.Player("Human player 1", shell));
+    	players.add(new org.gardler.biglittlechallenge.trials.model.Player("Human player 1", shell));
     	shell.setPlayers(players);
     	
     	logger.debug("Create tournament");

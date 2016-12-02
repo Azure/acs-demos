@@ -1,4 +1,4 @@
-package org.gardler.biglittlechallenge.olympics.tournament;
+package org.gardler.biglittlechallenge.trials.tournament;
 
 import java.io.IOException;
 import java.util.Iterator;
@@ -13,7 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * A Tournament is a single game of Olympics. It consists of a number of events.
+ * A Tournament is a single game of Trials. It consists of a number of events.
  * Players will enter each of the events in a tournament.
  * 
  */

@@ -1,10 +1,22 @@
 package org.gardler.biglittlechallenge.core.model;
 
-import org.gardler.biglittlechallenge.core.ui.AbstractUI;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 
-public abstract class Player {
+import org.gardler.biglittlechallenge.core.ui.AbstractUI;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+public abstract class Player implements Serializable {
+	private static final long serialVersionUID = -6951818858527928715L;
+
+	private static Logger logger = LoggerFactory.getLogger(Player.class);
 	
-	AbstractUI ui;
+	transient AbstractUI ui;
 
 	String name;
 	Deck deck;
@@ -68,6 +80,31 @@ public abstract class Player {
 	public Player(String name, AbstractUI ui) {
 		this.setName(name);
 		this.setUI(ui);
+	}
+	
+	/**
+	 * Save the Player object so that we can load it dynamically at
+	 * application startup.
+	 * @throws IOException 
+	 */
+	public void save() throws IOException {
+          FileOutputStream fileOut = new FileOutputStream("test_1.player");
+          ObjectOutputStream out = new ObjectOutputStream(fileOut);
+          out.writeObject(this);
+          out.close();
+          fileOut.close();
+          logger.info("Serialized Player in `test_1.player`");
+	}
+	
+	public static AbstractHands load() throws IOException, ClassNotFoundException {
+		AbstractHands hands = null;
+        FileInputStream fileIn = new FileInputStream("test_1.player");
+        ObjectInputStream in = new ObjectInputStream(fileIn);
+        hands = (AbstractHands) in.readObject();
+        in.close();
+        fileIn.close();
+        logger.info("Loaded Player definition file from `test_1.player`");
+        return hands;
 	}
 	
 	public String toString() {

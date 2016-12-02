@@ -1,9 +1,17 @@
 package org.gardler.biglittlechallenge.core.model;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Iterator;
 
-public class Deck {
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+public class Deck implements Serializable {
+	private static final long serialVersionUID = 4417178470398581230L;
+
+	private static Logger logger = LoggerFactory.getLogger(Deck.class);
+			
 	String name;
 	public String getName() {
 		return name;

@@ -1,4 +1,4 @@
-package org.gardler.biglittlechallenge.olympics.tournament;
+package org.gardler.biglittlechallenge.trials.tournament;
 
 import org.gardler.biglittlechallenge.core.model.AbstractHands;
 

@@ -1,4 +1,4 @@
-package org.gardler.biglittlechallenge.olympics.model;
+package org.gardler.biglittlechallenge.trials.model;
 
 import java.util.Random;
 
