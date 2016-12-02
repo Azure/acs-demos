@@ -1,4 +1,4 @@
-package org.gardler.biglittlechallenge.olympics.tournament;
+package org.gardler.biglittlechallenge.trials.tournament;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -7,7 +7,7 @@ import java.util.List;
 
 import org.gardler.biglittlechallenge.core.model.Hand;
 import org.gardler.biglittlechallenge.core.model.Player;
-import org.gardler.biglittlechallenge.olympics.model.Character;
+import org.gardler.biglittlechallenge.trials.model.Character;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

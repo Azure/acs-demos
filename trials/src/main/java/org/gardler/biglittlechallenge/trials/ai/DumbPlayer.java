@@ -1,6 +1,6 @@
-package org.gardler.biglittlechallenge.olympics.ai;
+package org.gardler.biglittlechallenge.trials.ai;
 
-import org.gardler.biglittlechallenge.olympics.model.Player;
+import org.gardler.biglittlechallenge.trials.model.Player;
 
 /**
  * DumbPlayer is a simple AI, a very simple AI. It always plays a random card regardless of the circumstances.

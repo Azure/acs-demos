@@ -1,4 +1,4 @@
-package org.gardler.biglittlechallenge.olympics.ai;
+package org.gardler.biglittlechallenge.trials.ai;
 
 import java.util.Random;
 import java.util.Set;
@@ -7,8 +7,8 @@ import org.gardler.biglittlechallenge.core.model.Card;
 import org.gardler.biglittlechallenge.core.model.Hand;
 import org.gardler.biglittlechallenge.core.model.Player;
 import org.gardler.biglittlechallenge.core.ui.AbstractUI;
-import org.gardler.biglittlechallenge.olympics.model.Character;
-import org.gardler.biglittlechallenge.olympics.model.Deck;
+import org.gardler.biglittlechallenge.trials.model.Character;
+import org.gardler.biglittlechallenge.trials.model.Deck;
 
 public class DumbAIUI extends AbstractUI {
 

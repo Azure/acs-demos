@@ -29,7 +29,7 @@ source, so go do what you can with it.
 
 Here's some game ideas:
 
-1. [Olympics](docs/olympics/intro.md) - a deck building game with elements of stats management. Initial rules and the very begining of an application to run it
+1. [Trials](docs/trials/intro.md) - a deck building game with elements of stats management. Initial rules and the very begining of an application to run it
 2. [Narhumo](../../wiki/Narhumo-Rules) - a building and resource management game, outline rules only
 3. [Sharks and Sands](../../wiki/Hen-Game::Sharks-and-Sands) - a simple introductory game, initial rules available
 	

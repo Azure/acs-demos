@@ -1,4 +1,4 @@
-package org.gardler.biglittlechallenge.olympics.model;
+package org.gardler.biglittlechallenge.trials.model;
 
 public class Deck extends org.gardler.biglittlechallenge.core.model.Deck {
 

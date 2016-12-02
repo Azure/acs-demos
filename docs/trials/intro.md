@@ -7,7 +7,7 @@ for more information.
 ## Game Design
 
 Think of a Deck Building game (Pokemon, Magic The Gathering etc.), a
-stats game (Dungeons and Dragons) and the Olympics (varied
+stats game (Dungeons and Dragons) and the trials (varied
 competitions) and you have the basic premise of The Big Little
 Challenge.
 
@@ -42,8 +42,8 @@ their traits.
 
 There are many different kinds of
 [competitions](competitions.md) that your characters can
-enter. Initially these will be based on the Olympics, but we should
-not restrict ourselves to the real world olympics. Imagination is
+enter. Initially these will be based on the trials, but we should
+not restrict ourselves to the real world trials. Imagination is
 important here.
 
 In it's simplest form the game is just a comparison of the relavant

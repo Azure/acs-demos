@@ -1,4 +1,4 @@
-package org.gardler.biglittlechallenge.olympics.ui;
+package org.gardler.biglittlechallenge.trials.ui;
 
 import java.io.IOException;
 import java.util.Iterator;
@@ -9,9 +9,9 @@ import org.gardler.biglittlechallenge.core.model.Deck;
 import org.gardler.biglittlechallenge.core.model.Hand;
 import org.gardler.biglittlechallenge.core.model.Player;
 import org.gardler.biglittlechallenge.core.ui.AbstractUI;
-import org.gardler.biglittlechallenge.olympics.model.Character;
-import org.gardler.biglittlechallenge.olympics.tournament.Event;
-import org.gardler.biglittlechallenge.olympics.tournament.Tournament;
+import org.gardler.biglittlechallenge.trials.model.Character;
+import org.gardler.biglittlechallenge.trials.tournament.Event;
+import org.gardler.biglittlechallenge.trials.tournament.Tournament;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -43,7 +43,7 @@ public class Shell extends AbstractUI {
 	}
 	
 	public void run() throws IOException {
-		print("Welcome to the Olympics");
+		print("Welcome to the Trials");
 		while (true) {
 			displayMainMenu();
 			int choice = inInt("\nSelect option: ");
@@ -231,6 +231,11 @@ public class Shell extends AbstractUI {
 		}
     	
 		player.setDeck(deck);
+		try {
+			player.save();
+		} catch (IOException e) {
+			logger.info("Unable to save player", e);
+		}
     	return deck;
 	}
 }
