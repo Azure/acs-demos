@@ -36,14 +36,6 @@ public class API {
     public PlayerStatus putGameStatus() {
     	logger.info("REST Service Method putGameStatus called");
     	
-    	/*
-        JsonObjectBuilder job = Json.createObjectBuilder();
-        job.add("gameID", "UID");
-        job.add("playerID", "UID");
-        job.add("status", "ready");
-        JsonObject json = job.build();
-        */
-    	
     	PlayerStatus status = new PlayerStatus();
     	status.setGameUID("gameUID");
     	status.setPlayerID("playerUID");
