@@ -24,7 +24,8 @@ import org.slf4j.LoggerFactory;
 @Path("player")
 public class API {
 	private static Logger logger = LoggerFactory.getLogger(API.class);
-	
+	private static PlayerStatus status = new PlayerStatus();
+    
 	@Context
 	UriInfo uriInfo;
 	@Context
@@ -33,13 +34,30 @@ public class API {
     @GET
     @Produces({ MediaType.APPLICATION_JSON})
     @Path("status")
-    public PlayerStatus putGameStatus() {
+    public PlayerStatus getGameStatus() {
     	logger.info("REST Service Method putGameStatus called");
     	
-    	PlayerStatus status = new PlayerStatus();
-    	status.setGameUID("gameUID");
-    	status.setPlayerID("playerUID");
-    	status.setStatus("ready");
+    	PlayerStatus status = getStatus();
         return status;
     }
+
+    @PUT
+    @Produces({ MediaType.APPLICATION_JSON})
+    @Consumes({ MediaType.APPLICATION_JSON})
+    @Path("status")
+    public PlayerStatus putGameStatus(PlayerStatus newStatus) {
+    	logger.info("REST Service Method putGameStatus called");
+    	
+    	PlayerStatus status = newStatus;
+        return status;
+    }
+    
+
+
+	private PlayerStatus getStatus() {
+		status.setGameUID("gameUID");
+    	status.setPlayerID("playerUID");
+    	status.setStatus("waiting");
+		return status;
+	}
 }

@@ -6,10 +6,18 @@ import junit.framework.TestCase;
 
 public class APITest extends TestCase {
 
+	public void testGetGameStatus() {
+		API api = new API();
+		PlayerStatus result = api.getGameStatus();
+		assertEquals("Game status is not 'waiting'", "waiting", result.getStatus());
+	}
+	
 	public void testPutGameStatus() {
 		API api = new API();
-		PlayerStatus result = api.putGameStatus();
-		assertTrue("Game status response does not include gameUID", result.getGameUID() != null);
+		PlayerStatus status = new PlayerStatus();
+		status.setStatus("ready");
+		PlayerStatus result = api.putGameStatus(status);
+		assertEquals("Game status is not 'ready'", "ready", result.getStatus());
 	}
 
 }

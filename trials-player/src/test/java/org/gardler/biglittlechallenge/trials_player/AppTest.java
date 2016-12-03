@@ -2,6 +2,8 @@ package org.gardler.biglittlechallenge.trials_player;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.client.Invocation.Builder;
 import javax.ws.rs.client.WebTarget;
 
 import org.gardler.biglittlechallenge.trials_player.model.PlayerStatus;
@@ -55,6 +57,17 @@ public class AppTest extends TestCase {
 	 */
 	public void testGetPlayerStatus() {
 		PlayerStatus result = target.path("player/status").request().get(PlayerStatus.class);
-		assertTrue("Game status response does not include gameUID", result.getGameUID() != null);
+		assertEquals("Game status is not 'waiting'", "waiting", result.getStatus());
+	}
+
+	/**
+	 * Test getting the players current status.
+	 */
+	public void testPutPlayerStatus() {
+		PlayerStatus newStatus = new PlayerStatus();
+		newStatus.setStatus("Ready");
+		
+		PlayerStatus result = target.path("player/status").request().buildPut(Entity.json(newStatus)).invoke(PlayerStatus.class);
+		assertEquals("Game status is not 'Ready'", "Ready", result.getStatus());
 	}
 }
