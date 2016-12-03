@@ -9,15 +9,15 @@ public class APITest extends TestCase {
 	public void testGetGameStatus() {
 		API api = new API();
 		PlayerStatus result = api.getGameStatus();
-		assertEquals("Game status is not 'waiting'", "waiting", result.getStatus());
+		assertEquals("Game status is not 'waiting'", PlayerStatus.State.Waiting, result.getStatus());
 	}
 	
 	public void testPutGameStatus() {
 		API api = new API();
 		PlayerStatus status = new PlayerStatus();
-		status.setStatus("ready");
+		status.setStatus(PlayerStatus.State.Ready);
 		PlayerStatus result = api.putGameStatus(status);
-		assertEquals("Game status is not 'ready'", "ready", result.getStatus());
+		assertEquals("Game status is not 'ready'", PlayerStatus.State.Ready, result.getStatus());
 	}
 
 }

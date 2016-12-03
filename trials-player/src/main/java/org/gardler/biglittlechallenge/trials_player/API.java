@@ -51,13 +51,11 @@ public class API {
     	PlayerStatus status = newStatus;
         return status;
     }
-    
-
 
 	private PlayerStatus getStatus() {
 		status.setGameUID("gameUID");
     	status.setPlayerID("playerUID");
-    	status.setStatus("waiting");
+    	status.setStatus(PlayerStatus.State.Idle);
 		return status;
 	}
 }

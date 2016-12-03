@@ -5,7 +5,6 @@ import org.gardler.biglittlechallenge.trials_player.ui.Shell;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
 import java.net.URI;
 
 import org.glassfish.grizzly.http.server.HttpServer;

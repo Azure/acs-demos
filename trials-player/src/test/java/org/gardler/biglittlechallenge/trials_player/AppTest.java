@@ -57,7 +57,7 @@ public class AppTest extends TestCase {
 	 */
 	public void testGetPlayerStatus() {
 		PlayerStatus result = target.path("player/status").request().get(PlayerStatus.class);
-		assertEquals("Game status is not 'waiting'", "waiting", result.getStatus());
+		assertEquals("Game status is not 'idle'", PlayerStatus.State.Idle, result.getStatus());
 	}
 
 	/**
@@ -65,9 +65,9 @@ public class AppTest extends TestCase {
 	 */
 	public void testPutPlayerStatus() {
 		PlayerStatus newStatus = new PlayerStatus();
-		newStatus.setStatus("Ready");
+		newStatus.setStatus(PlayerStatus.State.Ready);
 		
 		PlayerStatus result = target.path("player/status").request().buildPut(Entity.json(newStatus)).invoke(PlayerStatus.class);
-		assertEquals("Game status is not 'Ready'", "Ready", result.getStatus());
+		assertEquals("Game status is not 'Ready'", PlayerStatus.State.Ready, result.getStatus());
 	}
 }
