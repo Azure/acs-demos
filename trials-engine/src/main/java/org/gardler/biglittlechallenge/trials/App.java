@@ -7,7 +7,7 @@ import java.util.List;
 import org.gardler.biglittlechallenge.core.model.Player;
 import org.gardler.biglittlechallenge.trials.ai.DumbPlayer;
 import org.gardler.biglittlechallenge.trials.engine.Tournament;
-import org.gardler.biglittlechallenge.trials.ui.Shell;
+import org.gardler.biglittlechallenge.trials_player.ui.Shell;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -1,5 +1,14 @@
 package org.gardler.biglittlechallenge.trials_player;
 
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.WebTarget;
+
+import org.gardler.biglittlechallenge.trials_player.model.PlayerStatus;
+import org.glassfish.grizzly.http.server.HttpServer;
+import org.junit.After;
+import org.junit.Before;
+
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -7,32 +16,45 @@ import junit.framework.TestSuite;
 /**
  * Unit test for simple App.
  */
-public class AppTest 
-    extends TestCase
-{
-    /**
-     * Create the test case
-     *
-     * @param testName name of the test case
-     */
-    public AppTest( String testName )
-    {
-        super( testName );
-    }
+public class AppTest extends TestCase {
 
-    /**
-     * @return the suite of tests being tested
-     */
-    public static Test suite()
-    {
-        return new TestSuite( AppTest.class );
-    }
+	private HttpServer server;
+	private WebTarget target;
 
-    /**
-     * Rigourous Test :-)
-     */
-    public void testApp()
-    {
-        assertTrue( true );
-    }
+	@Before
+	public void setUp() throws Exception {
+		server = App.startServer();
+		Client c = ClientBuilder.newClient();
+		target = c.target(App.BASE_URI);
+	}
+	
+	@After
+	public void tearDown() throws Exception {
+		server.stop();
+	}
+
+	/**
+	 * Create the test case
+	 *
+	 * @param testName
+	 *            name of the test case
+	 */
+	public AppTest(String testName) {
+		super(testName);
+	}
+
+	/**
+	 * @return the suite of tests being tested
+	 */
+	public static Test suite() {
+		return new TestSuite(AppTest.class);
+	}
+
+	/**
+	 * Test getting the players current status.
+	 */
+	public void testGetPlayerStatus() {
+		PlayerStatus result = target.path("player/status").request().get(PlayerStatus.class);
+		assertTrue("Game status response does not include gameUID", result.getGameUID() != null);
+	}
 }
