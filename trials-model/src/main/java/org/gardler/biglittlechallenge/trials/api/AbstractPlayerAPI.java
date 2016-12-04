@@ -15,6 +15,7 @@ import javax.ws.rs.core.UriInfo;
 import org.gardler.biglittlechallenge.core.model.Hand;
 import org.gardler.biglittlechallenge.core.model.PlayedCards;
 import org.gardler.biglittlechallenge.core.model.Player;
+import org.gardler.biglittlechallenge.core.model.Round;
 import org.gardler.biglittlechallenge.core.ui.AbstractUI;
 import org.gardler.biglittlechallenge.trials.model.PlayerStatus;
 import org.slf4j.Logger;
@@ -30,8 +31,8 @@ public abstract class AbstractPlayerAPI {
 	@Context
 	Request request;
 
-	public AbstractPlayerAPI(String name, AbstractUI ui) {
-		this.player = new org.gardler.biglittlechallenge.trials.model.Player(name, ui);
+	public AbstractPlayerAPI(Player player, AbstractUI ui) {
+		this.player = player;
 	}
 	
 	@Path("status")
@@ -58,15 +59,25 @@ public abstract class AbstractPlayerAPI {
     @Path("event")
     @GET
     @Produces({ MediaType.APPLICATION_JSON})
-    public PlayedCards getCardsForHand() {
-    	Hand hand = new Hand("Test hand");
-    	return player.getCardsForHand(hand);
+    public PlayedCards getCardsForRound(Round round) {
+    	return player.getCardsForHand(round);
     }
 
     private PlayerStatus getStatus() {
 		status.setGameUID("gameUID");
     	status.setPlayerID("playerUID");
     	status.setStatus(PlayerStatus.State.Idle);
+		return status;
+	}
+
+    @Path("round/result")
+    @PUT
+    @Produces({ MediaType.APPLICATION_JSON})
+    @Consumes({ MediaType.APPLICATION_JSON})
+    public PlayerStatus postResult(Round round) {
+		status.setGameUID(round.getGameID());
+    	status.setPlayerID("playerUID");
+    	status.setStatus(PlayerStatus.State.Playing);
 		return status;
 	}
 

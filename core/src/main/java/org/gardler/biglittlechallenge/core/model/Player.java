@@ -74,12 +74,11 @@ public abstract class Player implements Serializable {
 	
 
 	/**
-	 * Get the cards to be played in a specific hands.
-	 * @param event
+	 * Get the cards to be played in a specific Round
 	 * @return
 	 */
-	public PlayedCards getCardsForHand(Hand hand) {
-		return this.getUI().selectCards(this, hand);
+	public PlayedCards getCardsForHand(Round round) {
+		return this.getUI().selectCards(this, round);
 	}
 	
 	/**

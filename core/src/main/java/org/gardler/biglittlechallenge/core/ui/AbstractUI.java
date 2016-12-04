@@ -3,7 +3,7 @@ package org.gardler.biglittlechallenge.core.ui;
 import org.gardler.biglittlechallenge.core.model.Deck;
 import org.gardler.biglittlechallenge.core.model.PlayedCards;
 import org.gardler.biglittlechallenge.core.model.Player;
-import org.gardler.biglittlechallenge.core.model.Hand;
+import org.gardler.biglittlechallenge.core.model.Round;
 
 /**
  * Provides the core UI class that allows objects to interact with the user.
@@ -12,12 +12,12 @@ import org.gardler.biglittlechallenge.core.model.Hand;
 public abstract class AbstractUI {
 	
 	/**
-	 * Get a player to select a card to play in a particular hand.
+	 * Get a player to select a card to play in a particular Round.
 	 * 
 	 * @param player
-	 * @param hand
+	 * @param round
 	 */
-	public abstract PlayedCards selectCards(Player player, Hand hand);
+	public abstract PlayedCards selectCards(Player player, Round round);
 
 	/**
 	 * Create a deck for a player.

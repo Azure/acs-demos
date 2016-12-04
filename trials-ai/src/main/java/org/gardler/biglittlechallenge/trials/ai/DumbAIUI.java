@@ -7,6 +7,7 @@ import org.gardler.biglittlechallenge.core.model.Deck;
 import org.gardler.biglittlechallenge.core.model.Hand;
 import org.gardler.biglittlechallenge.core.model.PlayedCards;
 import org.gardler.biglittlechallenge.core.model.Player;
+import org.gardler.biglittlechallenge.core.model.Round;
 import org.gardler.biglittlechallenge.core.ui.AbstractUI;
 import org.gardler.biglittlechallenge.trials.model.Character;
 import org.slf4j.Logger;
@@ -21,7 +22,7 @@ public class DumbAIUI extends AbstractUI {
 	}
 
 	@Override
-	public PlayedCards selectCards(Player player, Hand hand) {
+	public PlayedCards selectCards(Player player, Round round) {
 		Deck deck = (Deck) player.getDeck();
 		Set<String> keys = player.getDeck().getCards().keySet();
 
@@ -29,7 +30,7 @@ public class DumbAIUI extends AbstractUI {
 		int idx = rand.nextInt(keys.size());
 		String key = (String) keys.toArray()[idx];
 		
-		PlayedCards cards = new PlayedCards("Cards for " + hand.getName());
+		PlayedCards cards = new PlayedCards("Cards for " + round.getName());
 		cards.addCard(deck.getCard(key));
 		return cards;
 	}
