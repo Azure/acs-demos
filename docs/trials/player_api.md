@@ -38,6 +38,8 @@ Payload:
   "status": "ready"
 }
 
+See above for possible status vlaues.
+
 Response (within 10 seconds, otherwise abort start of game):
 
 {
@@ -46,26 +48,21 @@ Response (within 10 seconds, otherwise abort start of game):
   "status": "ready"
 }
 
-### Event Start
+### Hands (Events in a Trials Tournament)
+
+An event is a single hand in the game. Players will select the cards to play and respond accordingly.
+
+#### Play Hand (GET)
 
 When a player is required to play their hand in an event this API is called. The player responds with the hand to be played.
 
-POST /api/v0.1/player/event
-
-{
-  "gameID": "UID",
-  "status": "start"
-  "event": {
-    "eventID" : "UID",
-    "name": "EVENT NAME",
-    "description": "Description of event"
-  }
-}
+GET /api/v0.1/player/cards?gameID=UID&handID=UID
 
 Response (within 10 seconds, otherwise the event is forfeit):
 
 {  
-  "gameId": "UID",
+  "gameID": "UID",
+  "handID": "UID"
   "cards": [
     { 
       "name": "NAME",

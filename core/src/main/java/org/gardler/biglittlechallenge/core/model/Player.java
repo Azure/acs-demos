@@ -21,6 +21,11 @@ public abstract class Player implements Serializable {
 	String name;
 	Deck deck;
 	
+	public Player(String name, AbstractUI ui) {
+		this.setName(name);
+		this.setUI(ui);
+	}
+	
 	public Deck getDeck() {
 		if (deck == null) {
 			createDeck(name + "'s Deck");
@@ -69,17 +74,12 @@ public abstract class Player implements Serializable {
 	
 
 	/**
-	 * Get the character to be played in a specific event.
+	 * Get the cards to be played in a specific hands.
 	 * @param event
 	 * @return
 	 */
-	public Card getCardForHand(Hand hand) {
-		return this.getUI().selectCard(this, hand);
-	}
-	
-	public Player(String name, AbstractUI ui) {
-		this.setName(name);
-		this.setUI(ui);
+	public PlayedCards getCardsForHand(Hand hand) {
+		return this.getUI().selectCards(this, hand);
 	}
 	
 	/**

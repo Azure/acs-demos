@@ -1,4 +1,4 @@
-package org.gardler.biglittlechallenge.trials_player.model;
+package org.gardler.biglittlechallenge.trials.model;
 
 public class PlayerStatus {
 

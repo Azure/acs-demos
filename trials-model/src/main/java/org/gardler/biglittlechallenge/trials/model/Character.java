@@ -3,7 +3,7 @@ package org.gardler.biglittlechallenge.trials.model;
 import java.util.Random;
 
 public class Character extends org.gardler.biglittlechallenge.core.model.Card {
-	
+	private static final long serialVersionUID = 1873696867527064976L;
 	private static int NUM_OF_TRAITS = 7;
 	private static int POINTS_PER_TRAIT = 10;
 

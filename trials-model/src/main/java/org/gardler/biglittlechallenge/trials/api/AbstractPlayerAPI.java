@@ -1,8 +1,7 @@
-package org.gardler.biglittlechallenge.trials_player;
+package org.gardler.biglittlechallenge.trials.api;
 
-import javax.json.Json;
-import javax.json.JsonObject;
-import javax.json.JsonObjectBuilder;
+import java.nio.channels.spi.AbstractInterruptibleChannel;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.PUT;
@@ -13,27 +12,31 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Request;
 import javax.ws.rs.core.UriInfo;
 
-import org.gardler.biglittlechallenge.trials_player.model.PlayerStatus;
+import org.gardler.biglittlechallenge.core.model.Hand;
+import org.gardler.biglittlechallenge.core.model.PlayedCards;
+import org.gardler.biglittlechallenge.core.model.Player;
+import org.gardler.biglittlechallenge.core.ui.AbstractUI;
+import org.gardler.biglittlechallenge.trials.model.PlayerStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- * Player API is used to communicate with the player.
- *
- */
-@Path("player")
-public class API {
-	private static Logger logger = LoggerFactory.getLogger(API.class);
+public abstract class AbstractPlayerAPI {
+	private static Logger logger = LoggerFactory.getLogger(AbstractPlayerAPI.class);
 	private static PlayerStatus status = new PlayerStatus();
-    
+	protected Player player;
+	    
 	@Context
 	UriInfo uriInfo;
 	@Context
 	Request request;
 
+	public AbstractPlayerAPI(String name, AbstractUI ui) {
+		this.player = new org.gardler.biglittlechallenge.trials.model.Player(name, ui);
+	}
+	
+	@Path("status")
     @GET
     @Produces({ MediaType.APPLICATION_JSON})
-    @Path("status")
     public PlayerStatus getGameStatus() {
     	logger.info("REST Service Method putGameStatus called");
     	
@@ -41,21 +44,30 @@ public class API {
         return status;
     }
 
+    @Path("status")
     @PUT
     @Produces({ MediaType.APPLICATION_JSON})
     @Consumes({ MediaType.APPLICATION_JSON})
-    @Path("status")
     public PlayerStatus putGameStatus(PlayerStatus newStatus) {
     	logger.info("REST Service Method putGameStatus called");
     	
     	PlayerStatus status = newStatus;
         return status;
     }
+    
+    @Path("event")
+    @GET
+    @Produces({ MediaType.APPLICATION_JSON})
+    public PlayedCards getCardsForHand() {
+    	Hand hand = new Hand("Test hand");
+    	return player.getCardsForHand(hand);
+    }
 
-	private PlayerStatus getStatus() {
+    private PlayerStatus getStatus() {
 		status.setGameUID("gameUID");
     	status.setPlayerID("playerUID");
     	status.setStatus(PlayerStatus.State.Idle);
 		return status;
 	}
+
 }

@@ -3,10 +3,9 @@ package org.gardler.biglittlechallenge.trials_player;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
-import javax.ws.rs.client.Invocation.Builder;
 import javax.ws.rs.client.WebTarget;
 
-import org.gardler.biglittlechallenge.trials_player.model.PlayerStatus;
+import org.gardler.biglittlechallenge.trials.model.PlayerStatus;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.junit.After;
 import org.junit.Before;
@@ -18,16 +17,16 @@ import junit.framework.TestSuite;
 /**
  * Unit test for simple App.
  */
-public class AppTest extends TestCase {
+public class PlayerAppTest extends TestCase {
 
 	private HttpServer server;
 	private WebTarget target;
 
 	@Before
 	public void setUp() throws Exception {
-		server = App.startServer();
+		server = PlayerApp.startServer();
 		Client c = ClientBuilder.newClient();
-		target = c.target(App.BASE_URI);
+		target = c.target(PlayerApp.BASE_URI);
 	}
 	
 	@After
@@ -41,7 +40,7 @@ public class AppTest extends TestCase {
 	 * @param testName
 	 *            name of the test case
 	 */
-	public AppTest(String testName) {
+	public PlayerAppTest(String testName) {
 		super(testName);
 	}
 
@@ -49,7 +48,7 @@ public class AppTest extends TestCase {
 	 * @return the suite of tests being tested
 	 */
 	public static Test suite() {
-		return new TestSuite(AppTest.class);
+		return new TestSuite(PlayerAppTest.class);
 	}
 
 	/**
