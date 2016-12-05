@@ -4,13 +4,14 @@
 
   <groupId>org.gardler.biglittlechallenge</groupId>
   <artifactId>trials-engine</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>${trials.version}</version>
   <packaging>jar</packaging>
 
   <name>trials-engine</name>
   <url>http://maven.apache.org</url>
 
 	<properties>
+	    <trials.version>0.0.1-SNAPSHOT</trials.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<slf4j.version>1.7.21</slf4j.version>
 		<log4j.version>2.7</log4j.version>
@@ -38,15 +39,20 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>3.8.1</version>
-			<scope>test</scope>
+			<groupId>org.gardler.biglittlechallenge</groupId>
+			<artifactId>trials-model</artifactId>
+			<version>${trials.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.gardler.biglittlechallenge</groupId>
-			<artifactId>trials-model</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<artifactId>trials-ai</artifactId>
+			<version>${trials.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.9</version>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>

@@ -1,14 +1,17 @@
-Engine API endpoint: /api/v0.1/engine
-Player API endpoint: /api/v0.1/player
-
 Engine API
 --------------
 
-### Join a game
+## Status
+
+To get the status of a game in progress.
+
+GET /api/v0.1/tournament/status
+
+## Join a game
 
 To join a game a player posts a request to the engine.
 
-POST /api/v0.1/player/join
+POST /api/v0.1/tournament/join
 
 Payload
 ```json

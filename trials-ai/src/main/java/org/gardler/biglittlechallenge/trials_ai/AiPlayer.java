@@ -11,5 +11,9 @@ public class AiPlayer {
 			instance = new Player(name, null);
 		}
 	}
+	
+	public static Player getInstance() {
+		return instance;
+	}
 
 }

@@ -12,24 +12,24 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * A collection of hands that need to be played in a game.
+ * A collection of Rounds that need to be played in a game.
  *
  */
-public abstract class AbstractHands implements Serializable {
+public abstract class AbstractRounds implements Serializable {
 	private static final long serialVersionUID = -7488746681061877408L;
-	private static Logger logger = LoggerFactory.getLogger(AbstractHands.class);
-	protected ArrayList<Hand> hands = new ArrayList<Hand>();
+	private static Logger logger = LoggerFactory.getLogger(AbstractRounds.class);
+	protected ArrayList<Round> rounds = new ArrayList<Round>();
 
-	public void add(Hand hand) {
-		hands.add(hand);
+	public void add(Round round) {
+		rounds.add(round);
 	}
 
-	public ArrayList<Hand> getAsList() {
-		return hands;
+	public ArrayList<Round> getAsList() {
+		return rounds;
 	}
 
 	public int size() {
-		return hands.size();
+		return rounds.size();
 	}
 
 	/**
@@ -46,11 +46,11 @@ public abstract class AbstractHands implements Serializable {
           logger.info("Serialized Hands in `test.hands`");
 	}
 	
-	public static AbstractHands load() throws IOException, ClassNotFoundException {
-		AbstractHands hands = null;
+	public static AbstractRounds load() throws IOException, ClassNotFoundException {
+		AbstractRounds hands = null;
         FileInputStream fileIn = new FileInputStream("test.hands");
         ObjectInputStream in = new ObjectInputStream(fileIn);
-        hands = (AbstractHands) in.readObject();
+        hands = (AbstractRounds) in.readObject();
         in.close();
         fileIn.close();
         logger.info("Loaded hands definition file from `test.hands`");

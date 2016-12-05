@@ -95,11 +95,11 @@ public abstract class Player implements Serializable {
           logger.info("Serialized Player in `test_1.player`");
 	}
 	
-	public static AbstractHands load() throws IOException, ClassNotFoundException {
-		AbstractHands hands = null;
+	public static AbstractRounds load() throws IOException, ClassNotFoundException {
+		AbstractRounds hands = null;
         FileInputStream fileIn = new FileInputStream("test_1.player");
         ObjectInputStream in = new ObjectInputStream(fileIn);
-        hands = (AbstractHands) in.readObject();
+        hands = (AbstractRounds) in.readObject();
         in.close();
         fileIn.close();
         logger.info("Loaded Player definition file from `test_1.player`");

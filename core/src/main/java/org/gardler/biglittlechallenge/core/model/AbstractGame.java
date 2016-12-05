@@ -9,24 +9,24 @@ import java.util.List;
  */
 public abstract class AbstractGame {
 
-	protected AbstractHands hands;
+	protected AbstractRounds rounds;
 	protected List<Player> players;
 	
 	public AbstractGame(List<Player> players) {
 		this.players = players;
-		this.setHands();
+		this.setRounds();
 	}
 	
 	/**
 	 * Set the hands to be played in this game.
 	 */
-	protected abstract void setHands();
+	protected abstract void setRounds();
 	
 	/**
 	 * Get an ordered List of the hands to be played in this game.
 	 */
-	public ArrayList<Hand> getHands() {
-		return hands.getAsList();
+	public ArrayList<Round> getRounds() {
+		return rounds.getAsList();
 	}
 
 }

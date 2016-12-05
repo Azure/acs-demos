@@ -1,7 +1,5 @@
 package org.gardler.biglittlechallenge.trials.api;
 
-import java.nio.channels.spi.AbstractInterruptibleChannel;
-
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.PUT;
@@ -12,7 +10,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Request;
 import javax.ws.rs.core.UriInfo;
 
-import org.gardler.biglittlechallenge.core.model.Hand;
 import org.gardler.biglittlechallenge.core.model.PlayedCards;
 import org.gardler.biglittlechallenge.core.model.Player;
 import org.gardler.biglittlechallenge.core.model.Round;
