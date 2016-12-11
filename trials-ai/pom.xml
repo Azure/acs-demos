@@ -26,7 +26,7 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>org.gardler.biglittlechallenge.trials.App</mainClass>
+							<mainClass>org.gardler.biglittlechallenge.trials_ai.AiPlayerApp</mainClass>
 						</manifest>
 					</archive>
 				</configuration>
