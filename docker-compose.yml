@@ -1,0 +1,10 @@
+version: '2'
+services:
+  engine:
+    image: biglittlechallenge/trials-engine
+    ports:
+     - "8080:8080"
+  aiplayer:
+    image: biglittlechallenge/trials-ai
+    ports:
+     - "8080"
