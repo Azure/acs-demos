@@ -13,7 +13,7 @@ import org.gardler.biglittlechallenge.trials.model.Player;
  */
 @Path("player")
 public class AiPlayerAPI extends AbstractPlayerAPI {
-	
+
 	public AiPlayerAPI(String name, AbstractUI ui) {
 		super(new org.gardler.biglittlechallenge.trials.model.Player(name, ui), ui);
 	}
@@ -22,5 +22,4 @@ public class AiPlayerAPI extends AbstractPlayerAPI {
 		super(player, ui);
 	}
 
-	
 }

@@ -15,6 +15,10 @@ public class Deck implements Serializable {
 
 	String name;
 
+	public Deck() {
+		this.setName("Default Deck");
+	}
+	
 	public Deck(String name) {
 		this.setName(name);
 	}

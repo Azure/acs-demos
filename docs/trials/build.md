@@ -2,20 +2,18 @@
 
 To build the Trials application...
 
-1. `cd core`
-2. `maven install`
-3. `cd ../trials`
-4. `maven clean package shade:shade`
-
-To build a Docker container:
-
-1. `docker build -t trials .`
+1. Install JDK
+2. Install Maven
+3. Install Docker
+4. Run `build.sh`
 
 # Running the Trials Game
 
-To run (using Docker, after building container image)...
+If you run `docker-compose up -d` (after the above build steps) you
+will start an game of Trials in which you have two AI players. Updates
+to the status of the game can be viewed with:
 
-1. `docker run -it trials`
+`curl http://localhost:8080/api/v0.1/tournament/status`	
 
 # Playing the Trials Game
 

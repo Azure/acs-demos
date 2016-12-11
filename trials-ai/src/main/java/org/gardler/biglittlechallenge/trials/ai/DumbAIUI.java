@@ -13,7 +13,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class DumbAIUI extends AbstractUI {
+	private static final long serialVersionUID = -3859082547675210829L;
 	private static Logger logger = LoggerFactory.getLogger(DumbAIUI.class);
+	
+	public String name = "Default AI UI";
 	
 	public DumbAIUI() {
 		super();
@@ -43,4 +46,6 @@ public class DumbAIUI extends AbstractUI {
     	deck.addCard(card);
     	return deck;
 	}
+	
+	
 }

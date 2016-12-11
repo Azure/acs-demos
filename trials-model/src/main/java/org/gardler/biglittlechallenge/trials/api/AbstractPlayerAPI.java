@@ -22,7 +22,7 @@ public abstract class AbstractPlayerAPI {
 	private static Logger logger = LoggerFactory.getLogger(AbstractPlayerAPI.class);
 	private static PlayerStatus status = new PlayerStatus();
 	protected Player player;
-	    
+
 	@Context
 	UriInfo uriInfo;
 	@Context
@@ -31,50 +31,50 @@ public abstract class AbstractPlayerAPI {
 	public AbstractPlayerAPI(Player player, AbstractUI ui) {
 		this.player = player;
 	}
-	
+
 	@Path("status")
-    @GET
-    @Produces({ MediaType.APPLICATION_JSON})
-    public PlayerStatus getGameStatus() {
-    	logger.info("REST Service Method putGameStatus called");
-    	
-    	PlayerStatus status = getStatus();
-        return status;
-    }
+	@GET
+	@Produces({ MediaType.APPLICATION_JSON })
+	public PlayerStatus getGameStatus() {
+		logger.info("REST Service Method putGameStatus called");
 
-    @Path("status")
-    @PUT
-    @Produces({ MediaType.APPLICATION_JSON})
-    @Consumes({ MediaType.APPLICATION_JSON})
-    public PlayerStatus putGameStatus(PlayerStatus newStatus) {
-    	logger.info("REST Service Method putGameStatus called");
-    	
-    	PlayerStatus status = newStatus;
-        return status;
-    }
-    
-    @Path("event")
-    @GET
-    @Produces({ MediaType.APPLICATION_JSON})
-    public PlayedCards getCardsForRound(Round round) {
-    	return player.getCardsForHand(round);
-    }
-
-    private PlayerStatus getStatus() {
-		status.setGameUID("gameUID");
-    	status.setPlayerID("playerUID");
-    	status.setStatus(PlayerStatus.State.Idle);
+		PlayerStatus status = getStatus();
 		return status;
 	}
 
-    @Path("round/result")
-    @PUT
-    @Produces({ MediaType.APPLICATION_JSON})
-    @Consumes({ MediaType.APPLICATION_JSON})
-    public PlayerStatus postResult(Round round) {
+	@Path("status")
+	@PUT
+	@Produces({ MediaType.APPLICATION_JSON })
+	@Consumes({ MediaType.APPLICATION_JSON })
+	public PlayerStatus putGameStatus(PlayerStatus newStatus) {
+		logger.info("REST Service Method putGameStatus called");
+
+		PlayerStatus status = newStatus;
+		return status;
+	}
+
+	@Path("event")
+	@GET
+	@Produces({ MediaType.APPLICATION_JSON })
+	public PlayedCards getCardsForRound(Round round) {
+		return player.getCardsForHand(round);
+	}
+
+	private PlayerStatus getStatus() {
+		status.setGameUID("gameUID");
+		status.setPlayerID("playerUID");
+		status.setStatus(PlayerStatus.State.Idle);
+		return status;
+	}
+
+	@Path("round/result")
+	@PUT
+	@Produces({ MediaType.APPLICATION_JSON })
+	@Consumes({ MediaType.APPLICATION_JSON })
+	public PlayerStatus postResult(Round round) {
 		status.setGameUID(round.getGameID());
-    	status.setPlayerID("playerUID");
-    	status.setStatus(PlayerStatus.State.Playing);
+		status.setPlayerID("playerUID");
+		status.setStatus(PlayerStatus.State.Playing);
 		return status;
 	}
 

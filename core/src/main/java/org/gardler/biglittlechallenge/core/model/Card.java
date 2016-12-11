@@ -12,8 +12,12 @@ import java.util.Iterator;
 public class Card implements Serializable {
 	private static final long serialVersionUID = -2423089035312679270L;
 	String name;
-	HashMap<String, String> properties = new HashMap<String, String>();
+	public HashMap<String, String> properties = new HashMap<String, String>();
 
+	public Card() {
+		this.setName("Default Card");
+	}
+	
 	public String getName() {
 		return name;
 	}
@@ -37,11 +41,11 @@ public class Card implements Serializable {
 		return result;
 	}
 
-	public void setProperty(String key, String value) {
+	public void writeProperty(String key, String value) {
 		properties.put(key, value);
 	}
 
-	public String getProperty(String key) {
+	public String readProperty(String key) {
 		return properties.get(key);
 	}
 

@@ -19,71 +19,32 @@ public class Character extends org.gardler.biglittlechallenge.core.model.Card {
 		int allowedPoints = POINTS_PER_TRAIT * NUM_OF_TRAITS;
 		
 		int points = getRandomPoints(allowedPoints - assignedPoints);
-		setSrength(points);
+		writeProperty("Strength", Integer.toString(points));
 		assignedPoints = assignedPoints + points - 1;
 		
 		points = getRandomPoints(allowedPoints - assignedPoints);
-		setDexterity(points);
+		writeProperty("Dexterity", Integer.toString(points));
 		assignedPoints = assignedPoints + points -1;
 		
 		points = getRandomPoints(allowedPoints - assignedPoints);
-		setIntelligence(points);
+		writeProperty("Intelligence", Integer.toString(points));
 		assignedPoints = assignedPoints + points - 1;
 		
 		points = getRandomPoints(allowedPoints - assignedPoints);
-		setCharisma(points);
+		writeProperty("Charisma", Integer.toString(points));
 		assignedPoints = assignedPoints + points - 1;
 		
 		points = getRandomPoints(allowedPoints - assignedPoints);
-		setStamina(points);
+		writeProperty("Stamina", Integer.toString(points));
 		assignedPoints = assignedPoints + points - 1;
 
 		points = getRandomPoints(allowedPoints - assignedPoints);
-		setSpeed(points);
+		writeProperty("Speed", Integer.toString(points));
 		assignedPoints = assignedPoints + points - 1;
 
-		setReactions(allowedPoints - assignedPoints);
+		writeProperty("Reactions", Integer.toString(allowedPoints - assignedPoints));
 	}
 	
-	private void setSrength(int points) {
-		setProperty("Strength", Integer.toString(points));
-	}
-	
-	private void setDexterity(int points) {
-		setProperty("Dexterity", Integer.toString(points));
-	}
-	public int getDexterity() {
-		return Integer.parseInt(getProperty("Dexterity"));
-	}
-	
-	public void setReactions(int points) {
-		setProperty("Reactions", Integer.toString(points));
-	}
-	public int getReactions() {
-		return Integer.parseInt(getProperty("Reactions"));
-	}
-	
-	public void setSpeed(int points) {
-		setProperty("Speed", Integer.toString(points));
-	}
-	public int getSpeed() {
-		return Integer.parseInt(getProperty("Speed"));
-	}
-	
-	private void setIntelligence(int points) {
-		setProperty("Intelligence", Integer.toString(points));
-	}
-	
-	private void setCharisma(int points) {
-		setProperty("Charisma", Integer.toString(points));
-	}
-	
-	public void setStamina(int points) {
-		setProperty("Stamina", Integer.toString(points));
-	}
-	public int getStamina() {
-		return Integer.parseInt(getProperty("Stamina"));
-	}
 	
 	private int getRandomPoints(int allowedPoints) {
 		Random rand = new Random();

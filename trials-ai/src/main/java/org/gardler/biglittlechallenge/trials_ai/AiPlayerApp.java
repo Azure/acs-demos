@@ -2,7 +2,6 @@ package org.gardler.biglittlechallenge.trials_ai;
 
 import java.net.URI;
 
-import org.gardler.biglittlechallenge.trials.ai.DumbAIUI;
 import org.gardler.biglittlechallenge.trials.model.Player;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
@@ -20,19 +19,22 @@ public class AiPlayerApp {
 	
 	protected static Player player;
 	// Base URI the Grizzly HTTP server will listen on
-    public static final String BASE_URI = "http://0.0.0.0:8080/api/v0.1/";
+    public static final String BASE_URI = "http://0.0.0.0:8888/api/v0.1/";
     
-	public AiPlayerApp() {
-		player = new Player("Jane", new DumbAIUI());
-	}
-	
     public static void main( String[] args )
-    {
-		AiPlayerApp.startServer();
+    {	
+    	String engineEndpoint = "http://localhost:8080/api/v0.1/";
+    	
+    	AiPlayerApp.startServer();
         logger.info(String.format("Client API started with WADL available at "
                 + "%sapplication.wadl", BASE_URI));
+        
+        // Request to join a game
+        AiPlayer player = new AiPlayer("AI Player 1");
+        player.joinTournament(engineEndpoint);
+        
         while (true) {
-        	
+        	// Interactions are now via the player API
         }
     }
     

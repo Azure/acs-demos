@@ -1,6 +1,7 @@
 package org.gardler.biglittlechallenge.core.model;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -46,14 +47,19 @@ public abstract class AbstractRounds implements Serializable {
           logger.info("Serialized Hands in `test.hands`");
 	}
 	
-	public static AbstractRounds load() throws IOException, ClassNotFoundException {
+	public static AbstractRounds load() throws ClassNotFoundException, IOException {
 		AbstractRounds hands = null;
-        FileInputStream fileIn = new FileInputStream("test.hands");
-        ObjectInputStream in = new ObjectInputStream(fileIn);
-        hands = (AbstractRounds) in.readObject();
-        in.close();
-        fileIn.close();
-        logger.info("Loaded hands definition file from `test.hands`");
+		try {
+	        FileInputStream fileIn;
+			fileIn = new FileInputStream("test.hands");
+	        ObjectInputStream in = new ObjectInputStream(fileIn);
+	        hands = (AbstractRounds) in.readObject();
+	        in.close();
+	        fileIn.close();
+	        logger.info("Loaded hands definition file from `test.hands`");
+		} catch (FileNotFoundException e) {
+			// doesn't matter if it doesn't exist, we'll just create defaults
+		}
         return hands;
 	}
 }

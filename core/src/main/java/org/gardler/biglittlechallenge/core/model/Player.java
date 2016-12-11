@@ -6,24 +6,38 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.client.Invocation;
+import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import org.gardler.biglittlechallenge.core.ui.AbstractUI;
+import org.glassfish.jersey.client.ClientConfig;
+import org.glassfish.jersey.logging.LoggingFeature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public abstract class Player implements Serializable {
+
+public class Player implements Serializable {
 	private static final long serialVersionUID = -6951818858527928715L;
 
 	private static Logger logger = LoggerFactory.getLogger(Player.class);
-	
+
 	transient AbstractUI ui;
 
 	String name;
 	Deck deck;
 	
+	public Player() {
+		this.setName("Default Player");
+	}
+	
 	public Player(String name, AbstractUI ui) {
 		this.setName(name);
-		this.setUI(ui);
+		this.ui = ui;
 	}
 	
 	public Deck getDeck() {
@@ -35,24 +49,6 @@ public abstract class Player implements Serializable {
 
 	public void setDeck(Deck deck) {
 		this.deck = deck;
-	}
-	
-	/**
-	 * Set the user interface to be used by this player.
-	 * 
-	 * @param ui
-	 */
-	public void setUI(AbstractUI ui) {
-		this.ui = ui;
-	}
-
-	/**
-	 * Get the user interface to be used by this player.
-	 * 
-	 * @param ui
-	 */
-	public AbstractUI getUI() {
-		return this.ui;
 	}
 	
 	public String getName() {
@@ -69,7 +65,7 @@ public abstract class Player implements Serializable {
 	 * @param name the name of the deck
 	 */
 	public void createDeck(String name) {
-		this.setDeck(this.getUI().createDeck(this));
+		this.setDeck(ui.createDeck(this));
 	}
 	
 
@@ -78,7 +74,7 @@ public abstract class Player implements Serializable {
 	 * @return
 	 */
 	public PlayedCards getCardsForHand(Round round) {
-		return this.getUI().selectCards(this, round);
+		return ui.selectCards(this, round);
 	}
 	
 	/**
@@ -110,5 +106,23 @@ public abstract class Player implements Serializable {
 		String result = this.getName();
 		result = result + this.getDeck().toString();
 		return result;
+	}
+	
+	/**
+	 * Request to join a game.
+	 * 
+	 * This sends a request to the game engine (via REST API at
+	 * `engineEndpoint`) to join a game. When a game is ready the engine will
+	 * call back to the player via the player API and the game can start.
+	 * 
+	 */
+	public void joinTournament(String engineEndpoint) {
+		Client client = ClientBuilder.newClient(new ClientConfig().register( LoggingFeature.class ));
+		WebTarget webTarget = client.target(engineEndpoint).path("api/v0.1/tournament/join");
+
+		Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
+		Response response = invocationBuilder.put(Entity.entity(this, MediaType.APPLICATION_JSON));
+		
+		logger.debug("Request to join tournament - response (status " + response.getStatus() + "): " + response.readEntity(String.class));
 	}
 }

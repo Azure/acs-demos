@@ -14,7 +14,7 @@ public class Player extends org.gardler.biglittlechallenge.core.model.Player {
 	
 	public Player(String name, AbstractUI ui) {
 		super(name, ui);		
-		logger.debug("Created a player using the " + ui.getClass() + " UI");
+		logger.debug("Created a player with the UI class " + ui.getClass());
 	}
 
 }
