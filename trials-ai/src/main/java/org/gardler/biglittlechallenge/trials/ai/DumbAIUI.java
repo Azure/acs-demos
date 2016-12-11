@@ -4,7 +4,6 @@ import java.util.Random;
 import java.util.Set;
 
 import org.gardler.biglittlechallenge.core.model.Deck;
-import org.gardler.biglittlechallenge.core.model.Hand;
 import org.gardler.biglittlechallenge.core.model.PlayedCards;
 import org.gardler.biglittlechallenge.core.model.Player;
 import org.gardler.biglittlechallenge.core.model.Round;
