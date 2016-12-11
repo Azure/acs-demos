@@ -1,9 +1,8 @@
-package org.gardler.biglittlechallenge.trials_ai;
+package org.gardler.biglittlechallenge.trials.ai;
 
 import javax.ws.rs.Path;
 
 import org.gardler.biglittlechallenge.core.ui.AbstractUI;
-import org.gardler.biglittlechallenge.trials.ai.DumbAIUI;
 import org.gardler.biglittlechallenge.trials.api.AbstractPlayerAPI;
 import org.gardler.biglittlechallenge.trials.model.Player;
 

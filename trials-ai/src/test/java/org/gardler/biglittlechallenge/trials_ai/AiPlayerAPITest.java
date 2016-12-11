@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.gardler.biglittlechallenge.core.model.PlayedCards;
 import org.gardler.biglittlechallenge.core.model.Round;
+import org.gardler.biglittlechallenge.trials.ai.AiPlayerAPI;
 import org.gardler.biglittlechallenge.trials.ai.DumbAIUI;
 import org.gardler.biglittlechallenge.trials.api.AbstractPlayerAPI;
 import org.gardler.biglittlechallenge.trials.model.Player;

@@ -1,4 +1,4 @@
-package org.gardler.biglittlechallenge.trials_ai;
+package org.gardler.biglittlechallenge.trials.ai;
 
 import java.net.URI;
 

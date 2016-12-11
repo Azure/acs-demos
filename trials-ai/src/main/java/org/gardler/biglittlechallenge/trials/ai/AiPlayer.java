@@ -1,6 +1,5 @@
-package org.gardler.biglittlechallenge.trials_ai;
+package org.gardler.biglittlechallenge.trials.ai;
 
-import org.gardler.biglittlechallenge.trials.ai.DumbAIUI;
 import org.gardler.biglittlechallenge.trials.model.Player;
 
 public class AiPlayer extends Player {
