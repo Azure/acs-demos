@@ -22,15 +22,15 @@ public class AiPlayerApp {
     public static final String BASE_URI = "http://0.0.0.0:8888/api/v0.1/";
     
     public static void main( String[] args )
-    {	
-    	String engineEndpoint = "http://localhost:8080/api/v0.1/";
-    	
-    	AiPlayerApp.startServer();
+    {	AiPlayerApp.startServer();
         logger.info(String.format("Client API started with WADL available at "
                 + "%sapplication.wadl", BASE_URI));
         
         // Request to join a game
-        AiPlayer player = new AiPlayer("AI Player 1");
+
+    	String engineEndpoint;
+		engineEndpoint = AiPlayer.getEngineEndoint();
+    	AiPlayer player = new AiPlayer("AI Player 1");
         player.joinTournament(engineEndpoint);
         
         while (true) {

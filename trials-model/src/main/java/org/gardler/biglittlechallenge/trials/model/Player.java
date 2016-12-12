@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
  *
  */
 public class Player extends org.gardler.biglittlechallenge.core.model.Player {
-
+	private static final long serialVersionUID = -4194853817643572541L;
 	private static Logger logger = LoggerFactory.getLogger(Player.class);
 	
 	public Player(String name, AbstractUI ui) {

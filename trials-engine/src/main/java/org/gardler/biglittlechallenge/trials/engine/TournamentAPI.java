@@ -15,7 +15,7 @@ import org.gardler.biglittlechallenge.trials.model.GameStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@Path("api/v0.1/tournament")
+@Path("tournament")
 public class TournamentAPI {
 	private static Logger logger = LoggerFactory.getLogger(TournamentAPI.class);
 

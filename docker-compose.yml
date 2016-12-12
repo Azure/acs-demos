@@ -4,7 +4,11 @@ services:
     image: biglittlechallenge/trials-engine
     ports:
      - "8080:8080"
-  aiplayer:
+  aiplayer1:
+    image: biglittlechallenge/trials-ai
+    ports:
+     - "8888"
+  aiplayer2:
     image: biglittlechallenge/trials-ai
     ports:
      - "8080"

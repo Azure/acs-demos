@@ -1,7 +1,9 @@
 package org.gardler.biglittlechallenge.trials.model;
 
-public class GameStatus {
+import java.io.Serializable;
 
+public class GameStatus implements Serializable {
+	private static final long serialVersionUID = -2937782814901661605L;
 	private String gameUID;
 	private State status;
 	public enum State { Idle, Waiting, Ready, Playing }
