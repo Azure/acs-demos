@@ -15,7 +15,7 @@ public class TournamentAPITest {
 		DumbAIUI ui = new DumbAIUI();
 		Player player = new Player("Test AI Player", ui); 
 		
-		TournamentAPI api = new TournamentAPI();
+		TournamentAPI api = initTournament();
 		GameStatus status = api.postJoinGame(player);
 		
 		assertEquals("Game status is not 'WaitingForPlayers'", GameStatus.State.WaitingForPlayers, status.getState());
@@ -28,12 +28,12 @@ public class TournamentAPITest {
 
 	@Test
 	public void testGetStatus() {
-		TournamentAPI api = initTorunament();
+		TournamentAPI api = initTournament();
 		GameStatus status = api.getStatus();
 		assertEquals("Game status is not 'WaitingForPlayers'", GameStatus.State.WaitingForPlayers, status.getState());
 	}
 
-	private TournamentAPI initTorunament() {
+	private TournamentAPI initTournament() {
 		TournamentAPI api = new TournamentAPI();
 		api.abortGame();
 		return api;
