@@ -52,7 +52,7 @@ public class AiPlayer extends Player {
 			}
 			
 			index = index + 1;
-			if (index > url.length) {
+			if (index >= url.length) {
 				index = 0;
 				logger.warn("Unable to connect to an available engine, waiting then trying again");
 				try {
