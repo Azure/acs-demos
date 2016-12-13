@@ -36,30 +36,39 @@ public abstract class AbstractRounds implements Serializable {
 	/**
 	 * Save the AbstractHands object so that we can load it dynamically at
 	 * application startup.
-	 * @throws IOException 
+	 * 
+	 * @throws IOException
 	 */
 	public void save() throws IOException {
-          FileOutputStream fileOut = new FileOutputStream("test.hands");
-          ObjectOutputStream out = new ObjectOutputStream(fileOut);
-          out.writeObject(this);
-          out.close();
-          fileOut.close();
-          logger.info("Serialized Hands in `test.hands`");
+		FileOutputStream fileOut = new FileOutputStream("test.hands");
+		ObjectOutputStream out = new ObjectOutputStream(fileOut);
+		out.writeObject(this);
+		out.close();
+		fileOut.close();
+		logger.info("Serialized Hands in `test.hands`");
 	}
-	
+
+	/**
+	 * Load the rounds for a tournament from disk. If no saved file is foound
+	 * return null, otherwise return the loaded rounds.
+	 * 
+	 * @return
+	 * @throws ClassNotFoundException
+	 * @throws IOException
+	 */
 	public static AbstractRounds load() throws ClassNotFoundException, IOException {
 		AbstractRounds hands = null;
 		try {
-	        FileInputStream fileIn;
+			FileInputStream fileIn;
 			fileIn = new FileInputStream("test.hands");
-	        ObjectInputStream in = new ObjectInputStream(fileIn);
-	        hands = (AbstractRounds) in.readObject();
-	        in.close();
-	        fileIn.close();
-	        logger.info("Loaded hands definition file from `test.hands`");
+			ObjectInputStream in = new ObjectInputStream(fileIn);
+			hands = (AbstractRounds) in.readObject();
+			in.close();
+			fileIn.close();
+			logger.info("Loaded hands definition file from `test.hands`");
 		} catch (FileNotFoundException e) {
-			// doesn't matter if it doesn't exist, we'll just create defaults
+			return null;
 		}
-        return hands;
+		return hands;
 	}
 }

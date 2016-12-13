@@ -1,7 +1,6 @@
 package org.gardler.biglittlechallenge.trials.engine;
 
 import java.io.IOException;
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -10,9 +9,7 @@ import org.gardler.biglittlechallenge.core.model.AbstractGame;
 import org.gardler.biglittlechallenge.core.model.AbstractRounds;
 import org.gardler.biglittlechallenge.core.model.Player;
 import org.gardler.biglittlechallenge.core.model.Round;
-import org.glassfish.grizzly.http.server.HttpServer;
-import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
-import org.glassfish.jersey.server.ResourceConfig;
+import org.gardler.biglittlechallenge.trials.model.GameStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,9 +21,9 @@ import org.slf4j.LoggerFactory;
 public class Tournament extends AbstractGame {
 	
 	private static Logger logger = LoggerFactory.getLogger(Tournament.class);
-	// Base URI the Grizzly HTTP server will listen on
-    public static final String BASE_URI = "http://0.0.0.0:8080/api/v0.1/";
-			
+	
+	private GameStatus status;
+	
 	public Tournament() {
 		super(new ArrayList<Player>());
 		this.setRounds();
@@ -38,7 +35,7 @@ public class Tournament extends AbstractGame {
 	protected void setRounds() {
 		try {
 			rounds = AbstractRounds.load();
-			return;
+			if (rounds != null) return;
 		} catch (ClassNotFoundException e) {
 			logger.error("Unable to load hands definition, using default hands.", e);
 		} catch (IOException e) {
@@ -71,6 +68,13 @@ public class Tournament extends AbstractGame {
     	rounds.add(event);
 	}
 	
+	public GameStatus getStatus() {
+		if (status == null) {
+			status = new GameStatus();
+		}
+		return status;
+	}
+	
 	public String toString() {
 		String result = "This tournament consists of " + rounds.size() + " events.\n";
 		Iterator<Round> itr = getRounds().iterator();
@@ -79,10 +83,5 @@ public class Tournament extends AbstractGame {
 			result = result + "\t" + event.getName() + "\n";
 		}
 		return result;
-	}
-
-	public HttpServer startServer() {
-		final ResourceConfig rc = new ResourceConfig().register(TournamentAPI.class);
-		return GrizzlyHttpServerFactory.createHttpServer(URI.create(BASE_URI), rc);
 	}
 }

@@ -1,6 +1,11 @@
 package org.gardler.biglittlechallenge.trials;
 
-import org.gardler.biglittlechallenge.trials.engine.Tournament;
+import java.net.URI;
+
+import org.gardler.biglittlechallenge.trials.engine.TournamentAPI;
+import org.glassfish.grizzly.http.server.HttpServer;
+import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
+import org.glassfish.jersey.server.ResourceConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,8 +27,16 @@ public class EngineControllerApp
         logger.debug("Starting the trials card game.");
         
     	logger.debug("Create a tournament server");
-    	Tournament tournament = new Tournament();
-    	tournament.startServer();
+    	startServer();
+    	
+    	while (true) {
+    		
+    	}
     }
+
+	public static HttpServer startServer() {
+		final ResourceConfig rc = new ResourceConfig().register(TournamentAPI.class);
+		return GrizzlyHttpServerFactory.createHttpServer(URI.create(BASE_URI), rc);
+	}
 
 }

@@ -18,14 +18,19 @@ public class TournamentAPITest {
 		TournamentAPI api = new TournamentAPI();
 		GameStatus status = api.postJoinGame(player);
 		
-		assertEquals("Game status is not 'Waiting'", GameStatus.State.Waiting, status.getStatus());
+		assertEquals("Game status is not 'WaitingForPlayers'", GameStatus.State.WaitingForPlayers, status.getState());
+		
+		player = new Player("Second Test AI Player", ui);
+		status = api.postJoinGame(player);
+		
+		assertEquals("Game status is not 'Playing' after second player joins", GameStatus.State.Playing, status.getState());		
 	}
 
 	@Test
 	public void testGetStatus() {
 		TournamentAPI api = new TournamentAPI();
 		GameStatus status = api.getStatus();
-		assertEquals("Game status is not 'Idle'", GameStatus.State.Idle, status.getStatus());
+		assertEquals("Game status is not 'WaitingForPlayers'", GameStatus.State.WaitingForPlayers, status.getState());
 	}
 
 }

@@ -18,7 +18,8 @@ import org.slf4j.LoggerFactory;
 @Path("tournament")
 public class TournamentAPI {
 	private static Logger logger = LoggerFactory.getLogger(TournamentAPI.class);
-
+	private static Tournament tournament = new Tournament();
+	
 	@Context
 	UriInfo uriInfo;
 	@Context
@@ -31,19 +32,18 @@ public class TournamentAPI {
 	public GameStatus postJoinGame(Player player) {
 		logger.info("Player requested to join game: " + player.getName());
 		
-		logger.error("FIXME: putJoinGame not implemented yet");
-		GameStatus status = getStatus();
-		status.setStatus(GameStatus.State.Waiting);
-		return status;
+		tournament.addPlayer(player);
+		
+		return getStatus();
 	}
 	
 	@Path("status")
     @GET
     @Produces({ MediaType.APPLICATION_JSON })
     public GameStatus getStatus() {
-		logger.error("FIXME: Game status is not really being tracked");
-		GameStatus status = new GameStatus();
-		status.setStatus(GameStatus.State.Idle);
-		return status;
+		if (tournament.getPlayers().size() == tournament.getDesiredNumberOfPlayers() && tournament.getStatus().getState() == GameStatus.State.WaitingForPlayers) {
+			tournament.getStatus().setState(GameStatus.State.Playing);
+		}
+		return tournament.getStatus();
 	}
 }
