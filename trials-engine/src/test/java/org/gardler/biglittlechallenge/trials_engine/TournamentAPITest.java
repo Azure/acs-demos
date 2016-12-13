@@ -28,10 +28,15 @@ public class TournamentAPITest {
 
 	@Test
 	public void testGetStatus() {
-		TournamentAPI api = new TournamentAPI();
-		api.abortGame();
+		TournamentAPI api = initTorunament();
 		GameStatus status = api.getStatus();
 		assertEquals("Game status is not 'WaitingForPlayers'", GameStatus.State.WaitingForPlayers, status.getState());
+	}
+
+	private TournamentAPI initTorunament() {
+		TournamentAPI api = new TournamentAPI();
+		api.abortGame();
+		return api;
 	}
 
 }
