@@ -10,15 +10,16 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Request;
 import javax.ws.rs.core.UriInfo;
 
+import org.gardler.biglittlechallenge.core.model.AbstractGame;
+import org.gardler.biglittlechallenge.core.model.GameStatus;
 import org.gardler.biglittlechallenge.core.model.Player;
-import org.gardler.biglittlechallenge.trials.model.GameStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @Path("tournament")
 public class TournamentAPI {
 	private static Logger logger = LoggerFactory.getLogger(TournamentAPI.class);
-	private static Tournament tournament = new Tournament();
+	private static AbstractGame tournament = new Tournament();
 	
 	@Context
 	UriInfo uriInfo;
@@ -45,5 +46,9 @@ public class TournamentAPI {
 			tournament.getStatus().setState(GameStatus.State.Playing);
 		}
 		return tournament.getStatus();
+	}
+
+	public void abortGame() {
+		tournament.abortGame();
 	}
 }

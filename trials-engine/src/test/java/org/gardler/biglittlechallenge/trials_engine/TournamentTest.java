@@ -1,5 +1,6 @@
 package org.gardler.biglittlechallenge.trials_engine;
 
+import org.gardler.biglittlechallenge.core.model.AbstractGame;
 import org.gardler.biglittlechallenge.trials.engine.Tournament;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,7 +9,7 @@ import junit.framework.TestCase;
 
 public class TournamentTest extends TestCase {
 	
-	private Tournament tournament;
+	private AbstractGame tournament;
 	private static Logger logger = LoggerFactory.getLogger(TournamentTest.class);
 
 	public void testToString() {

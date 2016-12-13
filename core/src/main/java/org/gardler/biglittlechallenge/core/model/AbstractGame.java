@@ -12,6 +12,7 @@ public abstract class AbstractGame {
 	protected AbstractRounds rounds;
 	private int desiredNumberOfPlayers = 2;
 	protected List<Player> players = new ArrayList<Player>();
+	private GameStatus status;
 	
 	public AbstractGame(List<Player> players) {
 		this.players = players;
@@ -39,6 +40,14 @@ public abstract class AbstractGame {
 	}
 	
 	/**
+	 * Abort the current game and reset the game status.
+	 */
+	public void abortGame() {
+		status.setState(GameStatus.State.WaitingForPlayers);
+		players = new ArrayList<Player>();
+	}
+	
+	/**
 	 * Get the desired number of players. In most games this is the number of
 	 * players needed before the game will start.
 	 * 
@@ -54,6 +63,13 @@ public abstract class AbstractGame {
 	 */
 	public void setDesiredNumberOfPlayers(int desiredNumberOfPlayers) {
 		this.desiredNumberOfPlayers = desiredNumberOfPlayers;
+	}
+
+	public GameStatus getStatus() {
+		if (status == null) {
+			status = new GameStatus();
+		}
+		return status;
 	}
 
 }

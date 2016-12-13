@@ -9,7 +9,6 @@ import org.gardler.biglittlechallenge.core.model.AbstractGame;
 import org.gardler.biglittlechallenge.core.model.AbstractRounds;
 import org.gardler.biglittlechallenge.core.model.Player;
 import org.gardler.biglittlechallenge.core.model.Round;
-import org.gardler.biglittlechallenge.trials.model.GameStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,8 +20,6 @@ import org.slf4j.LoggerFactory;
 public class Tournament extends AbstractGame {
 	
 	private static Logger logger = LoggerFactory.getLogger(Tournament.class);
-	
-	private GameStatus status;
 	
 	public Tournament() {
 		super(new ArrayList<Player>());
@@ -66,13 +63,6 @@ public class Tournament extends AbstractGame {
 		formula.put("Strength", 0.5);
 		event = new Event("Field: Pole Vault", formula);
     	rounds.add(event);
-	}
-	
-	public GameStatus getStatus() {
-		if (status == null) {
-			status = new GameStatus();
-		}
-		return status;
 	}
 	
 	public String toString() {

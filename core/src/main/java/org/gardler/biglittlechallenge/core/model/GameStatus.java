@@ -1,21 +1,19 @@
-package org.gardler.biglittlechallenge.trials.model;
+package org.gardler.biglittlechallenge.core.model;
 
 import java.io.Serializable;
+import java.util.UUID;
 
 public class GameStatus implements Serializable {
 	private static final long serialVersionUID = -2937782814901661605L;
-	private String gameUID;
+	private UUID gameUUID = UUID.randomUUID();
 	private State state = State.WaitingForPlayers;
 	
 	// WaitingForPlayers means the game is waiting for the minimum number of players before starting
 	// Playing means the game is underway 
 	public enum State { WaitingForPlayers, Playing }
 	
-	public String getGameUID() {
-		return gameUID;
-	}
-	public void setGameUID(String gameUID) {
-		this.gameUID = gameUID;
+	public UUID getGameUUID() {
+		return gameUUID;
 	}
 	
 	/**
