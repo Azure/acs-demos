@@ -2,7 +2,8 @@ package org.gardler.biglittlechallenge.trials.ai;
 
 import java.net.URI;
 
-import org.gardler.biglittlechallenge.trials.model.Player;
+import org.gardler.biglittlechallenge.core.model.Player;
+import org.gardler.biglittlechallenge.core.model.PlayerAPI;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
@@ -38,7 +39,7 @@ public class AiPlayerApp {
     }
     
     public static HttpServer startServer() {
-        final ResourceConfig rc = new ResourceConfig().register(AiPlayerAPI.class);
+        final ResourceConfig rc = new ResourceConfig().register(PlayerAPI.class);
 
         return GrizzlyHttpServerFactory.createHttpServer(URI.create(BASE_URI), rc);
     }

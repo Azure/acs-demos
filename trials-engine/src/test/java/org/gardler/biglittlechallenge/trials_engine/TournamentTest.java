@@ -1,14 +1,10 @@
 package org.gardler.biglittlechallenge.trials_engine;
 
-import static org.junit.Assert.assertEquals;
-
 import org.gardler.biglittlechallenge.core.model.AbstractGame;
 import org.gardler.biglittlechallenge.core.model.AbstractGameAPI;
 import org.gardler.biglittlechallenge.core.model.GameStatus;
-import org.gardler.biglittlechallenge.trials.EngineControllerApp;
+import org.gardler.biglittlechallenge.core.model.Player;
 import org.gardler.biglittlechallenge.trials.engine.Tournament;
-import org.gardler.biglittlechallenge.trials.engine.TournamentAPI;
-import org.gardler.biglittlechallenge.trials.model.Player;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

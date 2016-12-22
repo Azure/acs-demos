@@ -1,4 +1,4 @@
-package org.gardler.biglittlechallenge.trials.api;
+package org.gardler.biglittlechallenge.core.model;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -10,15 +10,11 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Request;
 import javax.ws.rs.core.UriInfo;
 
-import org.gardler.biglittlechallenge.core.model.PlayedCards;
-import org.gardler.biglittlechallenge.core.model.Player;
-import org.gardler.biglittlechallenge.core.model.PlayerStatus;
-import org.gardler.biglittlechallenge.core.model.Round;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public abstract class AbstractPlayerAPI {
-	private static Logger logger = LoggerFactory.getLogger(AbstractPlayerAPI.class);
+public class PlayerAPI {
+	private static Logger logger = LoggerFactory.getLogger(PlayerAPI.class);
 	protected Player player;
 
 	@Context
@@ -26,7 +22,7 @@ public abstract class AbstractPlayerAPI {
 	@Context
 	Request request;
 
-	public AbstractPlayerAPI(Player player) {
+	public PlayerAPI(Player player) {
 		this.player = player;
 	}
 

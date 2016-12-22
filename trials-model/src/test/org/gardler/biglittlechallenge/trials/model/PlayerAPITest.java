@@ -1,26 +1,25 @@
-package org.gardler.biglittlechallenge.trials.ai;
+package org.gardler.biglittlechallenge.trials.model;
 
 import java.util.ArrayList;
 
+import org.gardler.biglittlechallenge.core.model.PlayerAPI;
 import org.gardler.biglittlechallenge.core.model.PlayedCards;
+import org.gardler.biglittlechallenge.core.model.Player;
 import org.gardler.biglittlechallenge.core.model.PlayerStatus;
 import org.gardler.biglittlechallenge.core.model.Round;
-import org.gardler.biglittlechallenge.trials.ai.AiPlayerAPI;
-import org.gardler.biglittlechallenge.trials.api.AbstractPlayerAPI;
-import org.gardler.biglittlechallenge.trials.model.Player;
 import org.junit.Before;
 
 import junit.framework.TestCase;
 
-public class AiPlayerAPITest extends TestCase {
+public class PlayerAPITest extends TestCase {
 	
-	AbstractPlayerAPI api;
+	PlayerAPI api;
 	
 	@Before
 	public void setUp() {
-		String uiClassName = "org.gardler.biglittlechallenge.trials.ai.DumbAIUI";
-		Player player = new org.gardler.biglittlechallenge.trials.model.Player("Test AI Player", uiClassName);
-		api = new AiPlayerAPI(player);
+		String uiClassName = "org.gardler.biglittlechallenge.trials.model.TestPlayerUI";
+		Player player = new Player("Test AI Player", uiClassName);
+		api = new PlayerAPI(player);
 		PlayerStatus status = player.getStatus();
 		
 		status.setState(PlayerStatus.State.Idle);
@@ -32,7 +31,7 @@ public class AiPlayerAPITest extends TestCase {
 		assertEquals("Game status is not 'Idle'", PlayerStatus.State.Idle, result.getState());
 	}
 	
-	public void testPuttatus() {
+	public void testPutStatus() {
 		PlayerStatus status = new PlayerStatus();
 		status.setState(PlayerStatus.State.Ready);
 		PlayerStatus result = api.putGameStatus(status);
@@ -56,13 +55,13 @@ public class AiPlayerAPITest extends TestCase {
 		
 		Round round = new Round("Test Round");
 		round.setGameID("gameUID");
-		ArrayList<org.gardler.biglittlechallenge.core.model.Player> playerPositions = new ArrayList<org.gardler.biglittlechallenge.core.model.Player>();
+		ArrayList<Player> playerPositions = new ArrayList<Player>();
 		playerPositions.add(winner);
 		playerPositions.add(runnerup);
 		playerPositions.add(player);
 		round.setPlayerPositions(playerPositions);
 		
-		AbstractPlayerAPI api = new AiPlayerAPI(player);
+		PlayerAPI api = new PlayerAPI(player);
 		PlayerStatus response = api.postResult(round);
 		assertEquals("Game status is not 'Playing'", PlayerStatus.State.Idle, response.getState());
 	}

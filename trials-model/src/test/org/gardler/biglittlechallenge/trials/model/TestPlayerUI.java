@@ -1,4 +1,4 @@
-package org.gardler.biglittlechallenge.trials.ai;
+package org.gardler.biglittlechallenge.trials.model;
 
 import java.util.Random;
 import java.util.Set;
@@ -13,15 +13,15 @@ import org.gardler.biglittlechallenge.trials.model.Character;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class DumbAIUI extends AbstractUI {
+public class TestPlayerUI extends AbstractUI {
 	private static final long serialVersionUID = -3859082547675210829L;
-	private static Logger logger = LoggerFactory.getLogger(DumbAIUI.class);
+	private static Logger logger = LoggerFactory.getLogger(TestPlayerUI.class);
 	
-	public String name = "Default AI UI";
+	public String name = "Default Test UI";
 	
-	public DumbAIUI() {
+	public TestPlayerUI() {
 		super();
-		logger.info("Created Dumb AI Player UI");
+		logger.info("Created Test Player 'UI'");
 	}
 
 	@Override
