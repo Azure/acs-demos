@@ -42,9 +42,6 @@ public class TournamentAPI {
     @GET
     @Produces({ MediaType.APPLICATION_JSON })
     public GameStatus getStatus() {
-		if (tournament.getPlayers().size() == tournament.getDesiredNumberOfPlayers() && tournament.getStatus().getState() == GameStatus.State.WaitingForPlayers) {
-			tournament.getStatus().setState(GameStatus.State.Playing);
-		}
 		return tournament.getStatus();
 	}
 

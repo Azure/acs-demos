@@ -33,6 +33,10 @@ public abstract class AbstractGame {
 	
 	public void addPlayer(Player player) {
 		players.add(player);
+		if (players.size() == getDesiredNumberOfPlayers() && getStatus().getState() == GameStatus.State.WaitingForPlayers) {
+			getStatus().setState(GameStatus.State.Playing);
+		}
+		
 	}
 
 	public List<Player> getPlayers() {

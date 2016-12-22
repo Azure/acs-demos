@@ -10,19 +10,19 @@ import org.junit.Test;
 public class TournamentAPITest {
 
 	@Test
-	public void testPostJoinGame() {
+	public void testFullGame() {
 		String uiClassName = "org.gardler.biglittlechallenge.trials.ai.DumbAIUI";
 		Player player = new Player("Test AI Player", uiClassName); 
 		
 		TournamentAPI api = initTournament();
 		GameStatus status = api.postJoinGame(player);
-		
 		assertEquals("Game status is not 'WaitingForPlayers'", GameStatus.State.WaitingForPlayers, status.getState());
 		
 		player = new Player("Second Test AI Player", uiClassName);
 		status = api.postJoinGame(player);
+		assertEquals("Game status is not 'Playing' after second player joins", GameStatus.State.Playing, status.getState());
 		
-		assertEquals("Game status is not 'Playing' after second player joins", GameStatus.State.Playing, status.getState());		
+		// Verify engine waits for players to call back
 	}
 
 	@Test
