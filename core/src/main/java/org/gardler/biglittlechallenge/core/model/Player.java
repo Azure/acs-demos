@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.UUID;
+
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
@@ -26,18 +28,43 @@ public class Player implements Serializable {
 
 	private static Logger logger = LoggerFactory.getLogger(Player.class);
 
-	transient AbstractUI ui;
-
+	private static PlayerStatus status = new PlayerStatus();
+	
 	String name;
 	Deck deck;
+	UUID id;
+
+	private String uiClassName = "UNDEFINED";
 	
-	public Player() {
-		this.setName("Default Player");
+	/**
+	 * Default constructor to enable this class to be deserialized. 
+	 * Should not be used in game engines. 
+	 */
+	protected Player() {
 	}
 	
-	public Player(String name, AbstractUI ui) {
+	/**
+	 * Create a player with default settings that will use the
+	 * class defined as the players UI.
+	 * 
+	 * @param uiClassName
+	 */
+	public Player(String uiClassName) {
+		this.setName("Default Player");
+		this.setStatus(new PlayerStatus());
+	}
+	
+	/**
+	 * Create a player.
+	 * 
+	 * @param name
+	 * @param uiClassName
+	 */
+	public Player(String name, String uiClassName) {
+		super();
 		this.setName(name);
-		this.ui = ui;
+		this.uiClassName = uiClassName;
+		this.id = UUID.randomUUID();
 	}
 	
 	public Deck getDeck() {
@@ -65,7 +92,7 @@ public class Player implements Serializable {
 	 * @param name the name of the deck
 	 */
 	public void createDeck(String name) {
-		this.setDeck(ui.createDeck(this));
+		this.setDeck(ui().createDeck(this));
 	}
 	
 
@@ -74,7 +101,7 @@ public class Player implements Serializable {
 	 * @return
 	 */
 	public PlayedCards getCardsForHand(Round round) {
-		return ui.selectCards(this, round);
+		return ui().selectCards(this, round);
 	}
 	
 	/**
@@ -124,5 +151,71 @@ public class Player implements Serializable {
 		Response response = invocationBuilder.put(Entity.entity(this, MediaType.APPLICATION_JSON));
 		
 		logger.debug("Request to join tournament - response (status " + response.getStatus() + "): " + response.readEntity(String.class));
+	}
+
+	public PlayerStatus getStatus() {
+		if (status == null) {
+			status = new PlayerStatus();
+			status.setPlayerID(getID().toString());
+			status.setState(PlayerStatus.State.Idle);
+		}
+		return status;
+	}
+	
+	public void setStatus(PlayerStatus status) {
+		Player.status = status;
+	}
+	
+	public UUID getID() {
+		return id;
+	}
+	
+	public void setID(UUID id) {
+		this.id = id;
+	}
+	
+	public AbstractUI ui() {
+		Class<?> cls;
+		AbstractUI ui = null;
+		try {
+			cls = Class.forName(uiClassName);
+			ui = (AbstractUI) cls.newInstance();
+		} catch (ClassNotFoundException e) {
+			String msg = "Cannot find the UI class: " + uiClassName + ". Please ensure that you set the correct classname when instantiating the Player or through a call to setUIClassName()";
+			logger.error(msg, e);
+			System.exit(0);
+		} catch (InstantiationException e) {
+			String msg = "Cannot instantiate the UI class: " + uiClassName + ". Please ensure that you set the correct classname when instantiating the Player or through a call to setUIClassName()";
+			logger.error(msg, e);
+			System.exit(0);
+		} catch (IllegalAccessException e) {
+			String msg = "Cannot access the UI class: " + uiClassName + ". Please ensure that you set the correct classname when instantiating the Player or through a call to setUIClassName()";
+			logger.error(msg, e);
+			System.exit(0);
+		}
+		return ui;
+	}
+	
+	/**
+	 * Get the class name for the UI for this player. 
+	 * This is used to instantiate the UI class at runtime.
+	 * By default it will not return a valid class name.
+	 * It is the responsibility of game engine to set this
+	 * correctly through the Player constructor or through
+	 * a call to setUIClassname.
+	 * 
+	 * @return Class name of the UI for this player
+	 */
+	public String getUIClassName() {
+		return uiClassName;
+	}
+	
+	/**
+	 * Set the name of the class that provides the UI for tihs player.
+	 * 
+	 * @param className
+	 */
+	public void setUIClassName(String className) {
+		this.uiClassName = className;
 	}
 }

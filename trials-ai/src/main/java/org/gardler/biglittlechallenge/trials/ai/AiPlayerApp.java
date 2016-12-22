@@ -27,7 +27,6 @@ public class AiPlayerApp {
                 + "%sapplication.wadl", BASE_URI));
         
         // Request to join a game
-
     	String engineEndpoint;
 		engineEndpoint = AiPlayer.getEngineEndoint();
     	AiPlayer player = new AiPlayer("AI Player 1");

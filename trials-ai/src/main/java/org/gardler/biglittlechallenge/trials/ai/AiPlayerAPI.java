@@ -2,7 +2,6 @@ package org.gardler.biglittlechallenge.trials.ai;
 
 import javax.ws.rs.Path;
 
-import org.gardler.biglittlechallenge.core.ui.AbstractUI;
 import org.gardler.biglittlechallenge.trials.api.AbstractPlayerAPI;
 import org.gardler.biglittlechallenge.trials.model.Player;
 
@@ -13,12 +12,12 @@ import org.gardler.biglittlechallenge.trials.model.Player;
 @Path("player")
 public class AiPlayerAPI extends AbstractPlayerAPI {
 
-	public AiPlayerAPI(String name, AbstractUI ui) {
-		super(new org.gardler.biglittlechallenge.trials.model.Player(name, ui), ui);
+	public AiPlayerAPI(String name, String uiClassName) {
+		super(new org.gardler.biglittlechallenge.trials.model.Player(name, uiClassName));
 	}
 
-	public AiPlayerAPI(Player player, DumbAIUI ui) {
-		super(player, ui);
+	public AiPlayerAPI(Player player) {
+		super(player);
 	}
 
 }

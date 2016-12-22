@@ -1,10 +1,10 @@
-package org.gardler.biglittlechallenge.trials.model;
+package org.gardler.biglittlechallenge.core.model;
 
 public class PlayerStatus {
 
 	private String gameUID;
 	private String playerID;
-	private State status;
+	private State state = State.Idle;
 	public enum State { Idle, Waiting, Ready, Playing }
 	
 	public String getGameUID() {
@@ -19,11 +19,11 @@ public class PlayerStatus {
 	public void setPlayerID(String playerID) {
 		this.playerID = playerID;
 	}
-	public State getStatus() {
-		return status;
+	public State getState() {
+		return state;
 	}
-	public void setStatus(State status) {
-		this.status = status;
+	public void setState(State status) {
+		this.state = status;
 	}
 	
 }

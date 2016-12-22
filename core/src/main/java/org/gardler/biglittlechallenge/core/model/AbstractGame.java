@@ -12,7 +12,7 @@ public abstract class AbstractGame {
 	protected AbstractRounds rounds;
 	private int desiredNumberOfPlayers = 2;
 	protected List<Player> players = new ArrayList<Player>();
-	private GameStatus status;
+	private GameStatus status = new GameStatus();
 	
 	public AbstractGame(List<Player> players) {
 		this.players = players;

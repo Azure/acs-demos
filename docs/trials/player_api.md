@@ -24,11 +24,14 @@ Where `status` can be:
   - Ready - ready to join a game about to start, indicates the player has requested to join a game and the game is about to start (waiting for all players to be ready)
   - Playing - a game is underway
 
-#### Update (PUT)
+#### Start Gane (PUT)
 
-When a player asks to join a game they initially receive a response indicating they are waiting for players to join the game. Once enough players have indicated they are available the engine informs players via a status update. Players must then acknowledge their ability to play within a set time period.
+When a player asks to join a game they initially receive a response indicating they 
+are waiting for players to join the game. Once enough players have indicated they 
+are available the engine informs players via a game start command. Players must then 
+acknowledge their ability to play for the game to commence.
 
-PUT /api/v0.1/player/game/status
+PUT /api/v0.1/player/game/start
 
 Payload:
 

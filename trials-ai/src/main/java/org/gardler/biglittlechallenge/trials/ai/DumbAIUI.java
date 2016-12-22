@@ -6,6 +6,7 @@ import java.util.Set;
 import org.gardler.biglittlechallenge.core.model.Deck;
 import org.gardler.biglittlechallenge.core.model.PlayedCards;
 import org.gardler.biglittlechallenge.core.model.Player;
+import org.gardler.biglittlechallenge.core.model.PlayerStatus;
 import org.gardler.biglittlechallenge.core.model.Round;
 import org.gardler.biglittlechallenge.core.ui.AbstractUI;
 import org.gardler.biglittlechallenge.trials.model.Character;
@@ -47,5 +48,12 @@ public class DumbAIUI extends AbstractUI {
     	return deck;
 	}
 	
+	@Override
+	public PlayerStatus startGame(Player player) {
+		PlayerStatus state = player.getStatus();
+		state.setState(PlayerStatus.State.Playing);
+		player.setStatus(state);
+		return state;
+	}
 	
 }

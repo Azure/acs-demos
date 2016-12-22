@@ -3,7 +3,6 @@ package org.gardler.biglittlechallenge.trials_engine;
 import static org.junit.Assert.*;
 
 import org.gardler.biglittlechallenge.core.model.GameStatus;
-import org.gardler.biglittlechallenge.trials.ai.DumbAIUI;
 import org.gardler.biglittlechallenge.trials.engine.TournamentAPI;
 import org.gardler.biglittlechallenge.trials.model.Player;
 import org.junit.Test;
@@ -12,15 +11,15 @@ public class TournamentAPITest {
 
 	@Test
 	public void testPostJoinGame() {
-		DumbAIUI ui = new DumbAIUI();
-		Player player = new Player("Test AI Player", ui); 
+		String uiClassName = "org.gardler.biglittlechallenge.trials.ai.DumbAIUI";
+		Player player = new Player("Test AI Player", uiClassName); 
 		
 		TournamentAPI api = initTournament();
 		GameStatus status = api.postJoinGame(player);
 		
 		assertEquals("Game status is not 'WaitingForPlayers'", GameStatus.State.WaitingForPlayers, status.getState());
 		
-		player = new Player("Second Test AI Player", ui);
+		player = new Player("Second Test AI Player", uiClassName);
 		status = api.postJoinGame(player);
 		
 		assertEquals("Game status is not 'Playing' after second player joins", GameStatus.State.Playing, status.getState());		

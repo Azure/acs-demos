@@ -20,7 +20,7 @@ public class AiPlayer extends Player {
 	private static String engineEndpoint = null;
 
 	public AiPlayer(String name) {
-		super(name, new DumbAIUI());
+		super(name, "org.gardler.biglittlechallenge.trials.ai.DumbAIUI");
 		instance = this;
 	}
 
