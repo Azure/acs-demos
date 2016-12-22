@@ -3,6 +3,7 @@ package org.gardler.biglittlechallenge.trials_engine;
 import static org.junit.Assert.*;
 
 import org.gardler.biglittlechallenge.core.model.GameStatus;
+import org.gardler.biglittlechallenge.trials.engine.Tournament;
 import org.gardler.biglittlechallenge.trials.engine.TournamentAPI;
 import org.junit.Test;
 
@@ -16,7 +17,8 @@ public class TournamentAPITest {
 	}
 
 	private TournamentAPI initTournament() {
-		TournamentAPI api = new TournamentAPI();
+		Tournament tournament = new Tournament();
+		TournamentAPI api = new TournamentAPI(tournament);
 		api.abortGame(); // This is to ensure we are not using a previously created game
 		return api;
 	}

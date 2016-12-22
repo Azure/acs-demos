@@ -2,6 +2,7 @@ package org.gardler.biglittlechallenge.trials;
 
 import java.net.URI;
 
+import org.gardler.biglittlechallenge.trials.engine.Tournament;
 import org.gardler.biglittlechallenge.trials.engine.TournamentAPI;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
@@ -35,7 +36,8 @@ public class EngineControllerApp
     }
 
 	public static HttpServer startServer() {
-		final ResourceConfig rc = new ResourceConfig().register(TournamentAPI.class);
+		TournamentAPI api = new TournamentAPI(new Tournament());
+		final ResourceConfig rc = new ResourceConfig().register(api);
 		return GrizzlyHttpServerFactory.createHttpServer(URI.create(BASE_URI), rc);
 	}
 

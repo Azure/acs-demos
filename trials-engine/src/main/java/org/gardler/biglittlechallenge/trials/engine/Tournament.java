@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 
 import org.gardler.biglittlechallenge.core.model.AbstractGame;
+import org.gardler.biglittlechallenge.core.model.AbstractGameAPI;
 import org.gardler.biglittlechallenge.core.model.AbstractRounds;
 import org.gardler.biglittlechallenge.core.model.Player;
 import org.gardler.biglittlechallenge.core.model.Round;
@@ -84,4 +85,12 @@ public class Tournament extends AbstractGame {
 			logger.error("TODO: request player cards for this round from " + player.getName());
 		}
 	}
+
+	@Override
+	public AbstractGameAPI getAPIEngine() {
+		if (apiEngine == null) {
+			apiEngine = new TournamentAPI(this);
+		}
+		return apiEngine;
+	}	
 }

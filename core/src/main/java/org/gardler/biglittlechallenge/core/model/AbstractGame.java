@@ -14,6 +14,7 @@ public abstract class AbstractGame {
 	private int desiredNumberOfPlayers = 2;
 	protected List<Player> players = new ArrayList<Player>();
 	private GameStatus status = new GameStatus();
+	protected AbstractGameAPI apiEngine;
 	
 	public AbstractGame(List<Player> players) {
 		this.players = players;
@@ -88,4 +89,10 @@ public abstract class AbstractGame {
 		return status;
 	}
 
+	/**
+	 * Get the API server that is attached to this Tournament.
+	 * @return
+	 */
+	public abstract AbstractGameAPI getAPIEngine();
+		
 }
