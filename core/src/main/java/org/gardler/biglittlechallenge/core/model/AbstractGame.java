@@ -1,6 +1,7 @@
 package org.gardler.biglittlechallenge.core.model;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -9,7 +10,7 @@ import java.util.List;
  */
 public abstract class AbstractGame {
 
-	protected AbstractRounds rounds;
+	protected AbstractRounds gameRounds;
 	private int desiredNumberOfPlayers = 2;
 	protected List<Player> players = new ArrayList<Player>();
 	private GameStatus status = new GameStatus();
@@ -28,16 +29,27 @@ public abstract class AbstractGame {
 	 * Get an ordered List of the hands to be played in this game.
 	 */
 	public ArrayList<Round> getRounds() {
-		return rounds.getAsList();
+		return gameRounds.getAsList();
 	}
 	
 	public void addPlayer(Player player) {
 		players.add(player);
 		if (players.size() == getDesiredNumberOfPlayers() && getStatus().getState() == GameStatus.State.WaitingForPlayers) {
-			getStatus().setState(GameStatus.State.Playing);
+			playGame();
 		}
 		
 	}
+
+	private void playGame() {
+		getStatus().setState(GameStatus.State.Playing);
+		Iterator<Round> itr = gameRounds.rounds.iterator();
+		while (itr.hasNext()) {
+			Round round = itr.next();
+			playRound(round);
+		}
+	}
+	
+	protected abstract void playRound(Round round);
 
 	public List<Player> getPlayers() {
 		return players;

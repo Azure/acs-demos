@@ -31,47 +31,57 @@ public class Tournament extends AbstractGame {
 	 */
 	protected void setRounds() {
 		try {
-			rounds = AbstractRounds.load();
-			if (rounds != null) return;
+			gameRounds = AbstractRounds.load();
+			if (gameRounds != null) return;
 		} catch (ClassNotFoundException e) {
 			logger.error("Unable to load hands definition, using default hands.", e);
 		} catch (IOException e) {
 			logger.error("Unable to load hands definition, using default hands.", e);
 		}
-		rounds = new Rounds();
+		gameRounds = new Rounds();
 		LinkedHashMap<String, Double> formula = new LinkedHashMap<String, Double>();
 		formula.put("Speed", 1.0);
 		formula.put("Reactions", 0.5);
 		Event event = new Event("Track: 100m Sprint", formula);
-    	rounds.add(event);
+    	gameRounds.add(event);
     	
 		formula = new LinkedHashMap<String, Double>();
 		formula.put("Stamina", 1.0);
 		formula.put("Speed", 0.25);
 		event = new Event("Track: 8000m", formula);
-    	rounds.add(event);
+    	gameRounds.add(event);
     	
     	formula = new LinkedHashMap<String, Double>();
 		formula.put("Stamina", 1.0);
 		formula.put("Speed", 0.25);
 		formula.put("Dexterity", 1.0);
 		event = new Event("Track: 8000m Steeple Chase", formula);
-    	rounds.add(event);
+    	gameRounds.add(event);
     	
     	formula = new LinkedHashMap<String, Double>();
     	formula.put("Dexterity", 1.0);
 		formula.put("Strength", 0.5);
 		event = new Event("Field: Pole Vault", formula);
-    	rounds.add(event);
+    	gameRounds.add(event);
 	}
 	
 	public String toString() {
-		String result = "This tournament consists of " + rounds.size() + " events.\n";
+		String result = "This tournament consists of " + gameRounds.size() + " events.\n";
 		Iterator<Round> itr = getRounds().iterator();
 		while (itr.hasNext()) {
 			Event event = (Event)itr.next();
 			result = result + "\t" + event.getName() + "\n";
 		}
 		return result;
+	}
+
+	@Override
+	protected void playRound(Round round) {
+		logger.info("Playing round: " + round.getName());
+		Iterator<Player> itr = players.iterator();
+		while (itr.hasNext()) {
+			Player player = itr.next();
+			logger.error("TODO: request player cards for this round from " + player.getName());
+		}
 	}
 }
