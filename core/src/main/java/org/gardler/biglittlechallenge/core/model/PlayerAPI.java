@@ -13,6 +13,7 @@ import javax.ws.rs.core.UriInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+@Path("player")
 public class PlayerAPI {
 	private static Logger logger = LoggerFactory.getLogger(PlayerAPI.class);
 	protected Player player;
