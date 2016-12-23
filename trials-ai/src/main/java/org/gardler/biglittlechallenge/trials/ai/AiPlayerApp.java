@@ -1,6 +1,7 @@
 package org.gardler.biglittlechallenge.trials.ai;
 
 import java.net.URI;
+import java.util.UUID;
 
 import org.gardler.biglittlechallenge.core.model.Player;
 import org.gardler.biglittlechallenge.core.model.PlayerAPI;
@@ -35,7 +36,8 @@ public class AiPlayerApp {
         
         // Request to join a game
     	String engineEndpoint = AiPlayer.getEngineEndoint();
-    	AiPlayer player = new AiPlayer("AI Player 1");
+    	UUID id = UUID.randomUUID();
+    	AiPlayer player = new AiPlayer("AI Player " + id);
     	player.setEndpoint(getURI(port));
     	AiPlayerApp.startServer(player);
         

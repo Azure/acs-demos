@@ -4,12 +4,16 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * AbstractGame represents a single game. It may consist of one or more rounds.
  *
  */
-public abstract class AbstractGame {
-
+public abstract class AbstractGame implements Runnable {
+	private static Logger logger = LoggerFactory.getLogger(AbstractGame.class);
+			
 	protected AbstractRounds gameRounds;
 	private int desiredNumberOfPlayers = 2;
 	protected List<Player> players = new ArrayList<Player>();
@@ -19,6 +23,8 @@ public abstract class AbstractGame {
 	public AbstractGame(List<Player> players) {
 		this.players = players;
 		this.setRounds();
+        Thread t = new Thread(this);
+        t.start();
 	}
 	
 	/**
@@ -36,18 +42,21 @@ public abstract class AbstractGame {
 	public void addPlayer(Player player) {
 		players.add(player);
 		if (players.size() == getDesiredNumberOfPlayers() && getStatus().getState() == GameStatus.State.WaitingForPlayers) {
-			playGame();
+			getStatus().setState(GameStatus.State.Starting);
 		}
 		
 	}
 
 	private void playGame() {
+		logger.info("Starting the game");
 		getStatus().setState(GameStatus.State.Playing);
 		Iterator<Round> itr = gameRounds.rounds.iterator();
 		while (itr.hasNext()) {
 			Round round = itr.next();
 			playRound(round);
 		}
+		logger.info("Game is complete");
+		getStatus().setState(GameStatus.State.Finishing);
 	}
 	
 	protected abstract void playRound(Round round);
@@ -87,6 +96,24 @@ public abstract class AbstractGame {
 			status = new GameStatus();
 		}
 		return status;
+	}	
+	
+	/**
+	 * A control loop for the game.
+	 */
+	public void run() {
+		logger.info("Starting game contorol loop");
+		while (true) {
+			if (getStatus().getState() == GameStatus.State.Starting) {
+				this.playGame();
+			}
+			try {
+				Thread.sleep(250);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 
 	/**

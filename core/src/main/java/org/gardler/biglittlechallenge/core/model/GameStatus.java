@@ -10,7 +10,7 @@ public class GameStatus implements Serializable {
 	
 	// WaitingForPlayers means the game is waiting for the minimum number of players before starting
 	// Playing means the game is underway 
-	public enum State { WaitingForPlayers, Playing }
+	public enum State { WaitingForPlayers, Starting, Playing, Finishing }
 	
 	public UUID getGameUUID() {
 		return gameUUID;

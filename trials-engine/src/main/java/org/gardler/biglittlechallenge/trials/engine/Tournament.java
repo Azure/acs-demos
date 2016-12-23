@@ -16,6 +16,7 @@ import javax.ws.rs.core.Response;
 import org.gardler.biglittlechallenge.core.model.AbstractGame;
 import org.gardler.biglittlechallenge.core.model.AbstractGameAPI;
 import org.gardler.biglittlechallenge.core.model.AbstractRounds;
+import org.gardler.biglittlechallenge.core.model.PlayedCards;
 import org.gardler.biglittlechallenge.core.model.Player;
 import org.gardler.biglittlechallenge.core.model.Round;
 import org.glassfish.jersey.client.ClientConfig;
@@ -53,7 +54,7 @@ public class Tournament extends AbstractGame {
 		LinkedHashMap<String, Double> formula = new LinkedHashMap<String, Double>();
 		formula.put("Speed", 1.0);
 		formula.put("Reactions", 0.5);
-		Event event = new Event("Track: 100m Sprint", formula);
+		Round event = new Event("Track: 100m Sprint", formula);
     	gameRounds.add(event);
     	
 		formula = new LinkedHashMap<String, Double>();
@@ -80,7 +81,7 @@ public class Tournament extends AbstractGame {
 		String result = "This tournament consists of " + gameRounds.size() + " events.\n";
 		Iterator<Round> itr = getRounds().iterator();
 		while (itr.hasNext()) {
-			Event event = (Event)itr.next();
+			Round event = (Round)itr.next();
 			result = result + "\t" + event.getName() + "\n";
 		}
 		return result;
@@ -89,6 +90,7 @@ public class Tournament extends AbstractGame {
 	@Override
 	protected void playRound(Round round) {
 		logger.info("Playing round: " + round.getName());
+		
 		Iterator<Player> itr = players.iterator();
 		while (itr.hasNext()) {
 			Player player = itr.next();
@@ -99,8 +101,11 @@ public class Tournament extends AbstractGame {
 			Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
 			Response response = invocationBuilder.put(Entity.entity(round, MediaType.APPLICATION_JSON));
 			
-			logger.error("TODO: process cards from " + player.getName() + " response was (" + response.getStatus() + ") " + response.readEntity(String.class));		
+			PlayedCards cards = response.readEntity(PlayedCards.class);
+			round.addCards(player, cards);
 		}
+		
+		logger.info("Winner of " + round.getName() + " is " + round.calculateWinner().getName());
 	}
 
 	@Override
@@ -109,5 +114,5 @@ public class Tournament extends AbstractGame {
 			apiEngine = new TournamentAPI(this);
 		}
 		return apiEngine;
-	}	
+	}
 }

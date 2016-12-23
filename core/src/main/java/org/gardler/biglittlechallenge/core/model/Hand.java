@@ -16,4 +16,8 @@ public class Hand extends Deck implements Serializable {
 	public Hand(String name) {
 		super(name);
 	}
+
+	protected Hand() {
+		
+	}
 }
