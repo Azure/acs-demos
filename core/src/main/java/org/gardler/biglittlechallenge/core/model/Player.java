@@ -29,7 +29,7 @@ public class Player implements Serializable {
 	private static Logger logger = LoggerFactory.getLogger(Player.class);
 
 	private static PlayerStatus status = new PlayerStatus();
-	protected PlayerAPI apiEngine;
+	private String endpoint;
 	
 	String name;
 	Deck deck;
@@ -219,14 +219,12 @@ public class Player implements Serializable {
 	public void setUIClassName(String className) {
 		this.uiClassName = className;
 	}
+
+	public String getEndpoint() {
+		return endpoint;
+	}
 	
-	/**
-	 * Get the API Engine for this player.
-	 */
-	protected PlayerAPI getApiEngine() {
-		if (apiEngine == null) {
-			apiEngine = new PlayerAPI(this);
-		}
-		return apiEngine;
+	public void setEndpoint(String endpoint) {
+		this.endpoint = endpoint;
 	}
 }

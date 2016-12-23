@@ -82,7 +82,7 @@ public class Tournament extends AbstractGame {
 		Iterator<Player> itr = players.iterator();
 		while (itr.hasNext()) {
 			Player player = itr.next();
-			logger.error("TODO: request player cards for this round from " + player.getName());
+			logger.error("TODO: request player cards for this round from " + player.getName() + " API at " + player.getEndpoint());
 		}
 	}
 

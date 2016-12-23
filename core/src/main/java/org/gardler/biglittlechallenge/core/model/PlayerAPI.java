@@ -66,5 +66,5 @@ public class PlayerAPI {
 		// TODO: Auto-generated method stub
 		return player.getStatus();
 	}
-
+	
 }

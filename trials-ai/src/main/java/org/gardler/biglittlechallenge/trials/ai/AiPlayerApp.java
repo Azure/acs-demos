@@ -20,28 +20,43 @@ public class AiPlayerApp {
 	
 	protected static Player player;
 	// Base URI the Grizzly HTTP server will listen on
-    public static final String BASE_URI = "http://0.0.0.0:8888/api/v0.1/";
+    public static final String BASE_HOST = "http://0.0.0.0"; 
+	public static final String BASE_PATH = "/api/v0.1/";
     
-    public static void main( String[] args )
-    {	AiPlayerApp.startServer();
-        logger.info(String.format("Client API started with WADL available at "
-                + "%sapplication.wadl", BASE_URI));
+    public static void main( String[] args ) {	
+    	int port;
+    	if (args.length == 0) {
+    		// TODO: There is still a chance of a port clash, should verify port is available
+    		port = (int) (8000 + Math.round((Math.random() * 9999)));
+    	} else {
+    		port = Integer.parseInt(args[0]);
+    	}
+    	logger.debug("Starting Player API server at " + getURI(port));
         
         // Request to join a game
-    	String engineEndpoint;
-		engineEndpoint = AiPlayer.getEngineEndoint();
+    	String engineEndpoint = AiPlayer.getEngineEndoint();
     	AiPlayer player = new AiPlayer("AI Player 1");
-        player.joinTournament(engineEndpoint);
+    	player.setEndpoint(getURI(port));
+    	AiPlayerApp.startServer(player);
+        
+    	player.joinTournament(engineEndpoint);
         
         while (true) {
         	// Interactions are now via the player API
         }
     }
     
-    public static HttpServer startServer() {
-        final ResourceConfig rc = new ResourceConfig().register(PlayerAPI.class);
+    public static HttpServer startServer(AiPlayer player) {
+    	PlayerAPI api = new PlayerAPI(player);
+        final ResourceConfig rc = new ResourceConfig().register(api);
 
-        return GrizzlyHttpServerFactory.createHttpServer(URI.create(BASE_URI), rc);
+        HttpServer server = GrizzlyHttpServerFactory.createHttpServer(URI.create(player.getEndpoint()), rc);
+        return server;
+    }
+    
+    private static String getURI(int port) {
+    	String uri = BASE_HOST + ":" + port + BASE_PATH; 
+    	return uri;
     }
 
 }
