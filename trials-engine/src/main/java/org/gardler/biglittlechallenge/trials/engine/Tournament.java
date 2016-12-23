@@ -5,11 +5,21 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.client.Invocation;
+import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+
 import org.gardler.biglittlechallenge.core.model.AbstractGame;
 import org.gardler.biglittlechallenge.core.model.AbstractGameAPI;
 import org.gardler.biglittlechallenge.core.model.AbstractRounds;
 import org.gardler.biglittlechallenge.core.model.Player;
 import org.gardler.biglittlechallenge.core.model.Round;
+import org.glassfish.jersey.client.ClientConfig;
+import org.glassfish.jersey.logging.LoggingFeature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -82,7 +92,14 @@ public class Tournament extends AbstractGame {
 		Iterator<Player> itr = players.iterator();
 		while (itr.hasNext()) {
 			Player player = itr.next();
-			logger.error("TODO: request player cards for this round from " + player.getName() + " API at " + player.getEndpoint());
+			
+			// Ask player for cards
+			Client client = ClientBuilder.newClient(new ClientConfig().register( LoggingFeature.class ));
+			WebTarget webTarget = client.target(player.getEndpoint()).path("player/round");
+			Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
+			Response response = invocationBuilder.put(Entity.entity(round, MediaType.APPLICATION_JSON));
+			
+			logger.error("TODO: process cards from " + player.getName() + " response was (" + response.getStatus() + ") " + response.readEntity(String.class));		
 		}
 	}
 

@@ -42,20 +42,29 @@ public class PlayerAPI {
 	@Produces({ MediaType.APPLICATION_JSON })
 	@Consumes({ MediaType.APPLICATION_JSON })
 	public PlayerStatus putGameStatus(PlayerStatus newStatus) {
-		logger.info("REST Service Method putGameStatus called");
-		
 		if (newStatus.getState() == PlayerStatus.State.Ready) {
 			player.ui().startGame(this.player);
 		}
 		PlayerStatus status = newStatus;
 		return status;
 	}
-	
-	@Path("event")
-	@GET
+
+	@Path("round")
+	@PUT
 	@Produces({ MediaType.APPLICATION_JSON })
+	@Consumes({ MediaType.APPLICATION_JSON })
+	/**
+	 * Puts a new round which will be played next. The player should respond, in
+	 * reasonable time, with a set of cards to be played in this round.
+	 * 
+	 * @param round
+	 * @return
+	 */
 	public PlayedCards getCardsForRound(Round round) {
-		return player.getCardsForHand(round);
+		// TODO: This should not return cards, it should return a status (thinking?) and then post cards to the engine when ready
+		PlayedCards cards = player.getCardsForHand(round);
+		logger.debug(player.getName() + " playing " + cards + " for round " + round.getName());
+		return cards;
 	}
 
 	@Path("round/result")
@@ -66,5 +75,5 @@ public class PlayerAPI {
 		// TODO: Auto-generated method stub
 		return player.getStatus();
 	}
-	
+
 }

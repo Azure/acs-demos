@@ -11,6 +11,10 @@ public class Round {
 	private String gameID;
 	private ArrayList<Player> playerPositions;
 	
+	public Round() {
+		super();
+	}
+	
 	public Round(String name) {
 		this.name = name;
 	}
