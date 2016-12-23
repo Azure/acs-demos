@@ -3,12 +3,16 @@ services:
   engine:
     image: biglittlechallenge/trials-engine
     ports:
-     - "8080:8080"
+      - "8080:8080"
   aiplayer1:
     image: biglittlechallenge/trials-ai
     ports:
-     - "8888"
+      - "8888"
+    depends_on:
+      - engine
   aiplayer2:
     image: biglittlechallenge/trials-ai
     ports:
-     - "8080"
+      - "8888"
+    depends_on:
+      - engine
