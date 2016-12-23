@@ -33,17 +33,16 @@ public class EngineControllerApp
         }
         int players = Integer.parseInt(numString);
         
-        // FIXME: use players to set the number of players needed before the game starts
-    	logger.debug("Create a tournament server");
-    	startServer();
+    	logger.debug("Create a tournament server for " + players + " players");
+    	startServer(players);
     	
     	while (true) {
     		
     	}
     }
 
-	public static HttpServer startServer() {
-		TournamentAPI api = new TournamentAPI(new Tournament());
+	public static HttpServer startServer(int players) {
+		TournamentAPI api = new TournamentAPI(new Tournament(players));
 		final ResourceConfig rc = new ResourceConfig().register(api);
 		return GrizzlyHttpServerFactory.createHttpServer(URI.create(BASE_URI), rc);
 	}

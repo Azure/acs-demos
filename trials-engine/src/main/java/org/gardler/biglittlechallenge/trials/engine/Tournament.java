@@ -1,7 +1,6 @@
 package org.gardler.biglittlechallenge.trials.engine;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 
@@ -33,9 +32,18 @@ public class Tournament extends AbstractGame {
 	
 	private static Logger logger = LoggerFactory.getLogger(Tournament.class);
 	
+	/**
+	 * Create a Tournament with the default 2 players.
+	 */
 	public Tournament() {
-		super(new ArrayList<Player>());
-		this.setRounds();
+		super(2);
+	}
+	
+	/**
+	 * Create a tournament for a given moinimum number pof players.
+	 */
+	public Tournament(int minPlayers) {
+		super(minPlayers);
 	}
 	
 	/**
@@ -75,16 +83,6 @@ public class Tournament extends AbstractGame {
 		formula.put("Strength", 0.5);
 		event = new Event("Field: Pole Vault", formula);
     	gameRounds.add(event);
-	}
-	
-	public String toString() {
-		String result = "This tournament consists of " + gameRounds.size() + " events.\n";
-		Iterator<Round> itr = getRounds().iterator();
-		while (itr.hasNext()) {
-			Round event = (Round)itr.next();
-			result = result + "\t" + event.getName() + "\n";
-		}
-		return result;
 	}
 
 	@Override

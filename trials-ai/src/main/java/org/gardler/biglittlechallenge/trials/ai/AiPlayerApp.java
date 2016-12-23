@@ -1,10 +1,7 @@
 package org.gardler.biglittlechallenge.trials.ai;
 
-import java.io.BufferedInputStream;
-import java.io.IOException;
 import java.net.InetAddress;
 import java.net.URI;
-import java.net.UnknownHostException;
 import java.util.UUID;
 
 import org.gardler.biglittlechallenge.core.model.Player;

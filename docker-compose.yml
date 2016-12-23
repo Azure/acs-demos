@@ -4,13 +4,9 @@ services:
     image: biglittlechallenge/trials-engine
     ports:
       - "8080:8080"
-  aiplayer1:
-    image: biglittlechallenge/trials-ai
-    ports:
-      - "8888"
-    depends_on:
-      - engine
-  aiplayer2:
+    environment:
+      MIN_NUMBER_OF_PLAYERS: 10
+  aiplayer:
     image: biglittlechallenge/trials-ai
     ports:
       - "8888"

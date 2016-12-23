@@ -15,13 +15,13 @@ public abstract class AbstractGame implements Runnable {
 	private static Logger logger = LoggerFactory.getLogger(AbstractGame.class);
 			
 	protected AbstractRounds gameRounds;
-	private int desiredNumberOfPlayers = 2;
+	private int minNumberOfPlayers;
 	protected List<Player> players = new ArrayList<Player>();
 	private GameStatus status = new GameStatus();
 	protected AbstractGameAPI apiEngine;
 	
-	public AbstractGame(List<Player> players) {
-		this.players = players;
+	public AbstractGame(int minimumNumberOfPlayers) {
+		this.setMinimumNumberOfPlayers(minimumNumberOfPlayers);
 		this.setRounds();
         Thread t = new Thread(this);
         t.start();
@@ -39,12 +39,29 @@ public abstract class AbstractGame implements Runnable {
 		return gameRounds.getAsList();
 	}
 	
-	public void addPlayer(Player player) {
-		players.add(player);
-		if (players.size() == getDesiredNumberOfPlayers() && getStatus().getState() == GameStatus.State.WaitingForPlayers) {
-			getStatus().setState(GameStatus.State.Starting);
+	/**
+	 * Attempt to add a player to the game. If the game is 'waitingforplayers' then 
+	 * the player will be added to the list. If they are the final player needed then
+	 * the game is moved to the 'starting' state.
+	 * 
+	 * If the game is not in the 'waitingforplayers' state then the player is not added
+	 * to the game.
+	 *  
+	 * @param player
+	 * @return true if the player is added to the game, false if it is not added
+	 */
+	public boolean addPlayer(Player player) {
+		if (getStatus().getState() == GameStatus.State.WaitingForPlayers) {
+			players.add(player);
+			logger.debug("Adding player " + players.size() + " to the wite list (" + player.getName() + ")");
+			if (players.size() == getMinimumNumberOfPlayers() && getStatus().getState() == GameStatus.State.WaitingForPlayers) {
+				logger.debug("We now have enough players to start the game, updating game status to 'starting'");
+				getStatus().setState(GameStatus.State.Starting);
+			}
+			return true;
+		} else {
+			return false;
 		}
-		
 	}
 
 	private void playGame() {
@@ -74,21 +91,21 @@ public abstract class AbstractGame implements Runnable {
 	}
 	
 	/**
-	 * Get the desired number of players. In most games this is the number of
+	 * Get the minimum number of players. In most games this is the number of
 	 * players needed before the game will start.
 	 * 
 	 * @return
 	 */
-	public int getDesiredNumberOfPlayers() {
-		return desiredNumberOfPlayers;
+	public int getMinimumNumberOfPlayers() {
+		return minNumberOfPlayers;
 	}
 
 	/**
-	 * Set the desired number of players. In most games this is the number of
+	 * Set the minimum number of players. In most games this is the number of
 	 * players needed before the game will start. The default is 2 players.
 	 */
-	public void setDesiredNumberOfPlayers(int desiredNumberOfPlayers) {
-		this.desiredNumberOfPlayers = desiredNumberOfPlayers;
+	public void setMinimumNumberOfPlayers(int minimumNumberOfPlayers) {
+		this.minNumberOfPlayers = minimumNumberOfPlayers;
 	}
 
 	public GameStatus getStatus() {
@@ -114,6 +131,17 @@ public abstract class AbstractGame implements Runnable {
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	public String toString() {
+		String result = "a game that requires a minimum of " + getMinimumNumberOfPlayers() + " players\n"; 
+		result = result + "It consists of " + gameRounds.size() + " events.\n";
+		Iterator<Round> itr = getRounds().iterator();
+		while (itr.hasNext()) {
+			Round event = (Round)itr.next();
+			result = result + "\t" + event.getName() + "\n";
+		}
+		return result;
 	}
 
 	/**

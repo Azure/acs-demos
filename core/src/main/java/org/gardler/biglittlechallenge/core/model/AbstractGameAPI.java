@@ -34,9 +34,12 @@ public abstract class AbstractGameAPI {
 	public GameStatus postJoinGame(Player player) {
 		logger.info("Player requested to join game: " + player.getName());
 		
-		game.addPlayer(player);
-		
-		return getStatus();
+		if (game.addPlayer(player)) {
+			return getStatus();
+		} else {
+			// FIXME: return an HTTP response that says "not available"
+			return null;
+		}
 	}
 	
 	@Path("status")
