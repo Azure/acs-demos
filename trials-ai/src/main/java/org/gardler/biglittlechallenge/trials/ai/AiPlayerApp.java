@@ -1,6 +1,10 @@
 package org.gardler.biglittlechallenge.trials.ai;
 
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.net.InetAddress;
 import java.net.URI;
+import java.net.UnknownHostException;
 import java.util.UUID;
 
 import org.gardler.biglittlechallenge.core.model.Player;
@@ -39,7 +43,7 @@ public class AiPlayerApp {
     	UUID id = UUID.randomUUID();
     	AiPlayer player = new AiPlayer("AI Player " + id);
     	player.setEndpoint(getURI(port));
-    	AiPlayerApp.startServer(player);
+    	AiPlayerApp.startServer(player, port);
         
     	player.joinTournament(engineEndpoint);
         
@@ -48,17 +52,24 @@ public class AiPlayerApp {
         }
     }
     
-    public static HttpServer startServer(AiPlayer player) {
+    public static HttpServer startServer(AiPlayer player, int port) {
     	PlayerAPI api = new PlayerAPI(player);
         final ResourceConfig rc = new ResourceConfig().register(api);
 
-        HttpServer server = GrizzlyHttpServerFactory.createHttpServer(URI.create(player.getEndpoint()), rc);
+        HttpServer server = GrizzlyHttpServerFactory.createHttpServer(URI.create("http://0.0.0.0:" + port + BASE_PATH), rc);
         return server;
     }
     
     private static String getURI(int port) {
-    	String uri = BASE_HOST + ":" + port + BASE_PATH; 
-    	return uri;
+    	String uri;
+		try {
+			String ip = InetAddress.getLocalHost().getHostAddress();
+			uri = "http://" + ip + ":" + port + BASE_PATH;
+	    	return uri;
+		} catch (Exception e) {
+			logger.warn("Unable to find hostname, trying localhost", e);
+			return "localhost";
+		} 
     }
 
 }

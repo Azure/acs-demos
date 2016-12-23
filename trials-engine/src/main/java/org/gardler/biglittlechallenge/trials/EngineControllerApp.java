@@ -27,6 +27,13 @@ public class EngineControllerApp
     {
         logger.debug("Starting the trials card game.");
         
+        String numString = System.getenv("MIN_NUMBER_OF_PLAYERS");
+        if (numString == null) {
+        	numString = "2";
+        }
+        int players = Integer.parseInt(numString);
+        
+        // FIXME: use players to set the number of players needed before the game starts
     	logger.debug("Create a tournament server");
     	startServer();
     	
