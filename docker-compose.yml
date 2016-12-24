@@ -12,3 +12,4 @@ services:
       - "8888"
     depends_on:
       - engine
+    cpu_shares: 100
