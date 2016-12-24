@@ -37,7 +37,7 @@ public abstract class AbstractGameAPI {
 		if (game.addPlayer(player)) {
 			return getStatus();
 		} else {
-			// FIXME: return an HTTP response that says "not available"
+			// FIXME: return an HTTP response that says "not available", player should find a different engine.
 			return null;
 		}
 	}

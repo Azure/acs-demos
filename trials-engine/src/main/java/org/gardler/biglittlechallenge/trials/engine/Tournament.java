@@ -18,6 +18,7 @@ import org.gardler.biglittlechallenge.core.model.AbstractRounds;
 import org.gardler.biglittlechallenge.core.model.PlayedCards;
 import org.gardler.biglittlechallenge.core.model.Player;
 import org.gardler.biglittlechallenge.core.model.Round;
+import org.gardler.biglittlechallenge.core.model.RoundResult;
 import org.glassfish.jersey.client.ClientConfig;
 import org.glassfish.jersey.logging.LoggingFeature;
 import org.slf4j.Logger;
@@ -86,8 +87,9 @@ public class Tournament extends AbstractGame {
 	}
 
 	@Override
-	protected void playRound(Round round) {
+	protected RoundResult playRound(Round round) {
 		logger.info("Playing round: " + round.getName());
+		RoundResult results = new RoundResult();
 		
 		Iterator<Player> itr = players.iterator();
 		while (itr.hasNext()) {
@@ -107,10 +109,13 @@ public class Tournament extends AbstractGame {
 			
 			PlayedCards cards = response.readEntity(PlayedCards.class);
 			round.addCards(player, cards);
-			logger.debug("Played cards are: " + cards.toString());
+			
+			Double rating = round.calculateRating(cards);
+			results.addResult(player, cards, rating);
 		}
 		
-		logger.info("Winner of " + round.getName() + " is " + round.calculateWinner().getName());
+		logger.info("Round is complete. Results:\n" + results.toString());
+		return results;
 	}
 
 	@Override

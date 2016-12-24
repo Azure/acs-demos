@@ -83,9 +83,9 @@ public class Round {
 	}
 
 	/**
-	 * Calculate a characters rating in this event.
+	 * Calculate a cards rating in this round.
 	 */
-	protected Double calculateRating(Card card) {
+	private Double calculateRating(Card card) {
 		LinkedHashMap<String, Double> formula = getRatingFormula();
 		Iterator<String> itr = formula.keySet().iterator();
 		Double rating = 0.0;
@@ -96,6 +96,20 @@ public class Round {
 		}
 		return rating;
 	}
+
+	/**
+	 * Calculate a hands rating in this round.
+	 */
+	public Double calculateRating(PlayedCards cards) {
+		Double rating = 0.0;
+		Card card;
+		Iterator<Card> itr = cards.getCards().values().iterator();
+		while (itr.hasNext()) {
+			card = itr.next();
+			rating = rating + calculateRating(card);
+		}
+		return rating;
+	}	
 	
 	public Player calculateWinner() {
 		Player winner = null;

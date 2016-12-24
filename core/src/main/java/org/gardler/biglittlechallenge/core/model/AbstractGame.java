@@ -66,17 +66,26 @@ public abstract class AbstractGame implements Runnable {
 
 	private void playGame() {
 		logger.info("Starting the game");
+		RoundResult results = null;
 		getStatus().setState(GameStatus.State.Playing);
 		Iterator<Round> itr = gameRounds.rounds.iterator();
 		while (itr.hasNext()) {
 			Round round = itr.next();
-			playRound(round);
+			results = playRound(round);
 		}
-		logger.info("Game is complete");
+		logger.info("Game is complete.");
+		
 		getStatus().setState(GameStatus.State.Finishing);
 	}
 	
-	protected abstract void playRound(Round round);
+	/**
+	 * Play a round in this game. Implementations should liase with players to 
+	 * complete the round and should then return the results for further processing.
+	 * 
+	 * @param round
+	 * @return RoundResult
+	 */
+	protected abstract RoundResult playRound(Round round);
 
 	public List<Player> getPlayers() {
 		return players;
