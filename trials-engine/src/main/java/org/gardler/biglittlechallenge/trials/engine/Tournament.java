@@ -92,15 +92,22 @@ public class Tournament extends AbstractGame {
 		Iterator<Player> itr = players.iterator();
 		while (itr.hasNext()) {
 			Player player = itr.next();
+			logger.debug("Requesting cards from " + player.getName());
 			
 			// Ask player for cards
 			Client client = ClientBuilder.newClient(new ClientConfig().register( LoggingFeature.class ));
 			WebTarget webTarget = client.target(player.getEndpoint()).path("player/round");
 			Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
 			Response response = invocationBuilder.put(Entity.entity(round, MediaType.APPLICATION_JSON));
+			if (response.getStatus() != 200) {
+				logger.warn("Response from " + player.getName() + " indicates a lack of success.");
+				String msg = response.readEntity(String.class);
+				logger.warn(response.getStatus() + " - " + msg);
+			}
 			
 			PlayedCards cards = response.readEntity(PlayedCards.class);
 			round.addCards(player, cards);
+			logger.debug("Played cards are: " + cards.toString());
 		}
 		
 		logger.info("Winner of " + round.getName() + " is " + round.calculateWinner().getName());

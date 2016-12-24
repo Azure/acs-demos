@@ -53,7 +53,7 @@ public abstract class AbstractGame implements Runnable {
 	public boolean addPlayer(Player player) {
 		if (getStatus().getState() == GameStatus.State.WaitingForPlayers) {
 			players.add(player);
-			logger.debug("Adding player " + players.size() + " to the wite list (" + player.getName() + ")");
+			logger.debug("Now have " + players.size() + " of " + getMinimumNumberOfPlayers() + " players. Just added (" + player.getName() + ")");
 			if (players.size() == getMinimumNumberOfPlayers() && getStatus().getState() == GameStatus.State.WaitingForPlayers) {
 				logger.debug("We now have enough players to start the game, updating game status to 'starting'");
 				getStatus().setState(GameStatus.State.Starting);
