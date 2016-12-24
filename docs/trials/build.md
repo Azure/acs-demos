@@ -9,11 +9,27 @@ To build the Trials application...
 
 # Running the Trials Game
 
-If you run `docker-compose up -d` (after the above build steps) you
-will start an game of Trials in which you have two AI players. Updates
-to the status of the game can be viewed with:
+After the above build steps you can run the game engine with:
 
-`curl http://localhost:8080/api/v0.1/tournament/status`	
+`docker-compose up -d` 
+
+This will start a game engine for Trials, it will also start a 
+single AI Player. The game requires two players before it will 
+start. You can create an additional AI plyaer with:
+
+`docker-compose scale aiplayer=2`
+
+After running this command a second player will register with 
+game engine and the game will start as a result.
+
+At the time of writing a complete game will be played with
+details output in the log.
+
+## Larger games
+
+If you want to play larger games you can change the number of
+required players with the `MIN_NUMBER_OF_PLAYERS` environemnt
+variable in the `docker-compose.tml` file.
 
 # Playing the Trials Game
 
