@@ -1,7 +1,5 @@
 package org.gardler.biglittlechallenge.trials.model;
 
-import java.util.ArrayList;
-
 import org.gardler.biglittlechallenge.core.model.PlayerAPI;
 import org.gardler.biglittlechallenge.core.model.PlayedCards;
 import org.gardler.biglittlechallenge.core.model.Player;
@@ -49,17 +47,10 @@ public class PlayerAPITest extends TestCase {
 	
 	public void testPostResult() {
 		String uiClassName = "org.gardler.biglittlechallenge.trials.ai.DumbAIUI";
-		Player winner = new Player("Winning player", uiClassName);
-		Player runnerup = new Player("Runner up player", uiClassName);
 		Player player = new Player("Test AI Player", uiClassName);
 		
 		Round round = new Round("Test Round");
 		round.setGameID("gameUID");
-		ArrayList<Player> playerPositions = new ArrayList<Player>();
-		playerPositions.add(winner);
-		playerPositions.add(runnerup);
-		playerPositions.add(player);
-		round.setPlayerPositions(playerPositions);
 		
 		PlayerAPI api = new PlayerAPI(player);
 		PlayerStatus response = api.postResult(round);

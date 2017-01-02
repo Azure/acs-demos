@@ -89,7 +89,6 @@ public class Tournament extends AbstractGame {
 	@Override
 	protected RoundResult playRound(Round round) {
 		logger.info("Playing round: " + round.getName());
-		RoundResult results = new RoundResult();
 		
 		Iterator<Player> itr = players.iterator();
 		while (itr.hasNext()) {
@@ -109,11 +108,9 @@ public class Tournament extends AbstractGame {
 			
 			PlayedCards cards = response.readEntity(PlayedCards.class);
 			round.addCards(player, cards);
-			
-			Double rating = round.calculateRating(cards);
-			results.addResult(player, cards, rating);
 		}
 		
+		RoundResult results = round.getResults();
 		logger.info("Round is complete. Results:\n" + results.toString());
 		return results;
 	}

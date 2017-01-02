@@ -1,6 +1,5 @@
 package org.gardler.biglittlechallenge.core.model;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -14,9 +13,9 @@ import org.slf4j.LoggerFactory;
  */
 public class Round {
 	public static Logger logger = LoggerFactory.getLogger(Round.class);
-	private String name;
-	private String gameID;
-	private ArrayList<Player> playerPositions;
+	String name;
+	String gameID;
+	RoundResult results = new RoundResult();
 	protected LinkedHashMap<String, Double> ratingFormula;
 	protected HashMap<Player, PlayedCards> cards = new HashMap<Player, PlayedCards>();
 	
@@ -41,22 +40,6 @@ public class Round {
 	}
 
 	/**
-	 * Set the order of players in the final results.
-	 * 
-	 * @param playerPositions
-	 */
-	public void setPlayerPositions(ArrayList<Player> playerPositions) {
-		this.playerPositions = playerPositions;
-	}
-	
-	/**
-	 * Get an ordered list of players that indicates their final position in the round.
-	 */ 
-	public ArrayList<Player> getPlayerPositions() {
-		return this.playerPositions;
-	}
-
-	/**
 	 * Record the played cards for a single player.
 	 * 
 	 * @param player
@@ -64,6 +47,9 @@ public class Round {
 	 */
 	public void addCards(Player player, PlayedCards playedCards) {
 		this.cards.put(player, playedCards);
+
+		Double rating = this.calculateRating(playedCards);
+		this.results.addResult(player, playedCards, rating);
 	}	
 	
 	/**
@@ -124,5 +110,21 @@ public class Round {
 			}
 		}
 		return winner;
+	}
+	
+	public String toString() {
+		StringBuilder sb = new StringBuilder("Round: ");
+		sb.append(this.getName());
+		sb.append(" in ");
+		sb.append(this.getGameID());
+		sb.append("\n");
+		
+		sb.append(results.toString());
+		
+		return sb.toString();
+	}
+
+	public RoundResult getResults() {
+		return this.results;
 	}
 }

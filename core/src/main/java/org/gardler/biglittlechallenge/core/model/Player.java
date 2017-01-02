@@ -16,6 +16,7 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.gardler.biglittlechallenge.core.model.PlayerStatus.State;
 import org.gardler.biglittlechallenge.core.ui.AbstractUI;
 import org.glassfish.jersey.client.ClientConfig;
 import org.glassfish.jersey.logging.LoggingFeature;
@@ -42,17 +43,6 @@ public class Player implements Serializable {
 	 * Should not be used in game engines. 
 	 */
 	protected Player() {
-	}
-	
-	/**
-	 * Create a player with default settings that will use the
-	 * class defined as the players UI.
-	 * 
-	 * @param uiClassName
-	 */
-	public Player(String uiClassName) {
-		this.setName("Default Player");
-		this.setStatus(new PlayerStatus());
 	}
 	
 	/**
@@ -145,13 +135,29 @@ public class Player implements Serializable {
 	 * 
 	 */
 	public void joinTournament(String engineEndpoint) {
+		this.getStatus().setState(PlayerStatus.State.Requesting);
 		Client client = ClientBuilder.newClient(new ClientConfig().register( LoggingFeature.class ));
 		WebTarget webTarget = client.target(engineEndpoint).path("api/v0.1/tournament/join");
 
 		Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
 		Response response = invocationBuilder.put(Entity.entity(this, MediaType.APPLICATION_JSON));
 		
-		logger.debug("Request to join tournament - response (status " + response.getStatus() + "): " + response.readEntity(String.class));
+		GameStatus status = response.readEntity(GameStatus.class);
+		/*
+		 * FIXME: Saw this intermittent error
+		 * 1705 [main] DEBUG org.gardler.biglittlechallenge.trials.ai.AiPlayerApp  - Waiting for 0ms before requesting to join a new game.
+         * 1948 [main] INFO  org.gardler.biglittlechallenge.trials.ai.DumbAIUI  - Created Dumb AI Player UI
+         * Exception in thread "main" java.lang.NullPointerException
+         *      at org.gardler.biglittlechallenge.core.model.Player.joinTournament(Player.java:146)
+         *	    at org.gardler.biglittlechallenge.trials.ai.AiPlayerApp.main(AiPlayerApp.java:64)
+		 * 
+		 */
+		if (status.getState() == GameStatus.State.WaitingForPlayers
+				|| status.getState() == GameStatus.State.Starting) {
+			this.getStatus().setState(PlayerStatus.State.Waiting);
+		} else 
+		
+		logger.debug("Request to join tournament - response (status " + response.getStatus() + "): " + status);
 	}
 
 	public PlayerStatus getStatus() {
@@ -226,5 +232,16 @@ public class Player implements Serializable {
 	
 	public void setEndpoint(String endpoint) {
 		this.endpoint = endpoint;
+	}
+
+	/**
+	 * Call this when the current game has finished.
+	 * @param result
+	 */
+	public void gameFinished(GameResult result) {
+		logger.info("Player informed that the game has finished");
+		logger.info(result.toString());
+		PlayerStatus status = this.getStatus();
+		status.setState(State.Idle);
 	}
 }

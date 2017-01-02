@@ -5,7 +5,14 @@ public class PlayerStatus {
 	private String gameUID;
 	private String playerID;
 	private State state = State.Idle;
-	public enum State { Idle, Waiting, Ready, Playing }
+	/**
+	 * Idle: Not doing anything
+	 * Requesting: Finding a game to join
+	 * Waiting: Joined a game, waiting for game to start
+	 * Ready: Game is ready to start, have indicated that player is ready
+	 * Playing: Game is underway
+	 */
+	public enum State { Idle, Requesting, Waiting, Ready, Playing }
 	
 	public String getGameUID() {
 		return gameUID;
