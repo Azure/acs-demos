@@ -1,7 +1,7 @@
 package org.gardler.biglittlechallenge.test;
 
 import org.gardler.biglittlechallenge.trials.Engine;
-import org.gardler.biglittlechallenge.trials.ai.PlayerEngine;
+import org.gardler.biglittlechallenge.trials.ai.AiPlayerEngine;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,7 +32,7 @@ public class TestApp {
 			// TODO: There is still a chance of a port clash, should verify port
 			// is available
 			int port = (int) (8000 + Math.round((Math.random() * 9999)));
-			PlayerEngine playerEngine = new PlayerEngine(port);
+			AiPlayerEngine playerEngine = new AiPlayerEngine(port);
 			new Thread(playerEngine).start();
 		}
 

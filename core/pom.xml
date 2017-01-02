@@ -41,14 +41,18 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>org.glassfish.jersey.core</groupId>
-			<artifactId>jersey-client</artifactId>
-			<version>${jersey.client.version}</version>
+			<groupId>javax.ws.rs</groupId>
+			<artifactId>javax.ws.rs-api</artifactId>
+			<version>2.1-m01</version>
 		</dependency>
 		<dependency>
-			<groupId>org.glassfish.jersey.connectors</groupId>
-			<artifactId>jersey-grizzly-connector</artifactId>
-			<version>${jersey.client.version}</version>
+			<groupId>org.glassfish.jersey.containers</groupId>
+			<artifactId>jersey-container-grizzly2-http</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.geronimo.specs</groupId>
+			<artifactId>geronimo-json_1.0_spec</artifactId>
+			<version>1.0-alpha-1</version>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>

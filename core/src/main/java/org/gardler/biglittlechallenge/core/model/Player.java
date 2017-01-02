@@ -30,7 +30,8 @@ public class Player implements Serializable {
 	private static Logger logger = LoggerFactory.getLogger(Player.class);
 
 	private static PlayerStatus status = new PlayerStatus();
-	private String endpoint;
+	private static String engineEndpoint = null;
+	private String playerEndpoint;
 	
 	String name;
 	Deck deck;
@@ -227,11 +228,11 @@ public class Player implements Serializable {
 	}
 
 	public String getEndpoint() {
-		return endpoint;
+		return playerEndpoint;
 	}
 	
 	public void setEndpoint(String endpoint) {
-		this.endpoint = endpoint;
+		this.playerEndpoint = endpoint;
 	}
 
 	/**
@@ -243,5 +244,64 @@ public class Player implements Serializable {
 		logger.info(result.toString());
 		PlayerStatus status = this.getStatus();
 		status.setState(State.Idle);
+	}
+	
+	/**
+	 * Return the endpoint of an available engine API.
+	 * 
+	 * @return
+	 * @throws EngineNotFoundException
+	 */
+	public static String getEngineEndoint() {
+		int index = 0;
+		String[] url = { "http://localhost:8080/", "http://engine:8080/" };
+		
+		while (engineEndpoint == null) { 
+			Response response = checkEngineStatus(url[index]);
+			if (response != null) {
+				if (response.getStatus() != 200) {
+					logger.warn("Got a response other than 200 from Engine at " + url + " - " + response.getStatus());
+				} else {
+					engineEndpoint = url[index];
+				}
+			}
+			
+			index = index + 1;
+			if (index >= url.length) {
+				index = 0;
+				logger.warn("Unable to connect to an available engine, waiting then trying again");
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					logger.warn("Got interupted while sleeping");
+				}
+			}
+		}
+		
+		logger.debug("Connected to engine at " + engineEndpoint);
+		return engineEndpoint;
+	}
+
+	/**
+	 * Attempts to connect to an Engine API. Returns null if no response or the
+	 * response object containing the response to a GET of the current status.
+	 * 
+	 * @param statusPath
+	 * @param url
+	 * @return
+	 */
+	protected static Response checkEngineStatus(String url) {
+		String statusPath = "api/v0.1/tournament/status";
+		Client client = ClientBuilder.newClient(new ClientConfig().register(LoggingFeature.class));
+		WebTarget webTarget = client.target(url).path(statusPath);
+		Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
+		try {
+			Response response = invocationBuilder.get();
+			logger.debug("Engine response recieved from " + url + statusPath + " : " + response.readEntity(String.class));
+			return response;
+		} catch (Exception e) {
+			logger.debug("Unable to get engine status from " + url + statusPath + " - " + e.getMessage());
+			return null;
+		}
 	}
 }

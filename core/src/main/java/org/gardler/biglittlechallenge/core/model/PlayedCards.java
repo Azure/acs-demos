@@ -10,7 +10,7 @@ package org.gardler.biglittlechallenge.core.model;
 public class PlayedCards extends Hand {
 	private static final long serialVersionUID = -3045556560987629314L;
 
-	protected PlayedCards() {
+	public PlayedCards() {
 		super();
 	}
 	
