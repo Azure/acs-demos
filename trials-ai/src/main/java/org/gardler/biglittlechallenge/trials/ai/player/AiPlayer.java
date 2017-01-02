@@ -16,19 +16,12 @@ import org.slf4j.LoggerFactory;
 public class AiPlayer extends Player {
 	private static final long serialVersionUID = -541305944014913776L;
 	private static Logger logger = LoggerFactory.getLogger(AiPlayer.class);
-	static Player instance;
+	Player instance;
 	private static String engineEndpoint = null;
 
 	public AiPlayer(String name) {
 		super(name, "org.gardler.biglittlechallenge.trials.ai.player.DumbAIUI");
 		instance = this;
-	}
-
-	public static Player getInstance() {
-		if (instance == null) {
-			instance = new AiPlayer("Default AI Player");
-		}
-		return instance;
 	}
 
 	/**

@@ -64,15 +64,13 @@ public abstract class AbstractGame implements Runnable {
 	 * @return true if the player is added to the game, false if it is not added
 	 */
 	public boolean addPlayer(Player player) {
-		if (getStatus().getState() == GameStatus.State.WaitingForPlayers) {
+		logger.debug("Trying to add " + player.getName() + " to game " + this.getName());
+		if (players.size() < getMinimumNumberOfPlayers()) {
 			players.add(player);
 			logger.debug("Now have " + players.size() + " of " + getMinimumNumberOfPlayers() + " players. Just added (" + player.getName() + ")");
-			if (players.size() == getMinimumNumberOfPlayers() && getStatus().getState() == GameStatus.State.WaitingForPlayers) {
-				logger.debug("We now have enough players to start the game, updating game status to 'starting'");
-				getStatus().setState(GameStatus.State.Starting);
-			}
 			return true;
 		} else {
+			logger.debug("The game is full");
 			return false;
 		}
 	}
@@ -153,6 +151,10 @@ public abstract class AbstractGame implements Runnable {
 			switch (status.getState()) {
 			case WaitingForPlayers:
 				// logger.info("Waiting for players before we can start the game");
+				if (players.size() == getMinimumNumberOfPlayers()) {	
+					logger.debug("We now have enough players to start the game, updating game status to 'starting'");
+					getStatus().setState(GameStatus.State.Starting);
+				}
 				break;
 			case Starting:
 				// Notify all players that we are ready to start

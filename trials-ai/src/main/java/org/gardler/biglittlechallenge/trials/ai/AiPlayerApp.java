@@ -1,17 +1,6 @@
 package org.gardler.biglittlechallenge.trials.ai;
 
-import java.net.InetAddress;
-import java.net.URI;
-import java.util.UUID;
-
 import org.gardler.biglittlechallenge.core.model.Player;
-import org.gardler.biglittlechallenge.core.model.PlayerAPI;
-import org.gardler.biglittlechallenge.core.model.PlayerStatus;
-import org.gardler.biglittlechallenge.core.model.PlayerStatus.State;
-import org.gardler.biglittlechallenge.trials.ai.player.AiPlayer;
-import org.glassfish.grizzly.http.server.HttpServer;
-import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
-import org.glassfish.jersey.server.ResourceConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
