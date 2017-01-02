@@ -1,4 +1,4 @@
-package org.gardler.biglittlechallenge.trials.ai;
+package org.gardler.biglittlechallenge.trials.ai.player;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -20,7 +20,7 @@ public class AiPlayer extends Player {
 	private static String engineEndpoint = null;
 
 	public AiPlayer(String name) {
-		super(name, "org.gardler.biglittlechallenge.trials.ai.DumbAIUI");
+		super(name, "org.gardler.biglittlechallenge.trials.ai.player.DumbAIUI");
 		instance = this;
 	}
 

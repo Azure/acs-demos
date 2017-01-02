@@ -1,4 +1,4 @@
-package org.gardler.biglittlechallenge.trials.ai;
+package org.gardler.biglittlechallenge.trials.ai.player;
 
 import java.util.Random;
 import java.util.Set;
