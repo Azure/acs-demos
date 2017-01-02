@@ -4,10 +4,19 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Iterator;
 
+/**
+ * A Card represents a single card in the game. There are usually various
+ * collections of Cards in the game, such as a Deck, a Hand and a Discard pile.
+ *
+ */
 public class Card implements Serializable {
 	private static final long serialVersionUID = -2423089035312679270L;
 	String name;
-	HashMap<String, String> properties = new HashMap<String, String>();
+	public HashMap<String, String> properties = new HashMap<String, String>();
+
+	public Card() {
+		this.setName("Default Card");
+	}
 	
 	public String getName() {
 		return name;
@@ -20,7 +29,7 @@ public class Card implements Serializable {
 	public Card(String name) {
 		this.setName(name);
 	}
-	
+
 	public String toString() {
 		String result = getName() + "\n";
 		Iterator<String> itr = properties.keySet().iterator();
@@ -31,12 +40,12 @@ public class Card implements Serializable {
 		}
 		return result;
 	}
-	
-	public void setProperty(String key, String value) {
+
+	public void writeProperty(String key, String value) {
 		properties.put(key, value);
 	}
-	
-	public String getProperty(String key) {
+
+	public String readProperty(String key) {
 		return properties.get(key);
 	}
 

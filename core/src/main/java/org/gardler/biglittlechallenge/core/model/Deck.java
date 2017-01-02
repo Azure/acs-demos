@@ -4,15 +4,25 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Iterator;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
+/**
+ * A Deck is a collection of cards available to one or more players in a game.
+ * When a Card is drawn from the Deck it is usually placed into a Hand before
+ * being played in the game.
+ *
+ */
 public class Deck implements Serializable {
 	private static final long serialVersionUID = 4417178470398581230L;
 
-	private static Logger logger = LoggerFactory.getLogger(Deck.class);
-			
 	String name;
+
+	public Deck() {
+		this.setName("Default Deck");
+	}
+	
+	public Deck(String name) {
+		this.setName(name);
+	}
+	
 	public String getName() {
 		return name;
 	}
@@ -22,23 +32,27 @@ public class Deck implements Serializable {
 	}
 
 	HashMap<String, Card> cards = new HashMap<String, Card>();
-	
-	public Deck(String name) {
-		this.setName(name);
-	}
 
 	public HashMap<String, Card> getCards() {
 		return cards;
 	}
-	
+
 	public Card getCard(String key) {
 		return cards.get(key);
 	}
-	
+
 	public void addCard(Card card) {
 		cards.put(card.getName(), card);
 	}
-	
+
+	/**
+	 * Return the number of cards in this Hand.
+	 * @return
+	 */
+	public int size() {
+		return cards.size();
+	}
+
 	public String toString() {
 		String result = "";
 		Iterator<Card> itr = getCards().values().iterator();

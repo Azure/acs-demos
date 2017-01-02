@@ -1,0 +1,15 @@
+version: '2'
+services:
+  engine:
+    image: biglittlechallenge/trials-engine
+    ports:
+      - "8080:8080"
+    environment:
+      MIN_NUMBER_OF_PLAYERS: 25
+  aiplayer:
+    image: biglittlechallenge/trials-ai
+    ports:
+      - "8888"
+    depends_on:
+      - engine
+    cpu_shares: 100
