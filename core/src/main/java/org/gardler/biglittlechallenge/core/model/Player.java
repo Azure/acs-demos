@@ -102,7 +102,8 @@ public class Player implements Serializable {
 	 * @throws IOException 
 	 */
 	public void save() throws IOException {
-          FileOutputStream fileOut = new FileOutputStream("test_1.player");
+		 String filename = getName() + ".player";
+		 FileOutputStream fileOut = new FileOutputStream(filename);
           ObjectOutputStream out = new ObjectOutputStream(fileOut);
           out.writeObject(this);
           out.close();
@@ -110,15 +111,16 @@ public class Player implements Serializable {
           logger.info("Serialized Player in `test_1.player`");
 	}
 	
-	public static AbstractRounds load() throws IOException, ClassNotFoundException {
-		AbstractRounds hands = null;
-        FileInputStream fileIn = new FileInputStream("test_1.player");
+	public static Player load(String playerName) throws IOException, ClassNotFoundException {
+		String filename = playerName + ".player";
+		Player player = null;
+        FileInputStream fileIn = new FileInputStream(filename);
         ObjectInputStream in = new ObjectInputStream(fileIn);
-        hands = (AbstractRounds) in.readObject();
+        player = (Player) in.readObject();
         in.close();
         fileIn.close();
-        logger.info("Loaded Player definition file from `test_1.player`");
-        return hands;
+        logger.info("Loaded Player definition file from `" + filename + "`");
+        return player;
 	}
 	
 	public String toString() {

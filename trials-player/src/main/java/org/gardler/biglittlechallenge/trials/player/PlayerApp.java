@@ -21,7 +21,7 @@ public class PlayerApp {
 			port = Integer.parseInt(args[0]);
 		}
 		
-		PlayerEngine engine = new PlayerEngine(port);
+		PlayerEngine engine = new PlayerEngine(port, "test_1");
 		engine.run();
 		
 		while (true) {

@@ -2,6 +2,7 @@ package org.gardler.biglittlechallenge.test;
 
 import org.gardler.biglittlechallenge.trials.Engine;
 import org.gardler.biglittlechallenge.trials.ai.AiPlayerEngine;
+import org.gardler.biglittlechallenge.trials.player.PlayerEngine;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,12 +24,15 @@ public class TestApp {
 		}
 		int players = Integer.parseInt(numString);
 		
+		int numOfHumanPlayers = 2;
+		int numOfAiPlayers = players - numOfHumanPlayers;
+		
 		logger.debug("Starting the trials card game for " + players + " players.");
-
 		Engine gameEngine = new Engine(players);
 		new Thread(gameEngine).start();
 
-		for (int i = 1; i <= players; i++) {
+		logger.debug("Creating " + numOfAiPlayers + " AI players");
+		for (int i = 1; i <= numOfAiPlayers; i++) {
 			// TODO: There is still a chance of a port clash, should verify port
 			// is available
 			int port = (int) (8000 + Math.round((Math.random() * 9999)));
@@ -36,6 +40,15 @@ public class TestApp {
 			new Thread(playerEngine).start();
 		}
 
+		logger.debug("Creating " + numOfHumanPlayers + " human plyaers");
+		for (int i = 1; i <= numOfHumanPlayers; i++) {
+			// TODO: There is still a chance of a port clash, should verify port
+			// is available
+			int port = (int) (8000 + Math.round((Math.random() * 9999)));
+			PlayerEngine playerEngine = new PlayerEngine(port, "test_" + i);
+			new Thread(playerEngine).start();
+		}
+		
 		while (true) {
 			// Just keep the app running
 		}

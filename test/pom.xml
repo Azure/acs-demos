@@ -25,6 +25,11 @@
 	</dependency>
 	<dependency>
 		<groupId>org.gardler.biglittlechallenge</groupId>
+		<artifactId>trials-player</artifactId>
+		<version>${trials.version}</version>
+	</dependency>
+	<dependency>
+		<groupId>org.gardler.biglittlechallenge</groupId>
 		<artifactId>trials-ai</artifactId>
 		<version>${trials.version}</version>
 	</dependency>
