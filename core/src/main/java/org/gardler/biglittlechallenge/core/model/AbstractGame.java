@@ -25,7 +25,6 @@ import org.slf4j.LoggerFactory;
 public abstract class AbstractGame implements Runnable {
 	private static Logger logger = LoggerFactory.getLogger(AbstractGame.class);
 			
-	protected GameResult gameResult;
 	protected AbstractRounds gameRounds;
 	private int minNumberOfPlayers;
 	protected List<Player> players = new ArrayList<Player>();
@@ -77,7 +76,7 @@ public abstract class AbstractGame implements Runnable {
 
 	private void playGame() {
 		logger.info("Starting the game");
-		this.gameResult = new GameResult();
+		getStatus().setResults(new GameResult());
 		
 		getStatus().setState(GameStatus.State.Playing);
 		
@@ -86,10 +85,10 @@ public abstract class AbstractGame implements Runnable {
 		while (itr.hasNext()) {
 			Round round = itr.next();
 			playRound(round);
-			this.gameResult.addRound(round);
+			getStatus().getResults().addRound(round);
 		}
 		logger.info("Game is complete.");
-		logger.info(this.gameResult.toString());
+		logger.info(getStatus().getResults().toString());
 
 		getStatus().setState(GameStatus.State.Finishing);
 	}
@@ -180,10 +179,11 @@ public abstract class AbstractGame implements Runnable {
 				
 				this.playGame();
 			case Playing:
-				// TODO: at present the game is not run in a separate thread so there is nothing to do here
+				// Nothing to do here as it's all driven in playGame()
 				break;
 			case Finishing:
 				logger.debug("Tidying up after the game");
+				
 				// Notify all players that the game is complete
 				Iterator<Player> playersItr = this.getPlayers().iterator();
 				while (playersItr.hasNext()) {
@@ -192,7 +192,7 @@ public abstract class AbstractGame implements Runnable {
 					Client client = ClientBuilder.newClient(new ClientConfig().register( LoggingFeature.class ));
 					WebTarget webTarget = client.target(player.getEndpoint()).path("player/finishGame");
 					Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
-					Response response = invocationBuilder.put(Entity.entity(gameResult, MediaType.APPLICATION_JSON));
+					Response response = invocationBuilder.put(Entity.entity(getStatus().getResults(), MediaType.APPLICATION_JSON));
 					if (response.getStatus() != 200) {
 						// TODO: Handle situation where a player is unreachable/does not respond
 						logger.warn("Response from " + player.getName() + " indicates a lack of success.");
@@ -226,7 +226,7 @@ public abstract class AbstractGame implements Runnable {
 	 */
 	private void reset() {
 		this.players = new ArrayList<Player>();
-		this.gameResult = new GameResult();
+		getStatus().setResults(new GameResult());
 		this.setRounds();
 		this.getStatus().setState(State.WaitingForPlayers);
 	}
