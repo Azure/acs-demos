@@ -9,7 +9,9 @@ import org.slf4j.LoggerFactory;
 /**
  * This test application will start a game engine for a specified number of
  * players. Use the MIN_NUMBER_OF_PLAYERS environment variable to set the number
- * of players.
+ * of players (defaults to 2). Use the NUMBER_OF_HUMAN_PLAYERS to set the number
+ * of players that will require human interaction (using the Shell UI by
+ * default, defaults to 0 human plyuaers).
  *
  */
 public class TestApp {
@@ -23,10 +25,15 @@ public class TestApp {
 			numString = "2";
 		}
 		int players = Integer.parseInt(numString);
-		
-		int numOfHumanPlayers = 2;
+
+		numString = System.getenv("NUMBER_OF_HUMAN_PLAYERS");
+		if (numString == null) {
+			numString = "0";
+		}
+		int numOfHumanPlayers = Integer.parseInt(numString);
+
 		int numOfAiPlayers = players - numOfHumanPlayers;
-		
+
 		logger.debug("Starting the trials card game for " + players + " players.");
 		Engine gameEngine = new Engine(players);
 		new Thread(gameEngine).start();
@@ -48,7 +55,7 @@ public class TestApp {
 			PlayerEngine playerEngine = new PlayerEngine(port, "test_" + i);
 			new Thread(playerEngine).start();
 		}
-		
+
 		while (true) {
 			// Just keep the app running
 		}
