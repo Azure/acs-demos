@@ -1,5 +1,7 @@
 package org.gardler.biglittlechallenge.core.api;
 
+import java.util.Iterator;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.PUT;
@@ -11,8 +13,11 @@ import javax.ws.rs.core.Request;
 import javax.ws.rs.core.UriInfo;
 
 import org.gardler.biglittlechallenge.core.AbstractGame;
+import org.gardler.biglittlechallenge.core.api.model.GameStatusResponse;
+import org.gardler.biglittlechallenge.core.api.model.PlayerResultsResponse;
 import org.gardler.biglittlechallenge.core.model.GameStatus;
 import org.gardler.biglittlechallenge.core.model.Player;
+import org.gardler.biglittlechallenge.core.model.PlayerResults;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,7 +39,7 @@ public abstract class AbstractGameAPI {
     @PUT
     @Produces({ MediaType.APPLICATION_JSON})
     @Consumes({ MediaType.APPLICATION_JSON})
-	public GameStatus postJoinGame(Player player) {
+	public GameStatusResponse postJoinGame(Player player) {
 		logger.info("Player requested to join game: " + player.getName());
 		
 		if (game.addPlayer(player)) {
@@ -48,8 +53,9 @@ public abstract class AbstractGameAPI {
 	@Path("status")
     @GET
     @Produces({ MediaType.APPLICATION_JSON })
-    public GameStatus getStatus() {
-		return game.getStatus();
+    public GameStatusResponse getStatus() {
+		GameStatusResponse response = new GameStatusResponse(game.getStatus());
+		return response;
 	}
 
 	public void abortGame() {

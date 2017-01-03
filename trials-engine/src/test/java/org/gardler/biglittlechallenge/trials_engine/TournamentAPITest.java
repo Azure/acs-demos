@@ -2,6 +2,7 @@ package org.gardler.biglittlechallenge.trials_engine;
 
 import static org.junit.Assert.*;
 
+import org.gardler.biglittlechallenge.core.api.model.GameStatusResponse;
 import org.gardler.biglittlechallenge.core.model.GameStatus;
 import org.gardler.biglittlechallenge.trials.engine.Tournament;
 import org.gardler.biglittlechallenge.trials.engine.TournamentAPI;
@@ -12,7 +13,7 @@ public class TournamentAPITest {
 	@Test
 	public void testGetStatus() {
 		TournamentAPI api = initTournament();
-		GameStatus status = api.getStatus();
+		GameStatusResponse status = api.getStatus();
 		assertEquals("Game status is not 'WaitingForPlayers'", GameStatus.State.WaitingForPlayers, status.getState());
 	}
 

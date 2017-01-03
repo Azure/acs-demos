@@ -16,6 +16,7 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.gardler.biglittlechallenge.core.api.model.GameStatusResponse;
 import org.gardler.biglittlechallenge.core.model.PlayerStatus.State;
 import org.gardler.biglittlechallenge.core.ui.AbstractUI;
 import org.glassfish.jersey.client.ClientConfig;
@@ -145,7 +146,7 @@ public class Player implements Serializable {
 		Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
 		Response response = invocationBuilder.put(Entity.entity(this, MediaType.APPLICATION_JSON));
 		
-		GameStatus status = response.readEntity(GameStatus.class);
+		GameStatusResponse status = response.readEntity(GameStatusResponse.class);
 		/*
 		 * FIXME: Saw this intermittent error
 		 * 1705 [main] DEBUG org.gardler.biglittlechallenge.trials.ai.AiPlayerApp  - Waiting for 0ms before requesting to join a new game.
