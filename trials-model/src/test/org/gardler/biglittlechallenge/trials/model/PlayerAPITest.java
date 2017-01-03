@@ -1,6 +1,6 @@
 package org.gardler.biglittlechallenge.trials.model;
 
-import org.gardler.biglittlechallenge.core.model.PlayerAPI;
+import org.gardler.biglittlechallenge.core.api.PlayerAPI;
 import org.gardler.biglittlechallenge.core.model.PlayedCards;
 import org.gardler.biglittlechallenge.core.model.Player;
 import org.gardler.biglittlechallenge.core.model.PlayerStatus;

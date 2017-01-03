@@ -1,6 +1,6 @@
 package org.gardler.biglittlechallenge.trials_engine;
 
-import org.gardler.biglittlechallenge.core.model.AbstractGame;
+import org.gardler.biglittlechallenge.core.AbstractGame;
 import org.gardler.biglittlechallenge.trials.engine.Tournament;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

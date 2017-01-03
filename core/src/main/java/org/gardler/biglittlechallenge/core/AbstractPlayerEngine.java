@@ -1,8 +1,11 @@
-package org.gardler.biglittlechallenge.core.model;
+package org.gardler.biglittlechallenge.core;
 
 import java.net.InetAddress;
 import java.net.URI;
 
+import org.gardler.biglittlechallenge.core.api.PlayerAPI;
+import org.gardler.biglittlechallenge.core.model.Player;
+import org.gardler.biglittlechallenge.core.model.PlayerStatus;
 import org.gardler.biglittlechallenge.core.model.PlayerStatus.State;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;

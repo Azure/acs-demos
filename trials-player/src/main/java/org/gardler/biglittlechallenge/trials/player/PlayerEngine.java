@@ -3,7 +3,7 @@ package org.gardler.biglittlechallenge.trials.player;
 import java.io.IOException;
 import java.net.InetAddress;
 
-import org.gardler.biglittlechallenge.core.model.AbstractPlayerEngine;
+import org.gardler.biglittlechallenge.core.AbstractPlayerEngine;
 import org.gardler.biglittlechallenge.core.model.Player;
 import org.gardler.biglittlechallenge.trials.ai.player.AiPlayer;
 import org.slf4j.Logger;

@@ -12,8 +12,8 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.gardler.biglittlechallenge.core.model.AbstractGame;
-import org.gardler.biglittlechallenge.core.model.AbstractGameAPI;
+import org.gardler.biglittlechallenge.core.AbstractGame;
+import org.gardler.biglittlechallenge.core.api.AbstractGameAPI;
 import org.gardler.biglittlechallenge.core.model.AbstractRounds;
 import org.gardler.biglittlechallenge.core.model.PlayedCards;
 import org.gardler.biglittlechallenge.core.model.Player;

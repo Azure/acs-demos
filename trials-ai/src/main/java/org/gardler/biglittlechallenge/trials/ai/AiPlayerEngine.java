@@ -2,7 +2,7 @@ package org.gardler.biglittlechallenge.trials.ai;
 
 import java.util.UUID;
 
-import org.gardler.biglittlechallenge.core.model.AbstractPlayerEngine;
+import org.gardler.biglittlechallenge.core.AbstractPlayerEngine;
 import org.gardler.biglittlechallenge.trials.ai.player.AiPlayer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

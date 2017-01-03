@@ -1,4 +1,4 @@
-package org.gardler.biglittlechallenge.core.model;
+package org.gardler.biglittlechallenge.core;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -12,6 +12,13 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.gardler.biglittlechallenge.core.api.AbstractGameAPI;
+import org.gardler.biglittlechallenge.core.model.AbstractRounds;
+import org.gardler.biglittlechallenge.core.model.GameResult;
+import org.gardler.biglittlechallenge.core.model.GameStatus;
+import org.gardler.biglittlechallenge.core.model.Player;
+import org.gardler.biglittlechallenge.core.model.Round;
+import org.gardler.biglittlechallenge.core.model.RoundResult;
 import org.gardler.biglittlechallenge.core.model.GameStatus.State;
 import org.glassfish.jersey.client.ClientConfig;
 import org.glassfish.jersey.logging.LoggingFeature;

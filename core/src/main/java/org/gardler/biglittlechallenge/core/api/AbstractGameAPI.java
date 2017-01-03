@@ -1,4 +1,4 @@
-package org.gardler.biglittlechallenge.core.model;
+package org.gardler.biglittlechallenge.core.api;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -10,6 +10,9 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Request;
 import javax.ws.rs.core.UriInfo;
 
+import org.gardler.biglittlechallenge.core.AbstractGame;
+import org.gardler.biglittlechallenge.core.model.GameStatus;
+import org.gardler.biglittlechallenge.core.model.Player;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

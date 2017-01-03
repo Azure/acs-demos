@@ -19,7 +19,7 @@ import org.slf4j.LoggerFactory;
 public abstract class AbstractRounds implements Serializable {
 	private static final long serialVersionUID = -7488746681061877408L;
 	private static Logger logger = LoggerFactory.getLogger(AbstractRounds.class);
-	protected ArrayList<Round> rounds = new ArrayList<Round>();
+	public ArrayList<Round> rounds = new ArrayList<Round>();
 
 	public void add(Round round) {
 		rounds.add(round);

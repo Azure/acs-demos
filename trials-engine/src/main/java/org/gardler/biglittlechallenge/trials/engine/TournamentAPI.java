@@ -2,7 +2,7 @@ package org.gardler.biglittlechallenge.trials.engine;
 
 import javax.ws.rs.Path;
 
-import org.gardler.biglittlechallenge.core.model.AbstractGameAPI;
+import org.gardler.biglittlechallenge.core.api.AbstractGameAPI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
