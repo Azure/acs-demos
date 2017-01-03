@@ -79,6 +79,10 @@ application (and more) can be found on
     * `curl IP_ADDRESS:3000/incr`
 	* Each time you call the service you will increment the count in
       redis and the current count will be returned in JSON format
+  * Clean up
+    * `docker network rm demonet`
+    * `docker service rm redis`
+    * `docker service rm counter`
 
 # Resources
 
