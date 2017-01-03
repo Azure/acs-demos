@@ -1,0 +1,21 @@
+FROM kodbasen/java-jdk-arm
+
+RUN apt-get update
+RUN apt-get install -qqq wget
+
+WORKDIR /opt
+RUN wget http://download.nextag.com/apache/maven/maven-3/3.3.9/binaries/apache-maven-3.3.9-bin.tar.gz
+RUN tar -xzvf apache-maven-3.3.9-bin.tar.gz
+ENV M2_HOME /opt/apache-maven-3.3.9
+ENV PATH $PATH:$M2_HOME/bin
+
+COPY ./maven-settings.xml /m2/maven-settings.xml
+
+COPY ./core /usr/src/app/core
+WORKDIR /usr/src/app/core
+RUN mvn -s /m2/maven-settings.xml install
+
+COPY ./trials-model /usr/src/app/trials-model
+WORKDIR /usr/src/app/trials-model
+RUN mvn -s /m2/maven-settings.xml install
+
