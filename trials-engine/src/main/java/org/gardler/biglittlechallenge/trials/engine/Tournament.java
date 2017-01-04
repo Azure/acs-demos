@@ -14,9 +14,9 @@ import javax.ws.rs.core.Response;
 
 import org.gardler.biglittlechallenge.core.AbstractGame;
 import org.gardler.biglittlechallenge.core.api.AbstractGameAPI;
+import org.gardler.biglittlechallenge.core.api.model.GameTicket;
 import org.gardler.biglittlechallenge.core.model.AbstractRounds;
 import org.gardler.biglittlechallenge.core.model.PlayedCards;
-import org.gardler.biglittlechallenge.core.model.Player;
 import org.gardler.biglittlechallenge.core.model.Round;
 import org.gardler.biglittlechallenge.core.model.RoundResult;
 import org.glassfish.jersey.client.ClientConfig;
@@ -90,18 +90,18 @@ public class Tournament extends AbstractGame {
 	protected RoundResult playRound(Round round) {
 		logger.info("Playing round: " + round.getName());
 		
-		Iterator<Player> itr = players.iterator();
+		Iterator<GameTicket> itr = tickets.iterator();
 		while (itr.hasNext()) {
-			Player player = itr.next();
-			logger.debug("Requesting cards from " + player.getName());
+			GameTicket player = itr.next();
+			logger.debug("Requesting cards from " + player.getPlayerName());
 			
 			// Ask player for cards
 			Client client = ClientBuilder.newClient(new ClientConfig().register( LoggingFeature.class ));
-			WebTarget webTarget = client.target(player.getEndpoint()).path("player/round");
+			WebTarget webTarget = client.target(player.getPlayerEndpoint()).path("player/round");
 			Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
 			Response response = invocationBuilder.put(Entity.entity(round, MediaType.APPLICATION_JSON));
 			if (response.getStatus() != 200) {
-				logger.warn("Response from " + player.getName() + " indicates a lack of success.");
+				logger.warn("Response from " + player.getPlayerName() + " indicates a lack of success.");
 				String msg = response.readEntity(String.class);
 				logger.warn(response.getStatus() + " - " + msg);
 			}

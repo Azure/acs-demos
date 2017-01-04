@@ -22,6 +22,10 @@ public class AiPlayerEngine extends AbstractPlayerEngine {
 	public AiPlayerEngine(int port) {
 		super(port);
 	}
+	
+	public AiPlayerEngine(int port, int numOfPlayers) {
+		super(port, numOfPlayers);
+	}
 
 	public void run() {
 		String engineEndpoint = AiPlayer.getEngineEndoint();

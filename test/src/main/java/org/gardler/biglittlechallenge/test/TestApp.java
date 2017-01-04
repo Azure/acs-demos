@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
  * players. Use the MIN_NUMBER_OF_PLAYERS environment variable to set the number
  * of players (defaults to 2). Use the NUMBER_OF_HUMAN_PLAYERS to set the number
  * of players that will require human interaction (using the Shell UI by
- * default, defaults to 0 human plyuaers).
+ * default, defaults to 0 human players).
  *
  */
 public class TestApp {
@@ -22,7 +22,7 @@ public class TestApp {
 	public static void main(String[] args) {
 		String numString = System.getenv("MIN_NUMBER_OF_PLAYERS");
 		if (numString == null) {
-			numString = "2";
+			numString = "1"; // default is actually 2 because when AI Player is created we ask for 2 player game
 		}
 		int players = Integer.parseInt(numString);
 
@@ -31,7 +31,6 @@ public class TestApp {
 			numString = "0";
 		}
 		int numOfHumanPlayers = Integer.parseInt(numString);
-
 		int numOfAiPlayers = players - numOfHumanPlayers;
 
 		logger.debug("Starting the trials card game for " + players + " players.");

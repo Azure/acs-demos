@@ -1,7 +1,5 @@
 package org.gardler.biglittlechallenge.core.api;
 
-import java.util.Iterator;
-
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.PUT;
@@ -14,10 +12,7 @@ import javax.ws.rs.core.UriInfo;
 
 import org.gardler.biglittlechallenge.core.AbstractGame;
 import org.gardler.biglittlechallenge.core.api.model.GameStatusResponse;
-import org.gardler.biglittlechallenge.core.api.model.PlayerResultsResponse;
-import org.gardler.biglittlechallenge.core.model.GameStatus;
-import org.gardler.biglittlechallenge.core.model.Player;
-import org.gardler.biglittlechallenge.core.model.PlayerResults;
+import org.gardler.biglittlechallenge.core.api.model.GameTicket;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,10 +34,10 @@ public abstract class AbstractGameAPI {
     @PUT
     @Produces({ MediaType.APPLICATION_JSON})
     @Consumes({ MediaType.APPLICATION_JSON})
-	public GameStatusResponse postJoinGame(Player player) {
-		logger.info("Player requested to join game: " + player.getName());
+	public GameStatusResponse postJoinGame(GameTicket ticket) {
+		logger.info("Player requested to join game: " + ticket.getPlayerName());
 		
-		if (game.addPlayer(player)) {
+		if (game.addTicket(ticket)) {
 			return getStatus();
 		} else {
 			logger.error("FIXME: return an HTTP response that says \"not available\", player should find a different engine.");

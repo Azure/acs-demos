@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Iterator;
 
+import org.gardler.biglittlechallenge.core.api.model.GameTicket;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -60,13 +61,13 @@ public class GameResult implements Serializable {
 				newPoints = 0;
 			}
 
-			Player player = position.getPlayer();
+			GameTicket ticket = position.getTicket();
 			// add new points to existing points, or create a new record
 			boolean isProcessed = false;
 			Iterator<PlayerResults> playerItr = players.iterator();
 			while (playerItr.hasNext() && !isProcessed) {
 				PlayerResults playerResult = playerItr.next();
-				if (playerResult.getPlayer() == player) {
+				if (playerResult.getTicket() == ticket) {
 					players.remove(playerResult);
 					int points = playerResult.getPoints() + newPoints;
 					playerResult.setPoints(points);
@@ -77,7 +78,7 @@ public class GameResult implements Serializable {
 			if (!isProcessed) {
 				PlayerResults result = new PlayerResults();
 				result.setPoints(newPoints);
-				result.setPlayer(player);
+				result.setTicket(ticket);
 				players.add(result);
 			}
 			idx = idx + 1;
@@ -113,7 +114,7 @@ public class GameResult implements Serializable {
 			sb.append("\t");
 			sb.append(idx);
 			sb.append(": ");
-			sb.append(results.getPlayer().getName());
+			sb.append(results.getTicket().getPlayerName());
 			sb.append(" with ");
 			sb.append(results.getPoints());
 			sb.append(" points.\n");

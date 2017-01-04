@@ -13,10 +13,10 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.gardler.biglittlechallenge.core.api.AbstractGameAPI;
+import org.gardler.biglittlechallenge.core.api.model.GameTicket;
 import org.gardler.biglittlechallenge.core.model.AbstractRounds;
 import org.gardler.biglittlechallenge.core.model.GameResult;
 import org.gardler.biglittlechallenge.core.model.GameStatus;
-import org.gardler.biglittlechallenge.core.model.Player;
 import org.gardler.biglittlechallenge.core.model.Round;
 import org.gardler.biglittlechallenge.core.model.RoundResult;
 import org.gardler.biglittlechallenge.core.model.GameStatus.State;
@@ -34,7 +34,7 @@ public abstract class AbstractGame implements Runnable {
 			
 	protected AbstractRounds gameRounds;
 	private int minNumberOfPlayers;
-	protected List<Player> players = new ArrayList<Player>();
+	protected List<GameTicket> tickets = new ArrayList<GameTicket>();
 	private GameStatus status = new GameStatus();
 	protected AbstractGameAPI apiEngine;
 	protected String name = "Game with no name (FIXME: no logic for setting name";
@@ -59,7 +59,7 @@ public abstract class AbstractGame implements Runnable {
 	}
 	
 	/**
-	 * Attempt to add a player to the game. If the game is 'waitingforplayers' then 
+	 * Attempt to add a player request to join the game. If the game is 'waitingforplayers' then 
 	 * the player will be added to the list. If they are the final player needed then
 	 * the game is moved to the 'starting' state.
 	 * 
@@ -69,11 +69,16 @@ public abstract class AbstractGame implements Runnable {
 	 * @param player
 	 * @return true if the player is added to the game, false if it is not added
 	 */
-	public boolean addPlayer(Player player) {
-		logger.debug("Trying to add " + player.getName() + " to game " + this.getName());
-		if (players.size() < getMinimumNumberOfPlayers()) {
-			players.add(player);
-			logger.debug("Now have " + players.size() + " of " + getMinimumNumberOfPlayers() + " players. Just added (" + player.getName() + ")");
+	public boolean addTicket(GameTicket ticket) {
+		logger.debug("Trying to add " + ticket.getPlayerName() + " to game " + this.getName());
+		if (this.getStatus().getState() == GameStatus.State.Idle) {
+			if (ticket.getNumberOfPlayers() != null && ticket.getNumberOfPlayers() > 0) {
+				this.setMinimumNumberOfPlayers(ticket.getNumberOfPlayers());
+			}
+		}
+		if (tickets.size() < getMinimumNumberOfPlayers()) {
+			tickets.add(ticket);
+			logger.debug("Now have " + tickets.size() + " of " + getMinimumNumberOfPlayers() + " players with tickets to the game. Just added (" + ticket.getPlayerName() + ")");
 			return true;
 		} else {
 			logger.debug("The game is full");
@@ -109,8 +114,8 @@ public abstract class AbstractGame implements Runnable {
 	 */
 	protected abstract RoundResult playRound(Round round);
 
-	public List<Player> getPlayers() {
-		return players;
+	public List<GameTicket> getTickets() {
+		return tickets;
 	}
 	
 	/**
@@ -136,6 +141,7 @@ public abstract class AbstractGame implements Runnable {
 	 * players needed before the game will start. The default is 2 players.
 	 */
 	public void setMinimumNumberOfPlayers(int minimumNumberOfPlayers) {
+		logger.info("Setting minimum number of players to " + minimumNumberOfPlayers);
 		this.minNumberOfPlayers = minimumNumberOfPlayers;
 	}
 
@@ -155,32 +161,34 @@ public abstract class AbstractGame implements Runnable {
 			// If we are ready to start then lets get on with it
 			status = this.getStatus();
 			switch (status.getState()) {
+			case Idle:
+				// Noting to do for now...
 			case WaitingForPlayers:
 				// logger.info("Waiting for players before we can start the game");
-				if (players.size() == getMinimumNumberOfPlayers()) {	
+				if (tickets.size() == getMinimumNumberOfPlayers()) {	
 					logger.debug("We now have enough players to start the game, updating game status to 'starting'");
 					getStatus().setState(GameStatus.State.Starting);
 				}
 				break;
 			case Starting:
 				// Notify all players that we are ready to start
-				Iterator<Player> itr = this.getPlayers().iterator();
+				Iterator<GameTicket> itr = this.getTickets().iterator();
 				while (itr.hasNext()) {
 					// TODO: Parallelize getting responses from players
-					Player player = itr.next();
+					GameTicket ticket = itr.next();
 					
 					Client client = ClientBuilder.newClient(new ClientConfig().register( LoggingFeature.class ));
-					WebTarget webTarget = client.target(player.getEndpoint()).path("player/readyToStart");
+					WebTarget webTarget = client.target(ticket.getPlayerEndpoint()).path("player/readyToStart");
 					Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
 					Response response = invocationBuilder.get();
 					if (response.getStatus() != 200) {
 						// TODO: Handle situation where a player is unreachable/does not respond
-						logger.warn("Response from " + player.getName() + " indicates a lack of success.");
+						logger.warn("Response from " + ticket.getPlayerName() + " indicates a lack of success.");
 						String msg = response.readEntity(String.class);
 						logger.warn(response.getStatus() + " - " + msg);
 					} else {
 						// TODO: Handle situation where a player is unreachable/does not respond
-						logger.info(player.getName() + " is ready to start playing");	
+						logger.info(ticket.getPlayerName() + " is ready to start playing");	
 					}
 				}
 				
@@ -192,22 +200,22 @@ public abstract class AbstractGame implements Runnable {
 				logger.debug("Tidying up after the game");
 				
 				// Notify all players that the game is complete
-				Iterator<Player> playersItr = this.getPlayers().iterator();
-				while (playersItr.hasNext()) {
-					Player player = playersItr.next();
+				Iterator<GameTicket> ticketsItr = this.getTickets().iterator();
+				while (ticketsItr.hasNext()) {
+					GameTicket ticket = ticketsItr.next();
 					
 					Client client = ClientBuilder.newClient(new ClientConfig().register( LoggingFeature.class ));
-					WebTarget webTarget = client.target(player.getEndpoint()).path("player/finishGame");
+					WebTarget webTarget = client.target(ticket.getPlayerEndpoint()).path("player/finishGame");
 					Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
 					Response response = invocationBuilder.put(Entity.entity(getStatus().getResults(), MediaType.APPLICATION_JSON));
 					if (response.getStatus() != 200) {
 						// TODO: Handle situation where a player is unreachable/does not respond
-						logger.warn("Response from " + player.getName() + " indicates a lack of success.");
+						logger.warn("Response from " + ticket.getPlayerName() + " indicates a lack of success.");
 						String msg = response.readEntity(String.class);
 						logger.warn(response.getStatus() + " - " + msg);
 					} else {
 						// TODO: Handle situation where a player is unreachable/does not respond
-						logger.info(player.getName() + " confirms the game has ended.");	
+						logger.info(ticket.getPlayerName() + " confirms the game has ended.");	
 					}
 				}
 				
@@ -232,10 +240,10 @@ public abstract class AbstractGame implements Runnable {
 	 * Reset the game ready for a new game.
 	 */
 	private void reset() {
-		this.players = new ArrayList<Player>();
+		this.tickets = new ArrayList<GameTicket>();
 		getStatus().setResults(new GameResult());
 		this.setRounds();
-		this.getStatus().setState(State.WaitingForPlayers);
+		this.getStatus().setState(State.Idle);
 	}
 	
 

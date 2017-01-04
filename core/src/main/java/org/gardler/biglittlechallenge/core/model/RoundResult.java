@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Iterator;
 
+import org.gardler.biglittlechallenge.core.api.model.GameTicket;
+
 /**
  * Represents the result of one round in a game.
  *
@@ -17,7 +19,7 @@ public class RoundResult implements Serializable {
 		super();
 	}
 
-	public void addResult(Player player, PlayedCards cards, Double rating) {
+	public void addResult(GameTicket player, PlayedCards cards, Double rating) {
 		RoundPosition position = new RoundPosition(player, cards, rating);
 		positions.add(position);
 		positions.sort(new PositionComparator());
