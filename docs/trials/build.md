@@ -2,10 +2,9 @@
 
 To build the Trials application...
 
-1. Install JDK
-2. Install Maven
-3. Install Docker 1.12+
+1. Install Docker 1.12+
 4. Run `build.sh` to build the i386 version or `build-arm.sh` to build the ARM version(Raspberry Pi)
+  1. If you are using Windows we don't currently have a script, simply open the build file and run the Docker build commands within
 5. [OPTIONAL] push the containers to Docker Hub (required if you want to deploy to a cluster of hosts)
 
 # Running the Trials Game
