@@ -5,7 +5,7 @@ To build the Trials application...
 1. Install Docker 1.12+
 4. Run `build.sh` to build the i386 version or `build-arm.sh` to build the ARM version(Raspberry Pi)
   1. If you are using Windows we don't currently have a script, simply open the build file and run the Docker build commands within
-5. [OPTIONAL] push the containers to Docker Hub (required if you want to deploy to a cluster of hosts)
+5. [OPTIONAL] push the containers to Docker Hub using `publish.sh` or `publish-arm.sh` (required if you want to deploy to a cluster of hosts)
 
 # Running the Trials Game
 
@@ -29,8 +29,11 @@ start. You can create an additional AI plyaer with:
 After running this command a second player will register with 
 game engine and the game will start as a result.
 
-At the time of writing a complete game will be played with
-details output in the log.
+At the time of writing a complete game will be played with details
+output in the log. To view the logs for all containers use:
+
+`docker-compose logs`
+
 
 ## On A Swarm Mode Cluster
 
@@ -39,26 +42,22 @@ After the above build steps, including pushing to Docker Hub...
 Swarm Mode clusters do not support docker-compose unless deploying to
 a single host. Therefore we need to use Swarm Mode serbvices instead:
 
-The following commands will run a game with 5 AI Players
+The scripts `run.sh` and `run-arm.sh` will run the application as
+docker containers.
 
-  * Create an overlay network
-    * `docker network create --driver overlay --subnet 20.0.14.0/24 trials`
-  * Run an Engine
-    * `docker service create --replicas=1 --network=trials --publish 8080:8080 --name engine --env MIN_NUMBER_OF_PLAYERS=5 biglittlechallenge/trials-engine-arm`
-  * Run the AI Players
-    * `docker service create --name aiplayer --replicas=2 --network=trials --publish 8888 biglittlechallenge/trials-ai-arm`
-  * Check the services are healthy
-    * `docker service ls`
-        * You should see 1 engine and 2 aiplayer services
-  * Check the logs of the services (this is harder than it should be, need to put a REST API to get useful info)
-    * Find the node the container of interest is running on with `docker service ps engine`
-    * Log into the node
-    * Find the ID of the container with `docker ps`
-    * Check the logs with `docker logs ID`
-  * Note that with the above commands we do not have enough players to statr the game, so scale the players up
-    * `docker service scale aiplayer=5`
-  * Check the engine logs, the games should be underway
-  
+Note, by default these scripts start a 5 plauer game but only create 2
+players, this means it is necessary to sale the aiplayer service to
+actually start the game:
+
+`docker service scale aiplayer=5`
+
+Check the logs of the services (this is harder than it should be, need
+to put a REST API to get useful info)
+
+  * Find the node the container of interest is running on with `docker service ps engine`
+  * Log into the node * Find the ID of the container with `docker ps`
+  * Check the logs with `docker logs ID`
+
 ## Larger games
 
 If you want to play larger games you can change the number of
