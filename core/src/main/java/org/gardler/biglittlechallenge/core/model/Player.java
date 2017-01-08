@@ -17,6 +17,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.gardler.biglittlechallenge.core.api.model.GameStatusResponse;
+import org.gardler.biglittlechallenge.core.api.model.GameTicket;
 import org.gardler.biglittlechallenge.core.model.PlayerStatus.State;
 import org.gardler.biglittlechallenge.core.ui.AbstractUI;
 import org.glassfish.jersey.client.ClientConfig;
@@ -138,13 +139,14 @@ public class Player implements Serializable {
 	 * call back to the player via the player API and the game can start.
 	 * 
 	 */
-	public void joinTournament(String engineEndpoint) {
+	public void joinTournament(String engineEndpoint, int numOfPlayers) {
 		this.getStatus().setState(PlayerStatus.State.Requesting);
 		Client client = ClientBuilder.newClient(new ClientConfig().register( LoggingFeature.class ));
 		WebTarget webTarget = client.target(engineEndpoint).path("api/v0.1/tournament/join");
 
 		Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
-		Response response = invocationBuilder.put(Entity.entity(this, MediaType.APPLICATION_JSON));
+		GameTicket ticket = new GameTicket(this, numOfPlayers);
+		Response response = invocationBuilder.put(Entity.entity(ticket, MediaType.APPLICATION_JSON));
 		
 		GameStatusResponse status = response.readEntity(GameStatusResponse.class);
 		/*
@@ -159,7 +161,7 @@ public class Player implements Serializable {
 		if (status.getState() == GameStatus.State.WaitingForPlayers
 				|| status.getState() == GameStatus.State.Starting) {
 			this.getStatus().setState(PlayerStatus.State.Waiting);
-		} else 
+		}
 		
 		logger.debug("Request to join tournament - response (status " + response.getStatus() + "): " + status);
 	}

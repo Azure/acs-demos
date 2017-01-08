@@ -35,10 +35,11 @@ public abstract class AbstractUI implements Serializable {
 	 * that the player is ready. This method is part of the game
 	 * handshake:
 	 * 
-	 * 1. Player requests to join a game
-	 * 2. Engine response with GameID
+	 * 1. Player requests to join a game - Player.joinGame(...)
+	 *   1.1 If necessary/possible a new game is created
+	 *   1.2 Engine response with GameStatus
 	 * 3. Engine waits for enough players to join
-	 * 3. Engine tells player game is ready to start
+	 *   3.1 Engine tells player game is ready to start
 	 * 4. Player tells engine they are ready (this method)
 	 * 
 	 * If the player confirms they are ready to start then the 

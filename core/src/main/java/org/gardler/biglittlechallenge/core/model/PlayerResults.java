@@ -2,6 +2,8 @@ package org.gardler.biglittlechallenge.core.model;
 
 import java.io.Serializable;
 
+import org.gardler.biglittlechallenge.core.api.model.GameTicket;
+
 /**
  * Summarizes a single players results in a single game.
  * For detailed results in each round see RoundResults.
@@ -9,21 +11,25 @@ import java.io.Serializable;
  */
 public class PlayerResults implements Serializable {
 	private static final long serialVersionUID = 2385515664418996288L;
-	Player player;
+	GameTicket ticket;
 	int points;
 	
 	public PlayerResults() {
 		super();
 	}
 
-	public PlayerResults(Player player, int points) {
+	public PlayerResults(GameTicket ticket, int points) {
 		super();
-		this.player = player;
+		this.ticket = ticket;
 		this.points = points;
 	}
 	
-	public Player getPlayer() {
-		return player;
+	public GameTicket getTicket() {
+		return ticket;
+	}
+
+	public void setTicket(GameTicket ticket) {
+		this.ticket = ticket;
 	}
 	
 	/**
@@ -35,10 +41,6 @@ public class PlayerResults implements Serializable {
 
 	public void setPoints(int points) {
 		this.points = points;
-	}
-
-	public void setPlayer(Player player) {
-		this.player = player;
 	}
 	
 }

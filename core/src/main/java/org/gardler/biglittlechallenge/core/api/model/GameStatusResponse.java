@@ -17,11 +17,10 @@ public class GameStatusResponse implements Serializable {
 	private static final long serialVersionUID = 734742551126798205L;
 
 	private UUID gameUUID;
-	private State state;
+	private State state = GameStatus.State.Idle;
     private ArrayList<PlayerResultsResponse> playerResults = new ArrayList<PlayerResultsResponse>();
     private String name;
-    
-    
+        
     /**
      * Typically the empty constructor will only be used when deserializing.
      */
@@ -40,8 +39,8 @@ public class GameStatusResponse implements Serializable {
 		while (itr.hasNext()) {
 			PlayerResults playerResult = itr.next();
 			PlayerResultsResponse pResponse = new PlayerResultsResponse();
-			pResponse.setId(playerResult.getPlayer().getID());
-			pResponse.setName(playerResult.getPlayer().getName());
+			pResponse.setId(playerResult.getTicket().getPlayerID());
+			pResponse.setName(playerResult.getTicket().getPlayerName());
 			pResponse.setPoints(playerResult.getPoints());
 			playerResults.add(pResponse);
 		}

@@ -13,7 +13,7 @@ public class GameStatus implements Serializable {
 	// players before starting
 	// Playing means the game is underway
 	public enum State {
-		WaitingForPlayers, Starting, Playing, Finishing
+		Idle, WaitingForPlayers, Starting, Playing, Finishing
 	}
 
 	public UUID getGameUUID() {

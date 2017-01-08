@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 
+import org.gardler.biglittlechallenge.core.api.model.GameTicket;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,7 +18,7 @@ public class Round {
 	String gameID;
 	RoundResult results = new RoundResult();
 	protected LinkedHashMap<String, Double> ratingFormula;
-	protected HashMap<Player, PlayedCards> cards = new HashMap<Player, PlayedCards>();
+	protected HashMap<GameTicket, PlayedCards> cards = new HashMap<GameTicket, PlayedCards>();
 	
 	public Round() {
 		super();
@@ -45,7 +46,7 @@ public class Round {
 	 * @param player
 	 * @param cards
 	 */
-	public void addCards(Player player, PlayedCards playedCards) {
+	public void addCards(GameTicket player, PlayedCards playedCards) {
 		this.cards.put(player, playedCards);
 
 		Double rating = this.calculateRating(playedCards);
@@ -97,12 +98,12 @@ public class Round {
 		return rating;
 	}	
 	
-	public Player calculateWinner() {
-		Player winner = null;
+	public GameTicket calculateWinner() {
+		GameTicket winner = null;
 		Double highestRating = 0.0;
-		Iterator<Player> itr = cards.keySet().iterator();
+		Iterator<GameTicket> itr = cards.keySet().iterator();
 		while (itr.hasNext()) {
-			Player player = itr.next();
+			GameTicket player = itr.next();
 			Double rating = calculateRating((Card)cards.get(player).getCards().values().toArray()[0]);
 			if (highestRating < rating) {
 				highestRating = rating;

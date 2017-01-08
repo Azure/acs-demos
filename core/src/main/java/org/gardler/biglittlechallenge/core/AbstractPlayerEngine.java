@@ -21,12 +21,18 @@ public abstract class AbstractPlayerEngine implements Runnable {
 	protected static final String BASE_PATH = "/api/v0.1/";
 	
 	protected int port;
+	protected int numOfPlayers;
 
 	protected static int cooloff = 0; // time to wait before requesting to join a
 									// new game
 	
 	public AbstractPlayerEngine(int port) {
 		this.port = port;
+	}
+	
+	public AbstractPlayerEngine(int port, int numberOfPlayers) {
+		this(port);
+		this.numOfPlayers = numberOfPlayers;
 	}
 	
 	protected void startGameLoop(Player player, String engineEndpoint) {
@@ -41,7 +47,7 @@ public abstract class AbstractPlayerEngine implements Runnable {
 				} catch (InterruptedException e) {
 					logger.warn("Cooloff sleep time was interupted", e);
 				}
-				player.joinTournament(engineEndpoint);
+				player.joinTournament(engineEndpoint, numOfPlayers);
 				cooloff = 30000;
 				break;
 			case Requesting:

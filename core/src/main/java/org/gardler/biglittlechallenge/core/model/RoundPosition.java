@@ -2,6 +2,8 @@ package org.gardler.biglittlechallenge.core.model;
 
 import java.io.Serializable;
 
+import org.gardler.biglittlechallenge.core.api.model.GameTicket;
+
 /**
  * Represents the information about the player and the cards played a given
  * position.
@@ -9,7 +11,7 @@ import java.io.Serializable;
  */
 public class RoundPosition implements Serializable {
 	private static final long serialVersionUID = 1405410508729663156L;
-	Player player;
+	GameTicket ticket;
 	PlayedCards cards;
 	Double rating;
 
@@ -20,14 +22,14 @@ public class RoundPosition implements Serializable {
 		super();
 	}
 	
-	public RoundPosition(Player player, PlayedCards cards, Double rating) {
-		this.player = player;
+	public RoundPosition(GameTicket player, PlayedCards cards, Double rating) {
+		this.ticket = player;
 		this.cards = cards;
 		this.rating = rating;
 	}
 	
-	public Player getPlayer() {
-		return player;
+	public GameTicket getTicket() {
+		return ticket;
 	}
 
 	public Double getRating() {
@@ -45,7 +47,7 @@ public class RoundPosition implements Serializable {
 	
 	public String toString() {
 		StringBuilder result = new StringBuilder();
-		result.append(player.getName());
+		result.append(ticket.getPlayerName());
 		result.append(" (");
 		result.append(getRating());
 		result.append(") with ");
