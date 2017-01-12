@@ -5,7 +5,7 @@ services:
     ports:
       - "8080:8080"
     environment:
-      MIN_NUMBER_OF_PLAYERS: 5
+      MIN_NUMBER_OF_PLAYERS: 2
   aiplayer:
     image: biglittlechallenge/trials-ai
     ports:
@@ -13,3 +13,9 @@ services:
     depends_on:
       - engine
     cpu_shares: 100
+  dashboard:
+    image: biglittlechallenge/trials-engine-dashboard
+    ports: 
+      - "8181:80"
+    depends_on:
+      - engine
