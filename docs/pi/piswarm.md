@@ -2,38 +2,6 @@ Once you have built your [cluster](cluster.md) it's time to install
 the orchestration software. You can use Kubernetes (this document) or
 Docker Swarm as described below..
 
-# Installing Raspian and Docker on the Raspberry Pis
-
-  * If you bought blank SD cards:
-    * Download [Raspian Lite](https://www.raspberrypi.org/downloads/raspbian/)
-    * [Install](https://www.raspberrypi.org/documentation/installation/installing-images/README.md) the operating system onto your SD Card
-  * Plug in an HDMI and Ethernet cable and boot the Pi
-  * Connect to the Pi via SSH
-    * One of the last messages output on the boot log will be the Pis IP address
-	* `ssh pi@PI_IP_ADDRESS` (password defaults to 'raspberry')
-  * Change the password
-    * `passwd`
-  * Change the hostname from `raspberrypi` to `piswarm1` (incrementing the number for each successive Pi)
-    * `sudo nano /etc/hosts`
-	* `sudo nano /etc/hostname`
-  * It's a good idea to label the board with the hostname of the Pi
-  * Reduce the GPU memory to 16Mb since these machines with be headless
-    * `sudo nano /boot/config.txt` and add `gpu_mem=16` at the end
-  * Install Docker
-    * `curl -sSL get.docker.com | sh`
-  * Set Docker to auto start
-    * `sudo systemctl enable docker`
-  * It can be useful to enable the Docker client for debugging purposes
-    * `sudo usermod -aG docker pi`
-  * Reboot the Pi
-    * `sudo reboot`
-  * Reconnect via SSH
-    * `ssh pi@PI_IP_ADDRESS`
-  * Test the installation of Docker
-    * `docker run -ti hypriot/armhf-busybox`
-    * After pulling the image you shuold be in a busybox container shell
-	* `hostname` should return a value other than 'piswarm1'
-	
 # Setting up your Swarm cluster
 
 Blatently plagiarized from the excellent
