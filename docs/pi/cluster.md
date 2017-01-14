@@ -4,7 +4,7 @@ You will need:
   
   * At least 3 Raspberry Pi 3 Model B
   * As many 8Gb SD-cards (Class 10) as you have Pis
-  * Ethernet Switch with as many ports as you have Pis
+  * USB Wifi dongle
   * 60W USB power supply with as many ports as you have Pis
   * Stackable Pi Case (or build your own with Lego ;-)
   * As many 1ft USB cables as you have Pis
