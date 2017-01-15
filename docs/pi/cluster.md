@@ -12,46 +12,73 @@ You will need:
 
 # Installing Raspian and Docker on the Raspberry Pis
 
-  * If you bought blank SD cards:
+We'll creat one "master" machine that will act as the gateway between
+the internal network used by the cluster and the Internet. Finally, it
+will be the machine that acts as the primary leader for the swarm
+cluster.
+
+This section is broken into four parts:
+
+  1. Configuration of the master
+  2. Configuration of the agents
+
+## Preparation
+
+We will use the excellent [Ada Fruit
+PiFinder](https://github.com/adafruit/Adafruit-Pi-Finder/releases) to
+configure each Pi. Download and install the software, which is
+available for Linux, Windows and Mac. This removes the need to conncet
+a keyboard and monitor to each of the Pis as you set them up. 
+
+If you are using Windows then it is recommended you install Apples
+"[Bonjour Print
+Services](https://support.apple.com/kb/DL999?locale=en_US)". Don't
+worry that the web page makes it sound like it is only a print
+service. This software will install mDNS support which will allow you
+to connect to the Pis using 'ssh pi@HOSTNAME.local'. If you have
+iTunes laready installed you won't need to install this software.
+
+## The "Master"
+
+  * If you have an SD card preconfigured with the Raspbian OS then use this, otherwise:
     * Download [Raspian Lite](https://www.raspberrypi.org/downloads/raspbian/)
     * [Install](https://www.raspberrypi.org/documentation/installation/installing-images/README.md) the operating system onto your SD Card
-  * Plug in an HDMI and Ethernet cable and boot the Pi
-  * Connect to the Pi via SSH
-    * One of the last messages output on the boot log will be the Pis IP address
-	* `ssh pi@PI_IP_ADDRESS` (password defaults to 'raspberry')
-  * Change the password
-    * `passwd`
-  * Change the hostname from `raspberrypi` to `piswarm1` (incrementing the number for each successive Pi)
-    * `sudo nano /etc/hosts`
-	* `sudo nano /etc/hostname`
-  * It's a good idea to label the board with the hostname of the Pi
-  * Reduce the GPU memory to 16Mb since these machines with be headless
-    * `sudo nano /boot/config.txt` and add `gpu_mem=16` at the end
+  * Connect the Pi to your home network using a wired ethernet connection (after this setup you will be able to use wifi)
+  * Run the Ada Fruit PiFinder and wait for it to find your Pi
+  * Change the username and password
+  * Set the hostname to piswarm-master
+  * Set the Wifi SSID and Password to your preferred network
+  * Do not check the "Install WebIDE" box (this is cool, but we don't need it in our cluster)
+  * Click 'Bootstrap'
+
+After some time this Pi will have a basic configuration, but we are
+not done yet. At this point you will be able to connect to the master
+Pi with:
+
+```
+ssh pi@piswarm-master.local
+```
+
+Alternatively, click the "Terminal" button in PiFinder:
+
   * Install Docker
     * `curl -sSL get.docker.com | sh`
   * Set Docker to auto start
     * `sudo systemctl enable docker`
   * It can be useful to enable the Docker client for debugging purposes
     * `sudo usermod -aG docker pi`
-  * Reboot the Pi to check things work on reboot
-    * `sudo reboot`
-  * Reconnect via SSH
-    * `ssh pi@PI_IP_ADDRESS`
-  * Test the installation of Docker
-    * `docker run -ti hypriot/armhf-busybox`
-    * After pulling the image you shuold be in a busybox container shell
-	* `hostname` should return a value other than 'piswarm1'
-	
-# Setting up the Network
 
-This section is based on an excellent [Ada Fruit
+### Setting up the Network
+
+Now we will configure your master Pi to act as an Access Point for
+your Internet. Each of the other Pis will connect to this Pi. This
+section is based on an excellent [Ada Fruit
 tutorial](https://learn.adafruit.com/setting-up-a-raspberry-pi-as-a-wifi-access-point/install-software). if
 things don't work for you then check there for more details.
 
-One of our Pis will act as a bridge between our Internet and our
-cluster. You can either connect this Pi to the Internet using Ethernet
-or you can add a second Wifi adapter (USB) and have it bridge across
-the clusters wireless network and the additional adapter.
+You can either connect this Pi to the Internet using Ethernet or you
+can add a second Wifi adapter (USB) and have it bridge across the
+clusters wireless network and the additional adapter.
 
 In my setup I have opted for the second wireless adapter, this is
 because I want to be able to demo my cluster away from my usual
@@ -63,18 +90,19 @@ The below will also work using a wired connection on eth0.
 
 My setup is therefore:
 
-### piswarm-1
+#### piswarm-master
 
 wlan0 and eth0: Internet connection
 wlan1: Cluster wireless
 Configured as an access point on wlan1
 SSID of Access Point: piswarm
 
-### piswarm-2, piswarm-3, piswarm-4 etc.
+#### piswarm-agent1, piswarm-agent2, piswarm-agent3 etc.
 
-wlan0: Connects to piswarm wifi network 
+Each of the agents will connect to the master access point and bridge
+to the Internet from there.
 
-## Setting up the Access Point
+### Setting up the Access Point
 
 This sectin is informed by https://learn.adafruit.com/setting-up-a-raspberry-pi-as-a-wifi-access-point/overview
 
@@ -84,7 +112,7 @@ sudo apt-get install hostapd isc-dhcp-server
 sudo apt-get install iptables-persistent
 ```
 
-### /etc/dhcp/dhcp.conf
+#### /etc/dhcp/dhcp.conf
 
 ```
 sudo nano /etc/dhcp/dhcpd.conf
@@ -119,7 +147,7 @@ subnet 192.168.42.0 netmask 255.255.255.0 {
 }
 ```
 
-### /etc/default/isc-dhcp-server
+#### /etc/default/isc-dhcp-server
 
 ```
 sudo nano /etc/default/isc-dhcp-server
@@ -132,7 +160,7 @@ network. If you only have one wifi connector you will use wlan0 below.
 ```
 INTERFACES="wlan1"
 
-### /etc/network/interfaces
+#### /etc/network/interfaces
 
 ```
 sudo ifdown wlan1
@@ -166,13 +194,13 @@ iface wlan1 inet static
   netmask 255.255.255.0
 ```
 
-Now we'll assing the IP to wlan1:
+Now we'll configure the IP for wlan0
 
 ```
 sudo ifconfig wlan0 192.168.42.1
 ```
 
-### /etc/hostapd/hostapd.conf
+#### /etc/hostapd/hostapd.conf
 
 ```
 sudo nano /etc/hostapd/hostapd.conf
@@ -198,7 +226,7 @@ ieee80211n=1
 wme_enabled=1
 ```
 
-### /etc/default/hostapd
+#### /etc/default/hostapd
 
 ```
 sudo nano /etc/default/hostapd
@@ -210,7 +238,7 @@ Uncomment the line starting with `#DAEMON_CONF` and ensure it says:
 DAEMON_CONF="/etc/hostapd/hostapd.conf"
 ```
 
-### /etc/init.d/hostapd 
+#### /etc/init.d/hostapd 
 
 ```
 sudo nano /etc/init.d/hostapd 
@@ -222,7 +250,7 @@ Uncomment the line starting with `#DAEMON_CONF` and ensure it says:
 DAEMON_CONF="/etc/hostapd/hostapd.conf"
 ```
 
-### /etc/sysctl.conf
+#### /etc/sysctl.conf
 
 ```
 sudo nano /etc/sysctl.conf
@@ -240,7 +268,7 @@ Run:
 sudo sh -c "echo 1 > /proc/sys/net/ipv4/ip_forward"
 ```
 
-### IP Tables
+#### IP Tables
 
 ```
 sudo iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
@@ -254,7 +282,7 @@ sudo iptables -A FORWARD -i wlan1 -o wlan0 -j ACCEPT
 sudo sh -c "iptables-save > /etc/iptables/rules.v4"
 ```
 
-### Finalizing
+#### Finalizing
 
 ```
 sudo mv /usr/share/dbus-1/system-services/fi.epitest.hostap.WPASupplicant.service ~/
@@ -267,6 +295,37 @@ sudo update-rc.d isc-dhcp-server enable
 This will start the Access Point, you should be able to connect to it
 from any device and, assuming you are conencted to the internet, you
 will be able to browse the web.
+
+## Configuring the "Agents"
+
+  * If you have an SD card preconfigured with the Raspbian OS then use this, otherwise:
+    * Download [Raspian Lite](https://www.raspberrypi.org/downloads/raspbian/)
+    * [Install](https://www.raspberrypi.org/documentation/installation/installing-images/README.md) the operating system onto your SD Card
+  * Connect the Pi to your home network using a wired ethernet connection (after this setup you will be able to use wifi)
+  * Run the Ada Fruit PiFinder and wait for it to find your Pi
+  * Change the username and password
+  * Set the hostname to piswarm-agent1 (or piswarm-agent2 etc.)
+  * Set the Wifi SSID 'PiSwarm' and Password to 'raspberry' 
+  * Do not check the "Install WebIDE" box (this is cool, but we don't need it in our cluster)
+  * Click 'Bootstrap'
+  * It's a good idea to label the board with the hostname of the Pi
+  * Click 'Bootstrap'
+
+After some time this Pi will have a basic configuration, but we are
+not done yat. Since this machine is an agent we won't be using the GUI
+at all (we left it on the master "just in case").
+
+Click the "Terminal" button in PiFinder in order to open a terminal to
+the selected Pi.
+
+  * Reduce the GPU memory to 16Mb since these machines with be headless
+    * `sudo nano /boot/config.txt` and add `gpu_mem=16` at the end
+  * Install Docker
+    * `curl -sSL get.docker.com | sh`
+  * Set Docker to auto start
+    * `sudo systemctl enable docker`
+  * It can be useful to enable the Docker client for debugging purposes
+    * `sudo usermod -aG docker pi`
 
 ## Configure The Other Pis
 
@@ -289,13 +348,45 @@ network={
 }
 ```
 
-## Connecting to your Agents
+## Connecting to the Master
 
-In order to SSH into your cluster you can now connect to the "PiSwarm"
-wifi network and use:
+If the master and your client are connected to the same netwrok you
+will be able to connect to the master Pi using:
+
+```
+ssh pi@piswarm-master.local
+```
+
+NOTE: on windows you will have to install Apples
+[Bonjour}(https://support.apple.com/kb/DL999?locale=en_US) softwar
+efor this to work.
+
+If you are not connected to the same network then you will need to
+connect your client to the 'PiSwarm' network, at which point you can
+use the above command.
+
+If you need to connect from a client that does not have Bonjour
+installed then connect via the 'PiSwarm' network using the master IP
+address:
 
 ```
 ssh pi@192.168.42.1
 ```
 
-If you want to connect to one of the other Pis you will 
+If you want to connect to one of the other Pis you can do so via SSH
+from this machine.
+
+## Connecting to your Agents
+
+If your agents are connected to the same network as your client
+(usually requireing an wired ethernet connection since the wifi is
+used for the cluster network) you will be able to connect to them
+using:
+
+```
+ssh pi@piswarm-agent1.local
+```
+
+If they are not directly connected to your network and are only
+accessing it through the master access point then you will need to
+first login to the master. From there the above command will work.

@@ -9,21 +9,27 @@ Blatently plagiarized from the excellent
 his video for a more detaild walk through.
 
   * Power up each of the Pis
-  * SSH into piswarm1
-    * `ssh pi@PI_IP_ADDRESS`
+  * SSH into piswarm-master
+    * `ssh pi@piswarm-master.local`
   * Verify you are not in a swarm already
     * `docker info`
 	* In the output verify it says 'swarm: Inactive'
   * Initialize a Swarm
     * `docker swarm init`
-	* Copy the `docker swarm join` command that is output
-  * Have each of the other Pis join the Swarm by executing the above join command on each of the Pis
-  * Back on 'piswarm1' verify your nodes are avialble:
+    * Copy the `docker swarm join` command that is output
+
+Connect to each of yor agent Pis in turn (`ssh
+pi@piswarm-agent1.local`) and execute the the join command copied in
+the above steps.
+
+  * Back on 'piswarm-master' verify your nodes are avialble:
     * `docker node ls`
-  * Optionally make another node a manager
-    * `docker node promote piswarm2`
+  * Optionally make one or more nodes a manager
+    * `docker node promote piswarm-agent1.local`
 
 # Deploy your first multi-container application
+
+Lets check everything is working corretly:
 
 Blatently plagiarized from the excellent
 [deep dive by Alex Ellis](http://blog.alexellis.io/live-deep-dive-pi-swarm/). See
