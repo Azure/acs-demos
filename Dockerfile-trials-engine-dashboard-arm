@@ -1,12 +1,12 @@
-FROM rgooler/rpi-python3 
+FROM armhf/python:3.6 
 
-run pip install --upgrade pip
+RUN pip install --upgrade pip
 
-COPY requirements.txt requirements.txt
+COPY trials-engine-dashboard/requirements.txt requirements.txt
 RUN pip install -r requirements.txt
 
 EXPOSE 80
 
-COPY src src
+COPY trials-engine-dashboard/src src
 
 ENTRYPOINT [ "python", "src/server.py"]
