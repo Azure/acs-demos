@@ -14,7 +14,7 @@ public class TournamentAPITest {
 	public void testGetStatus() {
 		TournamentAPI api = initTournament();
 		GameStatusResponse status = api.getStatus();
-		assertEquals("Game status is not 'WaitingForPlayers'", GameStatus.State.WaitingForPlayers, status.getState());
+		assertEquals("Game status is not 'Idle'", GameStatus.State.Idle, status.getState());
 	}
 
 	private TournamentAPI initTournament() {
