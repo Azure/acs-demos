@@ -22,6 +22,7 @@ public class GameStatusResponse implements Serializable {
     private ArrayList<PlayerResultsResponse> playerResults = new ArrayList<PlayerResultsResponse>();
     private String name;
 	private List<GameTicket> tickets;
+	private int minNumberOfPlayers;
         
     /**
      * Typically the empty constructor will only be used when deserializing.
@@ -37,6 +38,7 @@ public class GameStatusResponse implements Serializable {
     	setGameUUID(status.getGameUUID());
 		setState(status.getState());
 		setTickets(status.getTickets());
+		setMinNumberOfPlayers(status.getMinNumberOfPlayers());
 		
 		Iterator<PlayerResults> itr = status.getResults().getPlayers().iterator();
 		while (itr.hasNext()) {
@@ -79,6 +81,14 @@ public class GameStatusResponse implements Serializable {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public int getMinNumberOfPlayers() {
+		return minNumberOfPlayers;
+	}
+
+	public void setMinNumberOfPlayers(int minNumberOfPlayers) {
+		this.minNumberOfPlayers = minNumberOfPlayers;
 	}
 	
 }

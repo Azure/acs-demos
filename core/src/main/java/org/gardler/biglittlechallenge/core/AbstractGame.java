@@ -33,7 +33,6 @@ public abstract class AbstractGame implements Runnable {
 	private static Logger logger = LoggerFactory.getLogger(AbstractGame.class);
 			
 	protected AbstractRounds gameRounds;
-	private int minNumberOfPlayers;
 	private GameStatus status = new GameStatus();
 	protected AbstractGameAPI apiEngine;
 	protected String name = "Game with no name (FIXME: no logic for setting name";
@@ -132,7 +131,7 @@ public abstract class AbstractGame implements Runnable {
 	 * @return
 	 */
 	public int getMinimumNumberOfPlayers() {
-		return minNumberOfPlayers;
+		return this.getStatus().getMinNumberOfPlayers();
 	}
 
 	/**
@@ -141,7 +140,7 @@ public abstract class AbstractGame implements Runnable {
 	 */
 	public void setMinimumNumberOfPlayers(int minimumNumberOfPlayers) {
 		logger.info("Setting minimum number of players to " + minimumNumberOfPlayers);
-		this.minNumberOfPlayers = minimumNumberOfPlayers;
+		this.getStatus().setMinNumberOfPlayers(minimumNumberOfPlayers);
 	}
 
 	public GameStatus getStatus() {

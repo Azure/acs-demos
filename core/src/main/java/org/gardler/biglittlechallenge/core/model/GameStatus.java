@@ -13,6 +13,7 @@ public class GameStatus implements Serializable {
 	private State state = State.WaitingForPlayers;
 	private GameResult gameResults;
 	private List<GameTicket> tickets = new ArrayList<GameTicket>();
+	private int minNumberOfPlayers;
 
 	// WaitingForPlayers means the game is waiting for the minimum number of
 	// players before starting
@@ -75,5 +76,13 @@ public class GameStatus implements Serializable {
 	public void reset() {
 		tickets = new ArrayList<GameTicket>();
 		gameResults = new GameResult();
+	}
+
+	public int getMinNumberOfPlayers() {
+		return minNumberOfPlayers;
+	}
+
+	public void setMinNumberOfPlayers(int minNumberOfPlayers) {
+		this.minNumberOfPlayers = minNumberOfPlayers;
 	}
 }
