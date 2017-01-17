@@ -3,6 +3,7 @@ package org.gardler.biglittlechallenge.core.api.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.UUID;
 
 import org.gardler.biglittlechallenge.core.model.GameStatus;
@@ -20,6 +21,7 @@ public class GameStatusResponse implements Serializable {
 	private State state = GameStatus.State.Idle;
     private ArrayList<PlayerResultsResponse> playerResults = new ArrayList<PlayerResultsResponse>();
     private String name;
+	private List<GameTicket> tickets;
         
     /**
      * Typically the empty constructor will only be used when deserializing.
@@ -34,6 +36,7 @@ public class GameStatusResponse implements Serializable {
     public GameStatusResponse(GameStatus status) {
     	setGameUUID(status.getGameUUID());
 		setState(status.getState());
+		setTickets(status.getTickets());
 		
 		Iterator<PlayerResults> itr = status.getResults().getPlayers().iterator();
 		while (itr.hasNext()) {
@@ -46,6 +49,13 @@ public class GameStatusResponse implements Serializable {
 		}
     }
     
+	private void setTickets(List<GameTicket> tickets) {
+		this.tickets = tickets;
+	}
+	public List<GameTicket> getTickets() {
+		return this.tickets;
+	}
+
 	public UUID getGameUUID() {
 		return gameUUID;
 	}

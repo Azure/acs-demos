@@ -90,7 +90,7 @@ public class Tournament extends AbstractGame {
 	protected RoundResult playRound(Round round) {
 		logger.info("Playing round: " + round.getName());
 		
-		Iterator<GameTicket> itr = tickets.iterator();
+		Iterator<GameTicket> itr = getStatus().getTickets().iterator();
 		while (itr.hasNext()) {
 			GameTicket player = itr.next();
 			logger.debug("Requesting cards from " + player.getPlayerName());

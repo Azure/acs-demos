@@ -7,6 +7,13 @@ function monitorStatusSocket() {
         $('#log').prepend('<br/>' + $('<div/>').text(new Date() + " : " + JSON.stringify(status)).html());
         $("#state").text(status.state);
 
+	var tickets = [];
+	$.each(status.tickets, function(index, ticket) {
+	    tickets.push('<li>' + ticket.playerName + '</li>')
+	});
+	$("#tickets-list").empty();
+	$("#tickets-list").append(tickets.join(''));
+
 	var players = [];
         $.each(status.playerResults, function(index, player) {
             players.push('<li>' + player.name + ' (' + player.points + ' points)</li>')

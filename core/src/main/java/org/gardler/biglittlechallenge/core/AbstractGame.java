@@ -34,7 +34,6 @@ public abstract class AbstractGame implements Runnable {
 			
 	protected AbstractRounds gameRounds;
 	private int minNumberOfPlayers;
-	protected List<GameTicket> tickets = new ArrayList<GameTicket>();
 	private GameStatus status = new GameStatus();
 	protected AbstractGameAPI apiEngine;
 	protected String name = "Game with no name (FIXME: no logic for setting name";
@@ -76,9 +75,9 @@ public abstract class AbstractGame implements Runnable {
 				this.setMinimumNumberOfPlayers(ticket.getNumberOfPlayers());
 			}
 		}
-		if (tickets.size() < getMinimumNumberOfPlayers()) {
-			tickets.add(ticket);
-			logger.debug("Now have " + tickets.size() + " of " + getMinimumNumberOfPlayers() + " players with tickets to the game. Just added (" + ticket.getPlayerName() + ")");
+		if (getStatus().getTickets().size() < getMinimumNumberOfPlayers()) {
+			getStatus().getTickets().add(ticket);
+			logger.debug("Now have " + getStatus().getTickets().size() + " of " + getMinimumNumberOfPlayers() + " players with tickets to the game. Just added (" + ticket.getPlayerName() + ")");
 			return true;
 		} else {
 			logger.debug("The game is full");
@@ -115,7 +114,7 @@ public abstract class AbstractGame implements Runnable {
 	protected abstract RoundResult playRound(Round round);
 
 	public List<GameTicket> getTickets() {
-		return tickets;
+		return getStatus().getTickets();
 	}
 	
 	/**
@@ -165,7 +164,7 @@ public abstract class AbstractGame implements Runnable {
 				// Noting to do for now...
 			case WaitingForPlayers:
 				// logger.info("Waiting for players before we can start the game");
-				if (tickets.size() == getMinimumNumberOfPlayers()) {	
+				if (getStatus().getTickets().size() == getMinimumNumberOfPlayers()) {	
 					logger.debug("We now have enough players to start the game, updating game status to 'starting'");
 					getStatus().setState(GameStatus.State.Starting);
 				}
@@ -240,8 +239,7 @@ public abstract class AbstractGame implements Runnable {
 	 * Reset the game ready for a new game.
 	 */
 	private void reset() {
-		this.tickets = new ArrayList<GameTicket>();
-		getStatus().setResults(new GameResult());
+		getStatus().reset();
 		this.setRounds();
 		this.getStatus().setState(State.Idle);
 	}

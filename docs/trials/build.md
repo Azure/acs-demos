@@ -34,6 +34,7 @@ output in the log. To view the logs for all containers use:
 
 `docker-compose logs`
 
+To view the engine dashbaord visit http://MY_HOST:8181
 
 ## On A Swarm Mode Cluster
 
@@ -51,12 +52,16 @@ actually start the game:
 
 `docker service scale aiplayer=5`
 
+To view the engine dashbaord visit http://MY_HOST:8181
+
 Check the logs of the services (this is harder than it should be, need
 to put a REST API to get useful info)
 
   * Find the node the container of interest is running on with `docker service ps engine`
   * Log into the node * Find the ID of the container with `docker ps`
   * Check the logs with `docker logs ID`
+
+
 
 ## Larger games
 
