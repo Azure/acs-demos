@@ -7,6 +7,8 @@ function monitorStatusSocket() {
         $('#log').prepend('<br/>' + $('<div/>').text(new Date() + " : " + JSON.stringify(status)).html());
         $("#state").text(status.state);
 
+	$("#number-of-players").text(status.minNumberOfPlayers);
+
 	var tickets = [];
 	$.each(status.tickets, function(index, ticket) {
 	    tickets.push('<li>' + ticket.playerName + '</li>')
