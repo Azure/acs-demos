@@ -9,7 +9,7 @@ import org.gardler.biglittlechallenge.core.api.model.GameTicket;
 
 public class GameStatus implements Serializable {
 	private static final long serialVersionUID = -2937782814901661605L;
-	private UUID gameUUID = UUID.randomUUID();
+	private UUID gameUUID;;
 	private State state = State.WaitingForPlayers;
 	private GameResult gameResults;
 	private List<GameTicket> tickets = new ArrayList<GameTicket>();
@@ -23,6 +23,9 @@ public class GameStatus implements Serializable {
 	}
 
 	public UUID getGameUUID() {
+		if (gameUUID == null) {
+			gameUUID = UUID.randomUUID();
+		}
 		return gameUUID;
 	}
 
@@ -76,6 +79,7 @@ public class GameStatus implements Serializable {
 	public void reset() {
 		tickets = new ArrayList<GameTicket>();
 		gameResults = new GameResult();
+		gameUUID = null;
 	}
 
 	public int getMinNumberOfPlayers() {

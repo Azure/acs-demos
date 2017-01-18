@@ -9,6 +9,11 @@ function monitorStatusSocket() {
 
 	$("#number-of-players").text(status.minNumberOfPlayers);
 
+	$("#abort").off("click");
+	$("#abort").click( function (event) {
+	    socket.emit('abort', status.gameUUID);
+	});
+
 	var tickets = [];
 	$.each(status.tickets, function(index, ticket) {
 	    tickets.push('<li>' + ticket.playerName + '</li>')

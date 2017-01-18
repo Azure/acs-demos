@@ -44,6 +44,10 @@ public abstract class AbstractGame implements Runnable {
         t.start();
 	}
 	
+	public String getID() {
+		return getStatus().getGameUUID().toString();
+	}
+	
 	/**
 	 * Set the hands to be played in this game.
 	 */

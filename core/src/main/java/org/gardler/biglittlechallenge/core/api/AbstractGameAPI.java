@@ -53,8 +53,16 @@ public abstract class AbstractGameAPI {
 		return response;
 	}
 
-	public void abortGame() {
-		game.abortGame();
+	@Path("abort")
+    @PUT
+    @Consumes({ MediaType.APPLICATION_FORM_URLENCODED})
+	public void abortGame(String id) {
+		logger.debug("Request to abort game with ID " + id);
+		if (id.equals(game.getID())) {
+			game.abortGame();
+		} else {
+			logger.error("FIXME: handle situation where id of game to abort is not the ID of the current game. Game ID is '" + game.getID() + "', requested abort of '" + id + "'");
+		}
 	}
 
 }

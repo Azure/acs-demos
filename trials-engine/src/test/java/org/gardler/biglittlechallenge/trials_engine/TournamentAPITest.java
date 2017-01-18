@@ -20,7 +20,7 @@ public class TournamentAPITest {
 	private TournamentAPI initTournament() {
 		Tournament tournament = new Tournament();
 		TournamentAPI api = new TournamentAPI(tournament);
-		api.abortGame(); // This is to ensure we are not using a previously created game
+		api.abortGame(tournament.getID()); // This is to ensure we are not using a previously created game
 		return api;
 	}
 

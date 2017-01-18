@@ -16,13 +16,13 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
 socketio = SocketIO(app, async_mode=async_mode)
 thread = None
-engine_url = "http://engine:8080/api/v0.1/tournament/status"
+engine_url = "http://engine:8080/api/v0.1/tournament/"
 
 def background_thread():
     old_data = None;
     while True:
         socketio.sleep(1)
-        resp_body = urllib.request.urlopen(engine_url).read()
+        resp_body = urllib.request.urlopen(engine_url + "status").read()
         status = resp_body.decode('UTF-8')
 
         socketio.emit('game_status',
@@ -38,11 +38,16 @@ def index(name=None):
     )
 
 @socketio.on('connect', namespace='/engine')
-def test_connect():
+def connect():
     global thread
     if thread is None:
         thread = socketio.start_background_task(target=background_thread)
     emit('log', 'Connected to engine')
+
+@socketio.on('abort', namespace='/engine')
+def abort(id):
+    request = urllib.request.Request(engine_url + "abort", data = bytearray(id, "UTF-8"), method="PUT")
+    urllib.request.urlopen(request)
 
 @socketio.on('engine_ping', namespace='/engine')
 def ping_pong():
