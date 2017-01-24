@@ -101,8 +101,7 @@ public class Shell extends AbstractUI {
 		}
 
 		while (true) {
-			print("Current round is " + round.toString());
-			print("Enter the name of the card you wish to play for this hand:");
+			print("Enter the name of the card you wish to play for " + round.getName());
 			String key = inString();
 			if (deck.getCards().containsKey(key)) {
 				playedCards.addCard(deck.getCard(key));
