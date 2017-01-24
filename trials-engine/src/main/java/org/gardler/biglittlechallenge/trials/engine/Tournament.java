@@ -84,6 +84,14 @@ public class Tournament extends AbstractGame {
 		formula.put("Strength", 0.5);
 		event = new Event("Field: Pole Vault", formula);
     	gameRounds.add(event);
+    	
+
+    	formula = new LinkedHashMap<String, Double>();
+    	formula.put("Dexterity", 1.5);
+		formula.put("Intelligence", 0.2);
+		formula.put("Strength", 0.2);
+		event = new Event("Archery", formula);
+    	gameRounds.add(event);
 	}
 
 	@Override
