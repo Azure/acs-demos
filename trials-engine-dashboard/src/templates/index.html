@@ -17,7 +17,7 @@
     <div id="wrap">
       <div id="left-col">
 	<h2>Status</h2>
-	<p><span id="state">Fetching...</span></p>
+	<p><span id="state">{{ status.state }}</span></p>
 
 	<h2>Game Tickets</h2>
 	<p><span id="number-of-players"></span> players required.</p>
@@ -36,9 +36,9 @@
       <hr/>
 
       <div id="debug">
-	<h4>Debug</h4>
+	      <h4>Debug</h4>
         <p>Ping: <b><span id="ping-pong"></span>ms</b></p>
-	<p>Async mode is '{{ async_mode }}'</p>
+	      <p>Async mode is '{{ async_mode }}'</p>
 
         <h3>Log</h3>
         <div id="log">
