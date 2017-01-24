@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 
+import org.gardler.biglittlechallenge.core.Constants;
 import org.gardler.biglittlechallenge.core.model.GameStatus;
 import org.gardler.biglittlechallenge.core.model.PlayerResults;
 import org.gardler.biglittlechallenge.core.model.GameStatus.State;
@@ -89,6 +90,10 @@ public class GameStatusResponse implements Serializable {
 
 	public void setMinNumberOfPlayers(int minNumberOfPlayers) {
 		this.minNumberOfPlayers = minNumberOfPlayers;
+	}
+	
+	public String getCoreVersion() {
+		return Constants.CORE_VERSION;
 	}
 	
 }
