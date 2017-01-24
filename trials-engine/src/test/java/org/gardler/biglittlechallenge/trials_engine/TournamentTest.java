@@ -16,6 +16,6 @@ public class TournamentTest extends TestCase {
 		this.tournament = new Tournament();
 		String result = this.tournament.toString();
 		logger.info("Tournament toString is: " + result);
-		assertTrue("We don;t appear to have set the rounds in the tournament correctly", result.contains("consists of 4 events"));
+		assertTrue("We don't appear to have set the rounds in the tournament correctly", result.contains("consists of 5 events"));
 	}
 }
