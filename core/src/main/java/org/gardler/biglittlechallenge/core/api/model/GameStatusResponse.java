@@ -9,12 +9,16 @@ import java.util.UUID;
 import org.gardler.biglittlechallenge.core.Constants;
 import org.gardler.biglittlechallenge.core.model.GameStatus;
 import org.gardler.biglittlechallenge.core.model.PlayerResults;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import org.gardler.biglittlechallenge.core.model.GameStatus.State;
 
 /**
  * An object returned via the API whenever the Game Status is needed.
  *
  */
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class GameStatusResponse implements Serializable {
 	private static final long serialVersionUID = 734742551126798205L;
 
