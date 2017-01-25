@@ -4,8 +4,8 @@ function monitorStatusSocket() {
     socket.on('game_status', function(msg) {
 	status = $.parseJSON(msg)
 
-        $('#log').prepend('<br/>' + $('<div/>').text(new Date() + " : " + JSON.stringify(status)).html());
-        $("#state").text(status.state);
+    $('#log').prepend('<br/>' + $('<div/>').text(new Date() + " : " + JSON.stringify(status)).html());
+    $("#state").text(status.state);
 
 	$("#number-of-players").text(status.minNumberOfPlayers);
 
@@ -21,12 +21,18 @@ function monitorStatusSocket() {
 	$("#tickets-list").empty();
 	$("#tickets-list").append(tickets.join(''));
 
-	var players = [];
-        $.each(status.playerResults, function(index, player) {
-            players.push('<li>' + player.name + ' (' + player.points + ' points)</li>')
-	});
-	$("#player-table").empty();
-	$("#player-table").append(players.join(''));
+    if (status.state == "Playing") {
+        $("#player-table-title").text("This Game");
+        var players = [];
+            $.each(status.playerResults, function(index, player) {
+                players.push('<li>' + player.name + ' (' + player.points + ' points)</li>')
+        });
+        $("#player-table").empty();
+        $("#player-table").append(players.join(''));
+    } else {
+        $("#player-table-title").text("That Game");
+    }
+    
     });
 
     var ping_pong_times = [];
