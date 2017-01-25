@@ -150,7 +150,7 @@ public class Player implements Serializable {
 		
 		GameStatusResponse status = response.readEntity(GameStatusResponse.class);
 		/*
-		 * FIXME: Saw this intermittent error
+		 * FIXME: Saw this intermittent error circa 1/1/2017
 		 * 1705 [main] DEBUG org.gardler.biglittlechallenge.trials.ai.AiPlayerApp  - Waiting for 0ms before requesting to join a new game.
          * 1948 [main] INFO  org.gardler.biglittlechallenge.trials.ai.DumbAIUI  - Created Dumb AI Player UI
          * Exception in thread "main" java.lang.NullPointerException
