@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    service: aiplayer
+  name: aiplayer
+spec:
+  ports:
+  - name: "8888"
+    port: 8888
+    protocol: TCP
+    targetPort: 8888
+  selector:
+    service: aiplayer
+status:
+  loadBalancer: {}

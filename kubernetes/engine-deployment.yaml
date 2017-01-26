@@ -1,0 +1,26 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  name: engine
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        service: engine
+    spec:
+      containers:
+      - env:
+        - name: MIN_NUMBER_OF_PLAYERS
+          value: "2"
+        image: biglittlechallenge/trials-engine
+        name: engine
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        resources: {}
+      restartPolicy: Always
+status: {}
