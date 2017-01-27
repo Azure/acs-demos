@@ -19,7 +19,6 @@ thread = None
 engine_url = "http://engine:8080/api/v0.1/tournament/"
 
 def background_thread():
-    old_data = None;
     while True:
         socketio.sleep(1)
         resp_body = urllib.request.urlopen(engine_url + "status").read()
