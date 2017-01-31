@@ -1,0 +1,35 @@
+version: '3'
+services:
+  engine:
+    image: biglittlechallenge/trials-engine
+    ports:
+      - "8080:8080"
+    environment:
+      MIN_NUMBER_OF_PLAYERS: 2
+    deploy:
+      mode: replicated
+      replicas: 1
+      labels: [APP=BigLittleChallenge]
+  aiplayer:
+    image: biglittlechallenge/trials-ai
+    ports:
+      - "8888"
+    depends_on:
+      - engine
+    deploy:
+      mode: replicated
+      replicas: 2
+      labels: [APP=BigLittleChallenge]
+      resources:
+        limits:
+          cpus: '0.01'
+  dashboard:
+    image: biglittlechallenge/trials-engine-dashboard
+    ports: 
+      - "8181:80"
+    depends_on:
+      - engine
+    deploy:
+      mode: replicated
+      replicas: 1
+      labels: [APP=BigLittleChallenge]
