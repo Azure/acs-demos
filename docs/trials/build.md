@@ -38,30 +38,33 @@ To view the engine dashbaord visit http://MY_HOST:8181
 
 ## On A Swarm Mode Cluster
 
+To be able to use Docker Compose v3 on a Swarm Mode cluster you need to run Docker 1.13+.
 After the above build steps, including pushing to Docker Hub...
 
-Swarm Mode clusters do not support docker-compose unless deploying to
-a single host. Therefore we need to use Swarm Mode serbvices instead:
+Docker Compose has been integrated into the Docker CLI and you can run the application using the following command:
 
-The scripts `run.sh` and `run-arm.sh` will run the application as
-docker containers.
+`docker stack deploy biglittlechallenge -c docker-compose-v3.yml`
+
+*Make sure to use the v3 compose file that is in the root folder*
 
 Note, by default these scripts start a 5 plauer game but only create 2
 players, this means it is necessary to sale the aiplayer service to
 actually start the game:
 
-`docker service scale aiplayer=5`
+`docker service scale biglittlechallenge_aiplayer=5`
 
 To view the engine dashbaord visit http://MY_HOST:8181
 
 Check the logs of the services (this is harder than it should be, need
 to put a REST API to get useful info)
 
-  * Find the node the container of interest is running on with `docker service ps engine`
+  * Find the node the container of interest is running on with `docker service ps biglittlechallenge_engine`
   * Log into the node * Find the ID of the container with `docker ps`
   * Check the logs with `docker logs ID`
 
+To stop the application use:
 
+`docker stack rm biglittlechallenge`
 
 ## Larger games
 
