@@ -17,7 +17,7 @@ the internal network used by the cluster and the Internet. Finally, it
 will be the machine that acts as the primary leader for the swarm
 cluster.
 
-This section is broken into four parts:
+This section is broken into the following parts:
 
   1. Configuration of the master
   2. Configuration of the agents
@@ -61,6 +61,11 @@ ssh pi@piswarm-master.local
 
 Alternatively, click the "Terminal" button in PiFinder:
 
+  * Update the Raspberry Pi Firmware (at the time of writing this is necessary to configure the VxLan drivers)
+    * `sudo apt-get update`
+    * `sudo apt-get install rpi-update`
+    * `sudo rpi-update`
+    * `sudo reboot`
   * Install Docker
     * `curl -sSL get.docker.com | sh`
   * Set Docker to auto start
@@ -320,6 +325,11 @@ the selected Pi.
 
   * Reduce the GPU memory to 16Mb since these machines with be headless
     * `sudo nano /boot/config.txt` and add `gpu_mem=16` at the end
+  * Update the Raspberry Pi Firmware (at the time of writing this is necessary to configure the VxLan drivers)
+    * `sudo apt-get update`
+    * `sudo apt-get install rpi-update`
+    * `sudo rpi-update`
+    * `sudo reboot`
   * Install Docker
     * `curl -sSL get.docker.com | sh`
   * Set Docker to auto start
@@ -327,9 +337,9 @@ the selected Pi.
   * It can be useful to enable the Docker client for debugging purposes
     * `sudo usermod -aG docker pi`
 
-## Configure The Other Pis
+## Configure The Network
 
-We now need to configure each of the other Pis to conncet to the
+We now need to configure each of the agent Pis to conncet to the
 "PiSwarm" network. On each of the machines do the following:
 
 ```

@@ -5,6 +5,7 @@ sleep 5
 echo
 echo Creating engine service
 docker service create --replicas=1 --hostname=engine --network=trials --publish 8080:8080 --name engine --env MIN_NUMBER_OF_PLAYERS=5 biglittlechallenge/trials-engine-arm
+sleep 5 # ensure that DNS updates have completed before we start other services
 
 echo
 echo Creating engine-dashboard
