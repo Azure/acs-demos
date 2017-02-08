@@ -1,0 +1,22 @@
+piVersion: v1
+kind: ReplicationController
+metadata:
+  name: aiplayer
+  labels:
+    name: aiplayer
+    app: aiplayer
+spec:
+  replicas: 10
+  template:
+    metadata:
+      labels:
+        name: aiplayer
+    spec:
+        containers:
+        - image: biglittlechallenge/trials-ai
+          name: aiplayer
+          ports:
+          - containerPort: 8888
+            protocol: TCP
+          resources: {}
+

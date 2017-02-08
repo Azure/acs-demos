@@ -13,5 +13,8 @@ spec:
     targetPort: 80
   selector:
     service: dashboard
+  sessionAffinity: None
+  type: ClusterIP
+
 status:
   loadBalancer: {}

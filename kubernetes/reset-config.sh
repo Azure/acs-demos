@@ -1,0 +1,2 @@
+export KUBECONFIG=`pwd`/config
+

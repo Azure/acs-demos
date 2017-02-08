@@ -1,0 +1,1000 @@
+ 1013  curl -L 10.244.1.57:31341
+ 1014  history | grep helloworld
+ 1015  docker ps
+ 1016  k get pods
+ 1017  k delete pods microbot-2423440873-mshgw
+ 1018  kubectl run helloworld --image=hello-world --port=80
+ 1019  kubectl get deployments,rs,po
+ 1020  k get po
+ 1021  k delete po microbot-2423440873-1kq8v     
+ 1022  kubectl get deployments,rs,po
+ 1023  k delete rs rs/microbot-2423440873  
+ 1024  k delete rs microbot-2423440873  
+ 1025  kubectl get deployments,rs,po
+ 1026  k delete po microbot-2423440873-4l77q
+ 1027  k delete po microbot-2423440873-gn1hr
+ 1028  kubectl get deployments,rs,po
+ 1029  k delete microbot-2423440873-1k26d
+ 1030  kubectl get deployments,rs,po
+ 1031  k delete deployment microbot
+ 1032  k delete rs microbot-2423440873
+ 1033  kubectl get deployments,rs,po
+ 1034  k delete po microbot-2423440873-1k26d
+ 1035  kubectl get deployments,rs,po
+ 1036  kubectl expose deployment helloworld --port=80 --target-port=80 --type=NodePort
+ 1037  kubectl describe svc helloworld | grep NodePort
+ 1038  k get get po
+ 1039  k get po
+ 1040  kubectl describe po helloworld-1205911611-j9g24 | grep -i node
+ 1041  curl -L 10.240.0.4:30264
+ 1042  kubectl describe po helloworld-1205911611-j9g24
+ 1043  curl 10.244.1.59
+ 1044  curl -L  10.244.1.59
+ 1045  curl -L  10.244.1.59:30264
+ 1046  k get pods
+ 1047  k delete pods helloworld-1205911611-j9g24
+ 1048  k get svc
+ 1049  k delete svc microbot
+ 1050  k delete svc helloworld
+ 1051  k get svc
+ 1052  k get rs
+ 1053  k delete rs helloworld-1205911611
+ 1054  k get po
+ 1055  k delete po helloworld-1205911611-zfr5r
+ 1056  k get po
+ 1057  k get rs
+ 1058  k delete rs helloworld-1205911611
+ 1059  k delete po helloworld-1205911611-zfr5r
+ 1060  k get rs
+ 1061  k delete rs helloworld-1205911611
+ 1062  k get rs
+ 1063  k get pods
+ 1064  k delete pods helloworld-1205911611-pq7gx
+ 1065  k get pods
+ 1066  k get svc, po, rs
+ 1067  k get svc
+ 1068  k get replicasets
+ 1069  k delete helloworld-1205911611 replicasets
+ 1070  k delete replicasets helloworld-1205911611
+ 1071  k get
+ 1072  k get rc
+ 1073  k get rs
+ 1074  k get deploy
+ 1075  k delete deploy helloworld
+ 1076  k get deploy
+ 1077  k get rs
+ 1078  k get rc
+ 1079  cd biglittle
+ 1080  ls
+ 1081  bash run.sh
+ 1082  k get svc
+ 1083  vim ingress.yaml 
+ 1084  kubectl create -f ingress.yaml 
+ 1085  k get ing
+ 1086  k delete ing cafe-ingress
+ 1087  k get ing
+ 1088  ls -ltr
+ 1089  k get services
+ 1090  k edit svc/dashboard
+ 1091  k get services
+ 1092  k get pods
+ 1093  k exec dashboard-1749601503-3fz55 bash
+ 1094  k exec -it dashboard-1749601503-3fz55 bash
+ 1095  k logs engine-907600866-xwsrk
+ 1096  k exec -it engine-907600866-xwsrk bash
+ 1097  ls
+ 1098  k get pods
+ 1099  k get pods -o wide
+ 1100  k exec
+ 1101  k exec -it dashboard-1749601503-3fz55 bash
+ 1102  k get services
+ 1103  k get services engine -o yaml
+ 1104  k version
+ 1105  k get pods --namespace=kube=system
+ 1106  k get pods --namespace=kube-system
+ 1107  k exec -it dashboard-1749601503-3fz55 bash
+ 1108  k get nodes -o yaml
+ 1109  k get pods --namespace=kube-system
+ 1110  k logs --namespace=kube-system kube-proxy-1fpb2
+ 1111  k exec -it dashboard-1749601503-3fz55 bash
+ 1112  k delete pods --namespace=kube-system kube-proxy-1fpb2
+ 1113  k delete pods --namespace=kube-system kube-proxy-txklg
+ 1114  k get pods --namespace=kube-system
+ 1115  k exec -it dashboard-1749601503-3fz55 bash
+ 1116  ssh azureuser@brunok8smgmt.centralus.cloudapp.azure.com -A -p 22
+ 1117  less ~/.ssh/id_rsa
+ 1118  ssh azureuser@brunok8smgmt.centralus.cloudapp.azure.com -A -p 22
+ 1119  cd ~/.ssh
+ 1120  ls
+ 1121  vim id_rsa
+ 1122  fg
+ 1123  ssh azureuser@brunok8smgmt.centralus.cloudapp.azure.com -A -p 22
+ 1124  pwd
+ 1125  tar cvf savedkeys.tar *
+ 1126  cd k8s
+ 1127  vim ~/.bashrc
+ 1128  cd myk8s
+ 1129  ls
+ 1130  vim bld-cluster.sh
+ 1131  bash bld-cluster.sh 
+ 1132  vim bld-cluster2.sh
+ 1133  cd myk8s
+ 1134  ls
+ 1135  vim bld*2*
+ 1136  cat bld-cluster.sh
+ 1137  fg
+ 1138  bash bld-cluster2.sh 
+ 1139  az login
+ 1140  whoami
+ 1141  bash bld-cluster2.sh 
+ 1142  az acs create
+ 1143  history
+ 1144  cat bld-*2*
+ 1145  cd myk8s
+ 1146  ls
+ 1147  cat bld-cluster2.sh
+ 1148  DNS_PREFIX=btk8s
+ 1149  SERVICE_NAME=btk8s-service-name
+ 1150  RESOURCE_GROUP=myk8s-rg
+ 1151  az acs create --orchestrator-type=kubernetes --resource-group $RESOURCE_GROUP --name=$SERVICE_NAME --dns-prefix=$DNS_PREFIX
+ 1152  az account list
+ 1153  az login --service-principal -u f967a788-e65e-4934-a1a0-b69aa14911fe -p 9d7b412b-c7d5-4e88-a065-a78810ad18c4 --tenant 72f988bf-86f1-41af-91ab-2d7cd011db47
+ 1154  vim bld*2*.sh
+ 1155  bash bld-cluster2.sh 
+ 1156  fg
+ 1157  vim bld*2*.sh
+ 1158  bash bld-cluster2.sh 
+ 1159  vim bld*2*.sh
+ 1160  bash bld-cluster2.sh 
+ 1161  cd myk8s
+ 1162  ls
+ 1163  cat run.sh
+ 1164  pwd
+ 1165  cat do
+ 1166  cat do.sh
+ 1167  cd biglittle
+ 1168  ls
+ 1169  bash run.sh
+ 1170  v<table style="float: none; border-bottom: #b4b4b4 1px solid; text-align: left; border-left : #b4b4b4 1px solid; border-collapse: collapse; 
+ 1171                font-family: Calibri, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #000000; border-top: medium none; 
+ 1172    border-right: #b4b4b4 1px solid;"><tr style="background-color:rgb(242,247,247); vertical-align: top"><td style="padding: 5px 10px; border-left: 1px solid #b4b4b4;  border-top: 1px solid #b4b4b4;">
+ 1173  g: 5px 10px; border-left: 1px solid #b4b4b4;  border-top: 1px solid #b4b4b4;">
+ 1174  g service principalInsufficient privileges to complete the operation.</td></tr><tr style="background-color: rgb(216,223,230); vertical-align: top"><td style="padding: 5px 10px; border-left: 1px solid #b4b4b4;  border-top: 1px solid #b4b4b4;">
+ 1175  d</td><td style="padding: 5px 10px; border-left: 1px solid #b4b4b4;  border-top: 1px solid #b4b4b4;">
+ 1176  etes --resource-group $RESOURCE_GROUP --name=$SERVICE_NAME --dns-prefix=$DNS_PREFIX</td></tr><tr style="background-color:rgb(242,247,247); vertical-align: top"><td style="padding: 5px 10px; border-left: 1px solid #b4b4b4;  border-top: 1px solid #b4b4b4;">
+ 1177  d</td><td style="padding: 5px 10px; border-left: 1px solid #b4b4b4;  border-top: 1px solid #b4b4b4;">
+ 1178  vim run.sh 
+ 1179  k get pods
+ 1180  cd myk8s
+ 1181  ls
+ 1182  cp bld-cluster2.sh get-config.sh
+ 1183  vim get-config.sh 
+ 1184  get-conf
+ 1185  bash get-conf.sh
+ 1186  cd myk8s
+ 1187  ls
+ 1188  bash get-config.sh 
+ 1189  k get pods
+ 1190  cd ~/kube
+ 1191  ls -lt
+ 1192  rm config
+ 1193  bash get-config.sh 
+ 1194  ls -ltr
+ 1195  cd ~/.kube
+ 1196  ls
+ 1197  ls -ltr
+ 1198  cd myk8s
+ 1199  cp ~/.kube/* .
+ 1200  k get pods
+ 1201  cd biglittle
+ 1202  ls- ltr
+ 1203  ls -ltr
+ 1204  bash run.sh
+ 1205  k edit svc/dashboard
+ 1206  k get services
+ 1207  k get services4
+ 1208  k get services
+ 1209  pwd
+ 1210  vim run.sh 
+ 1211  vim *.yaml
+ 1212  vim `/.ssh/id_rsa
+ 1213  vim ~/.ssh/id_rsa
+ 1214  q
+ 1215  exit
+ 1216  vim ~/.ssh/id-rsa
+ 1217  vim ~/.ssh/id_rsa
+ 1218  k et svc
+ 1219  k get svc
+ 1220  k get
+ 1221  k get pods
+ 1222  k get pods | awk '{print $1}'
+ 1223  k get pods | awk '{print $1}' > list.txt
+ 1224  vim list.txt
+ 1225  move list.txt get-logs.sh
+ 1226  mv list.txt get-logs.sh
+ 1227  bash get-logs.sh
+ 1228  cat get-logs.sh 
+ 1229  cp get-logs.sh get-logs-aiplayer.sh
+ 1230  cp get-logs.sh get-logs-dashboard.sh
+ 1231  cp get-logs.sh get-logs-engine.sh
+ 1232  vim get-logs*.sh
+ 1233  bash get-logs-engine.sh
+ 1234  vim get-logs*.sh
+ 1235  bash get-logs-engine.sh 
+ 1236  bash get-logs-dashboard.sh 
+ 1237  bash get-logs-aiplayer.sh 
+ 1238  ls -ltr 
+ 1239  vim dashboard.log 
+ 1240  vim engine.log 
+ 1241  vim aiplayer.log 
+ 1242  tar cvf logs.tar *.log
+ 1243  tar cvf logs.tar engine.log dashboard.log aiplayer.log 
+ 1244  compress logs.tar
+ 1245  apt-get install compress
+ 1246  gzip logs.tar
+ 1247  ls -ltr
+ 1248  pwd
+ 1249  mv get-logs* myk8s
+ 1250  mv get-logs* $myk8s
+ 1251  mv *.log $myk8s
+ 1252  mv logs.tar.gz  $myk8s
+ 1253  cd myk8s
+ 1254  ls
+ 1255  ls -ltr
+ 1256  cd myk8s
+ 1257  ls -ltr
+ 1258  vim bld*.sh
+ 1259  bash bld-cluster.sh
+ 1260  bash bld-cluster2.sh
+ 1261  ls -ltr
+ 1262  vim get-config.sh 
+ 1263  bash get-config.sh 
+ 1264  vim get-config.sh 
+ 1265  bash get-config.sh 
+ 1266  k get pods
+ 1267  cd biglittle
+ 1268  bash run.sh
+ 1269  k get services
+ 1270  k edit svc/dashboard
+ 1271  k get services
+ 1272  cd ~/.ssh
+ 1273  ls -ltr
+ 1274  time
+ 1275  date
+ 1276  vim id_rsa
+ 1277  k get services
+ 1278  history | grep logs
+ 1279  k get pods
+ 1280  k logs aiplayer-2345322292-wsm91
+ 1281  ssh btk8s-2.westus.cloudapp.azure.com
+ 1282  exit
+ 1283  ssh btk8s-2.westus.cloudapp.azure.com
+ 1284  k ssh
+ 1285  k
+ 1286  k ssh
+ 1287  kubectl ssh btk8s-2.westus.cloudapp.azure.com
+ 1288  k get pods
+ 1289  k get pods | awk '{print $1}'
+ 1290  aiplayer-2345322292-wsm91
+ 1291  dashboard-1749601503-zrkqv
+ 1292  vim get-logs.sh
+ 1293  ls 
+ 1294  pwd
+ 1295  cd myk8s
+ 1296  ls
+ 1297  vim get-logs.sh
+ 1298  k get pods | awk '{print $1}'
+ 1299  fg
+ 1300  kubectl logs dashboard-1749601503-zrkqv
+ 1301  kubectl logs dashboard-1749601503-zrkqv|more
+ 1302  fg
+ 1303  kubectl logs engine-907600866-0bhl7
+ 1304  ifconfig
+ 1305  cd myk8s
+ 1306  cd biglittle
+ 1307  ls
+ 1308  vim engine-service.yaml 
+ 1309  bash cleanup.sh 
+ 1310  apiVersion: v1
+ 1311  kind: Service
+ 1312  metadata:
+ 1313  spec:
+ 1314  bash run.sh
+ 1315  k edit svc/dashboard
+ 1316  k get services
+ 1317  k get pods
+ 1318  k logs aiplayer-2345322292-zdnqh
+ 1319  k logs engine-907600866-f1rfn
+ 1320  pwd
+ 1321  ls
+ 1322  vim *service*
+ 1323  bash cleanup.sh 
+ 1324  bash run.sh
+ 1325  k edit svc/dashboard
+ 1326  k get pods
+ 1327  k get svc
+ 1328  vim *service*
+ 1329  k get svc
+ 1330  k get pods
+ 1331  k logs aiplayer-2345322292-zpvm2
+ 1332  k logs dashboard-1749601503-pb07v
+ 1333  k get pods
+ 1334  k logs aiplayer-2345322292-zpvm2
+ 1335  k logs engine-907600866-b3w61
+ 1336  pwd
+ 1337  cd ..
+ 1338  ls
+ 1339  cat run.sh
+ 1340  docker -version
+ 1341  docker --version
+ 1342  exit
+ 1343  cd myk8s
+ 1344  ls
+ 1345  k get pods
+ 1346  bash get-logs.sh 
+ 1347  get pods
+ 1348  k get pods
+ 1349  k get pods | awk '{print $1}'
+ 1350  vim get-logs.sh
+ 1351  bash get-logs.sh
+ 1352  vim *.log
+ 1353  pwd
+ 1354  cd biglittle
+ 1355  ls
+ 1356  vim *service.yaml
+ 1357  history
+ 1358  cd `/devops
+ 1359  quit
+ 1360  cd ~/devops
+ 1361  ls
+ 1362  vim TestDockerContainerLocally.py 
+ 1363  python ./TestDockerContainerLocally.py 
+ 1364  python3 ./TestDockerContainerLocally.py 
+ 1365  grep 13 *.py
+ 1366  vim ValidateResponse.py 
+ 1367  grep 13.*127 *.py
+ 1368  ls *.sh
+ 1369  cat do
+ 1370  cat do.sh
+ 1371  bash do.sh
+ 1372  pwd
+ 1373  cd biglittle
+ 1374  ls
+ 1375  tar cvf saved1.tar *.sh *.yaml
+ 1376  ls -ltr
+ 1377  pwd
+ 1378  cp saved1.tar ../../
+ 1379  cd ../..
+ 1380  ls
+ 1381  rm -r BigLittleChallenge/
+ 1382  git clone https://github.com/rgardler/BigLittleChallenge.git
+ 1383  cd BigLittleChallenge/
+ 1384  cd kubernetes/
+ 1385  cp ../../saved1.tar .
+ 1386  tar xvf saved1.tar 
+ 1387  ls
+ 1388  cd ..
+ 1389  pwd
+ 1390  ls -ltr
+ 1391  cd trials-engine-dashboard/
+ 1392  ls
+ 1393  cd src
+ 1394  ls
+ 1395  cd js
+ 1396  ls
+ 1397  vim engine.js 
+ 1398  pwd
+ 1399  fg
+ 1400  pwd
+ 1401  cd ..
+ 1402  ls -ltr
+ 1403  cd ..
+ 1404  ls
+ 1405  cd ..
+ 1406  cd biglittle
+ 1407  ls
+ 1408  cd ..
+ 1409  ls
+ 1410  vim run-arm.sh 
+ 1411  ls -ltr
+ 1412  ls
+ 1413  cat run-arm.sh 
+ 1414  docker network
+ 1415  docker service
+ 1416  bash run-arm.sh 
+ 1417  docker swarm init
+ 1418  bash run-arm.sh 
+ 1419  webm
+ 1420  wget localhost:8181
+ 1421  docker logs
+ 1422  docker images
+ 1423  docker ps
+ 1424  k get pods
+ 1425  k get services
+ 1426  k edit svc/engine
+ 1427  k edit svc/aiplayer
+ 1428  k get pods
+ 1429  k get svc
+ 1430  cd biglittle
+ 1431  cat run.sh
+ 1432  kubectl scale --replicas=3 -f ./aiplayer-service.yaml 
+ 1433  vim aiplayer-service.yaml 
+ 1434  docker ps
+ 1435  docker images
+ 1436  docker ps -aux
+ 1437  docker ps 
+ 1438  pwd
+ 1439  cd biglittle
+ 1440  ls
+ 1441  bash run.sh
+ 1442  docker ps
+ 1443  cd ..
+ 1444  ls
+ 1445  bash run-arm.sh 
+ 1446  docker ps
+ 1447  docker ps --all
+ 1448  docker stop $(docker ps -a -q)
+ 1449  pwd
+ 1450  bash run-arm.sh 
+ 1451  reboot
+ 1452  cd biglittle
+ 1453  ls
+ 1454  cd ..
+ 1455  ls -ltr
+ 1456  vim build.sh
+ 1457  cd trials-base
+ 1458  cat build.sh
+ 1459  pwc
+ 1460  pwd
+ 1461  vim Dockerfile-trials-base
+ 1462  ls -ltr
+ 1463  cat publish.sh
+ 1464  cat build-arm.sh 
+ 1465  cat build.sh
+ 1466  cat publish*
+ 1467  clear
+ 1468  ls -ltr
+ 1469  cat Dockerf*en*
+ 1470  ls -ltr
+ 1471  cp run-arm.sh btrun.sh
+ 1472  vim btrun.sh 
+ 1473  bash btrun.sh 
+ 1474  docker ps
+ 1475  docker service restart
+ 1476  reboot
+ 1477  docker ps
+ 1478  docker service ls
+ 1479  docker logs aiplayer
+ 1480  docker service rm aiplayer
+ 1481  docker service rm engine
+ 1482  docker service rm engine-dashboard
+ 1483  docker service ls
+ 1484  open
+ 1485  which open
+ 1486  ps
+ 1487  k get pods
+ 1488  pwd
+ 1489  cd bigliyy;r
+ 1490  cd biglittle
+ 1491  ls
+ 1492  cat cleanup.sh 
+ 1493  bash cleanup.sh 
+ 1494  k get pods
+ 1495  k get deploy
+ 1496  k delete deploy ngnix
+ 1497  k delete pod ngnix
+ 1498  k delete pod nginx
+ 1499  k get pods
+ 1500  k delete pod nginx-701339712-5pxsb
+ 1501  k get pods
+ 1502  k get rs
+ 1503  k delete rs nginx-701339712
+ 1504  k get pods
+ 1505  k delete pod nginx-701339712-5pxsb
+ 1506  k get pods
+ 1507  k delete pod nginx-701339712-vzv8x
+ 1508  pwd
+ 1509  cd ..
+ 1510  ls
+ 1511  git clone https://github.com/janakiramm/Kubernetes-multi-container-pod.git
+ 1512  ls -ltr
+ 1513  python
+ 1514  pip
+ 1515  pip install virtualenv
+ 1516  python 
+ 1517  sudo apt-get update
+ 1518  sudo apt-get upgrade
+ 1519  df
+ 1520  cd ~
+ 1521  ls
+ 1522  rm -r azure-quickstart-templates/
+ 1523  df .
+ 1524  find / -size +10M -ls
+ 1525  apt-cache search 'disk usage'
+ 1526  ./launcher cleanup
+ 1527  which launcher
+ 1528  apt-get install launcher
+ 1529  df -h
+ 1530  df .
+ 1531  cd ~
+ 1532  df .
+ 1533  df
+ 1534  apt-get clean
+ 1535  find / -size +10M -ls
+ 1536  find / -size +20M -ls
+ 1537  find / -name "*.war" -size +20M -ls 
+ 1538  du -sh /var/cache/apt/archives
+ 1539  apt-get clean
+ 1540  du -sh /var/cache/apt/archives
+ 1541  sudo apt-get autoremove --purge
+ 1542  apt-get autoremove
+ 1543  pwd
+ 1544  ls -ltr
+ 1545  rm *.war
+ 1546  df .
+ 1547  cd war
+ 1548  ls
+ 1549  cd\
+ 1550  rm -r war
+ 1551  pwd
+ 1552  cd ..
+ 1553  rm -r war
+ 1554  df .
+ 1555  rm -r azure-quickstart-templates/
+ 1556  ls
+ 1557  df .
+ 1558  sudo apt-get autoremove
+ 1559  apt-get autoclean
+ 1560  apt-get autoremove
+ 1561  tree .
+ 1562  cd ~
+ 1563  pwd
+ 1564  ls
+ 1565  ls -ltr
+ 1566  rm -r BigLittleChallenge/
+ 1567  cd github/
+ 1568  ls
+ 1569  rm -r azure-quickstart-templates/
+ 1570  df .
+ 1571  cd
+ 1572  cd /tmp
+ 1573  ls
+ 1574  rm *
+ 1575  rm -r *
+ 1576  df .
+ 1577  df
+ 1578  cd ~
+ 1579  ls
+ 1580  cd mesosclass/
+ 1581  ls
+ 1582  cd ..
+ 1583  rm -r mesosclass/
+ 1584  cd dcos-demo/
+ 1585  ls
+ 1586  cd ..
+ 1587  mr -r docker-ddc
+ 1588  rm -r docker-ddc
+ 1589  ls
+ 1590  ls -ltr
+ 1591  rm Jerse*.war
+ 1592  df .
+ 1593  du | sort -rn | head
+ 1594  pwd
+ 1595  apt-get autoclean
+ 1596  apt-get autoremove
+ 1597  df -h
+ 1598  apt-get autoremove
+ 1599  cd /var/lib/docker
+ 1600  ls
+ 1601  cd aufs
+ 1602  ls
+ 1603  df .
+ 1604  cd /var/discourse
+ 1605  docker rm -v $(docker ps -a -q -f status=exited)
+ 1606  docker rmi $(docker images -f "dangling=true" -q)
+ 1607  docker volume rm $(docker volume ls -qf dangling=true)
+ 1608  docker run -v /var/run/docker.sock:/var/run/docker.sock -v /var/lib/docker:/var/lib/docker --rm martin/docker-cleanup-volumes
+ 1609  df .
+ 1610  apt-get update
+ 1611  apt-get upgrade
+ 1612  df
+ 1613  apt-get clean
+ 1614  clean
+ 1615  apt-get install python-pip
+ 1616  df
+ 1617  cd /tmp
+ 1618  ls
+ 1619  rm -r *
+ 1620  ls
+ 1621  df 
+ 1622  apt-get install python-pip
+ 1623  service start jenkins
+ 1624  /etc/init.d/jenkins restart
+ 1625  service jenkins status
+ 1626  service jenkins start
+ 1627  service jenkins status
+ 1628  apt-get install jenkins
+ 1629  reboot
+ 1630  sudo pip install virtualenvwrapper
+ 1631  cd /usr/local/bin
+ 1632  ls
+ 1633  mkvirtualenv myawesomeproject
+ 1634  exit
+ 1635  df
+ 1636  rmvirtualenv
+ 1637  mkvirtualenv helloworld
+ 1638  deactivate
+ 1639  workon helloworld
+ 1640  exit
+ 1641  service jenkins status
+ 1642  apt-get install python-pip
+ 1643  cd devops
+ 1644  pwd
+ 1645  cd ~/devops
+ 1646  ls
+ 1647  python3 RunLatestDockerBuildLocally.py 
+ 1648  python3 TestDockerContainerLocally.py 
+ 1649  pip install virtualenv
+ 1650  mkdir ~/.virtualenvs
+ 1651  sudo pip install virtualenvwrapper
+ 1652  vim ~/.bashrc
+ 1653  source ~/.bashrc
+ 1654  sudo pip install virtualenvwrapper
+ 1655  source ~/.bashrc
+ 1656  sudo pip install virtualenvwrapper --upgrade
+ 1657  pip
+ 1658  pip uninstall virtualenv
+ 1659  pip install virtualenv
+ 1660  pip install virtualenvwrapper
+ 1661  source ~/.bashrc
+ 1662  pip install virtualenvwrapper
+ 1663  pip install -force  virtualenvwrapper
+ 1664  pip3 install -force  virtualenvwrapper
+ 1665  pip uninstall virtualenv
+ 1666  pip3 install -force  virtualenvwrapper
+ 1667  cd /usr/bin
+ 1668  ls
+ 1669  ls | grep pyth
+ 1670  vim ~/.bashrc
+ 1671  source ~/.bashrc
+ 1672  cd data
+ 1673  cd /data
+ 1674  ls
+ 1675  cd Kubernetes-multi-container-pod/
+ 1676  sl
+ 1677  ls
+ 1678  cd Build/
+ 1679  ls
+ 1680  vim Dockerfile 
+ 1681  pwd
+ 1682  vim ~/.bashrc
+ 1683  source ~/.bashrc
+ 1684  vim ~/.bashrc
+ 1685  source ~/.bashrc
+ 1686  cd /data
+ 1687  cd Kubernetes-multi-container-pod/
+ 1688  ls -ltr
+ 1689  pwd
+ 1690  ls
+ 1691  cd Build/
+ 1692  ls
+ 1693  docker build. -t brunoterkaly\py-sql
+ 1694  docker build . -t brunoterkaly\py-sql
+ 1695  docker build. -t brunoterkaly\py-sql
+ 1696  docker images
+ 1697  docker rmi brunoterkaly/py-sql
+ 1698  docker rmi brunoterkalypy-sql
+ 1699  docker build. -t brunoterkaly/py-sql
+ 1700  docker build . -t brunoterkaly/py-sql
+ 1701  docker images
+ 1702  docker push brunoterkaly/py-sql
+ 1703  cd ../Deploy/
+ 1704  lsa
+ 1705  ls
+ 1706  ls -ltr
+ 1707  ls -s
+ 1708  ls
+ 1709  ls | awk '{print $1}'
+ 1710  ls | awk '{print kubectl create -f $1}'
+ 1711  ls | awk '{print "kubectl create -f" +  $1}'
+ 1712  ls | awk '{print "kubectl create -f" $1}'
+ 1713  ls | awk '{print "kubectl create -f " +  $1}'
+ 1714  ls | awk '{print "kubectl create -f " $1}'
+ 1715  ls | awk '{print "kubectl create -f " $1}' > run.sh
+ 1716  vim run.sh
+ 1717  vim web-prod-1.yml
+ 1718  vim *.yml
+ 1719  bash run.sh
+ 1720  k get pods
+ 1721  k get rc
+ 1722  k get depooy
+ 1723  k get deploy
+ 1724  k delete deploy nginx
+ 1725  k get pods
+ 1726  k delete pod web1
+ 1727  grep py- *.yml
+ 1728  cd ../Build
+ 1729  vim ~/.bashrc
+ 1730  fg
+ 1731  ls
+ 1732  history | grep build
+ 1733  history | grep py-sql
+ 1734  vim buildpush.sh
+ 1735  bash buildpush.sh 
+ 1736  cd ../Deploy/
+ 1737  ls
+ 1738  grep py- *
+ 1739  ls -ltr
+ 1740  k get pods
+ 1741  k delete pod mysql
+ 1742  k get sv
+ 1743  k get svc
+ 1744  k delete svc nginx web mysql
+ 1745  k get svc
+ 1746  ls -ltr
+ 1747  bash run.sh
+ 1748  k get pods
+ 1749  p get svc
+ 1750  k get svc
+ 1751  vim ~/.bashrc
+ 1752  source ~/.bashrc
+ 1753  vim ~/.bashrc
+ 1754  source ~/.bashrc
+ 1755  cd /data/Kubernetes-multi-container-pod/
+ 1756  cd Deploy/
+ 1757  vim *.yml
+ 1758  k get pods
+ 1759  k describe pod mysql
+ 1760  k describe pod web1
+ 1761  k describe pod web1|more
+ 1762  k get nodes
+ 1763  k describe nodes | more
+ 1764  k describe nodes > list.txt
+ 1765  vim list.txt
+ 1766  k describe pods > list2.txt
+ 1767  vim list2.txt
+ 1768  k get svc
+ 1769  k describe svc web
+ 1770  ssh btk8s-2.westus.cloudapp.azure.com
+ 1771  ssh azureuser@btk8s-2.westus.cloudapp.azure.com
+ 1772  curl 13.88.27.85/users/3
+ 1773  k get svc web
+ 1774  ssh azureuser@btk8s-2.westus.cloudapp.azure.com
+ 1775  cd `
+ 1776  cd ~
+ 1777  cd /data
+ 1778  ls
+ 1779  cd Kubernetes-multi-container-pod/
+ 1780  ls
+ 1781  k get pods
+ 1782  >kubectl get nodes
+ 1783  kubectl get nodes
+ 1784  k describe pods
+ 1785  k describe pods|more
+ 1786  k ssh
+ 1787  ssh btk8s-2.westus.cloudapp.azure.com
+ 1788  ssh azureuser@btk8s-2.westus.cloudapp.azure.com
+ 1789  cd /data/Kubernetes-multi-container-pod/
+ 1790  df .
+ 1791  df
+ 1792  ls
+ 1793  cd Build/
+ 1794  ls
+ 1795  vim app.py
+ 1796  tar cvf save.tar *
+ 1797  fg
+ 1798  vim app.py
+ 1799  cd ~/devops
+ 1800  ls
+ 1801  md ~/RedisPython
+ 1802  mkdir  ~/RedisPython
+ 1803  cp ShowPipelineState.py ../RedisPython/
+ 1804  cd /data/Kubernetes-multi-container-pod/
+ 1805  ls
+ 1806  cd Build/
+ 1807  ls
+ 1808  cp app.py ~/RedisPython/
+ 1809  cp buildpush.sh ~/RedisPython/
+ 1810  cp Dockerfile ~/RedisPython/
+ 1811  cd ../Deploy
+ 1812  ls
+ 1813  vim web-pod-1.yml 
+ 1814  history | grep "az.*group"
+ 1815  cd myk8s
+ 1816  ls
+ 1817  grep orchestrator *
+ 1818  vim bld-cluster2.sh 
+ 1819  vim bld-cluster.sh 
+ 1820  bash bld-cluster.sh 
+ 1821  bash bld-cluster2.sh 
+ 1822  cd myk8s
+ 1823  ls
+ 1824  vim ~/.bashrc
+ 1825  grep CONFIG *
+ 1826  vim ~/.bashrc
+ 1827  ls -ltr
+ 1828  grep CONFIG *
+ 1829  grep "az " *
+ 1830  vim get-config.sh 
+ 1831  cd biglittle
+ 1832  vim get-config.sh
+ 1833  bash get-config.sh 
+ 1834  k get pods
+ 1835  ls
+ 1836  cat ~/.bashrc
+ 1837  export KUBECONFIG=`pwd`
+ 1838  $KUBECONFIG
+ 1839  print $KUBECONFIG
+ 1840  echo $KUBECONFIG
+ 1841  k get pods
+ 1842  export KUBECONFIG=`pwd`/config
+ 1843  k get pods
+ 1844  vim reset-config.sh
+ 1845  bash reset-config.sh 
+ 1846  k get svc
+ 1847  ls -ltr
+ 1848  rm busybox.yaml 
+ 1849  ls -ltr
+ 1850  vim dashboard-deployment.yaml 
+ 1851  vim *.yaml
+ 1852  bash run.sh
+ 1853  cat run.sh
+ 1854  kubectl create -f ./engine-deployment.yaml
+ 1855  ls
+ 1856  tar xvf saved1.tar 
+ 1857  bash run.sh 
+ 1858  k get pods
+ 1859  k get svc
+ 1860  k edit svc/dashboard
+ 1861  k get svc
+ 1862  k get pods
+ 1863  k get svc
+ 1864  ls -ltr
+ 1865  cd biglittle
+ 1866  ls
+ 1867  k get pods
+ 1868  vim *.yaml
+ 1869  k get pods
+ 1870  cd biglittle
+ 1871  ls
+ 1872  h
+ 1873  history
+ 1874  ls
+ 1875  export KUBECONFIG=`pwd`/config
+ 1876  k get pods
+ 1877  vim export-vars.sh
+ 1878  bash export-vars.sh 
+ 1879  ls -ltr
+ 1880  k get pods
+ 1881  k get svc
+ 1882  k get deploy
+ 1883  k delete deploy engine
+ 1884  k delete svc engine
+ 1885  k get deploy
+ 1886  cat run.sh 
+ 1887  vim eng*dep*yaml
+ 1888  kubectl create -f ./engine-deployment.yaml
+ 1889  vim eng*dep*yaml
+ 1890  ls -ltr
+ 1891  tar xvf saved1.tar 
+ 1892  vim eng*dep*yaml
+ 1893  bash run
+ 1894  bash run.sh
+ 1895  k get pods
+ 1896  bash cleanup.sh 
+ 1897  bash run.sh 
+ 1898  k edit svc/dashboard
+ 1899  k get svc
+ 1900  ls
+ 1901  vim *.yaml
+ 1902  ls -ltr
+ 1903  cd ~/RedisPython/
+ 1904  cd ..
+ 1905  mv RedisPython/ /data/
+ 1906  cd /data
+ 1907  ls
+ 1908  cd RedisPython/
+ 1909  ls
+ 1910  ls -ltr
+ 1911  vim app.py
+ 1912  ls
+ 1913  k get svc
+ 1914  ls
+ 1915  mv ShowPipelineState.py DemoRedis.py
+ 1916  vim DemoRedis.py 
+ 1917  python3 DemoRedis.py 
+ 1918  pip3 install redis
+ 1919  apt-get install redis
+ 1920  apt-get update
+ 1921  apt-get install build-essential tcl
+ 1922  md tmp
+ 1923  mkdir tmp
+ 1924  cd tmp
+ 1925  $curl -O http://download.redis.io/redis-stable.tar.gz
+ 1926  curl -O http://download.redis.io/redis-stable.tar.gz
+ 1927  $tar xzvf redis-stable.tar.gz
+ 1928  tar xzvf redis-stable.tar.gz
+ 1929  cd redis-stable
+ 1930  make
+ 1931  make test
+ 1932  mkdir /etc/redis
+ 1933  cp /tmp/redis-stable/redis.conf /etc/redis
+ 1934  cp redis.conf /etc/redis
+ 1935  vim /etc/redis/redis.conf
+ 1936  cd ..
+ 1937  rm -r redis-stable
+ 1938  deb http://packages.dotdeb.org squeeze all
+ 1939  wget http://download.redis.io/redis-stable.tar.gz
+ 1940  tar xvzf redis-stable.tar.gz
+ 1941  cd redis-stable
+ 1942  make
+ 1943  make install
+ 1944  make test
+ 1945  make install
+ 1946  cd src
+ 1947  make install
+ 1948  redis-server
+ 1949  cd ..
+ 1950  redis-cli ping
+ 1951  redis-server &
+ 1952  redis-cli ping
+ 1953  ls
+ 1954  vim *.py
+ 1955  cd /data
+ 1956  ls
+ 1957  cd RedisPython/
+ 1958  ls
+ 1959  redis-cli ping
+ 1960  deb http://packages.dotdeb.org squeeze all
+ 1961  clear
+ 1962  ls
+ 1963  vim *.py
+ 1964  python3 DemoRedis.py 
+ 1965  vim *.py
+ 1966  python3 DemoRedis.py 
+ 1967  fg
+ 1968  python3 DemoRedis.py 
+ 1969  fg
+ 1970  python3 DemoRedis.py 
+ 1971  fg
+ 1972  python3 DemoRedis.py 
+ 1973  fg
+ 1974  python3 DemoRedis.py 
+ 1975  fg
+ 1976  python3 DemoRedis.py 
+ 1977  fg
+ 1978  python3 DemoRedis.py 
+ 1979  fg
+ 1980  python3 DemoRedis.py 
+ 1981  fg
+ 1982  python3 DemoRedis.py 
+ 1983  clear
+ 1984  python3 DemoRedis.py 
+ 1985  fg
+ 1986  python3 DemoRedis.py 
+ 1987  fg
+ 1988  grep try *.ph
+ 1989  grep try *.py
+ 1990  grep try ~/devops/*.py
+ 1991  vim /root/devops/ClearPipelineState.py 
+ 1992  fg
+ 1993  python3 DemoRedis.py 
+ 1994  history | grep redis
+ 1995  redis-cli ping
+ 1996  fg
+ 1997  python3 DemoRedis.py 
+ 1998  fg
+ 1999  python3 DemoRedis.py 
+ 2000  fg
+ 2001  cd biglittle
+ 2002  bash export-vars.sh 
+ 2003  k get svc
+ 2004  cat export-vars.sh 
+ 2005  ls
+ 2006  source export-vars.sh 
+ 2007  k get pods
+ 2008  k get svc
+ 2009  history | grep "ku.*exec"
+ 2010  history | grep "exec"
+ 2011  k get pods
+ 2012  history > list.txt

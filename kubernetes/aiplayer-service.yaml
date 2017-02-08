@@ -13,5 +13,7 @@ spec:
     targetPort: 8888
   selector:
     service: aiplayer
+  sessionAffinity: None
+  type: ClusterIP
 status:
   loadBalancer: {}
