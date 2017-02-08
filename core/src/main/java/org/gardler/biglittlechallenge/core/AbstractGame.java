@@ -182,15 +182,19 @@ public abstract class AbstractGame implements Runnable {
 					Client client = ClientBuilder.newClient(new ClientConfig().register( LoggingFeature.class ));
 					WebTarget webTarget = client.target(ticket.getPlayerEndpoint()).path("player/readyToStart");
 					Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
-					Response response = invocationBuilder.get();
-					if (response.getStatus() != 200) {
+					try {
+					    Response response = invocationBuilder.get();
+					    if (response.getStatus() != 200) {
 						// TODO: Handle situation where a player is unreachable/does not respond
 						logger.warn("Response from " + ticket.getPlayerName() + " indicates a lack of success.");
 						String msg = response.readEntity(String.class);
 						logger.warn(response.getStatus() + " - " + msg);
-					} else {
+					    } else {
 						// TODO: Handle situation where a player is unreachable/does not respond
 						logger.info(ticket.getPlayerName() + " is ready to start playing");	
+					    }
+					} catch (Exception e) {
+					    logger.warn("Problem connecting to player at " + ticket.getPlayerEndpoint());
 					}
 				}
 				
