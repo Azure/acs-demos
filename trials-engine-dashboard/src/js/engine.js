@@ -25,10 +25,10 @@ function monitorStatusSocket() {
         $("#player-table-title").text("This Game");
         var players = [];
             $.each(status.playerResults, function(index, player) {
-                players.push('<li>' + player.name + ' (' + player.points + ' points)</li>')
+                players.push('<tr><td>' + player.name + '</td><td>' + player.points + '</td></tr>')
         });
-        $("#player-table").empty();
-        $("#player-table").append(players.join(''));
+        $("#player-table-body").empty();
+        $("#player-table-body").append(players.join(''));
     } else {
         $("#player-table-title").text("That Game");
     }

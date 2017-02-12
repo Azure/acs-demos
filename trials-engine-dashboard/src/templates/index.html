@@ -7,9 +7,28 @@
     <script type="text/javascript" src="/js/engine.js"></script>
     <script type="text/javascript">
       $(document).ready(function(){
-        monitorStatusSocket()
+        monitorStatusSocket();
+        dataSet = [
+          ["name", "points"],
+          ["name2", "points2"],
+          ["name3", "points3"]
+        ];
+        $('#player-table').DataTable( {
+          "paging":   false,
+          "ordering": false,
+          "info":     false,
+          data: dataSet,
+          columns: [
+            { title: "Name" },
+            { title: "Points" }
+          ]
+        } );
       });
     </script>
+
+    <!-- JQury DataTables -->
+    <link href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css">
+    <script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
   </head>
   <body>
     <title>Trials Game Engine</title>
@@ -27,16 +46,23 @@
 	</ol>
 
 	<h2 id="player-table-title">Player Table</h2>
-	<ol id="player-table">
-	</ol>
-
-	<button id="abort">Abort Game</button>
-      </div>
+	<table id="player-table" width="100%" class="display">
+    <thead>
+        <tr>
+            <th>Player Name</th>
+            <th>Points</th>
+        </tr>
+    </thead>
+    <tbody id="player-table-body">
+    </tbody>
+  </table>
+</div>
 
       <hr/>
 
       <div id="debug">
 	      <h4>Debug</h4>
+      	<button id="abort">Abort Game</button>
         <p>Ping: <b><span id="ping-pong"></span>ms</b></p>
 	      <p>Async mode is '{{ async_mode }}'</p>
 
