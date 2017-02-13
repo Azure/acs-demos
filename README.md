@@ -1,6 +1,20 @@
 # acs-demos
 Demo's for Azure Container Service.
 
+## Big Little Challenge
+
+This is a card game designed to demonstrate multicontainer applications running in 
+different orchestrators with minimal changes.
+
+## PiSwarm
+
+PiSwarm is a hardware project to build a cluster of Raspberry Pis running Docker 
+Swarm. Such a cluster can be used to demonstrate the ability to run these demo's 
+in multiple environments. Showing the application running on Azure Container Service 
+and a cluster of Raspberry Pis can sometimes be a powerful demonstration.
+
+![Raspberry Pi Cluster](images/Pis.jpg)
+
 ## Contribution
 
 We welcome contributions in the form of documentation, bug reports,
