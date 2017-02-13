@@ -1,6 +1,12 @@
 # acs-demos
 Demo's for Azure Container Service.
 
+## Contribution
+
+We welcome contributions in the form of documentation, bug reports,
+feature requests, new features, code contributions, scripts,
+screencasts and more. Please use the issue tracker and pull requests
+to make your contributions.
 
 ## Code of conduct
 
