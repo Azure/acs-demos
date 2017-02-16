@@ -1,4 +1,0 @@
-match:
-  build: .
-  env_file:
-    - ../env.conf

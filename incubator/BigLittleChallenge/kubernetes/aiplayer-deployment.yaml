@@ -1,0 +1,23 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  name: aiplayer
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        service: aiplayer
+    spec:
+      containers:
+      - image: biglittlechallenge/trials-ai
+        name: aiplayer
+        ports:
+        - containerPort: 8888
+          protocol: TCP
+        resources: {}
+      restartPolicy: Always
+status: {}

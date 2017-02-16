@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Trials Game Engine</title>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-3.1.0.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.5/socket.io.min.js"></script>
+    <script type="text/javascript" src="/js/engine.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function(){
+        monitorStatusSocket();
+        dataSet = [
+          ["name", "points"],
+          ["name2", "points2"],
+          ["name3", "points3"]
+        ];
+        $('#player-table').DataTable( {
+          "paging":   false,
+          "ordering": false,
+          "info":     false,
+          data: dataSet,
+          columns: [
+            { title: "Name" },
+            { title: "Points" }
+          ]
+        } );
+      });
+    </script>
+
+    <!-- JQury DataTables -->
+    <link href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css">
+    <script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+  </head>
+  <body>
+    <title>Trials Game Engine</title>
+
+    <div id="wrap">
+      <div id="left-col">
+	<h2>Status</h2>
+	<p><span id="state">{{ status.state }}</span></p>
+
+	<h2>Game Tickets</h2>
+	<p><span id="number-of-players"></span> players required.</p>
+
+	<h3>Assigned Tickets</h3>
+	<ol id="tickets-list">
+	</ol>
+
+	<h2 id="player-table-title">Player Table</h2>
+	<table id="player-table" width="100%" class="display">
+    <thead>
+        <tr>
+            <th>Player Name</th>
+            <th>Points</th>
+        </tr>
+    </thead>
+    <tbody id="player-table-body">
+    </tbody>
+  </table>
+</div>
+
+      <hr/>
+
+      <div id="debug">
+	      <h4>Debug</h4>
+      	<button id="abort">Abort Game</button>
+        <p>Ping: <b><span id="ping-pong"></span>ms</b></p>
+	      <p>Async mode is '{{ async_mode }}'</p>
+
+        <h3>Log</h3>
+        <div id="log">
+
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

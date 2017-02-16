@@ -1,0 +1,38 @@
+version: '3'
+networks:
+  trials:
+    driver: overlay
+services:
+  engine:
+    image: REGISTRY_URL/biglittlechallenge/trials-engine:BUILD_NUMBER
+    networks:
+      - trials
+    ports:
+      - "8080:8080"
+    environment:
+      MIN_NUMBER_OF_PLAYERS: 5
+    deploy:
+      mode: replicated
+      replicas: 1
+  aiplayer:
+    image: REGISTRY_URL/biglittlechallenge/trials-ai:BUILD_NUMBER
+    networks:
+      - trials
+    ports:
+      - "8888"
+    depends_on:
+      - engine
+    deploy:
+      mode: replicated
+      replicas: 5
+  dashboard:
+    image: REGISTRY_URL/biglittlechallenge/trials-engine-dashboard:BUILD_NUMBER
+    networks:
+      - trials
+    ports: 
+      - "8181:80"
+    depends_on:
+      - engine
+    deploy:
+      mode: replicated
+      replicas: 1
