@@ -32,6 +32,7 @@ services:
     ports: 
       - "8181:80"
     depends_on:
+      - aiplayer
       - engine
     deploy:
       mode: replicated

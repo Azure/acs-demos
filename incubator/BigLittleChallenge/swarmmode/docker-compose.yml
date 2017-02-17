@@ -33,6 +33,7 @@ services:
       - "8181:80"
     depends_on:
       - engine
+      - aiplayer
     deploy:
       mode: replicated
       replicas: 1
