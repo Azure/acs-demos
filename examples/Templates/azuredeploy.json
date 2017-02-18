@@ -49,17 +49,17 @@
         "description": "User name for the Linux Virtual Machines."
       }
     },
-    "windowsAdminUsername": {
+    "windowsAgentAdminUsername": {
       "type": "string",
       "defaultValue": "azureuser",
       "metadata": {
-        "description": "User name for the Windows Virtual Machines."
+        "description": "User name for the Windows Agent Node Virtual Machines."
       }
     },
-    "windowsAdminPassword": {
+    "windowsAgentAdminPassword": {
       "type": "string",
       "metadata": {
-        "description": "Password for Windows Virtual Machines"
+        "description": "Password for the Windows Agent Node Virtual Machines"
       },
       "defaultValue": "n/a"
     },
@@ -161,8 +161,8 @@
       null,
       null,
       {
-        "adminUsername": "[parameters('windowsAdminUsername')]",
-        "adminPassword": "[parameters('windowsAdminPassword')]"
+        "adminUsername": "[parameters('windowsAgentAdminUsername')]",
+        "adminPassword": "[parameters('windowsAgentAdminPassword')]"
       }
     ]
   },
