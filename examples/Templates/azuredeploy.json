@@ -42,11 +42,18 @@
         "description": "The size of the Virtual Machine."
       }
     },
-    "adminUsername": {
+    "linuxAdminUsername": {
       "type": "string",
       "defaultValue": "azureuser",
       "metadata": {
-        "description": "User name for the Virtual Machines."
+        "description": "User name for the Linux Virtual Machines."
+      }
+    },
+    "windowsAdminUsername": {
+      "type": "string",
+      "defaultValue": "azureuser",
+      "metadata": {
+        "description": "User name for the Windows Virtual Machines."
       }
     },
     "windowsAdminPassword": {
@@ -120,7 +127,7 @@
     }
   },
   "variables": {
-    "adminUsername":"[parameters('adminUsername')]",
+    "adminUsername":"[parameters('linuxAdminUsername')]",
     "agentCount":"[parameters('agentCount')]",
     "agentsEndpointDNSNamePrefix":"[parameters('agentDnsNamePrefix')]",
     "agentVMSize":"[parameters('agentVMSize')]",
@@ -154,7 +161,7 @@
       null,
       null,
       {
-        "adminUsername": "[variables('adminUsername')]",
+        "adminUsername": "[parameters('windowsAdminUsername')]",
         "adminPassword": "[parameters('windowsAdminPassword')]"
       }
     ]
