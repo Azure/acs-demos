@@ -9,6 +9,7 @@ You will find below a list of training that you can use to get started with seve
 ### Available trainings
 
 1. Deploy Docker Swarm Mode cluster using ACS Engine: [here](swarm/deploy-acs-engine.md)
+2. Docker Swarm: from your local machine to Azure Container Service: [here](swarm/docker-local-to-azure.md)
 
 ## Continuous Integration and Continuous Deployment
 
