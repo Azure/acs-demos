@@ -1,0 +1,26 @@
+{
+  "id": "rethinkdb",
+  "cmd": "rethinkdb --bind all -d /data/rethinkdb/db",
+  "cpus": 1,
+  "mem": 8000.0,
+  "instances": 1,
+  "container": {
+    "type": "DOCKER",
+    "docker": {
+      "image": "rethinkdb:2.3.5",
+      "network": "BRIDGE",
+      "portMappings": [
+        { "containerPort": 8080, "hostPort": 0, "protocol": "tcp" },
+        { "containerPort": 28015, "hostPort": 0, "protocol": "tcp"}
+      ]
+    },
+    "volumes": [
+      {
+        "containerPath": "/data/rethinkdb/db",
+        "hostPath": "/mnt/managed/0/rethinkdb",
+        "mode": "RW"
+      }
+    ]
+  },
+  "constraints": [["role", "CLUSTER", "db"]]
+}

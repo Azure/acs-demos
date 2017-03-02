@@ -1,0 +1,106 @@
+# Copyright 2015 Google Inc. All rights reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+---
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: rethinkdb
+---
+kind: StorageClass
+apiVersion: storage.k8s.io/v1beta1
+metadata:
+  name: slow
+  namespace: rethinkdb
+provisioner: kubernetes.io/azure-disk
+parameters:
+  skuName: Standard_LRS
+---
+apiVersion: "v1"
+kind: "PersistentVolumeClaim"
+metadata:
+  name: "rethinkdb-pv"
+  namespace: "rethinkdb"
+  annotations:
+    volume.beta.kubernetes.io/storage-class: "slow"
+spec:
+  accessModes:
+    - "ReadWriteOnce"
+  resources:
+    requests:
+      storage: "10Gi"
+---
+# [START rethinkdb_deployment]
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: rethinkdb
+  namespace: rethinkdb
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: master
+    spec:
+      containers:
+      - name: proxy
+        image: gcr.io/google_containers/kubectl-amd64:v1.5.2
+        command:
+        - proxy
+      containers:
+      - name: master
+        image: rethinkdb:2.3.5
+        command: [ "rethinkdb" ]
+        args: [ "--bind", "all", "-d", "/data/rethinkdb_home/db" ]
+        ports:
+        - containerPort: 8080
+        - containerPort: 28015
+        volumeMounts:
+        - mountPath: /data/rethinkdb_home
+          name: rethinkdb-home
+        resources:
+          limits:
+            cpu: 1000m
+            memory: 8000Mi
+          requests:
+            cpu: 1000m
+            memory: 8000Mi
+      securityContext:
+        fsGroup: 0
+      volumes:
+      - name: rethinkdb-home
+        persistentVolumeClaim:
+          claimName: rethinkdb-pv
+# [END rethinkdb_deployment]
+# [START rethinkdb_service]
+---
+  kind: Service
+  apiVersion: v1
+  metadata:
+    name: rethinkdb
+    namespace: rethinkdb
+  spec:
+    type: LoadBalancer
+    selector:
+      app: master
+    ports:
+      - protocol: TCP
+        port: 8080
+        targetPort: 8080
+        name: rethinkdb-ui-port
+      - protocol: TCP
+        port: 28015
+        targetPort: 28015
+        name: rethinkdb-admin-port        
+# [END rethinkdb_service]

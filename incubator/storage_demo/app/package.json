@@ -1,0 +1,18 @@
+{
+  "name": "rethink_test.js",
+  "version": "0.0.1",
+  "description": "test app to interact with rethinkdb ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "rethinkdb": ">=2.3.3",
+    "cli": ">=1.0.1"
+  },
+  "keywords": [
+    "rethinkdb"
+  ],
+  "author": "Jim Spring (jmspring@gmail.com)",
+  "license": "Apache-2.0"
+}
