@@ -609,6 +609,16 @@ _Figure 8: Verifying config_
 
 We have now laid the groundwork for using kubectl. This means that we can begin to communicate with the cluster and indicate to the cluster which containers we wish to run in which pods and how to expose the pods through services.
 
+It saves lots of time to have tab completion, you can enable it with:
+
+    source <(kubectl completion bash)
+	
+Now you can hit tab to get completion suggestions, for example:
+
+	kubectl (shows "get", "logs", "describe", etc)
+	kubectl get pods (shows pods in the default namespace)
+	kubectl get pods --namespace kube-system (shows pods in kube-system namespace).
+
 So that I do not have to type **kubectl** over and over, I have run this following command in Linux to create an alias:
 
 	alias k=kubectl
