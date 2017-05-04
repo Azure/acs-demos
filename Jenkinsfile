@@ -59,34 +59,34 @@ volumes:[
     // compile tag list
     def image_tags_list = pipeline.getMapValues(image_tags_map)
 
-    stage ('compile and test') {
+//    stage ('compile and test') {
+//    
+//      container('golang') {
+//       sh "go test -v -race ./..."
+//        sh "make bootstrap build"
+//      }
+//    }
 
-      container('golang') {
-        sh "go test -v -race ./..."
-        sh "make bootstrap build"
-      }
-    }
-
-    stage ('test deployment') {
-
-      container('helm') {
-
-        // run helm chart linter
-        pipeline.helmLint(chart_dir)
-
-        // run dry-run helm chart installation
-        pipeline.helmDeploy(
-          dry_run       : true,
-          name          : config.app.name,
-          version_tag   : image_tags_list.get(0),
-          chart_dir     : chart_dir,
-          replicas      : config.app.replicas,
-          cpu           : config.app.cpu,
-          memory        : config.app.memory
-        )
-
-      }
-    }
+//   stage ('test deployment') {
+//
+//      container('helm') {
+//
+//        // run helm chart linter
+//        pipeline.helmLint(chart_dir)
+//
+//        // run dry-run helm chart installation
+//        pipeline.helmDeploy(
+//          dry_run       : true,
+//          name          : config.app.name,
+//          version_tag   : image_tags_list.get(0),
+//          chart_dir     : chart_dir,
+//          replicas      : config.app.replicas,
+//          cpu           : config.app.cpu,
+//          memory        : config.app.memory
+//        )
+//
+//      }
+//    }
 
     stage ('publish container') {
 
@@ -112,28 +112,28 @@ volumes:[
     }
 
     // deploy only the master branch
-    if (env.BRANCH_NAME == 'master') {
-      stage ('deploy to k8s') {
-        container('helm') {
-          // Deploy using Helm chart
-          pipeline.helmDeploy(
-            dry_run       : false,
-            name          : config.app.name,
-            version_tag   : image_tags_list.get(0),
-            chart_dir     : chart_dir,
-            replicas      : config.app.replicas,
-            cpu           : config.app.cpu,
-            memory        : config.app.memory
-          )
-          
-          //  Run helm tests
-          if (config.app.test) {
-            pipeline.helmTest(
-              name          : config.app.name
-            )
-          }
-        }
-      }
-    }
+//    if (env.BRANCH_NAME == 'master') {
+//      stage ('deploy to k8s') {
+//        container('helm') {
+//          // Deploy using Helm chart
+//          pipeline.helmDeploy(
+//            dry_run       : false,
+//            name          : config.app.name,
+//            version_tag   : image_tags_list.get(0),
+//            chart_dir     : chart_dir,
+//            replicas      : config.app.replicas,
+//            cpu           : config.app.cpu,
+//            memory        : config.app.memory
+//          )
+//          
+//          //  Run helm tests
+//          if (config.app.test) {
+//            pipeline.helmTest(
+//              name          : config.app.name
+//            )
+//          }
+//        }
+//      }
+//    }
   }
 }
