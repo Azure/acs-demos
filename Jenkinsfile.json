@@ -1,0 +1,25 @@
+{
+  "app": {
+    "name": "BigLittleChallenge",
+    "replicas": "3",
+    "cpu": "10m",
+    "memory": "128Mi",
+    "test": true
+  },
+  "container_repo": {
+    "host": "docker.io",
+    "master_acct": "rgardler",
+    "alt_acct": "rgardler",
+    "jenkins_creds_id": "DockerHub",
+    "repo": "acs-demos",
+    "dockeremail": "ross@gardler.org",
+    "dockerfile": "./"
+  },
+  "pipeline": {
+      "enabled": true,
+      "debug": false,
+      "library": {
+        "branch": "master"
+      }
+  }
+}
