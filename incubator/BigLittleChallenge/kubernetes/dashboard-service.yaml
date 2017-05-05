@@ -14,7 +14,6 @@ spec:
   selector:
     service: dashboard
   sessionAffinity: None
-  type: ClusterIP
-
+  type: LoadBalancer
 status:
   loadBalancer: {}
