@@ -1,9 +1,9 @@
 # What is Vamp?
 
-Vamp is an open source solution that provides canary releasing and
+[Vamp](http://vamp.io) is an open source solution that provides canary releasing and
 autoscaling for microservices. It runs on Kubernetes, DC/OS and Docker
 clusters. In this tutorial/demo we will focus on installing Vamp on
-ACS with DC/OS.
+ACS with [DC/OS](https://dcos.io).
 
 # Create a Cluster
 
@@ -96,4 +96,4 @@ dcos package install vamp --options vamp.json --yes
 
 We can connect to the service using the SSH tunnel we created earlier.
 
-http://localhost/service/vamp
+[http://localhost/service/vamp](http://localhost/service/vamp)
