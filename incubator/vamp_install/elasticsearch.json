@@ -4,11 +4,12 @@
     "cpus": 0.2,
     "mem": 1024.0,
     "container": {
-	"docker": {
-	    "image": "magneticio/elastic:2.2",
-	    "network": "HOST",
-	    "forcePullImage": true
-	}
+		"type": "DOCKER",
+		"docker": {
+			"image": "magneticio/elastic:2.2",
+			"network": "HOST",
+			"forcePullImage": true
+		}
     },
     "healthChecks": [
 	{

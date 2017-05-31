@@ -22,7 +22,7 @@ az login
 Now we need a resource group in which our ACS cluster will be deployed.
 
 ```
-az group create -n rgdcosvamp -l eastus2
+az group create -n rgdcosvamp -l eastus
 ```
 
 Finally we will create the cluster:
@@ -75,6 +75,8 @@ the CLI:
 dcos marathon app add elasticsearch.json
 ```
 
+*At the time of writing, Bash on Windows was unable to connect to forwarded localhost port. In this case, the DC/OS web interface can be used to start Elastic Search. Navigate to Services -> Run a Service -> JSON Configuration and paste the contents of `elasticsearch.json`*
+
 # Deploy Vamp
 
 Finally we will deploy Vamp using DC/OS Universe, we need to configure
@@ -89,6 +91,8 @@ With this file the application itself is deployed using the DC/OS cli.
 ```
 dcos package install vamp --options vamp.json --yes
 ```
+
+*At the time of writing, Bash on Windows was unable to connect to forwarded localhost port. In this case, the DC/OS web interface can be used to start Vamp. Navigate to Universe -> Packages, search for Vamp -> Advanced Installation, and enter the Elastic Search URL in `vamp.json`*
 
 We can connect to the service using the SSH tunnel we created earlier.
 
