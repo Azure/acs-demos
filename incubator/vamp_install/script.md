@@ -75,7 +75,7 @@ the CLI:
 dcos marathon app add elasticsearch.json
 ```
 
-*At the time of writing, Bash on Windows was unable to connect to forwarded localhost port. In this case, the DC/OS web interface can be used to start Elastic Search. Navigate to Services -> Run a Service -> JSON Configuration and paste the contents of `elasticsearch.json`*
+*At the time of writing, Bash on Windows was unable to connect to forwarded localhost port. In this case, the DC/OS web interface can be used to start Elastic Search. Navigate to Services -> Run a Service -> JSON Configuration and paste the contents of `elasticsearch.json`. Use Cygwin or Mingw on Windows to run in an automated flow.*
 
 # Deploy Vamp
 
@@ -92,7 +92,7 @@ With this file the application itself is deployed using the DC/OS cli.
 dcos package install vamp --options vamp.json --yes
 ```
 
-*At the time of writing, Bash on Windows was unable to connect to forwarded localhost port. In this case, the DC/OS web interface can be used to start Vamp. Navigate to Universe -> Packages, search for Vamp -> Advanced Installation, and enter the Elastic Search URL in `vamp.json`*
+*At the time of writing, Bash on Windows was unable to connect to forwarded localhost port. In this case, the DC/OS web interface can be used to start Vamp. Navigate to Universe -> Packages, search for Vamp -> Advanced Installation, and enter the Elastic Search URL in `vamp.json`. Use Cygwin or Mingw on Windows to run in an automated flow.*
 
 We can connect to the service using the SSH tunnel we created earlier.
 
