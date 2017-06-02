@@ -13,13 +13,13 @@ az login
 Next, we will create a resource group for the ACS cluster to be deployed.
 
 ```
-az group create -n $CLUSTER_GROUP_NAME -l $CLUSTER_LOCATION
+az group create -n acs-dcos-spark-demo -l eastus
 ```
 
-Now, we can create the cluster
+Now, we can create the cluster.
 
 ```
-az acs create -n $CLUSTER_NAME -g $CLUSTER_GROUP_NAME -d $CLUSTER_DNS_PREFIX --generate-ssh-keys
+az acs create -n acs-dcos-spark-cluster -g acs-dcos-spark-demo -d acs-dcos-spark-dns --generate-ssh-keys
 ```
 
 ## Install the DC/OS CLI
@@ -36,7 +36,7 @@ sudo az acs dcos install-cli
 To connect to the DC/OS masters in ACS we need to open an SSH tunnel:
 
 ```
-sudo ssh -fNL 80:localhost:80 -p 2200 azureuser@$CLUSTER_DNS_PREFIXagent.eastus.cloudapp.azure.com -i ~/.ssh/id_rsa
+sudo ssh -fNL 80:localhost:80 -p 2200 azureuser@acs-dcos-spark-dnsmgmt.eastus.cloudapp.azure.com -i ~/.ssh/id_rsa
 ```
 
 Now we tell the DC/OS CLI to use this tunnel to communicate with the cluster.
@@ -55,8 +55,10 @@ We can use the DC/OS cli to set up Spark.
 dcos package install spark
 ```
 
-Next, we can deploy Zeplin.
+*Note: you need to have virtualenv set up to install the Spark package (`sudo pip install virtualenv`).*
+
+Next, we can deploy Zeppelin.
 
 ```
-dcos install zeplin
+dcos install zeppelin
 ```
