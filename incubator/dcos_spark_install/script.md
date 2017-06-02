@@ -17,12 +17,32 @@ dcos package install spark --yes
 
 *Note: you need to have virtualenv set up to install the Spark package (`sudo pip install virtualenv`).*
 
+Results:
+
+```
+Installing Marathon app for package [spark] version [1.0.9-2.1.0-1]
+Installing CLI subcommand for package [spark] version [1.0.9-2.1.0-1]
+New command available: dcos spark
+DC/OS Spark is being installed!
+
+        Documentation: https://docs.mesosphere.com/service-docs/spark/
+        Issues: https://docs.mesosphere.com/support/
+```
+
 Once Spark is deployed, it will be available at [http://localhost/service/spark/](http://localhost/service/spark/).
 
 Next, we can deploy Zeppelin.
 
-Once deployed, Zeppelin will be available at [http://localhost/service/spark/](http://localhost/service/spark/)
-
-````
+```
 dcos package install zeppelin --yes
 ```
+
+Results:
+
+```
+This DC/OS Service is currently in preview.
+Continue installing? [yes/no] yes
+Installing Marathon app for package [zeppelin] version [0.5.6]
+```
+
+Once deployed, Zeppelin will be available at [http://localhost/service/spark/](http://localhost/service/spark/)
