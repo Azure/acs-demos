@@ -1,10 +1,35 @@
 # Creating a Cluster
 
-We will use the Azure CLI 2.0 to quickly create an Azure Container Services cluster. Ensure you have the Azure CLI installed and have logged in.
+We will use the Azure CLI 2.0 to quickly create an Azure Container
+Services cluster. Ensure you have the Azure CLI installed and have
+logged in using `az login`. You should also ensure that your
+environment variables are correct in `env.json`. Lets look at what
+they are right now:
+
+The name of the resource group we will use:
 
 ```
-az login
+echo $RESOURCE_GROUP
 ```
+
+The location for our resource group:
+
+```
+echo $REGION
+```
+
+The name of the ACS cluster:
+
+```
+echo $CLUSTER_NAME
+```
+
+And the DNS prefix for the cluster:
+
+```
+echo $DNS_PREFIX
+```
+
 
 Next, we will create a resource group for the ACS cluster to be deployed.
 
@@ -84,7 +109,7 @@ In order to manage this instance of ACS we will need the DC/OS cli,
 fortunately the Azure CLI makes it easy to install it.
 
 ```
-sudo az acs dcos install-cli
+az acs dcos install-cli
 ```
 
 Results:
@@ -98,7 +123,7 @@ Downloading client to /usr/local/bin/dcos
 To connect to the DC/OS masters in ACS we need to open an SSH tunnel, allowing us to view the DC/OS UI on our local machine.
 
 ```
-sudo ssh -fNL 80:localhost:80 -p 2200 azureuser@acs-dcos-spark-dnsmgmt.eastus.cloudapp.azure.com -i ~/.ssh/id_rsa
+ssh -fNL 80:localhost:80 -p 2200 azureuser@acs-dcos-spark-dnsmgmt.eastus.cloudapp.azure.com -i ~/.ssh/id_rsa
 ```
 
 Now we tell the DC/OS CLI to use this tunnel to communicate with the cluster.
