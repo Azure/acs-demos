@@ -12,7 +12,7 @@ At this point, the DC/OS interface should be available at [https://localhost](ht
 We can use the DC/OS cli to set up Spark.
 
 ```
-dcos package install spark
+dcos package install spark --yes
 ```
 
 *Note: you need to have virtualenv set up to install the Spark package (`sudo pip install virtualenv`).*
@@ -20,5 +20,5 @@ dcos package install spark
 Next, we can deploy Zeppelin.
 
 ```
-dcos install zeppelin
+dcos package install zeppelin --yes
 ```
