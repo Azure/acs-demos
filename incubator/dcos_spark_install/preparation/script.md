@@ -2,8 +2,20 @@
 
 We will use the Azure CLI 2.0 to quickly create an Azure Container
 Services cluster. Ensure you have the Azure CLI installed and have
-logged in using the `az login` command..
+logged in using the `az login` command.
 
+We first need to set a few environment variables we will use later:
+
+```
+RESOURCE_GROUP=acs-spark-demo
+SERVICE_NAME=acs-dcos-spark
+DNS_NAME_PREFIX=acs-dcos-spark
+REGION=eastus
+```
+
+```
+echo region is $REGION
+```
 
 Next, we will create a resource group for the ACS cluster to be deployed.
 
@@ -37,6 +49,7 @@ ssh -fNL 80:localhost:80 -p 2200 azureuser@acs-dcos-spark-dnsmgmt.eastus.cloudap
 Now we tell the DC/OS CLI to use this tunnel to communicate with the cluster.
 
 ```
+pip install virtualenv
 dcos config set core.dcos_url http://localhost
 ```
 
