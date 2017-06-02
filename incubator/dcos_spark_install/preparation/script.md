@@ -35,6 +35,7 @@ In order to manage this instance of ACS we will need the DC/OS cli,
 fortunately the Azure CLI makes it easy to install it.
 
 ```
+pip install virtualenv
 az acs dcos install-cli
 ```
 
@@ -49,7 +50,6 @@ ssh -fNL 80:localhost:80 -p 2200 azureuser@acs-dcos-spark-dnsmgmt.eastus.cloudap
 Now we tell the DC/OS CLI to use this tunnel to communicate with the cluster.
 
 ```
-pip install virtualenv
 dcos config set core.dcos_url http://localhost
 ```
 
