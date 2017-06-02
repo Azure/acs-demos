@@ -28,7 +28,7 @@ In order to manage this instance of ACS we will need the DC/OS cli,
 fortunately the Azure CLI makes it easy to install it.
 
 ```
-sudo az acs dcos install-cli
+az acs dcos install-cli
 ```
 
 ## Connect to the cluster
@@ -36,7 +36,7 @@ sudo az acs dcos install-cli
 To connect to the DC/OS masters in ACS we need to open an SSH tunnel:
 
 ```
-sudo ssh -fNL 80:localhost:80 -p 2200 azureuser@acs-dcos-spark-dnsmgmt.eastus.cloudapp.azure.com -i ~/.ssh/id_rsa
+ssh -fNL 80:localhost:80 -p 2200 azureuser@acs-dcos-spark-dnsmgmt.eastus.cloudapp.azure.com -i ~/.ssh/id_rsa
 ```
 
 Now we tell the DC/OS CLI to use this tunnel to communicate with the cluster.
