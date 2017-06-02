@@ -1,57 +1,28 @@
 # What is Spark?
 
-Spark is a powerful general cluster computing system for Big Data. We will be using DC/OS to deploy a Spark cluster.
-
-
-# Creating a Cluster
-
-We will use the Azure CLI 2.0 to quickly create an Azure Container Services cluster. Make sure you have the Azure CLI installed and have logged in.
-
-```
-az login
-```
-
-Next, we will create a resource group for the ACS cluster to be deployed.
-
-```
-az group create -n $CLUSTER_GROUP_NAME -l $CLUSTER_LOCATION
-```
-
-Now, we can create the cluster
-
-```
-az acs create --orchestrator-type=kubernetes -n $CLUSTER_NAME -g $CLUSTER_GROUP_NAME -d $CLUSTER_DNS_PREFIX --generate-ssh-keys
-```
-
-## Install the Kubernetes CLI
-
-In order to manage this instance of ACS we will need the Kubernetes command line interface,
-fortunately the Azure CLI makes it easy to install it.
-
-```
-sudo az acs kubernetes install-cli
-```
-
-## Initial Cluster Setup
-
-First, we will load the master Kubernetes cluster configuration locally.
-
-```
-az acs kubernetes get-credentials --resource-group=$CLUSTER_GROUP_NAME --name=$CLUSTER_NAME
-```
-
-Next, we will use the Kubernetes command line interface to ensure the list of machines in the cluster are available.
-
-```
-kubectl get nodes
-```
+[Spark](https://spark.apache.org/) is a powerful general cluster computing system for Big Data. We will be using [DC/OS](https://dcos.io/) to deploy a Spark cluster. We will also install [Zeppelin](https://zeppelin.apache.org/), a web-based notebook for data analytics, making it easier to interact with Spark.
 
 # Deploy Spark
 
-We can create a new Spark cluster through the Kubernetes cli and the `yml` files found in the `k8s/spark` directory. We will also spin up Zeplin.
+It is assumed that you have prepared the demo environment by running `prep.sh`, if not you need to break from this script and run it now.
+
+We can create a new Spark cluster through the Kubernetes cli and the `yml` files found in the `k8s/spark` directory. We will also spin up Zeppelin.
 
 ```
 kubectl create -f k8s/spark
+```
+
+Results:
+
+```
+namespace "spark-cluster" created
+replicationcontroller "spark-master-controller" created
+service "spark-master" created
+replicationcontroller "spark-ui-proxy-controller" created
+service "spark-ui-proxy" created
+replicationcontroller "spark-worker-controller" created
+replicationcontroller "zeppelin-controller" created
+service "zeppelin" created
 ```
 
 Once that is set up, ensure everything is running normally.
@@ -60,10 +31,31 @@ Once that is set up, ensure everything is running normally.
 kubectl get pods
 ```
 
+Results:
+
+```
+NAME                              READY     STATUS              RESTARTS   AGE
+spark-master-controller-169rl     1/1       Running             0          1h
+spark-ui-proxy-controller-9zclb   1/1       Running             0          1h
+spark-worker-controller-8whcj     1/1       Running             0          1h
+spark-worker-controller-wr1g5     1/1       Running             0          1h
+zeppelin-controller-nd71c         1/1       Running             0          1h
+```
+
 Next, we will check the load balancer endpoints.
 
 ```
 kubectl get svc -o wide
+```
+
+Results:
+
+```
+NAME             CLUSTER-IP     EXTERNAL-IP    PORT(S)             AGE       SELECTOR
+kubernetes       10.0.0.1       <none>         443/TCP             1h        <none>
+spark-master     10.0.226.162   <none>         7077/TCP,8080/TCP   1h        component=spark-master
+spark-ui-proxy   10.0.25.240    52.168.86.47   80:32466/TCP        1h        component=spark-ui-proxy
+zeppelin         10.0.82.171    <pending>      80:30624/TCP        1h        component=zeppelin
 ```
 
 ## Enable the Kubernetes, Spark and Zeplin UI
@@ -74,13 +66,27 @@ To view the Kubernetes and Spark UI from a browser, we can use the cli to config
 kubectl proxy --port=8001
 ```
 
-Kubernetes will be available through http://localhost:8001/ui  
-Spark will be available through http://localhost:8001/api/v1/proxy/namespaces/spark-cluster/services/spark-ui-proxy/
-
-For Zepplin, we can use the cli to configure a port forward and run it as a background process.
+Results:
 
 ```
-kubectl port-forward zeppelin-controller-[ID] 8080:8080 &
+Starting to serve on 127.0.0.1:8001
 ```
 
-The Zeplin interface will be available through http://localhost8080
+Kubernetes will be available at [http://localhost:8001/ui](http://localhost:8001/ui).  
+Spark will be available at [http://localhost:8001/api/v1/proxy/namespaces/spark-cluster/services/spark-ui-proxy/](http://localhost:8001/api/v1/proxy/namespaces/spark-cluster/services/spark-ui-proxy/).
+
+For Zeppelin, we can use the cli to configure a port forward and run it as a background process.
+
+```
+kubectl port-forward zeppelin-controller-nd71c 8080:8080 &
+```
+*Replace `nd71c` with the deployment specific id from the result of `zeppelin-controller` from `kubectl get pods`*
+
+Results:
+
+```
+Forwarding from 127.0.0.1:8080 -> 8080
+Forwarding from [::1]:8080 -> 8080
+```
+
+The Zeppelin interface will be available at [http://localhost8080](http://localhost8080)
