@@ -1,15 +1,15 @@
-# What is Spark?
+# What is Apache Spark?
 
-[Spark](https://spark.apache.org/) is a powerful general cluster computing system for Big Data. We will be using [DC/OS](https://dcos.io/) to deploy a Spark cluster. We will also install [Zeppelin](https://zeppelin.apache.org/), a web-based notebook for data analytics, making it easier to interact with Spark.
+[Apache Spark](https://spark.apache.org/) is a powerful general cluster computing system for Big Data. We will be using [DC/OS](https://dcos.io/) to deploy a Spark cluster. We will also install [Zeppelin](https://zeppelin.apache.org/), a web-based notebook for data analytics, making it easier to interact with Spark.
 
 # Deploy Spark
 
 It is assumed that you have prepared the demo environment by running `prep.sh`, if not you need to break from this script and run it now.
 
-We can create a new Spark cluster through the Kubernetes cli and the `yml` files found in the `k8s/spark` directory. We will also spin up Zeppelin.
+We can create a new Spark cluster through the Kubernetes cli and the `yml` files found in the `~/kubernetes/examples/spark` directory. We will also spin up Zeppelin.
 
 ```
-kubectl create -f k8s/spark
+kubectl create -f ~/kubernetes/examples/spark
 ```
 
 Results:
@@ -80,7 +80,8 @@ For Zeppelin, we can use the cli to configure a port forward and run it as a bac
 ```
 kubectl port-forward zeppelin-controller-nd71c 8080:8080 &
 ```
-*Replace `nd71c` with the deployment specific id from the result of `zeppelin-controller` from `kubectl get pods`*
+
+*Note: Replace `nd71c` with the deployment specific id from the result of `zeppelin-controller` from `kubectl get pods`*
 
 Results:
 
