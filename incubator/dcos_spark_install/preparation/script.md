@@ -61,7 +61,7 @@ deployed.
 az group create --name $ACS_RESOURCE_GROUP --location $ACS_REGION
 ```
 
-Results:
+Results: Expected results: 0.5
 
 ```
 {
@@ -82,7 +82,7 @@ Now, we can create the cluster.
 az acs create --name $ACS_CLUSTER_NAME --resource-group $ACS_RESOURCE_GROUP --dns-prefix $ACS_DNS_PREFIX --generate-ssh-keys
 ```
 
-Results:
+Results: Expected results: 0.05
 
 ```
 {
@@ -178,7 +178,7 @@ able to communicate with the cluster:
 dcos node
 ```
 
-Results:
+Results:  Expected results: 0.1
 
 ```
 HOSTNAME      IP                        ID
