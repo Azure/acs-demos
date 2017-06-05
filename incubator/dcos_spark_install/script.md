@@ -35,7 +35,7 @@ able to communicate with the cluster:
 dcos node
 ```
 
-Results:
+Results:  Expected results: 0.1
 
 ```
 HOSTNAME      IP                        ID
@@ -104,6 +104,9 @@ Results:
 This DC/OS Service is currently in preview.
 Continue installing? [yes/no] yes
 Installing Marathon app for package [zeppelin] version [0.5.6]
+
+        Documentation: https://github.com/dcos/examples/tree/master/1.8/zeppelin/
+	    Issues: https://dcos.io/community/				
 ```
 
 Once deployed, Zeppelin will be available
@@ -149,7 +152,7 @@ As part of the Spark installation DC/OS has installed the Spark CLI.
 dcos spark 
 ```
 
-Results:
+Results: Expected similarity: 0.6
 
 ```
 Usage:
