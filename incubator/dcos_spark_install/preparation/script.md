@@ -26,16 +26,26 @@ check the current contents with `cat`:
 cat ../env.local.json
 ```
 
+# Dependencies
+
+There are a few dependencies that we must have installed for this
+tutorial/demo to work:
+
+```
+sudo pip3 install virtualenv
+```
+
 # Ensuring we have a clean cluster
 
 It's always wise to ensure that a demo starts in a clean state. To
-that end we will delete any existing cluster that exists using this
-configuration. Don't worry if this command returns a "could not be
-found" error. It just means you didn't have anything dangling after
-the last demo.
+that end we will delete any existing cluster and SSH infromation that
+exists using this configuration. Don't worry if this command returns a
+"could not be found" error. It just means you didn't have anything
+dangling after the last demo.
 
 ```
 az group delete --name $ACS_RESOURCE_GROUP --yes
+sudo ssh-keygen -f "/root/.ssh/known_hosts" -R [$ACS_DNS_PREFIXmgmt.$ACS_REGION.cloudapp.azure.com]:2200
 ```
 
 # Creating a Cluster
@@ -123,7 +133,7 @@ In order to manage this instance of ACS we will need the DC/OS cli,
 fortunately the Azure CLI makes it easy to install it.
 
 ```
-az acs dcos install-cli
+sudo az acs dcos install-cli
 ```
 
 Results:
@@ -152,7 +162,7 @@ To connect to the DC/OS masters in ACS we need to open an SSH tunnel,
 allowing us to view the DC/OS UI on our local machine.
 
 ```
-ssh -NL 80:localhost:80 -o StrictHostKeyChecking=no -p 2200 azureuser@${ACS_DNS_PREFIX}mgmt.${ACS_REGION}.cloudapp.azure.com -i ~/.ssh/id_rsa &
+sudo ssh -NL 80:localhost:80 -o StrictHostKeyChecking=no -p 2200 azureuser@${ACS_DNS_PREFIX}mgmt.${ACS_REGION}.cloudapp.azure.com -i ~/.ssh/id_rsa &
 ```
 
 NOTE: we supply the option `-o StrictHostKeyChecking=no` because we
@@ -177,3 +187,6 @@ HOSTNAME      IP                        ID
 10.32.0.6  10.32.0.6  21638e0a-f223-4598-a73c-1e991fe2c069-S1
 10.32.0.7  10.32.0.7  21638e0a-f223-4598-a73c-1e991fe2c069-S0
 ```
+
+Assuming you can see the node list above you now have your demo
+environment set up.
