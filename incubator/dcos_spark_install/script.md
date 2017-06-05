@@ -1,11 +1,49 @@
 # What is Spark?
 
-[Spark](https://spark.apache.org/) is a powerful general cluster computing system for Big Data. We will be using [DC/OS](https://dcos.io/) to deploy a Spark cluster. We will also install [Zeppelin](https://zeppelin.apache.org/), a web-based notebook for data analytics, making it easier to interact with Spark.
+[Spark](https://spark.apache.org/) is a powerful general cluster
+computing system for Big Data. We will be
+using [DC/OS](https://dcos.io/) to deploy a Spark cluster. We will
+also install [Zeppelin](https://zeppelin.apache.org/), a web-based
+notebook for data analytics, making it easier to interact with Spark.
 
 It is assumed that you have prepared the demo environment by running
-`prep.sh`, if not you need to break from this script and run it now.
+`prep.sh`, if not you need to break from this script and run it
+now. This will have pre-created a cluster with the following
+configuration:
 
-At this point, the DC/OS interface should be available at [https://localhost](https://localhost).
+```
+env | grep ACS_.*
+```
+
+We first need to ensure that we can connect to the DC/OS masters by
+opening an SSH tunnel:
+
+```
+ssh -NL 80:localhost:80 -o StrictHostKeyChecking=no -p 2200 azureuser@${ACS_DNS_PREFIX}mgmt.${ACS_REGION}.cloudapp.azure.com -i ~/.ssh/id_rsa
+```
+
+NOTE: we supply the option `-o StrictHostKeyChecking=no` because we
+want to be able to run these commands in an automated fashion for
+demos. This option prevents SSH asking to validate the fingerprint. In
+production one should always validate SSH connections.
+
+At this point, the DC/OS interface should be available
+at [https://localhost](https://localhost) and your DC/OS CLI will be
+able to communicate with the cluster:
+
+```
+dcos node
+```
+
+Results:
+
+```
+HOSTNAME      IP                        ID
+ 10.0.0.4   10.0.0.4  21638e0a-f223-4598-a73c-1e991fe2c069-S2
+10.32.0.4  10.32.0.4  21638e0a-f223-4598-a73c-1e991fe2c069-S3
+10.32.0.6  10.32.0.6  21638e0a-f223-4598-a73c-1e991fe2c069-S1
+10.32.0.7  10.32.0.7  21638e0a-f223-4598-a73c-1e991fe2c069-S0
+```
 
 # Deploying Spark
 
