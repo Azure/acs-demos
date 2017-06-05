@@ -47,10 +47,10 @@ HOSTNAME      IP                        ID
 
 # Services
 
-DC/OS provides an easy way to manage services that will schedule
-workloads for you. By default DC/OS provides two services. Marathon is
-for scheduling long running jobs while Metronome is for managing
-scheduled jobs.
+DC/OS provides an easy way to manage services that will help schedule
+and manage workloads for you. By default DC/OS provides two
+services. Marathon is for scheduling long running jobs while Metronome
+is for managing scheduled jobs.
 
 We can view the services running using the DC/OS CLI:
 
@@ -66,9 +66,9 @@ marathon   172.16.0.5   True     0    0.0  0.0  0.0   5ae8b6c8-c88b-4b8a-8d45-9b
 metronome  172.16.0.5   True     0    0.0  0.0  0.0   5ae8b6c8-c88b-4b8a-8d45-9b4b063be9e6-0000
 ```
 
-# Deploying Spark
+## Deploying the Apache Spark service
 
-Spark is provided as a service for easy installation into DC/OS. 
+The DC/OS CLI makes it really easy to install Spark.
 
 ```
 dcos package install spark --yes
@@ -86,9 +86,10 @@ DC/OS Spark is being installed!
         Issues: https://docs.mesosphere.com/support/
 ```
 
-Once Spark is deployed, it will be available at [http://localhost/service/spark/](http://localhost/service/spark/).
+Once Spark is deployed, it will be available
+at [http://localhost/service/spark/](http://localhost/service/spark/).
 
-# Deploying Zeppelin
+# Deploying the Apache Zeppelin Service
 
 Apache Zeppelin is a web based notebook which has good integration
 with Spark, lets install that too.
@@ -105,4 +106,70 @@ Continue installing? [yes/no] yes
 Installing Marathon app for package [zeppelin] version [0.5.6]
 ```
 
-Once deployed, Zeppelin will be available at [http://localhost/service/spark/](http://localhost/service/spark/)
+Once deployed, Zeppelin will be available
+at [http://localhost/service/spark/](http://localhost/service/spark/)
+
+# Working with Spark and Zeppelin services
+
+Let's check the status of our new services.
+
+```
+dcos service
+```
+
+Results:
+
+```
+NAME                      HOST                ACTIVE  TASKS  CPU   MEM    DISK  ID
+marathon               172.16.0.5              True     2    2.0  3072.0  0.0   5ae8b6c8-c88b-4b8a-8d45-9b4b063be9e6-0001
+metronome              172.16.0.5              True     0    0.0   0.0    0.0   5ae8b6c8-c88b-4b8a-8d45-9b4b063be9e6-0000
+spark      dcos-agent-private-E8A95045000001   True     0    0.0   0.0    0.0   5ae8b6c8-c88b-4b8a-8d45-9b4b063be9e6-0002
+```
+
+Zeppelin is not listed here as it is an application rather than a
+service used to schedule work. we can view the application (along with the Spark application) as follows:
+
+```
+dcos marathon app list
+```
+
+Results:
+
+```
+ID         MEM   CPUS  TASKS  HEALTH  DEPLOYMENT  WAITING  CONTAINER  CMD                                                                                                                                                                                                                                                   
+/spark     1024   1     1/1    1/1       ---      False      DOCKER   /sbin/init.sh                                                                                                                                                                                                                                         
+/zeppelin  2048   1     1/1    1/1       ---      False      DOCKER   sed <snip> start
+```
+
+# Working with Spark
+
+As part of the Spark installation DC/OS has installed the Spark CLI.
+
+```
+dcos spark 
+```
+
+Results:
+
+```
+Usage:
+    dcos spark --help
+    dcos spark --info
+    dcos spark --version
+    dcos spark --config-schema
+    dcos spark run --help
+    dcos spark run --submit-args=<spark-args>
+                   [--docker-image=<docker-image>]
+                   [--verbose]
+    dcos spark status <submissionId> [--verbose]
+    dcos spark log <submissionId>
+                   [--follow]
+                   [--lines_count=<lines_count>]
+                   [--file=<file>]
+    dcos spark kill <submissionId> [--verbose]
+    dcos spark webui																																   
+```
+
+From now on it's "just spark" so why not try some of
+the [examples](http://spark.apache.org/examples.html) that the Apacke
+Spark community have provided
