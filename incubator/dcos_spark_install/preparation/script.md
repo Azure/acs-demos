@@ -152,7 +152,7 @@ To connect to the DC/OS masters in ACS we need to open an SSH tunnel,
 allowing us to view the DC/OS UI on our local machine.
 
 ```
-ssh -NL 80:localhost:80 -o StrictHostKeyChecking=no -p 2200 azureuser@${DNS_PREFIX}mgmt.${REGION}.cloudapp.azure.com -i ~/.ssh/id_rsa &
+ssh -NL 80:localhost:80 -o StrictHostKeyChecking=no -p 2200 azureuser@${ACS_DNS_PREFIX}mgmt.${ACS_REGION}.cloudapp.azure.com -i ~/.ssh/id_rsa &
 ```
 
 NOTE: we supply the option `-o StrictHostKeyChecking=no` because we
