@@ -1,6 +1,18 @@
 This demo shows how to create a DC/OS cluster and install Apache Spark
 and Apache Zeppelin on it.
 
+# TL;DR
+
+prep.sh: prepare your environment, takes 10-20 minutes to run
+
+run.sh: run as a descriptive tutorial (must run prep.sh first)
+
+demo.sh: run as a demo for third parties (must run prep.sh first)
+
+test.sh: tears down any existing cluster, builds a cluster, runs tests against it
+
+# Full details
+
 The demo is interactive and can be run in different modes, either in
 "tutorial" or "demo" mode. You might also choose to run each of the
 comamnds manualy, in this "mode" you are simply reading a document and
