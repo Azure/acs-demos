@@ -1,3 +1,7 @@
+# SimDem
+env.local.json
+
+# misc
 .vscode
 .metadata
 bin/

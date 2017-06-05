@@ -1,3 +1,24 @@
+# Environment Setup
+
+Since we will be creating an ACS cluster it is important that we first
+setup the environment to be unique to you, otherwise we will get
+naming conflicts between people running the tutorials. 
+
+If you don't already have a local config file let's start by copying
+the default config into a local config file.
+
+```
+if [ ! -f ../env.local.json ]; then cp --no-clobber ../env.json ../env.local.json; else echo "You already have a config"; fi
+```
+
+You MUST ensure the `DNS_PREFIX` to something world unique and you
+`MAY` change the other settings. Once complete return here and hit a
+key to verify the change has been made.
+
+```
+cat ../env.local.json
+```
+
 # Creating a Cluster
 
 We will use the Azure CLI 2.0 to quickly create an Azure Container
