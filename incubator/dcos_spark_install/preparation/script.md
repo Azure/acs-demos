@@ -144,16 +144,16 @@ Downloading client to /usr/local/bin/dcos
 
 Now we tell the DC/OS CLI to use localhost as the DCOS URL. When we
 want to connect to the cluster we will create an SSH tunnel between
-localhost and the cluster.
+localhost (port 10000) and the cluster.
 
 ```
-dcos config set core.dcos_url http://localhost
+dcos config set core.dcos_url http://localhost:10000
 ```
 
 Results:
 
 ```
-[core.dcos_url]: changed from 'http://localhost:8080' to 'http://localhost'
+[core.dcos_url]: changed from 'http://localhost:80' to 'http://localhost:10000'
 ```
 
 ## Connect to the cluster
@@ -162,7 +162,7 @@ To connect to the DC/OS masters in ACS we need to open an SSH tunnel,
 allowing us to view the DC/OS UI on our local machine.
 
 ```
-sudo ssh -NL 8080:localhost:80 -o StrictHostKeyChecking=no -p 2200 azureuser@${ACS_DNS_PREFIX}mgmt.${ACS_REGION}.cloudapp.azure.com -i ~/.ssh/id_rsa &
+sudo ssh -NL 10000:localhost:80 -o StrictHostKeyChecking=no -p 2200 azureuser@${ACS_DNS_PREFIX}mgmt.${ACS_REGION}.cloudapp.azure.com -i ~/.ssh/id_rsa &
 ```
 
 NOTE: we supply the option `-o StrictHostKeyChecking=no` because we
@@ -171,7 +171,7 @@ demos. This option prevents SSH asking to validate the fingerprint. In
 production one should always validate SSH connections.
 
 At this point, the DC/OS interface should be available
-at [https://localhost](https://localhost) and your DC/OS CLI will be
+at [https://localhost:10000](https://localhost:10000) and your DC/OS CLI will be
 able to communicate with the cluster:
 
 ```

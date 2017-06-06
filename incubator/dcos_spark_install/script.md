@@ -41,7 +41,7 @@ We first need to ensure that we can connect to the DC/OS masters by
 opening an SSH tunnel:
 
 ```
-sudo ssh -NL 80:localhost:80 -o StrictHostKeyChecking=no -p 2200 azureuser@${ACS_DNS_PREFIX}mgmt.${ACS_REGION}.cloudapp.azure.com -i ~/.ssh/id_rsa &
+sudo ssh -NL 10000:localhost:80 -o StrictHostKeyChecking=no -p 2200 azureuser@${ACS_DNS_PREFIX}mgmt.${ACS_REGION}.cloudapp.azure.com -i ~/.ssh/id_rsa &
 ```
 
 NOTE: we supply the option `-o StrictHostKeyChecking=no` because we
@@ -50,7 +50,7 @@ demos. This option prevents SSH asking to validate the fingerprint. In
 production one should always validate SSH connections.
 
 At this point, the DC/OS interface should be available
-at [https://localhost](https://localhost) and your DC/OS CLI will be
+at [https://localhost:10000](https://localhost:10000) and your DC/OS CLI will be
 able to communicate with the cluster:
 
 ```
@@ -109,7 +109,7 @@ DC/OS Spark is being installed!
 ```
 
 Once Spark is deployed, it will be available
-at [http://localhost/service/spark/](http://localhost/service/spark/).
+at [http://localhost:10000/service/spark/](http://localhost:10000/service/spark/).
 
 # Deploying the Apache Zeppelin Service
 
@@ -132,7 +132,7 @@ Installing Marathon app for package [zeppelin] version [0.5.6]
 ```
 
 Once deployed, Zeppelin will be available
-at [http://localhost/service/spark/](http://localhost/service/spark/)
+at [http://localhost:10000/service/spark/](http://localhost:10000/service/spark/)
 
 # Working with Spark and Zeppelin services
 
