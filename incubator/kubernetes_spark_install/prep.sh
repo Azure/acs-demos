@@ -1,1 +1,1 @@
-sudo python3 ~/projects/simdem/run.py run --path ./ preparation
+source run.sh run --path . preparation

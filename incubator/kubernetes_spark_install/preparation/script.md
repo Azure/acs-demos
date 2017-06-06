@@ -1,15 +1,59 @@
+# Azure Subscription
+
+You will need an active azure subscription. Before proceeding with
+this script ensure that you are logged in using `az login`. Assuming
+you started this script with the `prep.sh` script this is a safe
+assumption to make.
+
+# Environment Setup
+
+Since we will be creating an ACS cluster it is important that we first
+setup the environment to be unique to you, otherwise we will get
+naming conflicts between people running the tutorials. 
+
+If you don't already have a local config file let's start by copying
+the default config into a local config file.
+
+```
+if [ ! -f ../env.local.json ]; then cp --no-clobber ../env.json ../env.local.json; else echo "You already have a config"; fi
+```
+
+You MUST ensure the `ACS_DNS_PREFIX` is something world unique and you
+`MAY` change the other settings. Once complete return here. You can
+check the current contents with `cat`:
+
+```
+cat ../env.local.json
+```
+
+# Dependencies
+
+There are a few dependencies that we must have installed for this
+tutorial/demo to work:
+
+```
+sudo pip3 install virtualenv
+```
+
+# Ensuring we have a clean cluster
+
+It's always wise to ensure that a demo starts in a clean state. To
+that end we will delete any existing cluster and SSH infromation that
+exists using this configuration. Don't worry if this command returns a
+"could not be found" error. It just means you didn't have anything
+dangling after the last demo.
+
+```
+az group delete --name $ACS_RESOURCE_GROUP --yes
+sudo ssh-keygen -f "/root/.ssh/known_hosts" -R [$ACS_DNS_PREFIXmgmt.$ACS_REGION.cloudapp.azure.com]:2200
+```
+
 # Creating a Cluster
 
-We will use the Azure CLI 2.0 to quickly create an Azure Container Services cluster. Make sure you have the Azure CLI installed and have logged in.
+We can now create a resource group that will contain all the Azure resouces deployed by ACS.
 
 ```
-az login
-```
-
-Next, we will create a resource group for the ACS cluster to be deployed.
-
-```
-az group create --name acs-k8s-spark-demo --location eastus
+az group create --name $ACS_RESOURCE_GROUP --location $ACS_REGION
 ```
 
 Results:
@@ -30,7 +74,7 @@ Results:
 Now, we can create the cluster
 
 ```
-az acs create --orchestrator-type=kubernetes --name acs-k8s-spark-cluster --resource-group acs-k8s-spark-demo --dns-prefix acs-k8s-spark-dns --generate-ssh-keys
+az acs create --orchestrator-type=kubernetes --name $ACS_CLUSTER_NAME --resource-group $ACS_RESOURCE_GROUP --dns-prefix $ACS_DNS_PREFIX --generate-ssh-keys
 ```
 
 Results:
@@ -98,7 +142,7 @@ Downloading client to /usr/local/bin/kubectl from https://storage.googleapis.com
 First, we will load the master Kubernetes cluster configuration locally.
 
 ```
-az acs kubernetes get-credentials --resource-group=acs-k8s-spark-demo --name=acs-k8s-spark-cluster
+az acs kubernetes get-credentials --resource-group=$ACS_RESOURCE_GROUP --name=$ACS_CLUSTER_NAME
 ```
 
 Results:
@@ -122,3 +166,15 @@ k8s-agent-b90bd903-1    Ready                      1h        v1.5.3
 k8s-agent-b90bd903-2    Ready                      1h        v1.5.3
 k8s-master-b90bd903-0   Ready,SchedulingDisabled   1h        v1.5.3
 ```
+
+## Get the Kubernetes Spark Examples
+
+The Kubernetes [GitHub repository](https://github.com/kubernetes/kubernetes) includes helpful examples to get started. One of which, is a set of configuration files for Spark (`examples/spark`).
+
+Let's clone the repository so that we can install Spark and Zeppelin easier later on.
+
+```
+git clone https://github.com/kubernetes/kubernetes.git ~/kubernetes
+```
+
+Now, we are all set up and ready to run the main demo script and spin up an instance of Spark and Zeppelin on Kubernetes.
