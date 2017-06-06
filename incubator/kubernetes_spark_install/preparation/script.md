@@ -174,7 +174,7 @@ The Kubernetes [GitHub repository](https://github.com/kubernetes/kubernetes) inc
 Let's clone the repository so that we can install Spark and Zeppelin easier later on.
 
 ```
-git clone https://github.com/kubernetes/kubernetes.git
+git clone https://github.com/kubernetes/kubernetes.git ~/kubernetes
 ```
 
 Now, we are all set up and ready to run the main demo script and spin up an instance of Spark and Zeppelin on Kubernetes.
