@@ -9,7 +9,7 @@ else
 fi
 
 if [ ! -f /.dockerenv ]; then
-    sudo simdem $COMMAND_AND_OPIONS
+    sudo simdem $COMMAND_AND_OPTIONS
 else
     simdem $COMMAND_AND_OPTIONS
 fi
