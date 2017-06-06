@@ -93,7 +93,7 @@ metronome  172.16.0.5   True     0    0.0  0.0  0.0   5ae8b6c8-c88b-4b8a-8d45-9b
 The DC/OS CLI makes it really easy to install Spark.
 
 ```
-dcos package install spark --yes
+dcos package install spark --yes --cli
 ```
 
 Results:
@@ -134,38 +134,6 @@ Installing Marathon app for package [zeppelin] version [0.5.6]
 Once deployed, Zeppelin will be available
 at [http://localhost:10000/service/spark/](http://localhost:10000/service/spark/)
 
-# Working with Spark and Zeppelin services
-
-Let's check the status of our new services.
-
-```
-dcos service
-```
-
-Results:
-
-```
-NAME                      HOST                ACTIVE  TASKS  CPU   MEM    DISK  ID
-marathon               172.16.0.5              True     2    2.0  3072.0  0.0   5ae8b6c8-c88b-4b8a-8d45-9b4b063be9e6-0001
-metronome              172.16.0.5              True     0    0.0   0.0    0.0   5ae8b6c8-c88b-4b8a-8d45-9b4b063be9e6-0000
-spark      dcos-agent-private-E8A95045000001   True     0    0.0   0.0    0.0   5ae8b6c8-c88b-4b8a-8d45-9b4b063be9e6-0002
-```
-
-Zeppelin is not listed here as it is an application rather than a
-service used to schedule work. we can view the application (along with the Spark application) as follows:
-
-```
-dcos marathon app list
-```
-
-Results:
-
-```
-ID         MEM   CPUS  TASKS  HEALTH  DEPLOYMENT  WAITING  CONTAINER  CMD                                                                                                                                                                                                                                                   
-/spark     1024   1     1/1    1/1       ---      False      DOCKER   /sbin/init.sh                                                                                                                                                                                                                                         
-/zeppelin  2048   1     1/1    1/1       ---      False      DOCKER   sed <snip> start
-```
-
 # Working with Spark
 
 As part of the Spark installation DC/OS has installed the Spark CLI.
@@ -197,4 +165,5 @@ Usage:
 
 From now on it's "just spark" so why not try some of
 the [examples](http://spark.apache.org/examples.html) that the Apacke
-Spark community have provided
+Spark community have provided.
+

@@ -8,4 +8,8 @@ else
     COMMAND_AND_OPTIONS=$@
 fi
 
-sudo simdem $COMMAND_AND_OPTIONS
+if [ ! -f /.dockerenv ]; then
+    sudo simdem $COMMAND_AND_OPTIONS
+else
+    simdem $COMMAND_AND_OPTIONS
+fi
