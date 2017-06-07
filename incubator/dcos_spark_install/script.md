@@ -41,7 +41,7 @@ We first need to ensure that we can connect to the DC/OS masters by
 opening an SSH tunnel:
 
 ```
-sudo ssh -NL 10000:localhost:80 -o StrictHostKeyChecking=no -p 2200 azureuser@${ACS_DNS_PREFIX}mgmt.${ACS_REGION}.cloudapp.azure.com -i ~/.ssh/id_rsa &
+sudo ssh -NL 10000:localhost:80 -o StrictHostKeyChecking=no -p 2200 azureuser@${ACS_DNS_PREFIX}-${ACS_ID}mgmt.${ACS_REGION}.cloudapp.azure.com -i ~/.ssh/id_rsa &
 ```
 
 NOTE: we supply the option `-o StrictHostKeyChecking=no` because we
