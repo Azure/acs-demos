@@ -86,7 +86,7 @@ Results: Expected results: 0.5
 Now, we can create the cluster.
 
 ```
-az acs create --name $ACS_CLUSTER_NAME --resource-group $ACS_RESOURCE_GROUP --dns-prefix "$ACS_DNS_PREFIX"-"$(ACS_ID)" --generate-ssh-keys
+az acs create --name $ACS_CLUSTER_NAME --resource-group $ACS_RESOURCE_GROUP --dns-prefix ${ACS_DNS_PREFIX}-${ACS_ID} --agent-count 6 --generate-ssh-keys
 ```
 
 Results: Expected results: 0.05
@@ -140,7 +140,7 @@ In order to manage this instance of ACS we will need the DC/OS cli,
 fortunately the Azure CLI makes it easy to install it.
 
 ```
-sudo az acs dcos install-cli
+az acs dcos install-cli
 ```
 
 Results:
@@ -169,7 +169,7 @@ To connect to the DC/OS masters in ACS we need to open an SSH tunnel,
 allowing us to view the DC/OS UI on our local machine.
 
 ```
-sudo ssh -NL 10000:localhost:80 -o StrictHostKeyChecking=no -p 2200 azureuser@${ACS_DNS_PREFIX}-${ACS_ID}mgmt.${ACS_REGION}.cloudapp.azure.com -i ~/.ssh/id_rsa &
+ssh -NL 10000:localhost:80 -o StrictHostKeyChecking=no -p 2200 azureuser@${ACS_DNS_PREFIX}-${ACS_ID}mgmt.${ACS_REGION}.cloudapp.azure.com -i ~/.ssh/id_rsa &
 ```
 
 NOTE: we supply the option `-o StrictHostKeyChecking=no` because we
