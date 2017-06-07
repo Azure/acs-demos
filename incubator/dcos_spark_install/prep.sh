@@ -1,1 +1,1 @@
-source run.sh run --path . preparation
+source run.sh run --path . preparation $@

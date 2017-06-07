@@ -1,9 +1,7 @@
-# Azure Subscription
+# Azure Login
 
 You will need an active azure subscription. Before proceeding with
-this script ensure that you are logged in using `az login`. Assuming
-you started this script with the `prep.sh` script this is a safe
-assumption to make.
+this script ensure that you are logged in using `az login`. 
 
 # Environment Setup
 
@@ -15,12 +13,19 @@ If you don't already have a local config file let's start by copying
 the default config into a local config file.
 
 ```
-if [ ! -f ../env.local.json ]; then cp --no-clobber ../env.json ../env.local.json; else echo "You already have a config"; fi
+cp ../env.json ../env.local.json
 ```
 
-You MUST ensure the `ACS_DNS_PREFIX` is something world unique and you
-`MAY` change the other settings. Once complete return here. You can
-check the current contents with `cat`:
+You MUST ensure the `ACS_DNS_PREFIX` is unique and you `MAY` change
+the other settings. Lets automate this by providing a random number
+between 1 and 99. This is not guaranteed to be unique, but it's good
+enough for now.
+
+```
+sed -i -e "s/\"ACS_ID\": \".*\"/\"ACS_ID\": \"$(( ( RANDOM % 99 )  + 1 ))\"/g" ../env.local.json
+```
+
+You can check the current contents with `cat`:
 
 ```
 cat ../env.local.json
@@ -45,7 +50,7 @@ dangling after the last demo.
 
 ```
 az group delete --name $ACS_RESOURCE_GROUP --yes
-sudo ssh-keygen -f "/root/.ssh/known_hosts" -R [$ACS_DNS_PREFIXmgmt.$ACS_REGION.cloudapp.azure.com]:2200
+sudo ssh-keygen -f "/root/.ssh/known_hosts" -R ["$ACS_DNS_PREFIX"-"$(ACS_ID)"mgmt.$ACS_REGION.cloudapp.azure.com]:2200
 ```
 
 # Creating a Cluster
@@ -79,7 +84,7 @@ Results: Expected results: 0.5
 Now, we can create the cluster.
 
 ```
-az acs create --name $ACS_CLUSTER_NAME --resource-group $ACS_RESOURCE_GROUP --dns-prefix $ACS_DNS_PREFIX --generate-ssh-keys
+az acs create --name $ACS_CLUSTER_NAME --resource-group $ACS_RESOURCE_GROUP --dns-prefix ${ACS_DNS_PREFIX}-${ACS_ID} --agent-count 6 --generate-ssh-keys
 ```
 
 Results: Expected results: 0.05
@@ -133,7 +138,7 @@ In order to manage this instance of ACS we will need the DC/OS cli,
 fortunately the Azure CLI makes it easy to install it.
 
 ```
-sudo az acs dcos install-cli
+az acs dcos install-cli
 ```
 
 Results:
@@ -162,7 +167,7 @@ To connect to the DC/OS masters in ACS we need to open an SSH tunnel,
 allowing us to view the DC/OS UI on our local machine.
 
 ```
-sudo ssh -NL 10000:localhost:80 -o StrictHostKeyChecking=no -p 2200 azureuser@${ACS_DNS_PREFIX}mgmt.${ACS_REGION}.cloudapp.azure.com -i ~/.ssh/id_rsa &
+ssh -NL 10000:localhost:80 -o StrictHostKeyChecking=no -p 2200 azureuser@${ACS_DNS_PREFIX}-${ACS_ID}mgmt.${ACS_REGION}.cloudapp.azure.com -i ~/.ssh/id_rsa &
 ```
 
 NOTE: we supply the option `-o StrictHostKeyChecking=no` because we
