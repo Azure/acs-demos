@@ -37,6 +37,8 @@ configuration:
 env | grep ACS_.*
 ```
 
+## Setup SSH Tunnel
+
 We first need to ensure that we can connect to the DC/OS masters by
 opening an SSH tunnel:
 
@@ -54,38 +56,17 @@ at [https://localhost:10000](https://localhost:10000) and your DC/OS CLI will be
 able to communicate with the cluster:
 
 ```
-dcos node
-```
-
-Results:  Expected results: 0.1
-
-```
-HOSTNAME      IP                        ID
- 10.0.0.4   10.0.0.4  21638e0a-f223-4598-a73c-1e991fe2c069-S2
-10.32.0.4  10.32.0.4  21638e0a-f223-4598-a73c-1e991fe2c069-S3
-10.32.0.6  10.32.0.6  21638e0a-f223-4598-a73c-1e991fe2c069-S1
-10.32.0.7  10.32.0.7  21638e0a-f223-4598-a73c-1e991fe2c069-S0
-```
-
-# Services
-
-DC/OS provides an easy way to manage services that will help schedule
-and manage workloads for you. By default DC/OS provides two
-services. Marathon is for scheduling long running jobs while Metronome
-is for managing scheduled jobs.
-
-We can view the services running using the DC/OS CLI:
-
-```
-dcos service
-```
-
-Results:
-
-```
-NAME          HOST     ACTIVE  TASKS  CPU  MEM  DISK  ID
-marathon   172.16.0.5   True     0    0.0  0.0  0.0   5ae8b6c8-c88b-4b8a-8d45-9b4b063be9e6-0001
-metronome  172.16.0.5   True     0    0.0  0.0  0.0   5ae8b6c8-c88b-4b8a-8d45-9b4b063be9e6-0000
+# open http://localhost:10000
+#
+# View the Dashboard
+#
+# Inspect the nodes in the cluster
+# 
+# Inspect the services in the cluster (there are none at first)
+#
+# Inspect Universe - Find "Confluent Kafka" - Install
+#
+# Inspect the services again (Kafka is being installed)
 ```
 
 ## Deploying the Apache Spark service
@@ -93,7 +74,7 @@ metronome  172.16.0.5   True     0    0.0  0.0  0.0   5ae8b6c8-c88b-4b8a-8d45-9b
 The DC/OS CLI makes it really easy to install Spark.
 
 ```
-dcos package install spark --yes --cli
+dcos package install spark --yes
 ```
 
 Results:
@@ -134,7 +115,13 @@ Installing Marathon app for package [zeppelin] version [0.5.6]
 Once deployed, Zeppelin will be available
 at [http://localhost:10000/service/spark/](http://localhost:10000/service/spark/)
 
-# Working with Spark
+```
+# Open the Zeppelin Service
+# 
+# Demostrate it is a working deployment connected to Spark
+```
+
+# Working with Spark CLI
 
 As part of the Spark installation DC/OS has installed the Spark CLI.
 
