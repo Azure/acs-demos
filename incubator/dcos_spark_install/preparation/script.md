@@ -1,9 +1,7 @@
-# Azure Subscription
+# Azure Login
 
 You will need an active azure subscription. Before proceeding with
-this script ensure that you are logged in using `az login`. Assuming
-you started this script with the `prep.sh` script this is a safe
-assumption to make.
+this script ensure that you are logged in using `az login`. 
 
 # Environment Setup
 
