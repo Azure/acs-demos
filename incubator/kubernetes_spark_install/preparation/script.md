@@ -172,7 +172,7 @@ Let's clone the repository so that we can install Spark and Zeppelin easier late
 
 ```
 mkdir -p ~/.acs/demo
-git clone https://github.com/kubernetes/kubernetes.git ~/.acs/kubernetes
+git clone https://github.com/kubernetes/kubernetes.git ~/.acs/demo/kubernetes
 ```
 
 Now, we are all set up and ready to run the main demo script and spin up an instance of Spark and Zeppelin on Kubernetes.

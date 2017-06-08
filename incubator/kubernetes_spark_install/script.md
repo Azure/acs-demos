@@ -27,14 +27,21 @@ your application configuration. You select the size, number of hosts,
 and choice of orchestrator tools—Container Service handles everything
 else.
 
+# Connect to the Kubernetes cluster
+
+```
+az acs kubernetes get-credentials --resource-group=$ACS_RESOURCE_GROUP --name=$ACS_CLUSTER_NAME
+kubectl proxy --port=8001 &
+```
+
 # Deploy Spark and Zeppelin
 
 We can create a new Spark cluster through the Kubernetes cli and the
-`yml` files found in the `~/.acs/kubernetes/examples/spark` directory
+`yml` files found in the `~/.acs/demo/kubernetes/examples/spark` directory
 (these were checked out for you by the preparation script). 
 
 ```
-kubectl create -f ~/.acs/kubernetes/examples/spark
+kubectl create -f ~/.acs/demo/kubernetes/examples/spark
 ```
 
 Results:
