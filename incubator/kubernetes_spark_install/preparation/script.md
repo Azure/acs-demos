@@ -15,24 +15,21 @@ If you don't already have a local config file let's start by copying
 the default config into a local config file.
 
 ```
-if [ ! -f ../env.local.json ]; then cp --no-clobber ../env.json ../env.local.json; else echo "You already have a config"; fi
+cp ../env.json ../env.local.json 
 ```
 
 You MUST ensure the `ACS_DNS_PREFIX` is something world unique and you
-`MAY` change the other settings. Once complete return here. You can
-check the current contents with `cat`:
+`MAY` change the other settings. Lets automate this with some random
+numbers.
+
+```
+sed -i -e "s/\"ACS_ID\": \".*\"/\"ACS_ID\": \"$(( ( RANDOM % 99 )  + 1 ))\"/g" ../env.local.json
+```
+
+You can check the current contents with `cat`:
 
 ```
 cat ../env.local.json
-```
-
-# Dependencies
-
-There are a few dependencies that we must have installed for this
-tutorial/demo to work:
-
-```
-sudo pip3 install virtualenv
 ```
 
 # Ensuring we have a clean cluster
@@ -45,7 +42,7 @@ dangling after the last demo.
 
 ```
 az group delete --name $ACS_RESOURCE_GROUP --yes
-sudo ssh-keygen -f "/root/.ssh/known_hosts" -R [$ACS_DNS_PREFIXmgmt.$ACS_REGION.cloudapp.azure.com]:2200
+sudo ssh-keygen -f "/root/.ssh/known_hosts" -R [${ACS_DNS_PREFIX}-${ACS_ID}mgmt.$ACS_REGION.cloudapp.azure.com]:2200
 ```
 
 # Creating a Cluster
@@ -74,7 +71,7 @@ Results:
 Now, we can create the cluster
 
 ```
-az acs create --orchestrator-type=kubernetes --name $ACS_CLUSTER_NAME --resource-group $ACS_RESOURCE_GROUP --dns-prefix $ACS_DNS_PREFIX --generate-ssh-keys
+az acs create --orchestrator-type=kubernetes --name $ACS_CLUSTER_NAME --resource-group $ACS_RESOURCE_GROUP --dns-prefix ${ACS_DNS_PREFIX}-${ACS_ID} --generate-ssh-keys
 ```
 
 Results:
@@ -128,7 +125,7 @@ In order to manage this instance of ACS we will need the Kubernetes command line
 fortunately the Azure CLI makes it easy to install it.
 
 ```
-sudo az acs kubernetes install-cli
+az acs kubernetes install-cli
 ```
 
 Results:
@@ -137,9 +134,9 @@ Results:
 Downloading client to /usr/local/bin/kubectl from https://storage.googleapis.com/kubernetes-release/release/v1.6.4/bin/linux/amd64/kubectl
 ```
 
-## Initial Cluster Setup
+## Connect to the cluster
 
-First, we will load the master Kubernetes cluster configuration locally.
+Grab the cluster credentials using the Azure CLI:
 
 ```
 az acs kubernetes get-credentials --resource-group=$ACS_RESOURCE_GROUP --name=$ACS_CLUSTER_NAME
@@ -151,7 +148,7 @@ Results:
 [No output on success]
 ```
 
-Next, we will use the Kubernetes command line interface to ensure the list of machines in the cluster are available.
+Verify we are connected to the cluster by inspecting the nodes available to us:
 
 ```
 kubectl get nodes
@@ -174,7 +171,8 @@ The Kubernetes [GitHub repository](https://github.com/kubernetes/kubernetes) inc
 Let's clone the repository so that we can install Spark and Zeppelin easier later on.
 
 ```
-git clone https://github.com/kubernetes/kubernetes.git ~/kubernetes
+mkdir -p ~/.acs/demo
+git clone https://github.com/kubernetes/kubernetes.git ~/.acs/demo/kubernetes
 ```
 
 Now, we are all set up and ready to run the main demo script and spin up an instance of Spark and Zeppelin on Kubernetes.
