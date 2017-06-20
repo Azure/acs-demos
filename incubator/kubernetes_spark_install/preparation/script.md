@@ -176,3 +176,8 @@ git clone https://github.com/kubernetes/kubernetes.git ~/.acs/demo/kubernetes
 ```
 
 Now, we are all set up and ready to run the main demo script and spin up an instance of Spark and Zeppelin on Kubernetes.
+
+# Next Steps
+
+  1. [Install Apache Spark](install/script)
+  2. [Delete the cluster](cleanup/script.md)
