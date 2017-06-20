@@ -38,3 +38,8 @@ Lets check we are connected:
 ```
 docker info
 ```
+
+# Next Steps
+
+  * [Docker CE Demo Index](../script.md)
+  * [Delete the cluster](../cleanup/script.md)
