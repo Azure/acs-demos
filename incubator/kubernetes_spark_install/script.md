@@ -24,7 +24,7 @@ Azure Container Service optimizes the configuration of popular
 open-source tools and technologies specifically for Azure. You get an
 open solution that offers portability for both your containers and
 your application configuration. You select the size, number of hosts,
-and choice of orchestrator tools—Container Service handles everything
+and choice of orchestrator tools-Container Service handles everything
 else.
 
 # Next Steps
