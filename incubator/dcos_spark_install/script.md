@@ -23,7 +23,7 @@ Azure Container Service optimizes the configuration of popular
 open-source tools and technologies specifically for Azure. You get an
 open solution that offers portability for both your containers and
 your application configuration. You select the size, number of hosts,
-and choice of orchestrator tools—Container Service handles everything
+and choice of orchestrator tools-Container Service handles everything
 else.
 
 # Preparation
@@ -43,7 +43,8 @@ We first need to ensure that we can connect to the DC/OS masters by
 opening an SSH tunnel:
 
 ```
-sudo ssh -NL 10000:localhost:80 -o StrictHostKeyChecking=no -p 2200 azureuser@${ACS_DNS_PREFIX}-${ACS_ID}mgmt.${ACS_REGION}.cloudapp.azure.com -i ~/.ssh/id_rsa &
+sudo apt-get install openssh-client -y
+sudo ssh -NL 10000:localhost:80 -o StrictHostKeyChecking=no -p 2200 azureuser@${ACS_DNS_PREFIX}mgmt.${ACS_REGION}.cloudapp.azure.com -i ~/.ssh/id_rsa &
 ```
 
 NOTE: we supply the option `-o StrictHostKeyChecking=no` because we
@@ -51,27 +52,49 @@ want to be able to run these commands in an automated fashion for
 demos. This option prevents SSH asking to validate the fingerprint. In
 production one should always validate SSH connections.
 
-At this point, the DC/OS interface should be available
-at [https://localhost:10000](https://localhost:10000) and your DC/OS CLI will be
-able to communicate with the cluster:
+## Install DC/OS CLI
+
+We'll be using both the web interface and the CLI, so lets install the
+CLI:
 
 ```
-# open http://localhost:10000
-#
-# View the Dashboard
-#
-# Inspect the nodes in the cluster
-# 
-# Inspect the services in the cluster (there are none at first)
-#
-# Inspect Universe - Find "Confluent Kafka" - Install
-#
-# Inspect the services again (Kafka is being installed)
+sudo az acs dcos install-cli
+dcos config set core.dcos_url http://localhost:10000
+```
+
+## Install VirtualEnv
+
+The Spark CLI uses VitualEnv, so let's add that:
+
+```
+sudo pip3 install virtualenv
+```
+
+# Interacting with DC/OS
+
+At this point, the DC/OS web interface should be available
+at [https://localhost:10000](https://localhost:10000) and your DC/OS
+CLI will be able to communicate with the cluster:
+
+```
+xdg-open http://localhost:10000
+xdg-open http://localhost:10000/#/nodes
+xdg-open http://localhost:10000/#/services/overview
+xdg-open http://localhost:10000/#/universe/packages
+```
+
+We can also use the CLI to do the same things:
+
+```
+dcos node
+dcos service
+dcos package search spark
 ```
 
 ## Deploying the Apache Spark service
 
-The DC/OS CLI makes it really easy to install Spark.
+Packages can be installed via the browser or the CLI. We'll use the
+CLI to install Apache Spark.
 
 ```
 dcos package install spark --yes
