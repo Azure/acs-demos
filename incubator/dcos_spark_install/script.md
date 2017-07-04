@@ -144,7 +144,7 @@ at [http://localhost:10000/service/spark/](http://localhost:10000/service/spark/
 # Demostrate it is a working deployment connected to Spark
 ```
 
-# Working with Spark CLI
+# Working with Spark
 
 As part of the Spark installation DC/OS has installed the Spark CLI.
 
@@ -176,4 +176,28 @@ Usage:
 From now on it's "just spark" so why not try some of
 the [examples](http://spark.apache.org/examples.html) that the Apacke
 Spark community have provided.
+
+## Spark Web UI
+
+You can also access the Spark Web UI via the Services page of the
+DC/OS UI:
+
+```
+xdg-open http://localhost:10000/#/services/overview
+xdg-open http://localhost:10000/services/spark
+```
+
+# Working with Apache Zeppelin
+
+Apache Zeppelin is also available via the DC/OS Services page:
+
+```
+xdg-open http://localhost:10000/#/services/overview
+xdg-open http://localhost:10000/services/zeppelin/#/
+```
+
+# Next Steps
+
+From here you can experiment with Zeppelin notebooks, run Spark jobs
+or explore the DC/OS Universe.
 
