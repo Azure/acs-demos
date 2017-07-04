@@ -11,25 +11,22 @@ Since we will be creating an ACS cluster it is important that we first
 setup the environment to be unique to you, otherwise we will get
 naming conflicts between people running the tutorials. 
 
-If you don't already have a local config file let's start by copying
-the default config into a local config file.
+You can do this through interactive variables here, or you can set
+values in a local `env.local.json` file. We recommend that you start
+by copying the existing `env.json` file.
+
+If you are running in interactive mode simply continue and you will be
+prompted for values when necessary.
+
+# Installing required software for the demo
+
+We need to ensure all the right software is available for us on the
+current machine:
 
 ```
-cp ../env.json ../env.local.json 
-```
-
-You MUST ensure the `ACS_DNS_PREFIX` is something world unique and you
-`MAY` change the other settings. Lets automate this with some random
-numbers.
-
-```
-sed -i -e "s/\"ACS_ID\": \".*\"/\"ACS_ID\": \"$(( ( RANDOM % 99 )  + 1 ))\"/g" ../env.local.json
-```
-
-You can check the current contents with `cat`:
-
-```
-cat ../env.local.json
+sudo apt-get update
+sudo apt-get install openssh-client -y
+sudo apt-get install git -y
 ```
 
 # Ensuring we have a clean cluster
@@ -42,7 +39,7 @@ dangling after the last demo.
 
 ```
 az group delete --name $ACS_RESOURCE_GROUP --yes
-sudo ssh-keygen -f "/root/.ssh/known_hosts" -R [${ACS_DNS_PREFIX}-${ACS_ID}mgmt.$ACS_REGION.cloudapp.azure.com]:2200
+sudo ssh-keygen -f "/root/.ssh/known_hosts" -R [${ACS_DNS_PREFIX}mgmt.$ACS_REGION.cloudapp.azure.com]:2200
 ```
 
 # Creating a Cluster
@@ -71,7 +68,7 @@ Results:
 Now, we can create the cluster
 
 ```
-az acs create --orchestrator-type=kubernetes --name $ACS_CLUSTER_NAME --resource-group $ACS_RESOURCE_GROUP --dns-prefix ${ACS_DNS_PREFIX}-${ACS_ID} --generate-ssh-keys
+az acs create --orchestrator-type=kubernetes --name $ACS_CLUSTER_NAME --resource-group $ACS_RESOURCE_GROUP --dns-prefix ${ACS_DNS_PREFIX} --generate-ssh-keys
 ```
 
 Results:
@@ -125,7 +122,7 @@ In order to manage this instance of ACS we will need the Kubernetes command line
 fortunately the Azure CLI makes it easy to install it.
 
 ```
-az acs kubernetes install-cli
+sudo az acs kubernetes install-cli
 ```
 
 Results:
