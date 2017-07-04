@@ -181,3 +181,8 @@ HOSTNAME      IP                        ID
 
 Assuming you can see the node list above you now have your demo
 environment set up.
+
+# Next Steps
+
+  1. [Install Apache Spark and Apache Zeppelin](install/script.md)
+  2. [Delete the ACS DC/OS cluster](cleanup/script.md)
