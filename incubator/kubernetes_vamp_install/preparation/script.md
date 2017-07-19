@@ -11,20 +11,18 @@ Since we will be creating an ACS cluster it is important that we first
 setup the environment to be unique to you, otherwise we will get
 naming conflicts between people running the tutorials. 
 
-If you don't already have a local config file let's start by copying
-the default config into a local config file.
+You can do this through interactive variables here, or you can set
+values in a local `env.local.json` file. We recommend that you start
+by copying the existing `env.json` file.
+
+The currently defined variables are:
 
 ```
-if [ ! -f ../env.local.json ]; then cp --no-clobber ../env.json ../env.local.json; else echo "You already have a config"; fi
+env | grep ACS_*
 ```
 
-You MUST ensure the `ACS_DNS_PREFIX` is something world unique and you
-`MAY` change the other settings. Once complete return here. You can
-check the current contents with `cat`:
-
-```
-cat ../env.local.json
-```
+If you are running in interactive mode simply continue and you will be
+prompted for any mising values when necessary.
 
 # Dependencies
 
@@ -45,7 +43,7 @@ dangling after the last demo.
 
 ```
 az group delete --name $ACS_RESOURCE_GROUP --yes
-sudo ssh-keygen -f "/root/.ssh/known_hosts" -R [$ACS_DNS_PREFIXmgmt.$ACS_REGION.cloudapp.azure.com]:2200
+sudo ssh-keygen -f "/root/.ssh/known_hosts" -R [${ACS_DNS_PREFIX}mgmt.$ACS_REGION.cloudapp.azure.com]:2200
 ```
 
 # Creating a Cluster
