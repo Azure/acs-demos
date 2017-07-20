@@ -42,7 +42,7 @@ dangling after the last demo.
 
 ```
 az group delete --name $ACS_RESOURCE_GROUP --yes
-sudo ssh-keygen -f "~/.ssh/known_hosts" -R [${ACS_DNS_PREFIX}mgmt.$ACS_REGION.cloudapp.azure.com]:2200
+ssh-keygen -f "~/.ssh/known_hosts" -R [${ACS_DNS_PREFIX}mgmt.$ACS_REGION.cloudapp.azure.com]:2200
 ```
 
 # Creating a Cluster
@@ -81,7 +81,7 @@ az acs create --name $ACS_CLUSTER_NAME --resource-group $ACS_RESOURCE_GROUP --dn
 
 Results:
 
-```Expected_similarity=0.05
+```Expected_similarity=0.01
 {
   "id": "/subscriptions/135f79ed-bb93-4372-91f6-7b5f1c57dd81/resourceGroups/acs-dcos-spark-demo/providers/Microsoft.Resources/deployments/azurecli1496363170.3581209",
   "name": "azurecli1496363170.3581209",
@@ -159,7 +159,7 @@ To connect to the DC/OS masters in ACS we need to open an SSH tunnel,
 allowing us to view the DC/OS UI on our local machine.
 
 ```
-ssh -NL 10000:localhost:80 -o StrictHostKeyChecking=no -p 2200 azureuser@${ACS_DNS_PREFIX}mgmt.${ACS_REGION}.cloudapp.azure.com -i ~/.ssh/id_rsa &
+ssh -NL 10000:localhost:80 -o StrictHostKeyChecking=no -p 2200 azureuser@${ACS_DNS_PREFIX}mgmt.${ACS_REGION}.cloudapp.azure.com &
 ```
 
 NOTE: we supply the option `-o StrictHostKeyChecking=no` because we
