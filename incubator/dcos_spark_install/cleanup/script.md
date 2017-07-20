@@ -12,5 +12,5 @@ If this isn't right press 'b' then 'CTRL-C', otherwise we will proceed...
 
 ```
 az group delete --name $ACS_RESOURCE_GROUP --yes
-sudo ssh-keygen -f "/root/.ssh/known_hosts" -R [${ACS_DNS_PREFIX}mgmt.$ACS_REGION.cloudapp.azure.com]:2200
+ssh-keygen -f "/root/.ssh/known_hosts" -R [${ACS_DNS_PREFIX}mgmt.$ACS_REGION.cloudapp.azure.com]:2200
 ```
