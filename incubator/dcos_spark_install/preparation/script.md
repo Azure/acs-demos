@@ -60,7 +60,7 @@ az group create --name $ACS_RESOURCE_GROUP --location $ACS_REGION
 
 Results: 
 
-```Expected_results=0.4
+```Expected_similarity=0.4
 {
   "id": "/subscriptions/135f79ed-bb93-4372-91f6-7b5f1c57dd81/resourceGroups/acs-dcos-spark-demo",
   "location": "eastus",
@@ -81,7 +81,7 @@ az acs create --name $ACS_CLUSTER_NAME --resource-group $ACS_RESOURCE_GROUP --dn
 
 Results:
 
-```Expected_results=0.05
+```Expected_similarity=0.05
 {
   "id": "/subscriptions/135f79ed-bb93-4372-91f6-7b5f1c57dd81/resourceGroups/acs-dcos-spark-demo/providers/Microsoft.Resources/deployments/azurecli1496363170.3581209",
   "name": "azurecli1496363170.3581209",
@@ -175,9 +175,9 @@ able to communicate with the cluster:
 dcos node
 ```
 
-Results:  Expected results: 0.1
+Results:
 
-```
+```expected_similarity=0.1
 HOSTNAME      IP                        ID
  10.0.0.4   10.0.0.4  21638e0a-f223-4598-a73c-1e991fe2c069-S2
 10.32.0.4  10.32.0.4  21638e0a-f223-4598-a73c-1e991fe2c069-S3
