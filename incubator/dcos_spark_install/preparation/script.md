@@ -13,8 +13,14 @@ You can do this through interactive variables here, or you can set
 values in a local `env.local.json` file. We recommend that you start
 by copying the existing `env.json` file.
 
+The currently defined variables are:
+
+```
+env | grep ACS_*
+```
+
 If you are running in interactive mode simply continue and you will be
-prompted for values when necessary.
+prompted for any mising values when necessary.
 
 # Dependencies
 
@@ -52,9 +58,9 @@ deployed.
 az group create --name $ACS_RESOURCE_GROUP --location $ACS_REGION
 ```
 
-Results: Expected results: 0.5
+Results: 
 
-```
+```Expected_results=0.4
 {
   "id": "/subscriptions/135f79ed-bb93-4372-91f6-7b5f1c57dd81/resourceGroups/acs-dcos-spark-demo",
   "location": "eastus",
@@ -73,9 +79,9 @@ Now, we can create the cluster.
 az acs create --name $ACS_CLUSTER_NAME --resource-group $ACS_RESOURCE_GROUP --dns-prefix $ACS_DNS_PREFIX --agent-count 6 --generate-ssh-keys
 ```
 
-Results: Expected results: 0.05
+Results:
 
-```
+```Expected_results=0.05
 {
   "id": "/subscriptions/135f79ed-bb93-4372-91f6-7b5f1c57dd81/resourceGroups/acs-dcos-spark-demo/providers/Microsoft.Resources/deployments/azurecli1496363170.3581209",
   "name": "azurecli1496363170.3581209",
@@ -184,5 +190,5 @@ environment set up.
 
 # Next Steps
 
-  1. [Install Apache Spark and Apache Zeppelin](install/script.md)
-  2. [Delete the ACS DC/OS cluster](cleanup/script.md)
+  1. [Install Apache Spark and Apache Zeppelin](../install/script.md)
+  2. [Delete the ACS DC/OS cluster](../cleanup/script.md)
