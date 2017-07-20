@@ -106,9 +106,8 @@ dcos package install zeppelin --yes
 Results:
 
 ```
-This DC/OS Service is currently in preview.
-Continue installing? [yes/no] yes
-Installing Marathon app for package [zeppelin] version [0.5.6]
+This DC/OS Service is currently in preview. There may be bugs, incomplete features, incorrect documentation, or other discrepencies. Preview packages should never be used in production!
+Installing Marathon app for package [zeppelin] version [0.7.0]
 
         Documentation: https://github.com/dcos/examples/tree/master/1.8/zeppelin/
 	    Issues: https://dcos.io/community/				
@@ -131,9 +130,9 @@ As part of the Spark installation DC/OS has installed the Spark CLI.
 dcos spark 
 ```
 
-Results: Expected similarity: 0.6
+Results:
 
-```
+```expected_similarity=0.6
 Usage:
     dcos spark --help
     dcos spark --info
