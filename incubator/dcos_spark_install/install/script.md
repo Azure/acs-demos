@@ -162,7 +162,7 @@ DC/OS UI:
 
 ```
 xdg-open http://localhost:10000/#/services/overview
-xdg-open http://localhost:10000/services/spark
+xdg-open http://localhost:10000/service/spark
 ```
 
 # Working with Apache Zeppelin
@@ -170,8 +170,8 @@ xdg-open http://localhost:10000/services/spark
 Apache Zeppelin is also available via the DC/OS Services page:
 
 ```
-xdg-open http://localhost:10000/#/services/overview
-xdg-open http://localhost:10000/services/zeppelin/#/
+xdg-open http://localhost:10000/#/services/overview 
+xdg-open http://localhost:10000/service/zeppelin/#/
 ```
 
 # Next Steps
