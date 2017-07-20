@@ -1,0 +1,3 @@
+preparation/script.md
+install/script.md
+cleanup/script.md
