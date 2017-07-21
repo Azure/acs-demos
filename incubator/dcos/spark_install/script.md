@@ -16,7 +16,7 @@ configuration:
 env | grep ACS_.*
 ```
 
-# Prepare environment for Spark demo
+## Setup environment for Spark demo
 
 Here we will prepare a demo environment for running the DC/OS Spark
 demo.
@@ -79,7 +79,7 @@ dcos service
 dcos package search spark
 ```
 
-## Deploying the Apache Spark service
+# Deploying the Apache Spark service
 
 Packages can be installed via the browser or the CLI. We'll use the
 CLI to install Apache Spark.

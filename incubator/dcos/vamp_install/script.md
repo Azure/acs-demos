@@ -1,4 +1,4 @@
-# What are we going to do?
+# Install VAMP onto an ACS (DC/OS) cluster
 
 We'll install Vamp on Azure Container Service with DC/OS.
 
@@ -9,6 +9,8 @@ autoscaling for microservices. It runs on Kubernetes, DC/OS and Docker
 clusters. In this tutorial/demo we will focus on installing Vamp on
 ACS with [DC/OS](https://dcos.io/).
 
+# Preparation
+
 It is assumed that you have prepared the demo environment by running
 `prep.sh`, if not you need to break from this script and run it
 now. This will have pre-created a cluster with the following
@@ -18,11 +20,41 @@ configuration:
 env | grep ACS_.*
 ```
 
-We first need to ensure that we can connect to the DC/OS masters by
-opening an SSH tunnel:
+# Setup environment for Vamp demo
+
+Here we will prepare a demo environment for running the DC/OS Spark
+demo.
+
+## Validate cluster
+
+You will first need to ensure you have a working DC/OS cluster. If you need to create one see [tutorial / demo](../../create_cluster/script.md).
+
+You can check that the cluster is available using the Azure CLI as
+follows:
 
 ```
-sudo ssh -NL 80:localhost:80 -o StrictHostKeyChecking=no -p 2200 azureuser@${ACS_DNS_PREFIX}mgmt.${ACS_REGION}.cloudapp.azure.com -i ~/.ssh/id_rsa &
+az acs show -g $ACS_RESOURCE_GROUP -n $ACS_CLUSTER_NAME --query provisioningState
+```
+
+Results:
+
+```
+"Succeeded"
+```
+
+If this says "Failed" you will need
+to [cleanup](../delete_cluster/script.md) and try redeploying the
+cluster. If it says "Provisioning" wait a little longer before
+proceeding.
+
+## Connect to the cluster
+
+To connect to the DC/OS masters in ACS we need to open an SSH tunnel,
+allowing us to view the DC/OS UI on our local machine.
+
+```
+sudo apt-get install openssh-client -y
+ssh -NL 10000:localhost:80 -o StrictHostKeyChecking=no -p 2200 azureuser@${ACS_DNS_PREFIX}mgmt.${ACS_REGION}.cloudapp.azure.com &
 ```
 
 NOTE: we supply the option `-o StrictHostKeyChecking=no` because we
@@ -30,9 +62,20 @@ want to be able to run these commands in an automated fashion for
 demos. This option prevents SSH asking to validate the fingerprint. In
 production one should always validate SSH connections.
 
-At this point, the DC/OS interface should be available
-at [https://localhost](https://localhost) and your DC/OS CLI will be
-able to communicate with the cluster:
+# Interacting with DC/OS
+
+At this point, the DC/OS web interface should be available
+at [https://localhost:10000](https://localhost:10000) and your DC/OS
+CLI will be able to communicate with the cluster:
+
+```
+xdg-open http://localhost:10000
+xdg-open http://localhost:10000/#/nodes
+xdg-open http://localhost:10000/#/services/overview
+xdg-open http://localhost:10000/#/universe/packages
+```
+
+We can also use the CLI to do the same things for example:
 
 ```
 dcos node
