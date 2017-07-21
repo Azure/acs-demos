@@ -1,4 +1,4 @@
-# What we will do
+# Install Apache Spark and Apache Zeppelin onto an ACS DC/OS cluster
 
 We will:
 
@@ -23,7 +23,7 @@ opening an SSH tunnel:
 
 ```
 sudo apt-get install openssh-client -y
-sudo ssh -NL 10000:localhost:80 -o StrictHostKeyChecking=no -p 2200 azureuser@${ACS_DNS_PREFIX}mgmt.${ACS_REGION}.cloudapp.azure.com -i ~/.ssh/id_rsa &
+ssh -NL 10000:localhost:80 -o StrictHostKeyChecking=no -p 2200 azureuser@${ACS_DNS_PREFIX}mgmt.${ACS_REGION}.cloudapp.azure.com -i &
 ```
 
 NOTE: we supply the option `-o StrictHostKeyChecking=no` because we

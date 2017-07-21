@@ -1,9 +1,13 @@
-# Azure Login
+# Create an ACS DC/OS cluster for DC/OS Spark demo
+
+Here we will create a DC/OS cluster.
+
+## Azure Login
 
 You will need an active azure subscription. Before proceeding with
 this script ensure that you are logged in using `az login`. 
 
-# Environment Setup
+## Environment Setup
 
 Since we will be creating an ACS cluster it is important that we first
 setup the environment to be unique to you, otherwise we will get
@@ -22,7 +26,7 @@ env | grep ACS_*
 If you are running in interactive mode simply continue and you will be
 prompted for any mising values when necessary.
 
-# Dependencies
+## Dependencies
 
 There are a few dependencies that we must have installed for this
 tutorial/demo to work:
@@ -42,10 +46,11 @@ dangling after the last demo.
 
 ```
 az group delete --name $ACS_RESOURCE_GROUP --yes
-ssh-keygen -f "~/.ssh/known_hosts" -R [${ACS_DNS_PREFIX}mgmt.$ACS_REGION.cloudapp.azure.com]:2200
+echo ~
+ssh-keygen -R [${ACS_DNS_PREFIX}mgmt.$ACS_REGION.cloudapp.azure.com]:2200
 ```
 
-# Creating a Cluster
+## Creating a Cluster
 
 We will use the Azure CLI 2.0 to quickly create an Azure Container
 Services cluster. Ensure you have the Azure CLI installed and have
@@ -81,7 +86,7 @@ az acs create --name $ACS_CLUSTER_NAME --resource-group $ACS_RESOURCE_GROUP --dn
 
 Results:
 
-```Expected_similarity=0.01
+```Expected_similarity=0.005
 {
   "id": "/subscriptions/135f79ed-bb93-4372-91f6-7b5f1c57dd81/resourceGroups/acs-dcos-spark-demo/providers/Microsoft.Resources/deployments/azurecli1496363170.3581209",
   "name": "azurecli1496363170.3581209",
