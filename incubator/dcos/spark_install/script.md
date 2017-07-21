@@ -16,38 +16,47 @@ configuration:
 env | grep ACS_.*
 ```
 
-## Setup SSH Tunnel
+# Prepare environment for Spark demo
 
-We first need to ensure that we can connect to the DC/OS masters by
-opening an SSH tunnel:
+Here we will prepare a demo environment for running the DC/OS Spark
+demo.
+
+## Validate cluster
+
+You will first need to ensure you have a working DC/OS cluster. If you need to create one see [tutorial / demo](../../create_cluster/script.md).
+
+You can check that the cluster is available using the Azure CLI as
+follows:
+
+```
+az acs show -g $ACS_RESOURCE_GROUP -n $ACS_CLUSTER_NAME --query provisioningState
+```
+
+Results:
+
+```
+"Succeeded"
+```
+
+If this says "Failed" you will need
+to [cleanup](../delete_cluster/script.md) and try redeploying the
+cluster. If it says "Provisioning" wait a little longer before
+proceeding.
+
+## Connect to the cluster
+
+To connect to the DC/OS masters in ACS we need to open an SSH tunnel,
+allowing us to view the DC/OS UI on our local machine.
 
 ```
 sudo apt-get install openssh-client -y
-ssh -NL 10000:localhost:80 -o StrictHostKeyChecking=no -p 2200 azureuser@${ACS_DNS_PREFIX}mgmt.${ACS_REGION}.cloudapp.azure.com -i &
+ssh -NL 10000:localhost:80 -o StrictHostKeyChecking=no -p 2200 azureuser@${ACS_DNS_PREFIX}mgmt.${ACS_REGION}.cloudapp.azure.com &
 ```
 
 NOTE: we supply the option `-o StrictHostKeyChecking=no` because we
 want to be able to run these commands in an automated fashion for
 demos. This option prevents SSH asking to validate the fingerprint. In
 production one should always validate SSH connections.
-
-## Install DC/OS CLI
-
-We'll be using both the web interface and the CLI, so lets install the
-CLI:
-
-```
-sudo az acs dcos install-cli
-dcos config set core.dcos_url http://localhost:10000
-```
-
-## Install VirtualEnv
-
-The Spark CLI uses VitualEnv, so let's add that:
-
-```
-sudo pip3 install virtualenv
-```
 
 # Interacting with DC/OS
 
