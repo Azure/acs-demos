@@ -83,7 +83,7 @@ dcos node
 
 Results:
 
-```
+```expected_similarity=0.05
 HOSTNAME      IP                        ID
  10.0.0.4   10.0.0.4  21638e0a-f223-4598-a73c-1e991fe2c069-S2
 10.32.0.4  10.32.0.4  21638e0a-f223-4598-a73c-1e991fe2c069-S3
