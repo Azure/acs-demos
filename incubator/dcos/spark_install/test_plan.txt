@@ -1,0 +1,3 @@
+../create_cluster/script.md
+script.md
+../delete_cluster/script.md

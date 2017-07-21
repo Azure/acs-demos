@@ -1,9 +1,38 @@
 # acs-demos
-Demo's for Azure Container Service.
+Demo's for Azure Container Service. These demo's are designed to be
+run using the [http://github.com/rgardler/simdem](SimDem) tool,
+altough they are just markdown files so you can read through them and
+run them manually if you prefer.
 
-Right now the repository only containers "incubating" demos, that is
+Right now the repository only contains "incubating" demos, that is
 ones that mat need a little more work before they can be easily
 reproduced.
+
+# Running Demo's
+
+All demo's are written in markdown format, so just work through them
+as descripted in the `script.md` files. Alternatively you can automate
+them using the [http://github.com/rgardler/simdem](SimDem)
+tool. SimDem allows you to run the demo's in a simulated environment
+(no typing errors during your live presentations!) or you can
+automatically run them. For more informaiton on SimDem and what it can
+do simply install Docker and run `docker run -it rgardler/simdem_cli`.
+
+We provide a handy script to run these demo's using SimDem. Simply use the command:
+
+`./scripts/run.sh <FLAVOR> <DEMO_DIR>`
+
+In this command `FLAVOR` should either be `cli` or `novnc`. The `cli`
+flavor is for demo's that have no graphical content at all and can be
+run in a bash shell alone. The `novnc` flavor is for demos that have a
+graphical element and need to be run in a desktop
+environment. `DEMO_DIR` is the name of the directory containing your demo script(s).
+
+
+If using `novnc` you should point your browser at
+`http://HOST:8080/?password=vncpassword` to access your demo
+environment. Once there you can run a demo with the command `simdem`
+into a terminal.
 
 ## Incubator
 
@@ -17,20 +46,6 @@ If you work on an incubating demo the most important thing you can do
 is provide documentation and scripting that makes it as easy as
 possible to reproduce. If you have problems getting an incubating demo
 to work then raise an issue and we will try to help.
-
-### Big Little Challenge
-
-This is a card game designed to demonstrate multicontainer applications running in 
-different orchestrators with minimal changes.
-
-### PiSwarm
-
-PiSwarm is a hardware project to build a cluster of Raspberry Pis running Docker 
-Swarm. Such a cluster can be used to demonstrate the ability to run these demo's 
-in multiple environments. Showing the application running on Azure Container Service 
-and a cluster of Raspberry Pis can sometimes be a powerful demonstration.
-
-![Raspberry Pi Cluster](images/Pis.jpg)
 
 ## Contribution
 
