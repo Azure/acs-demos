@@ -10,7 +10,7 @@ it. Install Docker and ensure your DOCKER_HOST is set correctly. Then
 run:
 
 ```
-./scripts/run.sh novnc incubator/dcos
+./scripts/run.sh novnc dcos
 ```
 
 and point your browser at `http://HOST:8080?password=vncpassword`
