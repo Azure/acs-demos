@@ -1,4 +1,4 @@
-# What are we going to do?
+# Install Vamp on a Kubernetes ACS Cluster
 
 We'll install Vamp on Azure Container Service with Kubernetes.
 
@@ -9,15 +9,63 @@ autoscaling for microservices. It runs on Kubernetes, DC/OS and Docker
 clusters. In this tutorial/demo we will focus on installing Vamp on
 ACS with [Kubernetes](https://kubernetes.io).
 
-It is assumed that you have prepared the demo environment by running `prep.sh`, if not you need to break from this script and run it now.
+## Environment Setup
+
+The currently defined environment variables are:
+
+```
+env | grep ACS_*
+```
+
+If you are running in interactive mode simply continue and you will be
+prompted for any mising values when necessary.
+
+
+We'll need the Kubernetes CLI:
+
+```
+sudo az acs kubernetes install-cli
+```
+
+In order to connect to the cluster we need to get the credentials from
+ACS.
+
+```
+az acs kubernetes get-credentials --resource-group=$ACS_RESOURCE_GROUP --name=$ACS_CLUSTER_NAME
+```
+               
+
+## Validate cluster
+
+You will first need to ensure you have a working DC/OS cluster. If you need to create one see [tutorial / demo](../../create_cluster/script.md).
+
+You can check that the cluster is available using the Azure CLI as
+follows:
+
+```
+az acs show -g $ACS_RESOURCE_GROUP -n $ACS_CLUSTER_NAME --query provisioningState
+```
+
+Results:
+
+```
+"Succeeded"
+```
+
+If this says anything other than "Succeeded" you will need to ensure
+that the cluster is correctly created. If it says "Provisioning" wait
+a little longer before proceeding.
 
 # Deploying Vamp
 
-We will start by installing Vamp's dependencies.
+We will start by installing Vamp's dependencies, etcd and elastic
+search..
 
 ## Deploy etcd
 
-First, we will set up etcd through the configuration file hosted on [GitHub](https://raw.githubusercontent.com/magneticio/vamp.io/master/static/res/v0.9.4/etcd.yml).
+First, we will set up etcd through the configuration file hosted
+on
+[GitHub](https://raw.githubusercontent.com/magneticio/vamp.io/master/static/res/v0.9.4/etcd.yml).
 
 ```
 kubectl create -f https://raw.githubusercontent.com/magneticio/vamp.io/master/static/res/v0.9.4/etcd.yml
@@ -38,7 +86,8 @@ service "etcd2" created
 
 ## Deploy Elasticsearch
 
-Next, we will set up a deployment of Elasticsearch configured to work with Vamp.
+Next, we will set up a deployment of Elasticsearch configured to work
+with Vamp.
 
 ```
 kubectl run elasticsearch --image=elasticsearch:2.4.4
@@ -57,9 +106,19 @@ service "elasticsearch" exposed
 service "kibana" exposed
 ```
 
-## Deploy Vamp
+# Deploy Vamp
 
-First, we will set up the Vamp gateway agent as a `daemon set` through the configration file hosted on [GitHub](https://raw.githubusercontent.com/magneticio/vamp.io/master/static/res/v0.9.4/vga.yml).
+Now that we have the dependencies installed we can proceed sith
+installing Vamp itelf.
+
+We will set up the Vamp gateway agent as a `daemon set` through the
+configration file hosted
+on
+[GitHub](https://raw.githubusercontent.com/magneticio/vamp.io/master/static/res/v0.9.4/vga.yml). A
+DaemonSet ensures that all (or some) nodes run a copy of a pod. As
+nodes are added to the cluster, pods are added to them. As nodes are
+removed from the cluster, those pods are garbage collected. Deleting a
+DaemonSet will clean up the pods it created.
 
 ```
 kubectl create -f https://raw.githubusercontent.com/magneticio/vamp.io/master/static/res/v0.9.4/vga.yml
@@ -72,21 +131,34 @@ daemonset "vamp-gateway-agent" created
 service "vamp-gateway-agent" created
 ```
 
-Next, we can deploy Vamp and expose it on port 8080.
+Next, we can deploy Vamp itself:
 
 ```
 kubectl run vamp --image=magneticio/vamp:0.9.4-kubernetes
-kubectl expose deployment vamp --protocol=TCP --port=8080 --name=vamp --type="LoadBalancer"
 ```
 
 Results:
 
 ```
 deployment "vamp" created
+```
+
+
+In order to be able to access Vamp we will expose port 8080.
+
+```
+kubectl expose deployment vamp --protocol=TCP --port=8080 --name=vamp --type="LoadBalancer"
+```
+
+Results:
+
+```
 service "vamp" exposed
 ```
 
-Now, we can ensure that all the Kubernetes servies are running.
+Now, we will ensure that all the Kubernetes servies are running. Note
+that it can take a short while for all services to reach the running
+state.
 
 ```
 kubectl get services
@@ -107,6 +179,10 @@ vamp                 10.0.244.141   13.90.197.78    8080:32010/TCP      12m
 vamp-gateway-agent   10.0.113.212   40.71.183.146   80:32718/TCP        13m
 ```
 
-## Accessing the Vamp Interface
+# Accessing the Vamp Interface
 
 Now that Vamp is installed, the UI should be accessable through the external IP address of the `vamp` service on port 8080, in this case [http://13.90.197.78:8080](http://13.90.197.78:8080)
+
+```
+xdg-open http://13.90.197.78:8080
+```
