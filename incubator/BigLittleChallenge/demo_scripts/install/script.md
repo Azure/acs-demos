@@ -142,7 +142,7 @@ Since we need to ensure our Public IP has been assigned before proceeding, and b
 
 ```
 DASHBOARD_IP=""
-while [ -z $DASHBOARD_IP ]; do sleep 10; EXTERNAL_IP=$(kubectl get service dashboard -o jsonpath="{.status.loadBalancer.ingress[*].ip}"); done
+while [ -z $DASHBOARD_IP ]; do sleep 10; DASHBOARD_IP=$(kubectl get service dashboard -o jsonpath="{.status.loadBalancer.ingress[*].ip}"); done
 ```
 
 At this point the the application Dashboard is available on port 8181
