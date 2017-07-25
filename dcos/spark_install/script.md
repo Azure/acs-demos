@@ -38,10 +38,9 @@ Results:
 "Succeeded"
 ```
 
-If this says "Failed" you will need
-to [cleanup](../delete_cluster/script.md) and try redeploying the
-cluster. If it says "Provisioning" wait a little longer before
-proceeding.
+If this says anything other than "Succeeded" you will need to ensure
+that the cluster is correctly created. If it says "Provisioning" wait
+a little longer before proceeding.
 
 ## Connect to the cluster
 
