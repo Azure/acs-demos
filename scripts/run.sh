@@ -52,7 +52,7 @@ else
     HOME="/home/simdem"
 fi
 
-VERSION=0.5.0 # The version of SimDem we have tested against.
+VERSION=0.7.0 # The version of SimDem we have tested against.
 
 echo Runing $REPOSITORY/$CONTAINER_NAME:$VERSION
 
