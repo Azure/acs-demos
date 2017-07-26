@@ -132,13 +132,18 @@ service "dashboard" created
 ## Wait for startup
 
 Startup is relatively quick, but we do need to wait for the images to
-be pulled onto the cluster and for the public IP to register. This is easily visible using `kubectl`:
+be pulled onto the cluster and for the public IP to register. This is
+easily visible using `kubectl`:
 
 ```
 kubectl get service
 ```
 
-Since we need to ensure our Public IP has been assigned before proceeding, and because we need the IP number later we'll run a loop to grab the IP once assinged. This is a little cumbersome but great if you want to script things. If you are doing this manually you can use `kubectl get service --wait` to display changes as they happen.
+Since we need to ensure our Public IP has been assigned before
+proceeding, and because we need the IP number later we'll run a loop
+to grab the IP once assinged. This is a little cumbersome but great if
+you want to script things. If you are doing this manually you can use
+`kubectl get service --wait` to display changes as they happen.
 
 ```
 DASHBOARD_IP=""
