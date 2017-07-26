@@ -81,7 +81,6 @@ pod "etcd1" created
 service "etcd1" created
 pod "etcd2" created
 service "etcd2" created
-
 ```
 
 ## Deploy Elasticsearch
@@ -91,24 +90,47 @@ with Vamp.
 
 ```
 kubectl run elasticsearch --image=elasticsearch:2.4.4
-kubectl run kibana --image=kibana:4.6.4 --env="ELASTICSEARCH_URL=http://elasticsearch:9200"
-kubectl expose deployment elasticsearch --protocol=TCP --port=9200 --name=elasticsearch
-kubectl expose deployment kibana --protocol=TCP --port=5601 --name=kibana
-
 ```
 
 Results:
 
 ```
 deployment "elasticsearch" created
+```
+
+```
+kubectl expose deployment elasticsearch --protocol=TCP --port=9200 --name=elasticsearch
+```
+
+Results:
+
+```
+service "kibana" exposed
+```
+
+```
+kubectl run kibana --image=kibana:4.6.4 --env="ELASTICSEARCH_URL=http://elasticsearch:9200"
+```
+
+Results:
+
+```
 deployment "kibana" created
-service "elasticsearch" exposed
+```
+
+```
+kubectl expose deployment kibana --protocol=TCP --port=5601 --name=kibana
+```
+
+Results:
+
+```
 service "kibana" exposed
 ```
 
 # Deploy Vamp
 
-Now that we have the dependencies installed we can proceed sith
+Now that we have the dependencies installed we can proceed with
 installing Vamp itelf.
 
 We will set up the Vamp gateway agent as a `daemon set` through the
@@ -156,12 +178,14 @@ Results:
 service "vamp" exposed
 ```
 
-Now, we will ensure that all the Kubernetes servies are running. Note
-that it can take a short while for all services to reach the running
-state.
+## Wait for startup
+
+Startup is relatively quick, but we do need to wait for the images to
+be pulled onto the cluster and for the public IPs to register. This is
+easily visible using `kubectl`:
 
 ```
-kubectl get services
+kubectl get service
 ```
 
 Results:
@@ -175,14 +199,61 @@ etcd1                10.0.132.130   <none>          2379/TCP,2380/TCP   20m
 etcd2                10.0.18.90     <none>          2379/TCP,2380/TCP   20m
 kibana               10.0.51.177    <none>          5601/TCP            16m
 kubernetes           10.0.0.1       <none>          443/TCP             27m
-vamp                 10.0.244.141   13.90.197.78    8080:32010/TCP      12m
+vamp                 10.0.244.141   <pending>       8080:32010/TCP      12m
 vamp-gateway-agent   10.0.113.212   40.71.183.146   80:32718/TCP        13m
 ```
 
+Since we need to ensure our Public IPs have been assigned before
+proceeding, and because we need the IP number later we'll run a loop
+to grab the IP once assinged. This is a little cumbersome but great if
+you want to script things. If you are doing this manually you can use
+`kubectl get service --wait` to display changes as they happen.
+
+```
+VAMP_IP=""
+while [ -z $VAMP_IP ]; do sleep 10; VAMP_IP=$(kubectl get service vamp -o jsonpath="{.status.loadBalancer.ingress[*].ip}"); done
+VAMP_GATEWAY_IP=""
+while [ -z $VAMP_GATEWAY_IP ]; do sleep 10; VAMP_GATEWAY_IP=$(kubectl get service vamp-gateway-agent -o jsonpath="{.status.loadBalancer.ingress[*].ip}"); done
+```
+
+
 # Accessing the Vamp Interface
 
-Now that Vamp is installed, the UI should be accessable through the external IP address of the `vamp` service on port 8080, in this case [http://13.90.197.78:8080](http://13.90.197.78:8080)
+Now that Vamp is installed, the UI should be accessable through the
+external IP address of the `vamp` service on port 8080:
 
 ```
-xdg-open http://13.90.197.78:8080
+curl --head $VAMP_IP:8080
 ```
+
+Results:
+
+```
+HTTP/1.1 200 OK
+Last-Modified: Fri, 14 Apr 2017 14:17:40 GMT
+ETag: "1060015b6cd39fa0"
+Accept-Ranges: bytes
+Date: Tue, 25 Jul 2017 23:56:49 GMT
+Content-Type: text/html; charset=UTF-8
+Content-Length: 1544
+```
+
+Similarly, the vamp-gateway-agent should be accessible via port 80 on
+it's own public IP:
+
+```
+curl --head $VAMP_GATEWAY_IP
+```
+
+Results:
+
+```
+HTTP/1.1 200 OK
+Last-Modified: Fri, 14 Apr 2017 14:17:40 GMT
+ETag: "1060015b6cd39fa0"
+Accept-Ranges: bytes
+Date: Tue, 25 Jul 2017 23:56:49 GMT
+Content-Type: text/html; charset=UTF-8
+Content-Length: 1544
+```
+
