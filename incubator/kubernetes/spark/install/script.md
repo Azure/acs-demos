@@ -43,99 +43,99 @@ Results:
 
 ```
 NAME                              READY     STATUS              RESTARTS   AGE
-spark-master-controller-169rl     1/1       Starting            0          1s
-spark-ui-proxy-controller-9zclb   1/1       Starting            0          1s
-spark-worker-controller-8whcj     1/1       Starting            0          1s
-spark-worker-controller-wr1g5     1/1       Starting            0          1s
-zeppelin-controller-nd71c         1/1       Starting            0          1s
+spark-master-controller-ktzct     0/1       ContainerCreating   0          2s
+spark-ui-proxy-controller-z3v7h   0/1       ContainerCreating   0          2s
+spark-worker-controller-n5m6b     0/1       ContainerCreating   0          2s
+spark-worker-controller-ndhkj     0/1       ContainerCreating   0          2s
+zeppelin-controller-bff22         0/1       ContainerCreating   0          2s
 ```
 
-Next, we will check the load balancer endpoints.
+You can use `kubectl get pods --watch` to watch for changes and once you
+see all 5 containers are running you can move forwards. Alternatively,
+if you are scripting the deployment you will want to block until all 5
+pods are running are running. You can do this with.
 
 ```
-kubectl get svc -o wide
+NAME                              READY     STATUS    RESTARTS   AGE
+spark-master-controller-ktzct     1/1       Running   0          1m
+spark-ui-proxy-controller-z3v7h   1/1       Running   0          1m
+spark-worker-controller-n5m6b     1/1       Running   0          1m
+spark-worker-controller-ndhkj     1/1       Running   0          1m
+zeppelin-controller-bff22         1/1       Running   0          1m
 ```
 
-Results:
+Next, we will check the load balancer endpoints for the two UI
+services (spark-ui-proxy and zeppelin).
 
 ```
-NAME             CLUSTER-IP     EXTERNAL-IP    PORT(S)             AGE       SELECTOR
-kubernetes       10.0.0.1       <none>         443/TCP             1m        <none>
-spark-master     10.0.226.162   <none>         7077/TCP,8080/TCP   1m        component=spark-master
-spark-ui-proxy   10.0.25.240    52.168.86.47   80:32466/TCP        1m        component=spark-ui-proxy
-zeppelin         10.0.82.171    <pending>      80:30624/TCP        1m        component=zeppelin
-```
-
-## Enable the Kubernetes and Spark UI
-
-To view the Kubernetes and Spark UI from a browser, we can use the cli
-to configure a proxy.
-
-```
-kubectl proxy --port=8001 &
+kubectl get services
 ```
 
 Results:
 
 ```
-Starting to serve on 127.0.0.1:8001
+NAME             CLUSTER-IP     EXTERNAL-IP    PORT(S)             AGE
+kubernetes       10.0.0.1       <none>         443/TCP             1m
+spark-master     10.0.226.162   <none>         7077/TCP,8080/TCP   1m
+spark-ui-proxy   10.0.25.240    <pending>      80:32466/TCP        1m
+zeppelin         10.0.82.171    <pending>      80:30624/TCP        1m
 ```
 
-Kubernetes will be available
-at [http://localhost:8001/ui](http://localhost:8001/ui).
-
-Spark will be available
-at
-[http://localhost:8001/api/v1/proxy/namespaces/spark-cluster/services/spark-ui-proxy/](http://localhost:8001/api/v1/proxy/namespaces/spark-cluster/services/spark-ui-proxy/).
-
-```
-# Open the Kubernetes UI at http://localhost:8001/ui
-# Open the Spark UI at http://localhost:8001/api/v1/proxy/namespaces/spark-cluster/services/spark-ui-proxy/
-```
-
-## Enable Zeppeling UI
-
-For Zeppelin, we can use the cli to configure a port forward and run
-it as a background process. We will need the unique string from the
-Zeppelin pod. This is visibile in the UI dashboard or can be retrieved
-from the CLI:
+As before, you can use the `--watch` flag on this command to watch for
+changes, once both External-IPs are available you can
+proceed. Alternatively, if you are scripting it can be useful to block
+until they are available. One way to do this is as follows, this has
+the added advantage of putting the IP into an environment variable for
+later use.
 
 ```
-kubectl get pods
+SPARK_IP=""
+while [ -z $SPARK_IP ]; do sleep 10; SPARK_IP=$(kubectl get service spark-ui-proxy -o jsonpath="{.status.loadBalancer.ingress[*].ip}"); done
+echo "Apache Spark UI is at http://$SPARK_IP"
 ```
 
-Results:
+and for Apache Zeppelin:
 
 ```
-NAME                              READY     STATUS              RESTARTS   AGE
-spark-master-controller-169rl     1/1       Running             0          3m
-spark-ui-proxy-controller-9zclb   1/1       Running             0          3m
-spark-worker-controller-8whcj     1/1       Running             0          3m
-spark-worker-controller-wr1g5     1/1       Running             0          3m
-zeppelin-controller-nd71c         1/1       Running             0          3m
+ZEPPELIN_IP=""
+while [ -z $ZEPPELIN_IP ]; do sleep 10; ZEPPELIN_IP=$(kubectl get service zeppelin -o jsonpath="{.status.loadBalancer.ingress[*].ip}"); done
+echo "Apache Zeppelin UI is at http://$ZEPPELIN_IP"
 ```
 
-Once we have that we can setup the port forwarder:
+Now we can access the Spark UI with a web browser:
 
-FIXME: need to extract the ID from the zeppeling pod name
 
 ```
-kubectl port-forward zeppelin-controller-nd71c 8080:8080 &
+curl -I http://$SPARK_IP
 ```
 
 Results:
 
 ```
-Forwarding from 127.0.0.1:8080 -> 8080
-Forwarding from [::1]:8080 -> 8080
+HTTP/1.1 200 OK
+Content-Type: text/html
+Last-Modified: Mon, 11 Jan 2016 23:08:48 GMT
+Content-Length: 2697
+Accept-Ranges: bytes
+Server: Jetty(8.1.14.v20131031)
 ```
 
-*Note: Replace `nd71c` with the deployment specific id from the result
-of `zeppelin-controller` from `kubectl get pods`*
-
-The Zeppelin interface will be available
-at [http://localhost8080](http://localhost8080)
+And the Zeppelin UI is available at:
 
 ```
-xdg-open http://localhost:8080
+curl -I http://$ZEPPELIN_IP
 ```
+
+Results:
+
+```
+HTTP/1.1 200 OK
+Content-Type: text/html
+Last-Modified: Mon, 11 Jan 2016 23:08:48 GMT
+Content-Length: 2697
+Accept-Ranges: bytes
+Server: Jetty(8.1.14.v20131031)
+
+```
+
+

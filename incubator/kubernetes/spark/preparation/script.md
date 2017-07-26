@@ -52,7 +52,7 @@ az group create --name $ACS_RESOURCE_GROUP --location $ACS_REGION
 
 Results:
 
-```
+```expected_similarity=0.3
 {
   "id": "/subscriptions/135f79ed-bb93-4372-91f6-7b5f1c57dd81/resourceGroups/acs-k8s-spark-demo",
   "location": "eastus",
@@ -73,7 +73,7 @@ az acs create --orchestrator-type=kubernetes --name $ACS_CLUSTER_NAME --resource
 
 Results:
 
-```
+```expected_similarity=0.05
 {
   "id": "/subscriptions/135f79ed-bb93-4372-91f6-7b5f1c57dd81/resourceGroups/acs-k8s-spark-demo/providers/Microsoft.Resources/deployments/azurecli1496363170.3581209",
   "name": "azurecli1496363170.3581209",
@@ -139,12 +139,6 @@ Grab the cluster credentials using the Azure CLI:
 az acs kubernetes get-credentials --resource-group=$ACS_RESOURCE_GROUP --name=$ACS_CLUSTER_NAME
 ```
 
-Results:
-
-```
-[No output on success]
-```
-
 Verify we are connected to the cluster by inspecting the nodes available to us:
 
 ```
@@ -153,7 +147,7 @@ kubectl get nodes
 
 Results:
 
-```
+```expected_similarity=0.1
 NAME                    STATUS                     AGE       VERSION
 k8s-agent-b90bd903-0    Ready                      1h        v1.5.3
 k8s-agent-b90bd903-1    Ready                      1h        v1.5.3
