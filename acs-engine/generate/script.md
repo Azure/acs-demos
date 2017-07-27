@@ -25,6 +25,10 @@ generated files include:
      Kubernetes require certificates and additional configuration
      files (e.g. Kubernetes apiserver certificates and kubeconfig).
 
+## Preparation
+
+You should first run through the [preparation script](https://github.com/Azure/acs-demos/blob/master/acs-engine/preparation/script.md) to ensure your environment is correctly setup.
+
 ## Generate templates from a cluster definition
 
 As an example we will generate a template using a Kubernetes example
