@@ -10,6 +10,20 @@ The following environment variables are currently configured:
 env | grep ACSE.*
 ```
 
+Results:
+
+```
+ACSE_WORKSPACE=~/.acs-engine/simdem
+ACSE_DNS_PREFIX=rg-acse-demo
+ACSE_LOCATION=eastus
+ACSE_RESOURCE_GROUP=acse-demo
+ACSE_SERVICE_PRINCIPLE_NAME=acs-engine-simdem
+ACSE_SERVICE_PRINCIPLE_PASSWORD=pa$$w0rd
+ACSE_VERSION=0.4.0
+ACSE_SUBSCRIPTION_ID=135fxxxx-xxxx-xxxx-xxxx-7b5f1c57xxxx
+ACSE_SSH_KEY=/home/rgardler/.ssh/id_rsa
+```
+
 ## Create Workspace
 
 ```
