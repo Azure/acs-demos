@@ -1,0 +1,4 @@
+preparation/script.md
+generate/script.md
+deploy/script.md
+cleanup/script.md
