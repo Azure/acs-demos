@@ -1,10 +1,18 @@
 # Download and install ACS Engine
 
-# Setup the environment
+In this document we'll prepare your environment for running the
+tutorials and demos we have for ACS Engine.
+
+# Setup the client
+
+This section focuses on ensuring your client machine is ready. Here we
+are using a Linux environment.
 
 ## Environment Variables
 
-The following environment variables are currently configured:
+The demo/tutorial scripts use environment variables to ensure that
+they all work well together. The following environment variables are
+currently used:
 
 ```
 env | grep ACSE.*
@@ -26,11 +34,16 @@ ACSE_SSH_KEY=/home/rgardler/.ssh/id_rsa
 
 ## Create Workspace
 
+We need a workspace for storing things like generated templates.
+
 ```
 mkdir -p $ACSE_WORKSPACE
 ```
 
 ## Required software
+
+These demos and tutorials use a few tools to ease the way, these are
+not really required to use ACS Engine, but we find them useful here:
 
 ```
 sudo apt-get update
@@ -89,13 +102,26 @@ Use "acs-engine [command] --help" for more information about a command.
 
 ## Ensure we have a valid SSH key pair
 
+Kubernetes clusters use SSH for communication with the masters. The
+followin line will check there is a valid SSH key available and, if
+not, create one.
+
 ```
 if [ ! -f "$ACSE_SSH_KEY" ]; then ssh-keygen -t rsa -N "" -f $ACSE_SSH_KEY; fi
 ```
 
 # Setup Azure Environment
 
+Now the client is ready we need to ensure that we have an Azure
+environment to work in. You must first install
+the
+[Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli) and
+log in to your account using `azure login`.
+
 ## Ensure we are using the right Azure Subscription
+
+In case you have multiple subscriptions we need to ensure we are using
+the right one.
 
 ```
 az account set --subscription $ACSE_SUBSCRIPTION_ID
@@ -103,11 +129,17 @@ az account set --subscription $ACSE_SUBSCRIPTION_ID
 
 ## Create a resource group
 
+All the demo's and tutorials will operate in a single resource group,
+so lets get it ready.
+
 ```
 az group create --name $ACSE_RESOURCE_GROUP --location $ACSE_LOCATION
 ```
 
 ## Ensure we have a valid service principle
+
+A service principle allows Kuberntes to manage the Azure
+infrastrcuture for you, so lets create one now.
 
 ```
 az ad sp create-for-rbac --name $ACSE_SERVICE_PRINCIPLE_NAME --role="Contributor" --scopes="/subscriptions/$ACSE_SUBSCRIPTION_ID/resourceGroups/$ACSE_RESOURCE_GROUP" --password $ACSE_SERVICE_PRINCIPLE_PASSWORD
