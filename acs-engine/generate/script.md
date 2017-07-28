@@ -1,4 +1,4 @@
-# Generateing Templates with ACS Engine
+# Generating Templates with ACS Engine
 
 The Azure Container Service Engine (acs-engine) generates ARM (Azure
 Resource Manager) templates for Docker enabled clusters on Microsoft
@@ -60,6 +60,8 @@ Saving to: ‘~/.acs-engine/simdem/kuberenetes.json’
 
 2017-07-26 17:29:05 (214 MB/s) - ‘~/.acs-engine/simdem/kuberenetes.json’ saved [740/740]
 ```
+
+Now we have a template file to work with:
 
 ```
 cat $ACSE_WORKSPACE/kubernetes.json
