@@ -46,7 +46,6 @@ dangling after the last demo.
 
 ```
 az group delete --name $ACS_RESOURCE_GROUP --yes
-echo ~
 ssh-keygen -R [${ACS_DNS_PREFIX}mgmt.$ACS_REGION.cloudapp.azure.com]:2200
 ```
 
