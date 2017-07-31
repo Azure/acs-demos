@@ -21,7 +21,6 @@ env | grep SIMDEM_.*
 ## Create the Container
 
 ```
-az group create --name $SIMDEM_RESOURCE_GROUP --location $SIMDEM_LOCATION 
 az container create --name $SIMDEM_ACI_INSTANCE_NAME --image $SIMDEM_ACI_CONTAINER --resource-group $SIMDEM_RESOURCE_GROUP --ip-address public
 ```
 
