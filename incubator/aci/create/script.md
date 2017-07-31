@@ -21,6 +21,7 @@ env | grep SIMDEM_.*
 ## Create the Container
 
 ```
+az group create --name $SIMDEM_RESOURCE_GROUP --location $SIMDEM_LOCATION 
 az container create --name $SIMDEM_ACI_INSTANCE_NAME --image $SIMDEM_ACI_CONTAINER --resource-group $SIMDEM_RESOURCE_GROUP --ip-address public
 ```
 
@@ -78,7 +79,13 @@ In order to connect to this instance we will need its assigned IP
 number. The following will put it into a variable for us.
 
 ```
-IP_NUMBER=$(az container show --resource-group simdem_rg --name simdem-helloworld --output tsv --query ipAddress.ip)
+IP_NUMBER=$(az container show --resource-group $SIMDEM_RESOURCE_GROUP --name $SIMDEM_ACI_INSTANCE_NAME --output tsv --query ipAddress.ip)
+```
+
+So what's the IP number?
+
+```
+echo $IP_NUMBER
 ```
 
 Now we can view what is there...
