@@ -26,7 +26,7 @@ az container create --name $SIMDEM_ACI_INSTANCE_NAME --image $SIMDEM_ACI_CONTAIN
 
 Results:
 
-```expected_similarity=0.45
+```expected_similarity=0.25
 {
   "containers": [
     {
@@ -78,11 +78,40 @@ In order to connect to this instance we will need its assigned IP
 number. The following will put it into a variable for us.
 
 ```
-IP_NUMBER=$(az container show --resource-group simdem_rg --name simdem-helloworld --output tsv --query ipAddress.ip)
+IP_NUMBER=$(az container show --resource-group $SIMDEM_RESOURCE_GROUP --name $SIMDEM_ACI_INSTANCE_NAME --output tsv --query ipAddress.ip)
 ```
 
-Now we can view what is there...
+So what's the IP number?
 
 ```
-curl $IP_NUMBER
+echo $IP_NUMBER
+```
+
+Now we can check our web service is alive, we'll give it up to 90 seconds to respond, but usually it is much faster than this:
+
+```
+curl -I $IP_NUMBER --connect-timeout 90
+```
+
+Results:
+
+```
+HTTP/1.1 200 OK
+X-Powered-By: Express
+Accept-Ranges: bytes
+Cache-Control: public, max-age=0
+Last-Modified: Thu, 20 Jul 2017 21:57:04 GMT
+ETag: W/"67f-15d62011380"
+Content-Type: text/html; charset=UTF-8
+Content-Length: 1663
+Date: Mon, 31 Jul 2017 23:23:33 GMT
+Connection: keep-alive
+```
+
+# Viewing Logs
+
+We can also view the logs of the container:
+
+```
+az container logs --resource-group $SIMDEM_RESOURCE_GROUP --name $SIMDEM_ACI_INSTANCE_NAME
 ```
