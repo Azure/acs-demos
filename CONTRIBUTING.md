@@ -7,9 +7,13 @@ contributions if you are willing, otherwise each small step is a step
 forward - so we'll thank you.
 
 `git clone git@github.com:Azure/acs-demos.git`
+
 `cd acs-demos/incubator/kubernetes` (or appropriate dir)
+
 `mkdir MY_DEMO_NAME`
+
 `cd MY_DEMO_NAME`
+
 `emacs script.md` *you can use Vi (or even something else) if you really want :-D
 
 ## Building a Demo
