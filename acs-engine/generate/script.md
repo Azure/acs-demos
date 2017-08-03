@@ -54,11 +54,11 @@ Resolving raw.githubusercontent.com (raw.githubusercontent.com)... 151.101.52.13
 Connecting to raw.githubusercontent.com (raw.githubusercontent.com)|151.101.52.133|:443... connected.
 HTTP request sent, awaiting response... 200 OK
 Length: 740 [text/plain]
-Saving to: ‘~/.acs-engine/simdem/kuberenetes.json’
+Saving to: ~/.acs-engine/simdem/kuberenetes.json
 
 ~/.acs-engine/simde 100%[===================>]     740  --.-KB/s    in 0s
 
-2017-07-26 17:29:05 (214 MB/s) - ‘~/.acs-engine/simdem/kuberenetes.json’ saved [740/740]
+2017-07-26 17:29:05 (214 MB/s) - ~/.acs-engine/simdem/kuberenetes.json saved [740/740]
 ```
 
 Now we have a template file to work with:
