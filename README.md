@@ -1,7 +1,7 @@
 # acs-demos
-Demo's for Azure Container Service. These demo's are designed to be
-run using the [http://github.com/rgardler/simdem](SimDem) tool,
-altough they are just markdown files so you can read through them and
+Demos for Azure Container Service. These demos are designed to be
+run using the [SimDem](http://github.com/rgardler/simdem) tool,
+although they are just markdown files so you can read through them and
 run them manually if you prefer.
 
 Right now the repository only contains "incubating" demos, that is
