@@ -23,7 +23,7 @@ Results:
 "Succeeded"
 ```
 
-If this says "Failed" you will need
+If this says "Failed" or "error" you will need
 to [cleanup](../delete_cluster/script.md) and try redeploying the
 cluster. If it says "Provisioning" wait a little longer before
 proceeding.
