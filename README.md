@@ -14,11 +14,12 @@ All demo's are written in markdown format, so just work through them
 as descripted in the `script.md` files. Alternatively you can automate
 them using the [http://github.com/rgardler/simdem](SimDem)
 tool. SimDem allows you to run the demo's in a simulated environment
-(no typing errors during your live presentations!) or you can
-automatically run them. For more informaiton on SimDem and what it can
-do simply install Docker and run `docker run -it rgardler/simdem_cli`.
+(no typing errors during your live presentations!). For more
+informaiton on SimDem and what it can do simply install Docker and run
+`docker run -it rgardler/simdem_cli`.
 
-We provide a handy script to run these demo's using SimDem. Simply use the command:
+We provide a handy script to run these demo's using SimDem. Once
+Docker is installed simply use the command:
 
 `./scripts/run.sh <FLAVOR> <DEMO_DIR>`
 
@@ -28,11 +29,37 @@ run in a bash shell alone. The `novnc` flavor is for demos that have a
 graphical element and need to be run in a desktop
 environment. `DEMO_DIR` is the name of the directory containing your demo script(s).
 
-
 If using `novnc` you should point your browser at
 `http://HOST:8080/?password=vncpassword` to access your demo
 environment. Once there you can run a demo with the command `simdem`
 into a terminal.
+
+# Building Self Contained Demos using Docker
+
+The script `scripts/build_container.sh` makes it easy to build self
+container demos using Docker. Simply provide a name for the container
+image (whih can include a repository) and a
+directory containing the required demo scripts. For example:
+
+```
+./scripts/build_container.sh kubernetes_demo kubernetes
+```
+
+This will build both the CLI and NoVNC containers. You can run the CLI
+version with:
+
+```
+docker run -it kubernetes_demo_cli
+```
+
+To run the NoVNC version:
+
+```
+docker run -d -p 5901:5901 -p 8080:8080 kubernetes_demo_novnc
+```
+
+To access the application point your browser at
+`http://HOST:8080/?password=vncpassword`
 
 ## Incubator
 
