@@ -4,10 +4,6 @@ run using the [http://github.com/rgardler/simdem](SimDem) tool,
 altough they are just markdown files so you can read through them and
 run them manually if you prefer.
 
-Right now the repository only contains "incubating" demos, that is
-ones that mat need a little more work before they can be easily
-reproduced.
-
 # Running Demo's
 
 All demo's are written in markdown format, so just work through them
@@ -21,7 +17,7 @@ informaiton on SimDem and what it can do simply install Docker and run
 We provide a handy script to run these demo's using SimDem. Once
 Docker is installed simply use the command:
 
-`./scripts/run.sh <FLAVOR> <DEMO_DIR>`
+`./scripts/run.sh <FLAVOR> <DEMO_DIR> [MODE]`
 
 In this command `FLAVOR` should either be `cli` or `novnc`. The `cli`
 flavor is for demo's that have no graphical content at all and can be
@@ -39,7 +35,13 @@ into a terminal.
 The script `scripts/build_container.sh` makes it easy to build self
 container demos using Docker. Simply provide a name for the container
 image (whih can include a repository) and a
-directory containing the required demo scripts. For example:
+directory containing the required demo scripts. 
+
+```
+./scripts/build_container.sh <IMAGE_NAME> <DEMO_DIR>
+```
+
+For example:
 
 ```
 ./scripts/build_container.sh kubernetes_demo kubernetes
@@ -55,7 +57,7 @@ docker run -it kubernetes_demo_cli
 To run the NoVNC version:
 
 ```
-docker run -d -p 5901:5901 -p 8080:8080 kubernetes_demo_novnc
+docker run -d -p 8080:8080 kubernetes_demo_novnc
 ```
 
 To access the application point your browser at
