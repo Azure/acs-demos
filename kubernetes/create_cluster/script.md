@@ -92,7 +92,7 @@ az acs create --orchestrator-type=kubernetes --resource-group=$ACS_RESOURCE_GROU
 
 Results:
 
-```expected_similarity=0.4
+```expected_similarity=0.1
 waiting for AAD role to propagate.done 
 { 
   "id": "/subscriptions/325e7c34-99fb-4190-aa87-1df746c67705/resourceGroups/k8sdemoVWOAMOBQ/providers/Microsoft.Resources/deployments/azurecli1494143933.8352275",
