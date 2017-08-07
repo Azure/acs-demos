@@ -16,7 +16,7 @@ echo $SIMDEM_VERSION
 Results:
 
 ```
-0.6.0
+0.7.4-dev
 ```
 
 

@@ -37,6 +37,7 @@ VNC_COL_DEPTH='24'
 VNC_RESOLUTION='1024x768'
 VNC_PW='vncpassword'
 
+VERSION=0.7.4-dev # The version of SimDem we have tested against.
 FLAVOR=${1:-novnc}
 SCRIPTS_DIR=${2:-`pwd`/demo_scripts}
 MODE=${3:-tutorial}
@@ -51,8 +52,6 @@ if [[ $FLAVOR == "novnc" ]]; then
 else
     HOME="/home/simdem"
 fi
-
-VERSION=0.7.0 # The version of SimDem we have tested against.
 
 echo Runing $REPOSITORY/$CONTAINER_NAME:$VERSION
 
