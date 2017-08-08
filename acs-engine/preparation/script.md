@@ -157,7 +157,29 @@ Retrying role assignment creation: 1/36
   "tenant": "72f988bf-xxxx-xxxx-xxxx-2d7cd011db47"
 }
 ```
+## If using an existing service princpal
+If a service principal already exists, the command below will assign permissions to the Resource Group created for ACSE.  In some environments, the Service Principal may need to be created out of band due to Azure AD security policies which prevent non-admins from creating Service Principals.  Note that --assignee is the appId instead of the name.
 
+
+```
+az role assignment create --assignee "657cd27f-xxxx-xxxx-xxxx-512adb26e468"  --role Contributor --resource-group $ACSE_RESOURCE_GROUP
+```
+
+Results:
+
+```
+{
+  "id": "/subscriptions/fed7f475-xxx-xxx-xxx-xxx45df70589/resourceGroups/acse-demo/providers/Microsoft.Authorization/roleAssignments/39a8a834-933c-4b29-80ac-77492eab0a60",
+  "name": "39a8a834-933c-4b29-80ac-77492eab0a60",
+  "properties": {
+    "principalId": "657cd27f-xxxx-xxxx-xxxx-512adb26e468",
+    "roleDefinitionId": "/subscriptions/fed7f475-xxx-xxx-xxx-xxx45df70589/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c",
+    "scope": "/subscriptions/fed7f475-xxx-xxx-xxx-xxx45df70589/resourceGroups/acse-demo"
+  },
+  "resourceGroup": "acse-demo",
+  "type": "Microsoft.Authorization/roleAssignments"
+}
+```
 
 
 
