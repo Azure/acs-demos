@@ -6,16 +6,18 @@ Here we will create a single instance of a container using Azure Container Regis
 
 You must have installed the [Azure CLI](../../azure_compute/cli/install/).
 
-You will need to have created
-a [resource group](../../azure_compute/resource_group/create) in
-which to run your container instance.
-
 ## Environment Setup
 
 The current environment setup is:
 
 ```
 env | grep SIMDEM_.*
+```
+
+## Create the Resource Group
+
+```
+az group create --name $SIMDEM_RESOURCE_GROUP --location $SIMDEM_LOCATION
 ```
 
 ## Create the Container
