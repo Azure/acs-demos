@@ -1,0 +1,13 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: rgardler/simdem_cli:0.7.4-dev
+
+    steps:
+      - checkout
+        
+      - run:
+          name: run hello world tests
+          command: |
+            simdem -p . test
