@@ -10,4 +10,4 @@ jobs:
       - run:
           name: run hello world tests
           command: |
-            python main.py -p . test
+            simdem -p . test
