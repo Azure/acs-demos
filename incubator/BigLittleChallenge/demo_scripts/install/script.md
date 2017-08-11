@@ -17,28 +17,13 @@ env | grep ACS_*
 If you are running in interactive mode simply continue and you will be
 prompted for any mising values when necessary.
 
+# Prerequisites
 
-### Validate cluster
+You must have
+[deployed a Kubernetes cluster](../../../../kubernetes/create_cluster/script.md) 
+in Azure Container Service onto which we will deploy Vamp.
 
-We need to ensure we have a working Kubernetes cluster. We can check
-that the cluster is available using the Azure CLI as follows:
-
-```
-az acs show -g $ACS_RESOURCE_GROUP -n $ACS_CLUSTER_NAME --output tsv --query provisioningState
-```
-
-Results:
-
-```
-Succeeded
-```
-
-If this says anything other than "Succeeded" you will need to ensure
-that the cluster is correctly created. If it says "Provisioning" wait
-a little longer before proceeding. If you need to create a cluster see
-the [tutorial / demo](../../preparation/script.md).
-
-## Connect to the Kubernetes cluster
+# Connect to the Kubernetes cluster
 
 In order to interact with the Azure Container Service cluster we need
 to install the Kubernetes CLI. This can be done through the Azure CLI:
@@ -50,7 +35,7 @@ source <(kubectl completion bash)
 kubectl proxy --port=8001 &
 ```
 
-# Installing Big Little Challenge
+# Install Big Little Challenge
 
 In this section we will install the application. it consists of a
 number of different pods.
