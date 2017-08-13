@@ -38,19 +38,7 @@ EnvironmentName    IsDefault    Name                           State    TenantId
 AzureCloud         True         Azure Container Service Demos  Enabled  72f988bf-86f1-41af-91ab-2d7cd011db47
 ```
 
-# Ensuring we have a clean cluster
-
-It's always wise to ensure that a demo starts in a clean state. To
-that end we will delete any existing cluster and SSH infromation that
-exists using this configuration. Don't worry if this command returns a
-"could not be found" error. It just means you didn't have anything
-dangling after the last demo.
-
-```
-az group delete --name $ACS_RESOURCE_GROUP --yes
-```
-
-## Creating a Cluster
+## Creating the Cluster
 
 Now that we are logged in we can get to work. 
 
@@ -163,6 +151,35 @@ k8s-agent-14de76a8-0    Ready                      1m
 k8s-agent-14de76a8-1    Ready                      1m
 k8s-agent-14de76a8-2    Ready                      1m
 k8s-master-14de76a8-0   Ready,SchedulingDisabled   1m
+```
+
+# Validation
+
+Ensure we are logged in with the Azure CLI.
+
+```
+az account show --output=table
+```
+
+Results:
+
+```expected_similarity=0.4
+EnvironmentName    IsDefault    Name                           State    TenantId
+-----------------  -----------  -----------------------------  -------  ------------------------------------
+AzureCloud         True         Azure Container Service Demos  Enabled  72f988bf-86f1-41af-91ab-2d7cd011db47
+```
+
+Check the cluster has been created:
+
+```
+az acs wait --resource-group $ACS_RESOURCE_GROUP --name $ACS_CLUSTER_NAME --created
+```
+
+If the cluster has been successfully created this command returns nothing.
+
+Results:
+
+```
 ```
 
 

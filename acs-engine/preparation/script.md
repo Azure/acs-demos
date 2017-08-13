@@ -139,7 +139,8 @@ az group create --name $ACSE_RESOURCE_GROUP --location $ACSE_LOCATION
 ## Ensure we have a valid service principle
 
 A service principle allows Kuberntes to manage the Azure
-infrastrcuture for you, so lets create one now.
+infrastrcuture for you. In this document we will create a new Service
+Principal, see below for details on how to reuse an existing one.:
 
 ```
 az ad sp create-for-rbac --name $ACSE_SERVICE_PRINCIPLE_NAME --role="Contributor" --scopes="/subscriptions/$ACSE_SUBSCRIPTION_ID/resourceGroups/$ACSE_RESOURCE_GROUP" --password $ACSE_SERVICE_PRINCIPLE_PASSWORD
@@ -158,6 +159,9 @@ Retrying role assignment creation: 1/36
 }
 ```
 
-
+If you already have a suitable Service Principal you can assign
+permissions to manage the Resource Group created for ACSE. `az role
+assignment create --assignee [APP_ID] --role Contributor
+--resource-group $ACSE_RESOURCE_GROUP`.
 
 
