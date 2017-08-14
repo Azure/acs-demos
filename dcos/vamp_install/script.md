@@ -69,10 +69,10 @@ at [https://localhost:10000](https://localhost:10000) and your DC/OS
 CLI will be able to communicate with the cluster:
 
 ```
-xdg-open http://localhost:10000
-xdg-open http://localhost:10000/#/nodes
-xdg-open http://localhost:10000/#/services/overview
-xdg-open http://localhost:10000/#/universe/packages
+curl -i http://localhost:10000
+curl -i http://localhost:10000/#/nodes
+curl -i http://localhost:10000/#/services/overview
+curl -i http://localhost:10000/#/universe/packages
 ```
 
 We can also use the CLI to do the same things for example:
