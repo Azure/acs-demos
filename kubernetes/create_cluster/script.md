@@ -80,7 +80,7 @@ az acs create --orchestrator-type=kubernetes --resource-group=$ACS_RESOURCE_GROU
 
 Results:
 
-```expected_similarity=0.1
+```expected_similarity=0.2
 waiting for AAD role to propagate.done 
 { 
   "id": "/subscriptions/325e7c34-99fb-4190-aa87-1df746c67705/resourceGroups/k8sdemoVWOAMOBQ/providers/Microsoft.Resources/deployments/azurecli1494143933.8352275",
@@ -117,40 +117,6 @@ waiting for AAD role to propagate.done
   }, 
   "resourceGroup": "k8sdemoVWOAMOBQ" 
 }
-```
-
-## Interacting with the Cluster
-
-The cluster has now been created. In order to interact with the it we
-need to install the Kubernetes CLI. This can be done through the Azure
-CLI:
-
-```
-sudo az acs kubernetes install-cli
-```
-
-In order to connect to the cluster we need to get the credentials from
-ACS.
-
-```
-az acs kubernetes get-credentials --resource-group=$ACS_RESOURCE_GROUP --name=$ACS_CLUSTER_NAME
-```
-               
-We can now interact with the cluster, for example we can get a list of
-nodes.
-
-```
-kubectl get nodes
-```
-
-Results:
-
-```expected_similarity=0.4
-NAME                    STATUS                     AGE
-k8s-agent-14de76a8-0    Ready                      1m
-k8s-agent-14de76a8-1    Ready                      1m
-k8s-agent-14de76a8-2    Ready                      1m
-k8s-master-14de76a8-0   Ready,SchedulingDisabled   1m
 ```
 
 # Validation
