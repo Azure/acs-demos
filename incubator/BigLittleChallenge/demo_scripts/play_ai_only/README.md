@@ -21,7 +21,7 @@ before the game can start. We'll start by adding one player and then
 scale to 2.
 
 ```
-kubectl create -f ${SIMDEM_CWD}../../kubernetes/aiplayer-deployment.yaml
+kubectl create -f ../../kubernetes/aiplayer-deployment.yaml
 ```
 
 Results:
@@ -31,7 +31,7 @@ deployment "aiplayer" created
 ```
 
 ```
-kubectl create -f ${SIMDEM_CWD}../../kubernetes/aiplayer-service.yaml
+kubectl create -f ../../kubernetes/aiplayer-service.yaml
 ```
 
 Results:
