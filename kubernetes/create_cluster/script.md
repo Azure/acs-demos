@@ -119,6 +119,17 @@ waiting for AAD role to propagate.done
 }
 ```
 
+# Wait for Cluster to become available
+
+At the time of writing there is
+a [bug in ACS](https://github.com/Azure/ACS/issues/36) that results in
+the cluster reporting it is created but it taking a few minutes longer
+before it is actually available.
+
+```
+sleep 180
+```
+
 # Validation
 
 Ensure we are logged in with the Azure CLI.
