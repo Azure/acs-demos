@@ -27,7 +27,7 @@ You will need an active azure subscription. Before proceeding with
 this script ensure that you are logged in using `az login`.
 
 ```
-az login --service-principal --username ${SERVICE_PRINCIPAL_NAME} --password ${SERVICE_PRINCIPAL_SECRET_KEY} --tenant ${TENNANT_ID}
+az login --service-principal --username ${SERVICE_PRINCIPAL_NAME} --password ${SERVICE_PRINCIPAL_SECRET_KEY} --tenant ${TENNANT_ID} --output=table
 ```
 
 Results:
