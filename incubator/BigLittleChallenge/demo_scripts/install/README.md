@@ -21,19 +21,12 @@ prompted for any mising values when necessary.
 
 You must have
 [deployed a Kubernetes cluster](../../../../kubernetes/create_cluster/script.md) 
-in Azure Container Service onto which we will deploy Vamp.
+in Azure Container Service onto which we will deploy the game.
 
-# Connect to the Kubernetes cluster
-
-In order to interact with the Azure Container Service cluster we need
-to install the Kubernetes CLI. This can be done through the Azure CLI:
-
-```
-sudo az acs kubernetes install-cli
-az acs kubernetes get-credentials --resource-group=$ACS_RESOURCE_GROUP --name=$ACS_CLUSTER_NAME
-source <(kubectl completion bash)
-kubectl proxy --port=8001 &
-```
+Once the cluster is created you will need to install the Kubernetes
+CLI and set up
+the [management proxy](../../../../kubernetes/proxy/README.md) to the
+cluster.
 
 # Install Big Little Challenge
 
@@ -46,17 +39,17 @@ The engine manages the game. It is the central controller for the game
 as a whole.
 
 ```
-kubectl create -f ${SIMDEM_CWD}../../kubernetes/engine-deployment.yaml
+kubectl create -f ../../kubernetes/engine-deployment.yaml
 ```
 
 Results:
 
 ```
-Starting to serve on 127.0.0.1:8001 deployment "engine" created
+deployment "engine" created
 ```
 
 ```
-kubectl create -f ${SIMDEM_CWD}../../kubernetes/engine-service.yaml
+kubectl create -f ../../kubernetes/engine-service.yaml
 ```
 
 Results:
@@ -65,37 +58,12 @@ Results:
 service "engine" created
 ```
 
-## AI Player Deployment
-
-The AI Player is available so that we can ensure there are always
-enough players in the system to make it interesting for human players.
-
-```
-kubectl create -f ${SIMDEM_CWD}../../kubernetes/aiplayer-deployment.yaml
-```
-
-Results:
-
-```
-deployment "aiplayer" created
-```
-
-```
-kubectl create -f ${SIMDEM_CWD}../../kubernetes/aiplayer-service.yaml
-```
-
-Results:
-
-```
-service "aiplayer" created
-```
-
 ## Dashboard Deployment
 
 The dashboard is where we can monitor activity within the game.
 
 ```
-kubectl create -f ${SIMDEM_CWD}../../kubernetes/dashboard-deployment.yaml
+kubectl create -f ../../kubernetes/dashboard-deployment.yaml
 ```
 
 Results:
@@ -105,7 +73,7 @@ deployment "dashboard" created
 ```
 
 ```
-kubectl create -f ${SIMDEM_CWD}../../kubernetes/dashboard-service.yaml
+kubectl create -f ../../kubernetes/dashboard-service.yaml
 ```
 
 Results:
@@ -132,7 +100,8 @@ you want to script things. If you are doing this manually you can use
 
 ```
 DASHBOARD_IP=""
-while [ -z $DASHBOARD_IP ]; do sleep 10; DASHBOARD_IP=$(kubectl get service dashboard -o jsonpath="{.status.loadBalancer.ingress[*].ip}"); done
+while [[ $DASHBOARD_IP == "" ]]; do sleep 10; DASHBOARD_IP=$(kubectl get service dashboard -o jsonpath="{.status.loadBalancer.ingress[*].ip}"); done
+echo $DASHBOARD_IP
 ```
 
 At this point the the application Dashboard is available on port 8181
