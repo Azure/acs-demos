@@ -1,4 +1,5 @@
 create_cluster/script.md
+proxy/README.md
 scale/script.md
 vamp/install/script.md
 vamp/uninstall/script.md
