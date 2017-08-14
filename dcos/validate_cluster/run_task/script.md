@@ -50,7 +50,7 @@ will sleep for a long time. We define this task in a Marathon.json
 file:
 
 ```
-cat $SIMDEM_CWD/sleep_app.json
+cat sleep_app.json
 ```
 
 Results:
@@ -67,7 +67,7 @@ Results:
 To schedule this task we use the `dcos` command line too:
 
 ```
-dcos marathon app add $SIMDEM_CWD/sleep_app.json
+dcos marathon app add sleep_app.json
 ```
 
 Results:
