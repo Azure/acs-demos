@@ -27,7 +27,7 @@ You will need an active azure subscription. Before proceeding with
 this script ensure that you are logged in using `az login`.
 
 ```
-az login --service-principal --username ${SERVICE_PRINCIPAL_NAME} --password ${SERVICE_PRINCIPAL_SECRET_KEY} --tenant ${TENNANT_ID} --output=table
+az account show --output=table
 ```
 
 Results:
@@ -75,7 +75,7 @@ credentials. We can specific them in the command if we want to (see
 minutes.
 
 ```
-az acs create --orchestrator-type=kubernetes --resource-group=$ACS_RESOURCE_GROUP --name=$ACS_CLUSTER_NAME --generate-ssh-keys
+az acs create --orchestrator-type=kubernetes --resource-group=$ACS_RESOURCE_GROUP --name=$ACS_CLUSTER_NAME
 ```
 
 Results:
