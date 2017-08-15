@@ -21,22 +21,12 @@ env | grep ACS_*
 If you are running in interactive mode simply continue and you will be
 prompted for any mising values when necessary.
 
-## Azure Login
+# Prerequisites
 
-You will need an active azure subscription. Before proceeding with
-this script ensure that you are logged in using `az login`.
+You will need an active azure subscriptio and you will need to have
+the Azure CLI installed and you'll need to
+be [logged in to Azure](../../Azure/login/README.md).
 
-```
-az login --service-principal --username ${SERVICE_PRINCIPAL_NAME} --password ${SERVICE_PRINCIPAL_SECRET_KEY} --tenant ${TENNANT_ID} --output=table
-```
-
-Results:
-
-```expected_similarity=0.4
-EnvironmentName    IsDefault    Name                           State    TenantId
------------------  -----------  -----------------------------  -------  ------------------------------------
-AzureCloud         True         Azure Container Service Demos  Enabled  72f988bf-86f1-41af-91ab-2d7cd011db47
-```
 
 ## Creating the Cluster
 
@@ -131,20 +121,6 @@ sleep 180
 ```
 
 # Validation
-
-Ensure we are logged in with the Azure CLI.
-
-```
-az account show --output=table
-```
-
-Results:
-
-```expected_similarity=0.4
-EnvironmentName    IsDefault    Name                           State    TenantId
------------------  -----------  -----------------------------  -------  ------------------------------------
-AzureCloud         True         Azure Container Service Demos  Enabled  72f988bf-86f1-41af-91ab-2d7cd011db47
-```
 
 Check the cluster has been created:
 
