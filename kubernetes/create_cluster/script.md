@@ -26,7 +26,6 @@ prompted for any mising values when necessary.
 You will need an active azure subscriptio and you will need to have
 the Azure CLI installed and you'll need to
 be [logged in to Azure](../../Azure/login/README.md).
-
 ## Creating the Cluster
 
 Now that we are logged in we can get to work. 
@@ -109,17 +108,6 @@ waiting for AAD role to propagate.done
 ```
 
 # Wait for Cluster to become available
-
-At the time of writing there is
-a [bug in ACS](https://github.com/Azure/ACS/issues/36) that results in
-the cluster reporting it is created but it taking a few minutes longer
-before it is actually available.
-
-```
-sleep 180
-```
-
-# Validation
 
 At the time of writing there is
 a [bug in ACS](https://github.com/Azure/ACS/issues/36) that results in
