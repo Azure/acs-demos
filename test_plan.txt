@@ -1,2 +1,1 @@
 version_check/script.md
-kubernetes/create_cluster/script.md
