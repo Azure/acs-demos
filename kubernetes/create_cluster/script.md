@@ -138,7 +138,7 @@ AzureCloud         True         Azure Container Service Demos  Enabled  72f988bf
 Check the cluster has been created:
 
 ```
-az acs wait --resource-group $ACS_RESOURCE_GROUP --name $ACS_CLUSTER_NAME --created
+az acs wait --resource-group $ACS_RESOURCE_GROUP --name $ACS_CLUSTER_NAME --created --timeout 15
 ```
 
 If the cluster has been successfully created this command returns nothing.
