@@ -11,8 +11,3 @@ jobs:
           name: run hello world tests
           command: |
             simdem -p . test
-
-      - run:
-          name: run Kubernetes tests
-          command: |
-            simdem -p ./kubernetes test
