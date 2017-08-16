@@ -54,13 +54,17 @@ service "azure-vote-front" created
 
 ```
 IP=""
-while [ -z $IP ]; do sleep 10; IP=$(kubectl get service vamp -o jsonpath="{.status.loadBalancer.ingress[*].ip}"); done
+while [ -z "$IP" ]; do sleep 2; IP=$(kubectl get service azure-vote-front -o jsonpath="{.status.loadBalancer.ingress[*].ip}"); done
+```
+
+```
+echo "Azure Vote application should be available at $IP"
 ```
 
 # Ensure the Container is Responding
 
 ```
-curl -I $IP
+curl -I $IP --max-time 10
 ```
 
 Results:
