@@ -27,7 +27,6 @@ You will need an active azure subscriptio and you will need to have
 the Azure CLI installed and you'll need to
 be [logged in to Azure](../../Azure/login/README.md).
 
-
 ## Creating the Cluster
 
 Now that we are logged in we can get to work. 
@@ -65,7 +64,7 @@ credentials. We can specific them in the command if we want to (see
 minutes.
 
 ```
-az acs create --orchestrator-type=kubernetes --resource-group=$ACS_RESOURCE_GROUP --name=$ACS_CLUSTER_NAME --generate-ssh-keys
+az acs create --orchestrator-type=kubernetes --resource-group=$ACS_RESOURCE_GROUP --name=$ACS_CLUSTER_NAME
 ```
 
 Results:
@@ -125,7 +124,7 @@ sleep 180
 Check the cluster has been created:
 
 ```
-az acs wait --resource-group $ACS_RESOURCE_GROUP --name $ACS_CLUSTER_NAME --created
+az acs wait --resource-group $ACS_RESOURCE_GROUP --name $ACS_CLUSTER_NAME --created --timeout 15
 ```
 
 If the cluster has been successfully created this command returns nothing.
