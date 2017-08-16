@@ -13,52 +13,34 @@ Results:
 ```
 ```
 
-# Get the manifest file for our test application
-
-```
-curl -o $SIMDEM_TEMP_DIR/azure-vote-all-in-one.yaml https://raw.githubusercontent.com/Azure-Samples/azure-voting-app/master/kubernetes-manifests/azure-vote-all-in-one.yaml
-```
-Results:
-
-```
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-100  3265  100  3265    0     0  7827      0 --:--:-- --:--:-- --:--:--   7811
-```
-
 # Ensure that our test service is not currently deployed
 
 ```
-kubectl delete -f ~/.simdem/tmp/azure-vote-all-in-one.yaml 
+kubectl delete -f ./hello-world.yaml
 ```
 
 # Deploy the service
 
 ```
-kubectl create -f $SIMDEM_TEMP_DIR/azure-vote-all-in-one.yaml
+kubectl create -f ./hello-world.yaml
 ```
 
 Results:
 
 ```
-storageclass "slow" created
-persistentvolumeclaim "mysql-pv-claim" created
-secret "azure-vote" created
-deployment "azure-vote-back" created
-service "azure-vote-back" created
-deployment "azure-vote-front" created
-service "azure-vote-front" created
+deployment "hello-world" created
+service "hello-world" created
 ```
 
 # Wait for IP to become available
 
 ```
 IP=""
-while [ -z "$IP" ]; do sleep 2; IP=$(kubectl get service azure-vote-front -o jsonpath="{.status.loadBalancer.ingress[*].ip}"); done
+while [ -z "$IP" ]; do sleep 2; IP=$(kubectl get service hello-world -o jsonpath="{.status.loadBalancer.ingress[*].ip}"); done
 ```
 
 ```
-echo "Azure Vote application should be available at $IP"
+echo "Hello World application should be available at $IP"
 ```
 
 # Ensure the Container is Responding
@@ -70,13 +52,17 @@ curl -I $IP --max-time 10
 Results:
 
 ```
-
+HTTP/1.1 200 OK
+Server: nginx/1.8.0
+Date: Wed, 16 Aug 2017 06:13:32 GMT
+Content-Type: text/html; charset=UTF-8
+Connection: keep-alive
+X-Powered-By: PHP/5.6.14
 ```
 
 # Cleanup
 
 ```
-kubectl delete -f ~/.simdem/tmp/azure-vote-all-in-one.yaml 
-rm $SIMDEM_TEMP_DIR/azure-vote-all-in-one.yaml
+kubectl delete -f ./hello-world.yaml
 ```
 
