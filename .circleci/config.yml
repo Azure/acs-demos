@@ -8,7 +8,7 @@ jobs:
       - checkout
         
       - run:
-          name: run hello world tests
+          name: run sample test
           command: |
             simdem -p . test
 
