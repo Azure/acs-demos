@@ -75,7 +75,7 @@ credentials. We can specific them in the command if we want to (see
 minutes.
 
 ```
-az acs create --orchestrator-type=kubernetes --resource-group=$ACS_RESOURCE_GROUP --name=$ACS_CLUSTER_NAME --generate-ssh-keys
+az acs create --orchestrator-type=kubernetes --resource-group=$ACS_RESOURCE_GROUP --name=$ACS_CLUSTER_NAME --generate-ssh-keys --service-principal ${SERVICE_PRINCIPAL_ID} --client-secret ${SERVICE_PRINCIPAL_SECRET_KEY}
 ```
 
 Results:
