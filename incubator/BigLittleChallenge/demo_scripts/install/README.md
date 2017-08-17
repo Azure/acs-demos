@@ -1,4 +1,4 @@
-# Inatall Big Little Challenge onto a Azure Container Service (Kubernetes) Cluster
+# Install Big Little Challenge onto a Azure Container Service (Kubernetes) Cluster
 
 In this tutorial we weill install the ig Little Challenge application
 onto an existing Azure Container Service Cluster using Kubernetes as
@@ -100,7 +100,7 @@ you want to script things. If you are doing this manually you can use
 
 ```
 DASHBOARD_IP=""
-while [[ $DASHBOARD_IP == "" ]]; do sleep 10; DASHBOARD_IP=$(kubectl get service dashboard -o jsonpath="{.status.loadBalancer.ingress[*].ip}"); done
+while [[ $DASHBOARD_IP == "" ]]; do sleep 2; DASHBOARD_IP=$(kubectl get service dashboard -o jsonpath="{.status.loadBalancer.ingress[*].ip}"); done
 echo $DASHBOARD_IP
 ```
 
@@ -108,7 +108,7 @@ At this point the the application Dashboard is available on port 8181
 at the IP provided by the above command:
 
 ```
-curl --head $DASHBOARD_IP:8181
+xdg-open http://$DASHBOARD_IP:8181
 ```
 
 Results:
