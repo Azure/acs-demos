@@ -3,19 +3,10 @@
 In order to interact with the Azure Container Service cluster we need
 to install the Kubernetes CLI. This can be done through the Azure CLI:
 
-# Install Kubernetes CLI
+# Prerequisites
 
-The Azure CLI simplifies installing the Kubernetes CLI tooling:
-
-```
-sudo az acs kubernetes install-cli
-```
-
-It can be convenient to have auto-completion:
-
-```
-source <(kubectl completion bash)
-```
+Since we'll be using the [Azure CLI](../install_cli/README.md)
+you must first have installed it on your client.
 
 # Get Cluster Credentials
 

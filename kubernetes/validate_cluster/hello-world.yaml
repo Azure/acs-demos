@@ -1,0 +1,43 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  name: hello-world
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        service: hello-world
+    spec:
+      containers:
+      - image: tutum/hello-world
+        name: hello-world
+        ports:
+        - containerPort: 80
+          protocol: TCP
+        resources: {}
+      restartPolicy: Always
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    service: hello-world
+  name: hello-world
+spec:
+  ports:
+  - name: "80"
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    service: hello-world
+  sessionAffinity: None
+  type: LoadBalancer
+status:
+  loadBalancer: {}
