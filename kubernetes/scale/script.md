@@ -50,6 +50,12 @@ k8s-master-14de76a8-0   Ready,SchedulingDisabled   1m
 az acs scale --new-agent-count 4 --name $ACS_CLUSTER_NAME --resource-group $ACS_RESOURCE_GROUP
 ```
 
+Wait for nodes to come online:
+
+```
+sleep 300
+```
+
 Check we have more nodes:
 
 ```
@@ -72,6 +78,12 @@ k8s-master-14de76a8-0   Ready,SchedulingDisabled   6m
 
 ```
 az acs scale --new-agent-count 3 --name $ACS_CLUSTER_NAME --resource-group $ACS_RESOURCE_GROUP
+```
+
+Wait for nodes to shutdown:
+
+```
+sleep 300
 ```
 
 Check we have less nodes:
