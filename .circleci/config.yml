@@ -8,12 +8,6 @@ jobs:
       - checkout
         
       - run:
-          name: run sample test
+          name: run hello world tests
           command: |
             simdem -p . test
-
-      - run:
-          name: run Kubernetes tests
-          no_output_timeout: "30m"
-          command: |
-            simdem -p ./kubernetes test

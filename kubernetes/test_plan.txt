@@ -1,5 +1,4 @@
 create_cluster/script.md
-install_cli/README.md
 proxy/README.md
 scale/script.md
 vamp/install/script.md
