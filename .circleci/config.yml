@@ -16,4 +16,4 @@ jobs:
           name: run Kubernetes tests
           no_output_timeout: "30m"
           command: |
-            simdem -p ./kubernetes test
+            simdem -p ./kubernetes --fastfail false test
