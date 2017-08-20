@@ -37,11 +37,11 @@ kubectl get nodes
 Results:
 
 ```expected_similarity=0.4
-NAME                    STATUS                     AGE
-k8s-agent-14de76a8-0    Ready                      1m
-k8s-agent-14de76a8-1    Ready                      1m
-k8s-agent-14de76a8-2    Ready                      1m
-k8s-master-14de76a8-0   Ready,SchedulingDisabled   1m
+NAME                    STATUS                     AGE       VERSION
+k8s-agent-8ff9783f-0    Ready                      1m        v1.6.6
+k8s-agent-8ff9783f-1    Ready                      1m        v1.6.6
+k8s-agent-8ff9783f-2    Ready                      1m        v1.6.6
+k8s-master-8ff9783f-0   Ready,SchedulingDisabled   7m        v1.6.6
 ```
 
 ## Scale Up
