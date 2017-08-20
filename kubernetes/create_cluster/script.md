@@ -71,8 +71,8 @@ Results:
 Finally we create the cluster. In this example we will let the CLI use
 default settings and allow it to discover and/or create the necessary
 credentials. We can specific them in the command if we want to (see
-`az acs create --help` for more details). This process takes 5-10
-minutes.
+`az acs create --help` for more details). This process typicaly takes
+15-20 minutes.
 
 ```
 az acs create --orchestrator-type=kubernetes --resource-group=$ACS_RESOURCE_GROUP --name=$ACS_CLUSTER_NAME --generate-ssh-keys --service-principal ${SERVICE_PRINCIPAL_ID} --client-secret ${SERVICE_PRINCIPAL_SECRET_KEY}
@@ -117,6 +117,17 @@ waiting for AAD role to propagate.done
   }, 
   "resourceGroup": "k8sdemoVWOAMOBQ" 
 }
+```
+
+# Wait for Cluster to become available
+
+At the time of writing there is
+a [bug in ACS](https://github.com/Azure/ACS/issues/36) that results in
+the cluster reporting it is created but it taking a few minutes longer
+before it is actually available.
+
+```
+sleep 180
 ```
 
 # Validation
