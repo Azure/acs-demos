@@ -21,22 +21,11 @@ env | grep ACS_*
 If you are running in interactive mode simply continue and you will be
 prompted for any mising values when necessary.
 
-## Azure Login
+# Prerequisites
 
-You will need an active azure subscription. Before proceeding with
-this script ensure that you are logged in using `az login`.
-
-```
-az account show --output=table
-```
-
-Results:
-
-```expected_similarity=0.4
-EnvironmentName    IsDefault    Name                           State    TenantId
------------------  -----------  -----------------------------  -------  ------------------------------------
-AzureCloud         True         Azure Container Service Demos  Enabled  72f988bf-86f1-41af-91ab-2d7cd011db47
-```
+You will need an active azure subscriptio and you will need to have
+the Azure CLI installed and you'll need to
+be [logged in to Azure](../../Azure/login/README.md).
 
 ## Creating the Cluster
 
@@ -119,21 +108,18 @@ waiting for AAD role to propagate.done
 }
 ```
 
+# Wait for Cluster to become available
+
+At the time of writing there is
+a [bug in ACS](https://github.com/Azure/ACS/issues/36) that results in
+the cluster reporting it is created but it taking a few minutes longer
+before it is actually available.
+
+```
+sleep 180
+```
+
 # Validation
-
-Ensure we are logged in with the Azure CLI.
-
-```
-az account show --output=table
-```
-
-Results:
-
-```expected_similarity=0.4
-EnvironmentName    IsDefault    Name                           State    TenantId
------------------  -----------  -----------------------------  -------  ------------------------------------
-AzureCloud         True         Azure Container Service Demos  Enabled  72f988bf-86f1-41af-91ab-2d7cd011db47
-```
 
 Check the cluster has been created:
 
