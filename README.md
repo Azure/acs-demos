@@ -8,7 +8,7 @@ run them manually if you prefer.
 
 All demo's are written in markdown format, so just work through them
 as descripted in the `script.md` files. Alternatively you can automate
-them using the [http://github.com/rgardler/simdem](SimDem)
+them using the [http://github.com/Azure/simdem](SimDem)
 tool. SimDem allows you to run the demo's in a simulated environment
 (no typing errors during your live presentations!). For more
 informaiton on SimDem and what it can do simply install Docker and run
