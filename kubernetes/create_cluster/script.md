@@ -44,7 +44,7 @@ az group create --name $ACS_RESOURCE_GROUP --location $ACS_REGION
 
 Results: 
 
-```Expected_similarity=0.4
+```expected_similarity=0.3
 {
   "id": "/subscriptions/135f79ed-bb93-4372-91f6-7b5f1c57dd81/resourceGroups/my_resource_group",
   "location": "eastus",
