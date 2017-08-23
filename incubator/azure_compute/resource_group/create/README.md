@@ -3,6 +3,14 @@
 Here we will create a resource group to contain compute resources we
 need to create.
 
+# Prerequisites
+
+You will need an active Azure subscription and you will need to have
+the Azure CLI installed. You'll need to
+be [logged in to Azure](../../../azure/login/README.md).
+
+# Group create
+
 ```
 az group create --name $SIMDEM_RESOURCE_GROUP --location $SIMDEM_RG_LOCATION
 ```

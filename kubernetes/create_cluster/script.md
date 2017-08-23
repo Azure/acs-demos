@@ -23,9 +23,10 @@ prompted for any mising values when necessary.
 
 # Prerequisites
 
-You will need an active azure subscriptio and you will need to have
-the Azure CLI installed and you'll need to
-be [logged in to Azure](../../Azure/login/README.md).
+You will need an active Azure subscription and you will need to have
+the Azure CLI installed. You'll need to
+be [logged in to Azure](../../azure/login/README.md).
+
 ## Creating the Cluster
 
 Now that we are logged in we can get to work. 
