@@ -12,7 +12,7 @@ be [logged in to Azure](../../../../azure/login/README.md).
 # Group create
 
 ```
-az group create --name $SIMDEM_RESOURCE_GROUP --location $SIMDEM_RG_LOCATION
+az group create --name $SIMDEM_RESOURCE_GROUP --location $SIMDEM_LOCATION
 ```
 
 Results:
