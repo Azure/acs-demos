@@ -16,12 +16,12 @@ spec:
         imagePullPolicy: Always
         env:
         - name: AZURE_CLIENT_ID
-          value: <required>
+          value: $(echo $SP_JSON | jq -r '.appId') 
         - name: AZURE_CLIENT_KEY
-          value: <required>
+          value: $(echo $SP_JSON | jq -r '.password')
         - name: AZURE_TENANT_ID
-          value: <required>
+          value: $(az account show | jq -r '.tenantId')
         - name: AZURE_SUBSCRIPTION_ID
-          value: <required>
+          value: $(az account show | jq -r '.id')
         - name: ACI_RESOURCE_GROUP
-          value: <required>
+          value: $SIMDEM_RESOURCE_GROUP

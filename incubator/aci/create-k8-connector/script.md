@@ -33,8 +33,10 @@ Name                                             CloudName    SubscriptionId    
 -----------------------------------------------  -----------  ------------------------------------  -------  -----------
 Pay-As-You-Go                                    AzureCloud   12345678-9012-3456-7890-123456789012  Enabled  True
 Use az to create a Service Principal that can perform operations on your resource group:
-```
+
 az ad sp create-for-rbac --role=Contributor --scopes /subscriptions/<subscriptionId>/resourceGroups/aci-test
+```
+SP_JSON=$(az ad sp create-for-rbac --role="Contributor" --scopes="/subscriptions/$(az account show | jq -r '.id')/resourceGroups/aci-test")
 ```
 {
   "appId": "<redacted>",
