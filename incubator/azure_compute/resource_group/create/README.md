@@ -7,8 +7,7 @@ need to create.
 
 You will need an active Azure subscription and you will need to have
 the Azure CLI installed. You'll need to
-be [logged in to Azure](../../../../Azure/login/README.md).
-
+be [logged in to Azure](../../../../azure/login/README.md).
 
 # Group create
 
