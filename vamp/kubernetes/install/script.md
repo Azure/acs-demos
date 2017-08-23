@@ -9,54 +9,23 @@ autoscaling for microservices. It runs on Kubernetes, DC/OS and Docker
 clusters. In this tutorial/demo we will focus on installing Vamp on
 ACS with [Kubernetes](https://kubernetes.io).
 
-## Environment Setup
+## Prerequisites
 
-The currently defined environment variables are:
+We will be using the [Kubernetes CLI](../install_cli/README.md) so that must be installed.
 
-```
-env | grep ACS_*
-```
+We also need the [Azure CLI](../../azure/login/README.md) installed
+and we must be logged into our subscription.
 
-If you are running in interactive mode simply continue and you will be
-prompted for any mising values when necessary.
+We must have deployed and setup the connection to an [ACS (Kubernetes)
+cluster](../proxy/README.md).)
 
-
-We'll need the Kubernetes CLI:
+This script uses Curl for some of it's validation testing, so lets install that:
 
 ```
-sudo az acs kubernetes install-cli
+sudo apt-get install -qy curl
 ```
 
-In order to connect to the cluster we need to get the credentials from
-ACS.
-
-```
-az acs kubernetes get-credentials --resource-group=$ACS_RESOURCE_GROUP --name=$ACS_CLUSTER_NAME
-```
-               
-
-## Validate cluster
-
-You will first need to ensure you have a working DC/OS cluster. If you need to create one see [tutorial / demo](../../create_cluster/script.md).
-
-You can check that the cluster is available using the Azure CLI as
-follows:
-
-```
-az acs show -g $ACS_RESOURCE_GROUP -n $ACS_CLUSTER_NAME --query provisioningState
-```
-
-Results:
-
-```
-"Succeeded"
-```
-
-If this says anything other than "Succeeded" you will need to ensure
-that the cluster is correctly created. If it says "Provisioning" wait
-a little longer before proceeding.
-
-# Deploying Vamp
+# Deploying Vamp on Kubernetes
 
 We will start by installing Vamp's dependencies, etcd and elastic
 search..
