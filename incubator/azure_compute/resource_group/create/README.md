@@ -4,12 +4,12 @@ Here we will create a resource group to contain compute resources we
 need to create.
 
 ```
-az group create --name $SIMDEM_RESOURCE_GROUP --location $SIMDEM_LOCATION
+az group create --name $SIMDEM_RESOURCE_GROUP --location $SIMDEM_RG_LOCATION
 ```
 
 Results:
 
-```
+```expected_similarity=0.3
 {
   "id": "/subscriptions/325e7c34-99fb-4190-aa87-1df746c67705/resourceGroups/test",
   "location": "westus",
@@ -30,7 +30,7 @@ az group list --query "[?name=='$SIMDEM_RESOURCE_GROUP']"
 
 Results:
 
-```expect_similarity=0.4
+```expected_similarity=0.3
 {
   "id": "/subscriptions/325e7c34-99fb-4190-aa87-1df746c67705/resourceGroups/test",
     "location": "westus",
@@ -40,4 +40,5 @@ Results:
 		"provisioningState": "Succeeded"
 	},
 	"tags": null
-}```
+}
+```

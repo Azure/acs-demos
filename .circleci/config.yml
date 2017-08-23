@@ -11,3 +11,8 @@ jobs:
           name: run hello world tests
           command: |
             simdem -p . test
+
+      - run:
+      	  name: run resource group tests
+	  command: |
+	    simdem -p ./incubator/azure_compute/resource_group --fastfail false test
