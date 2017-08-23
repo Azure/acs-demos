@@ -23,7 +23,7 @@ source <(kubectl completion bash)
 Check we have the right version of the Kubernetes CLI installed.
 
 ```
-kubectl version --client
+kubectl version
 ```
 
 Results:
