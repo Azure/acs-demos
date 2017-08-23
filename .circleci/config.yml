@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: rgardler/simdem_cli:0.7.4-dev
+      - image: rgardler/simdem_cli:0.8.1-dev
 
     steps:
       - checkout
@@ -11,3 +11,14 @@ jobs:
           name: run hello world tests
           command: |
             simdem -p . test
+
+      - run:
+          name: run resource group test
+          command: |
+            simdem -p ./incubator/azure_compute/resource_group --fastfail false test
+
+      - run:
+          name: run resource group test
+          no_output_timeout: "30m"
+          command: |
+            simdem -p ./kubernetes --fastfail false test
