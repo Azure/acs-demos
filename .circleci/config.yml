@@ -13,6 +13,6 @@ jobs:
             simdem -p . test
 
       - run:
-      	  name: run resource group tests
-	  command: |
+      	  name: run resource group test
+          command: |
 	    simdem -p ./incubator/azure_compute/resource_group --fastfail false test
