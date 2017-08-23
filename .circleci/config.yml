@@ -15,11 +15,10 @@ jobs:
       - run:
           name: run resource group test
           command: |
-	    simdem -p ./incubator/azure_compute/resource_group --fastfail false test
+            simdem -p ./incubator/azure_compute/resource_group --fastfail false test
 
       - run:
-      	  name: run resource group test
-	  no_output_timeout: "30m"
+          name: run resource group test
+          no_output_timeout: "30m"
           command: |
             simdem -p ./kubernetes --fastfail false test
-
