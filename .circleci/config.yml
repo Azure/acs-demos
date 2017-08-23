@@ -16,6 +16,7 @@ jobs:
       	  name: run resource group test
           command: |
 	    simdem -p ./incubator/azure_compute/resource_group --fastfail false test
+
       - run:
       	  name: run resource group test
 	  no_output_timeout: "30m"
