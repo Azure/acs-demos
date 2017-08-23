@@ -47,10 +47,10 @@ Results:
 
 ```Expected_similarity=0.4
 {
-  "id": "/subscriptions/135f79ed-bb93-4372-91f6-7b5f1c57dd81/resourceGroups/acs-dcos-spark-demo",
+  "id": "/subscriptions/135f79ed-bb93-4372-91f6-7b5f1c57dd81/resourceGroups/my_resource_group",
   "location": "eastus",
   "managedBy": null,
-  "name": "acs-dcos-spark-demo",
+  "name": "my_resource_group",
   "properties": {
     "provisioningState": "Succeeded"
   },
