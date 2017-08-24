@@ -1,0 +1,3 @@
+cleanup/README.md
+../../../azure/service_principle/delete/README.md
+install/README.md

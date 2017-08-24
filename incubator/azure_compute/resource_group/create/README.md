@@ -7,12 +7,12 @@ need to create.
 
 You will need an active Azure subscription and you will need to have
 the Azure CLI installed. You'll need to
-be [logged in to Azure](../../../azure/login/README.md).
+be [logged in to Azure](../../../../azure/login/README.md).
 
 # Group create
 
 ```
-az group create --name $SIMDEM_RESOURCE_GROUP --location $SIMDEM_RG_LOCATION
+az group create --name $SIMDEM_RESOURCE_GROUP --location $SIMDEM_LOCATION
 ```
 
 Results:
