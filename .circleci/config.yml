@@ -18,6 +18,11 @@ jobs:
             simdem -p ./incubator/azure_compute/resource_group --fastfail false test
 
       - run:
+          name: run ACI test
+          command: |
+            simdem -p ./incubator/aci --fastfail false test
+
+      - run:
           name: run resource group test
           no_output_timeout: "30m"
           command: |
