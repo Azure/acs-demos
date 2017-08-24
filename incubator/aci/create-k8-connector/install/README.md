@@ -5,40 +5,13 @@ Azure Container Instances and an Azure Container Service K8 cluster.
 
 ## Prerequisites
 
+We need a [service principle](../../../../azure/service_principle/) that
+the ACI connector will use to manage ACI resources.
+
 You will need a Kubernetes cluster and have set up
-a
-[management proxy to the cluster](../../../kubernetes/proxy/README.md).
+a [management proxy to the cluster](../../../../kubernetes/proxy).
 
-You also must have jq which you can install with:
-
-```
-sudo apt-get install jq
-```
-
-## Create a Resource Group
-The ACI Connector will create each container instance in a specified
-resource group. You can create a new resource group with:
-
-```
-az group create -n $SIMDEM_RESOURCE_GROUP -l $SIMDEM_LOCATION
-```
-
-## Create a Service Principal
-
-A service principal is required to allow the ACI Connector to create
-resources in your Azure subscription. You can create one using the az
-CLI using the instructions below.  Find your subscriptionId with the
-az CLI:
-
-Use az to create a Service Principal that can perform operations on
-your resource group:
-
-```
-SUBSCRIPTION_ID=$(az account show | jq -r '.id')
-SP_JSON=$(az ad sp create-for-rbac --role="Contributor" --scopes="/subscriptions/$SUBSCRIPTION_ID/resourceGroups/$SIMDEM_RESOURCE_GROUP")
-```
-
-## Install the ACI Connector
+## Deploy the ACI Connector
 
 ```
 cat examples/aci-connector.yaml
@@ -46,7 +19,7 @@ cat examples/aci-connector.yaml
 
 Results:
 
-```
+```expected_similarity=0.5
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
@@ -65,16 +38,18 @@ spec:
         imagePullPolicy: Always
         env:
         - name: AZURE_CLIENT_ID
-          value: $(echo $SP_JSON | jq -r '.appId') 
+          value: $SIMDEM_APP_ID
         - name: AZURE_CLIENT_KEY
-          value: $(echo $SP_JSON | jq -r '.password')
+          value:
         - name: AZURE_TENANT_ID
-          value: $(az account show | jq -r '.tenantId')
+          value: $SIMDEM_TENANT_ID
         - name: AZURE_SUBSCRIPTION_ID
-          value: $(az account show | jq -r '.id')
+          value: $SIMDEM_SUBSCRIPTION_ID
         - name: ACI_RESOURCE_GROUP
           value: $SIMDEM_RESOURCE_GROUP
 ```
+
+Lets create the connector using the Kubernetes CLI:
 
 ```
 kubectl create -f examples/aci-connector.yaml 
@@ -126,7 +101,7 @@ you want to script things. If you are doing this manually you can use
 
 ```
 NGINX_IP=""
-while [ -z $NGINX_IP ]; do sleep 10; NGINX_IP=$(kubectl get service vamp -o jsonpath="{.status.loadBalancer.ingress[*].ip}"); done
+while [ -z $NGINX_IP ]; do sleep 10; NGINX_IP=$(kubectl get service nginx -o jsonpath="{.status.loadBalancer.ingress[*].ip}"); done
 ```
 
 Now we have our IP:
