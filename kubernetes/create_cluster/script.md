@@ -27,41 +27,20 @@ You will need an active Azure subscription and you will need to have
 the Azure CLI installed. You'll need to
 be [logged in to Azure](../../azure/login/README.md).
 
-## Creating the Cluster
+You will need to have create
+a
+[resource group](../../incubator/azure_compute/resource_group/create/)
+in which to place your ACS cluster.
 
-Now that we are logged in we can get to work. 
+## Creating the Cluster
 
 We will use the Azure CLI 2.0 to quickly create an Azure Container
 Services cluster.
 
-First, we will create a resource group for the ACS cluster to be
-deployed. You could use one already available, but here we will create
-a new one as it makes it easy to clean up after the demo.
-
-```
-az group create --name $ACS_RESOURCE_GROUP --location $ACS_REGION
-```
-
-Results: 
-
-```Expected_similarity=0.4
-{
-  "id": "/subscriptions/135f79ed-bb93-4372-91f6-7b5f1c57dd81/resourceGroups/my_resource_group",
-  "location": "eastus",
-  "managedBy": null,
-  "name": "my_resource_group",
-  "properties": {
-    "provisioningState": "Succeeded"
-  },
-  "tags": null
-}
-```
-
-Finally we create the cluster. In this example we will let the CLI use
-default settings and allow it to discover and/or create the necessary
-credentials. We can specific them in the command if we want to (see
-`az acs create --help` for more details). This process typicaly takes
-15-20 minutes.
+In this example we will let the CLI use default settings and allow it
+to discover and/or create the necessary credentials. We can specific
+them in the command if we want to (see `az acs create --help` for more
+details). This process typicaly takes 15-20 minutes.
 
 ```
 az acs create --orchestrator-type=kubernetes --resource-group=$ACS_RESOURCE_GROUP --name=$ACS_CLUSTER_NAME
@@ -121,17 +100,18 @@ sleep 180
 
 # Validation
 
-Check the cluster has been created:
+Check the cluster has been created. If the cluster has been successfully created this command returns nothing.
 
 ```
-az acs wait --resource-group $ACS_RESOURCE_GROUP --name $ACS_CLUSTER_NAME --created --timeout 15
+az acs show --resource-group $ACS_RESOURCE_GROUP --name $ACS_CLUSTER_NAME
 ```
-
-If the cluster has been successfully created this command returns nothing.
 
 Results:
 
 ```
+Location        Name          ProvisioningState    ResourceGroup
+--------------  ------------  -------------------  ---------------
+southcentralus  acs-k8s-test  Succeeded            acs-k8s-test
 ```
 
 
