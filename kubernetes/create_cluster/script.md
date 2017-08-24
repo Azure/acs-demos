@@ -103,7 +103,7 @@ sleep 180
 Check the cluster has been created. If the cluster has been successfully created this command returns nothing.
 
 ```
-az acs show --resource-group $ACS_RESOURCE_GROUP --name $ACS_CLUSTER_NAME
+az acs show --resource-group $ACS_RESOURCE_GROUP --name $ACS_CLUSTER_NAME --output table
 ```
 
 Results:
