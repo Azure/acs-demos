@@ -1,63 +1,143 @@
 # Create a K8 connector 
 
-Here we will create a K8 connector which acts as a bridge between Azure Container Instances and an Azure Container Service K8 cluster. 
+Here we will create a K8 connector which acts as a bridge between
+Azure Container Instances and an Azure Container Service K8 cluster.
 
-##
+## Prerequisites
 
-You must have deployed a [Kubernetes cluster] (../../kubernetes/create/).
+You will need a Kubernetes cluster and have set up
+a
+[management proxy to the cluster](../../../kubernetes/proxy/README.md).
 
-You also must have jq which you can install with sudo apt-get install jq
-
-
-## Create a Resource Group
-The ACI Connector will create each container instance in a specified resource group. You can create a new resource group with:
+You also must have jq which you can install with:
 
 ```
-az group create -n k8connector-rg -l westus
+sudo apt-get install jq
+```
+
+## Create a Resource Group
+The ACI Connector will create each container instance in a specified
+resource group. You can create a new resource group with:
+
+```
+az group create -n $SIMDEM_RESOURCE_GROUP -l $SIMDEM_LOCATION
 ```
 
 ## Create a Service Principal
 
-A service principal is required to allow the ACI Connector to create resources in your Azure subscription. You can create one using the az CLI using the instructions below.
-Find your subscriptionId with the az CLI:
+A service principal is required to allow the ACI Connector to create
+resources in your Azure subscription. You can create one using the az
+CLI using the instructions below.  Find your subscriptionId with the
+az CLI:
+
+Use az to create a Service Principal that can perform operations on
+your resource group:
 
 ```
-az account list -o table
+SUBSCRIPTION_ID=$(az account show | jq -r '.id')
+SP_JSON=$(az ad sp create-for-rbac --role="Contributor" --scopes="/subscriptions/$SUBSCRIPTION_ID/resourceGroups/$SIMDEM_RESOURCE_GROUP")
 ```
-Use az to create a Service Principal that can perform operations on your resource group:
-
-```
-SP_JSON=$(az ad sp create-for-rbac --role="Contributor" --scopes="/subscriptions/"$(az account show | jq -r '.id')"/resourceGroups/k8connector-rg")
-```
-## Edit examples/aci-connector.yaml 
-Edit the examples/aci-connector.yaml and input environment variables using the values above:
-AZURE_CLIENT_ID: insert appId
-AZURE_CLIENT_KEY: insert password
-AZURE_TENANT_ID: insert tenant
-AZURE_SUBSCRIPTION_ID: insert subscriptionId
 
 ## Install the ACI Connector
 
 ```
-kubectl create -f incubator/aci/create-k8-connector/examples/aci-connector.yaml 
+cat examples/aci-connector.yaml
 ```
-deployment "aci-connector" created
+
+Results:
+
+```
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: aci-connector
+  namespace: default
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: aci-connector
+    spec:
+      containers:
+      - name: aci-connector
+        image: microsoft/aci-connector-k8s:latest
+        imagePullPolicy: Always
+        env:
+        - name: AZURE_CLIENT_ID
+          value: $(echo $SP_JSON | jq -r '.appId') 
+        - name: AZURE_CLIENT_KEY
+          value: $(echo $SP_JSON | jq -r '.password')
+        - name: AZURE_TENANT_ID
+          value: $(az account show | jq -r '.tenantId')
+        - name: AZURE_SUBSCRIPTION_ID
+          value: $(az account show | jq -r '.id')
+        - name: ACI_RESOURCE_GROUP
+          value: $SIMDEM_RESOURCE_GROUP
+```
+
+```
+kubectl create -f examples/aci-connector.yaml 
+```
+
+Check the connector provides a new "node", this is not really a node,
+it's more of a near infinite compute resource.
 
 ```
 kubectl get nodes
 ```
 
 ## Install the NGINX example
+
 ```
-kubectl create -f incubator/aci/create-k8-connector/examples/nginx-pod.yaml 
+cat examples/nginx-pod.yaml
 ```
-pod "nginx" created 
+
+Results:
+
 ```
-kubectl get po -o wide
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+  namespace: default
+spec:
+  containers:
+  - image: nginx
+    imagePullPolicy: Always
+    name: nginx
+  dnsPolicy: ClusterFirst
+  nodeName: aci-connector
 ```
-This pod tolerates the taint on aci so it can be scheduled onto aci
+
 ```
-kubectl create -f incubator/aci/create-k8-connector/examples/nginx-pod-tolerations.yaml
+kubectl create -f examples/nginx-pod.yaml 
 ```
-Note that if you have other nodes in your cluster then this Pod may not necessarily schedule onto the Azure Container Instances.
-To force a Pod onto Azure Container Instances, you can either explicitly specify the NodeName as in the first example, or you can delete all of the other nodes in your cluster using kubectl delete nodes <node-name>.
+
+```
+kubectl get pods -o wide
+```
+
+Since we need to ensure our Public IPs have been assigned before
+proceeding, and because we need the IP number later we'll run a loop
+to grab the IP once assinged. This is a little cumbersome but great if
+you want to script things. If you are doing this manually you can use
+`kubectl get service --wait` to display changes as they happen.
+
+```
+NGINX_IP=""
+while [ -z $NGINX_IP ]; do sleep 10; NGINX_IP=$(kubectl get service vamp -o jsonpath="{.status.loadBalancer.ingress[*].ip}"); done
+```
+
+Now we have our IP:
+
+```
+echo $NGINX_IP
+```
+
+Take a look...
+
+```
+xdg-open $NGINX
+```
+
