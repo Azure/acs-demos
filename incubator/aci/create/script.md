@@ -4,7 +4,7 @@ Here we will create a single instance of a container using Azure Container Regis
 
 ## Prerequisites
 
-This demo uses a few common [Linux commands](../dependencies.md) that we
+This demo uses a few common [Linux commands](./dependencies/README.md) that we
 must ensure are installed.
 
 You must have installed the [Azure CLI](../../azure_compute/cli/install/).
