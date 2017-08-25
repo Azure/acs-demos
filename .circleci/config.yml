@@ -20,10 +20,10 @@ jobs:
       - run:
           name: run ACI test
           command: |
-            simdem -p ./incubator/aci --fastfail false test
+            simdem -p ./incubator/aci test
 
       - run:
           name: run kuberenetes test
           no_output_timeout: "30m"
           command: |
-            simdem -p ./kubernetes --fastfail false test
+            simdem -p ./kubernetes test
