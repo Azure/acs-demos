@@ -46,7 +46,7 @@ dangling after the last demo.
 
 ```
 az group delete --name $SIMDEM_RESOURCE_GROUP --yes
-ssh-keygen -R [${SIMDEM_DNS_PREFIX}mgmt.$SIMDEM_REGION.cloudapp.azure.com]:2200
+ssh-keygen -R [${SIMDEM_DNS_PREFIX}mgmt.$SIMDEM_LOCATION.cloudapp.azure.com]:2200
 ```
 
 ## Creating a Cluster
@@ -59,7 +59,7 @@ First, we will create a resource group for the ACS cluster to be
 deployed.
 
 ```
-az group create --name $SIMDEM_RESOURCE_GROUP --location $SIMDEM_REGION
+az group create --name $SIMDEM_RESOURCE_GROUP --location $SIMDEM_LOCATION
 ```
 
 Results: 

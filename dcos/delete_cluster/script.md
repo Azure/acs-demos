@@ -17,5 +17,5 @@ If this isn't right press 'b' then 'CTRL-C', otherwise we will proceed...
 
 ```
 az group delete --name $SIMDEM_RESOURCE_GROUP --yes
-ssh-keygen -R [${SIMDEM_DNS_PREFIX}mgmt.$SIMDEM_REGION.cloudapp.azure.com]:2200
+ssh-keygen -R [${SIMDEM_DNS_PREFIX}mgmt.$SIMDEM_LOCATION.cloudapp.azure.com]:2200
 ```

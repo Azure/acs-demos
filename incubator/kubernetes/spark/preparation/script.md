@@ -39,7 +39,7 @@ dangling after the last demo.
 
 ```
 az group delete --name $SIMDEM_RESOURCE_GROUP --yes
-sudo ssh-keygen -f "/root/.ssh/known_hosts" -R [${SIMDEM_DNS_PREFIX}mgmt.$SIMDEM_REGION.cloudapp.azure.com]:2200
+sudo ssh-keygen -f "/root/.ssh/known_hosts" -R [${SIMDEM_DNS_PREFIX}mgmt.$SIMDEM_LOCATION.cloudapp.azure.com]:2200
 ```
 
 # Creating a Cluster
@@ -47,7 +47,7 @@ sudo ssh-keygen -f "/root/.ssh/known_hosts" -R [${SIMDEM_DNS_PREFIX}mgmt.$SIMDEM
 We can now create a resource group that will contain all the Azure resouces deployed by ACS.
 
 ```
-az group create --name $SIMDEM_RESOURCE_GROUP --location $SIMDEM_REGION
+az group create --name $SIMDEM_RESOURCE_GROUP --location $SIMDEM_LOCATION
 ```
 
 Results:
