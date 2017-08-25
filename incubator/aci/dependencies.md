@@ -8,6 +8,8 @@ sudo apt-get install -y curl
 
 # Validation
 
+Do we have Curl installed correctly?
+
 ```
 curl --version
 ```
