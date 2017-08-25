@@ -35,7 +35,7 @@ In order to connect to the cluster we need to get the credentials from
 ACS.
 
 ```
-az acs kubernetes get-credentials --resource-group=$ACS_RESOURCE_GROUP --name=$ACS_CLUSTER_NAME
+az acs kubernetes get-credentials --resource-group=$SIMDEM_RESOURCE_GROUP --name=$SIMDEM_CLUSTER_NAME
 ```
                
 We can now interact with the cluster, for example we can get a list of

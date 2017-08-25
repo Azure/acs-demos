@@ -15,7 +15,7 @@ by copying the existing `env.json` file.
 The currently defined variables are:
 
 ```
-env | grep ACS_*
+env | grep SIMDEM_*
 ```
 
 If you are running in interactive mode simply continue and you will be
@@ -43,7 +43,7 @@ them in the command if we want to (see `az acs create --help` for more
 details). This process typicaly takes 15-20 minutes.
 
 ```
-az acs create --orchestrator-type=kubernetes --resource-group=$ACS_RESOURCE_GROUP --name=$ACS_CLUSTER_NAME
+az acs create --orchestrator-type=kubernetes --resource-group=$SIMDEM_RESOURCE_GROUP --name=$SIMDEM_CLUSTER_NAME
 ```
 
 Results:
@@ -103,7 +103,7 @@ sleep 180
 Check the cluster has been created. If the cluster has been successfully created this command returns nothing.
 
 ```
-az acs show --resource-group $ACS_RESOURCE_GROUP --name $ACS_CLUSTER_NAME --output table
+az acs show --resource-group $SIMDEM_RESOURCE_GROUP --name $SIMDEM_CLUSTER_NAME --output table
 ```
 
 Results:
