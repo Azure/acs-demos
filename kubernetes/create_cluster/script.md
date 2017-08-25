@@ -43,7 +43,7 @@ them in the command if we want to (see `az acs create --help` for more
 details). This process typicaly takes 15-20 minutes.
 
 ```
-az acs create --orchestrator-type=kubernetes --resource-group=$SIMDEM_RESOURCE_GROUP --name=$SIMDEM_CLUSTER_NAME
+az acs create --orchestrator-type=kubernetes --resource-group=$SIMDEM_RESOURCE_GROUP --name=$SIMDEM_CLUSTER_NAME --generate-ssh-keys
 ```
 
 Results:
