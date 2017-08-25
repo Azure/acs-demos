@@ -23,12 +23,12 @@ source <(kubectl completion bash)
 Check we have the right version of the Kubernetes CLI installed.
 
 ```
-kubectl version
+kubectl version --client
 ```
 
 Results:
 
 ```
-Client Version: version.Info{Major:"1", Minor:"7", GitVersion:"v1.7.2", GitCommit:"922a86cfcd65915a9b2f69f3f193b8907d741d9c", GitTreeState:"clean", BuildDate:"2017-07-21T08:23:22Z", GoVersion:"go1.8.3", Compiler:"gc", Platform:"linux/amd64"}
+Client Version: version.Info{Major:"1", Minor:"7", GitVersion:"v1.7.4", GitCommit:"793658f2d7ca7f064d2bdf606519f9fe1229c381", GitTreeState:"clean", BuildDate:"2017-08-17T08:48:23Z", GoVersion:"go1.8.3", Compiler:"gc", Platform:"linux/amd64"}
 ```
 
