@@ -10,7 +10,7 @@ following enviornment variables:
 
 
 ``` 
-env | grep ACS_.* 
+env | grep SIMDEM_.* 
 ```
 
 ## Check ACS cluster exists
@@ -20,7 +20,7 @@ You can check that the cluster is available using the Azure CLI as
 follows:
 
 ```
-az acs show -g $ACS_RESOURCE_GROUP -n $ACS_CLUSTER_NAME --query provisioningState
+az acs show -g $SIMDEM_RESOURCE_GROUP -n $SIMDEM_CLUSTER_NAME --query provisioningState
 ```
 
 Results:

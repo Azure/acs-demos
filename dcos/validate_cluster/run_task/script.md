@@ -9,7 +9,7 @@ described te cluster we will be using. These can be viewed with the
 following command:
 
 ```
-env | grep ACS_.*
+env | grep SIMDEM_.*
 ```
 
 ## Prerequisites
@@ -24,7 +24,7 @@ To connect to the DC/OS masters in ACS we need to open an SSH tunnel,
 allowing us to view the DC/OS UI on our local machine.
 
 ```
-ssh -NL 10000:localhost:80 -o StrictHostKeyChecking=no -p 2200 azureuser@${ACS_DNS_PREFIX}mgmt.${ACS_REGION}.cloudapp.azure.com &
+ssh -NL 10000:localhost:80 -o StrictHostKeyChecking=no -p 2200 azureuser@${SIMDEM_DNS_PREFIX}mgmt.${SIMDEM_REGION}.cloudapp.azure.com &
 sleep 3 # This sleep is to ensure that SSH connects before we move to the next stage
 ```
 

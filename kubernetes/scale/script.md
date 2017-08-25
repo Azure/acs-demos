@@ -8,7 +8,7 @@ cluster.
 The currently defined environment variables are:
 
 ```
-env | grep ACS_*
+env | grep SIMDEM_*
 ```
 
 If you are running in interactive mode simply continue and you will be
@@ -25,7 +25,7 @@ In order to connect to the cluster we need to get the credentials from
 ACS.
 
 ```
-az acs kubernetes get-credentials --resource-group=$ACS_RESOURCE_GROUP --name=$ACS_CLUSTER_NAME
+az acs kubernetes get-credentials --resource-group=$SIMDEM_RESOURCE_GROUP --name=$SIMDEM_CLUSTER_NAME
 ```
 
 ## Check the current number of nodes
@@ -47,7 +47,7 @@ k8s-master-8ff9783f-0   Ready,SchedulingDisabled   7m        v1.6.6
 ## Scale Up
 
 ```
-az acs scale --new-agent-count 4 --name $ACS_CLUSTER_NAME --resource-group $ACS_RESOURCE_GROUP
+az acs scale --new-agent-count 4 --name $SIMDEM_CLUSTER_NAME --resource-group $SIMDEM_RESOURCE_GROUP
 ```
 
 Wait for nodes to come online:
@@ -77,7 +77,7 @@ k8s-master-8ff9783f-0   Ready,SchedulingDisabled   13m       v1.6.6
 ## Scale Down
 
 ```
-az acs scale --new-agent-count 3 --name $ACS_CLUSTER_NAME --resource-group $ACS_RESOURCE_GROUP
+az acs scale --new-agent-count 3 --name $SIMDEM_CLUSTER_NAME --resource-group $SIMDEM_RESOURCE_GROUP
 ```
 
 Wait for nodes to shutdown:

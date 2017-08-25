@@ -16,7 +16,7 @@ The Azure CLI also makes it easy to configure the Kuberenetes CLI
 credentials for your cluster:
 
 ```
-az acs kubernetes get-credentials --resource-group=$ACS_RESOURCE_GROUP --name=$ACS_CLUSTER_NAME
+az acs kubernetes get-credentials --resource-group=$SIMDEM_RESOURCE_GROUP --name=$SIMDEM_CLUSTER_NAME
 ```
 
 # Configure Proxy to the Kubernetes Masters

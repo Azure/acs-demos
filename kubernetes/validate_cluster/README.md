@@ -3,7 +3,7 @@
 Check the cluster has been created:
 
 ```
-az acs wait --resource-group $ACS_RESOURCE_GROUP --name $ACS_CLUSTER_NAME --created --timeout 15
+az acs wait --resource-group $SIMDEM_RESOURCE_GROUP --name $SIMDEM_CLUSTER_NAME --created --timeout 15
 ```
 
 If the cluster has been successfully created this command returns nothing.
