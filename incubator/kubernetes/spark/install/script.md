@@ -6,7 +6,7 @@ Service with Kubernetes.
 # Connect to the Kubernetes cluster
 
 ```
-az acs kubernetes get-credentials --resource-group=$ACS_RESOURCE_GROUP --name=$ACS_CLUSTER_NAME
+az acs kubernetes get-credentials --resource-group=$SIMDEM_RESOURCE_GROUP --name=$SIMDEM_CLUSTER_NAME
 kubectl proxy --port=8001 &
 ```
 

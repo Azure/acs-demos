@@ -19,5 +19,12 @@ Results:
 0.7.4-dev
 ```
 
+# Environment Configuration
 
+For debugging purposes it can be useful to have a dump of the
+environment, so here it is:
+
+```
+env
+```
 

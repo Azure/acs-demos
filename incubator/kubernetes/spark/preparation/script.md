@@ -38,8 +38,8 @@ exists using this configuration. Don't worry if this command returns a
 dangling after the last demo.
 
 ```
-az group delete --name $ACS_RESOURCE_GROUP --yes
-sudo ssh-keygen -f "/root/.ssh/known_hosts" -R [${ACS_DNS_PREFIX}mgmt.$ACS_REGION.cloudapp.azure.com]:2200
+az group delete --name $SIMDEM_RESOURCE_GROUP --yes
+sudo ssh-keygen -f "/root/.ssh/known_hosts" -R [${SIMDEM_DNS_PREFIX}mgmt.$SIMDEM_LOCATION.cloudapp.azure.com]:2200
 ```
 
 # Creating a Cluster
@@ -47,7 +47,7 @@ sudo ssh-keygen -f "/root/.ssh/known_hosts" -R [${ACS_DNS_PREFIX}mgmt.$ACS_REGIO
 We can now create a resource group that will contain all the Azure resouces deployed by ACS.
 
 ```
-az group create --name $ACS_RESOURCE_GROUP --location $ACS_REGION
+az group create --name $SIMDEM_RESOURCE_GROUP --location $SIMDEM_LOCATION
 ```
 
 Results:
@@ -68,7 +68,7 @@ Results:
 Now, we can create the cluster
 
 ```
-az acs create --orchestrator-type=kubernetes --name $ACS_CLUSTER_NAME --resource-group $ACS_RESOURCE_GROUP --dns-prefix ${ACS_DNS_PREFIX} --generate-ssh-keys
+az acs create --orchestrator-type=kubernetes --name $SIMDEM_CLUSTER_NAME --resource-group $SIMDEM_RESOURCE_GROUP --dns-prefix ${SIMDEM_DNS_PREFIX} --generate-ssh-keys
 ```
 
 Results:
@@ -136,7 +136,7 @@ Downloading client to /usr/local/bin/kubectl from https://storage.googleapis.com
 Grab the cluster credentials using the Azure CLI:
 
 ```
-az acs kubernetes get-credentials --resource-group=$ACS_RESOURCE_GROUP --name=$ACS_CLUSTER_NAME
+az acs kubernetes get-credentials --resource-group=$SIMDEM_RESOURCE_GROUP --name=$SIMDEM_CLUSTER_NAME
 ```
 
 Verify we are connected to the cluster by inspecting the nodes available to us:

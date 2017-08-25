@@ -4,21 +4,19 @@ Here we will create a single instance of a container using Azure Container Regis
 
 ## Prerequisites
 
+This demo uses a few common [Linux commands](./dependencies/README.md) that we
+must ensure are installed.
+
 You must have installed the [Azure CLI](../../azure_compute/cli/install/).
 
 You will need to have created
 a [resource group](../../azure_compute/resource_group/create) in
 which to run your container instance.
 
-## Environment Setup
+## Create an ACI Container
 
-The current environment setup is:
-
-```
-env | grep SIMDEM_.*
-```
-
-## Create the Container
+It's trivial to create an ACI container within a given resource group
+using the Azure CLI:
 
 ```
 az container create --name $SIMDEM_ACI_INSTANCE_NAME --image $SIMDEM_ACI_CONTAINER --resource-group $SIMDEM_RESOURCE_GROUP --ip-address public
@@ -74,6 +72,8 @@ Results:
 }
 ```
 
+## Connect to the Container Endpoint
+
 In order to connect to this instance we will need its assigned IP
 number. The following will put it into a variable for us.
 
@@ -90,7 +90,7 @@ echo $IP_NUMBER
 Now we can check our web service is alive, we'll give it up to 90 seconds to respond, but usually it is much faster than this:
 
 ```
-curl -I $IP_NUMBER --connect-timeout 90
+xdg-open  $IP_NUMBER
 ```
 
 Results:
@@ -108,10 +108,15 @@ Date: Mon, 31 Jul 2017 23:23:33 GMT
 Connection: keep-alive
 ```
 
-# Viewing Logs
+## View Container Logs
 
 We can also view the logs of the container:
 
 ```
 az container logs --resource-group $SIMDEM_RESOURCE_GROUP --name $SIMDEM_ACI_INSTANCE_NAME
 ```
+
+# Next Steps
+
+  1. [Cleanup resources used in this demo](cleanup/script.md)
+  2. [ACI demo index](../README.md)

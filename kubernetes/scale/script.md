@@ -8,7 +8,7 @@ cluster.
 The currently defined environment variables are:
 
 ```
-env | grep ACS_*
+env | grep SIMDEM_*
 ```
 
 If you are running in interactive mode simply continue and you will be
@@ -25,7 +25,7 @@ In order to connect to the cluster we need to get the credentials from
 ACS.
 
 ```
-az acs kubernetes get-credentials --resource-group=$ACS_RESOURCE_GROUP --name=$ACS_CLUSTER_NAME
+az acs kubernetes get-credentials --resource-group=$SIMDEM_RESOURCE_GROUP --name=$SIMDEM_CLUSTER_NAME
 ```
 
 ## Check the current number of nodes
@@ -37,17 +37,23 @@ kubectl get nodes
 Results:
 
 ```expected_similarity=0.4
-NAME                    STATUS                     AGE
-k8s-agent-14de76a8-0    Ready                      1m
-k8s-agent-14de76a8-1    Ready                      1m
-k8s-agent-14de76a8-2    Ready                      1m
-k8s-master-14de76a8-0   Ready,SchedulingDisabled   1m
+NAME                    STATUS                     AGE       VERSION
+k8s-agent-8ff9783f-0    Ready                      1m        v1.6.6
+k8s-agent-8ff9783f-1    Ready                      1m        v1.6.6
+k8s-agent-8ff9783f-2    Ready                      1m        v1.6.6
+k8s-master-8ff9783f-0   Ready,SchedulingDisabled   7m        v1.6.6
 ```
 
 ## Scale Up
 
 ```
-az acs scale --new-agent-count 4 --name $ACS_CLUSTER_NAME --resource-group $ACS_RESOURCE_GROUP
+az acs scale --new-agent-count 4 --name $SIMDEM_CLUSTER_NAME --resource-group $SIMDEM_RESOURCE_GROUP
+```
+
+Wait for nodes to come online:
+
+```
+sleep 300
 ```
 
 Check we have more nodes:
@@ -59,19 +65,25 @@ kubectl get nodes
 Results:
 
 ```expected_similarity=0.4
-NAME                    STATUS                     AGE
-k8s-agent-14de76a8-0    Ready                      6m
-k8s-agent-14de76a8-1    Ready                      6m
-k8s-agent-14de76a8-2    Ready                      6m
-k8s-agent-14de76a8-3    Ready                      1m
-k8s-master-14de76a8-0   Ready,SchedulingDisabled   6m
+NAME                    STATUS                     AGE       VERSION
+k8s-agent-8ff9783f-0    Ready                      2m        v1.6.6
+k8s-agent-8ff9783f-1    Ready                      2m        v1.6.6
+k8s-agent-8ff9783f-2    Ready                      3m        v1.6.6
+k8s-agent-8ff9783f-3    Ready                      3m        v1.6.6
+k8s-master-8ff9783f-0   Ready,SchedulingDisabled   13m       v1.6.6
 ```
 
 
 ## Scale Down
 
 ```
-az acs scale --new-agent-count 3 --name $ACS_CLUSTER_NAME --resource-group $ACS_RESOURCE_GROUP
+az acs scale --new-agent-count 3 --name $SIMDEM_CLUSTER_NAME --resource-group $SIMDEM_RESOURCE_GROUP
+```
+
+Wait for nodes to shutdown:
+
+```
+sleep 300
 ```
 
 Check we have less nodes:
@@ -83,10 +95,10 @@ kubectl get nodes
 Results:
 
 ```expected_similarity=0.4
-NAME                    STATUS                     AGE
-k8s-agent-14de76a8-0    Ready                      10m
-k8s-agent-14de76a8-1    Ready                      10m
-k8s-agent-14de76a8-2    Ready                      10m
-k8s-master-14de76a8-0   Ready,SchedulingDisabled   10m
+NAME                    STATUS                     AGE       VERSION
+k8s-agent-8ff9783f-0    Ready                      2m        v1.6.6
+k8s-agent-8ff9783f-1    Ready                      2m        v1.6.6
+k8s-agent-8ff9783f-2    Ready                      3m        v1.6.6
+k8s-master-8ff9783f-0   Ready,SchedulingDisabled   13m       v1.6.6
 ```
 

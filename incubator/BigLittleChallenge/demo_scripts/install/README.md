@@ -11,7 +11,7 @@ Here we will prepare an environment for running Big Little Challenge.
 The currently defined environment variables are:
 
 ```
-env | grep ACS_*
+env | grep SIMDEM_*
 ```
 
 If you are running in interactive mode simply continue and you will be

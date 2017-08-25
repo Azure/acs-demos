@@ -14,7 +14,7 @@ We can quickly check if the cluster it up and running using the Azure
 CLI as follows:
 
 ```
-az acs show -g $ACS_RESOURCE_GROUP -n $ACS_CLUSTER_NAME --query provisioningState
+az acs show -g $SIMDEM_RESOURCE_GROUP -n $SIMDEM_CLUSTER_NAME --query provisioningState
 ```
 
 Results:
@@ -35,7 +35,7 @@ allowing us to view the DC/OS UI on our local machine.
 
 ```
 sudo apt-get install openssh-client -y
-ssh -NL 10000:localhost:80 -o StrictHostKeyChecking=no -p 2200 azureuser@${ACS_DNS_PREFIX}mgmt.${ACS_REGION}.cloudapp.azure.com &
+ssh -NL 10000:localhost:80 -o StrictHostKeyChecking=no -p 2200 azureuser@${SIMDEM_DNS_PREFIX}mgmt.${SIMDEM_LOCATION}.cloudapp.azure.com &
 ```
 
 NOTE: we supply the option `-o StrictHostKeyChecking=no` because we

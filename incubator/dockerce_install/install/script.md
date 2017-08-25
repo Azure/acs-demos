@@ -6,7 +6,7 @@ installation on Azure.
 ## Create the resource group
 
 ```
-az group create --name $ACS_RESOURCE_GROUP_NAME --location $ACS_RESOURCE_GROUP_LOCATION
+az group create --name $SIMDEM_RESOURCE_GROUP_NAME --location $SIMDEM_RESOURCE_GROUP_LOCATION
 ```
 
 ## Create the ACS cluster
@@ -16,7 +16,7 @@ we will therefore create the cluster using the more complex `az group
 deployment create` command.
 
 ```
-az group deployment create --resource-group $ACS_RESOURCE_GROUP_NAME --template-file azuredeploy.json --parameters '{"dnsNamePrefix" : { "value" : "'"$ACS_DNS_PREFIX"'" }, "sshRSAPublicKey" : { "value" : "'"$ACS_SSH_PUBLIC_KEY"'" }}'
+az group deployment create --resource-group $SIMDEM_RESOURCE_GROUP_NAME --template-file azuredeploy.json --parameters '{"dnsNamePrefix" : { "value" : "'"$SIMDEM_DNS_PREFIX"'" }, "sshRSAPublicKey" : { "value" : "'"$SIMDEM_SSH_PUBLIC_KEY"'" }}'
 ```
 
 ## Connect to the cluster
@@ -24,7 +24,7 @@ az group deployment create --resource-group $ACS_RESOURCE_GROUP_NAME --template-
 To manage this cluster we will create an SSH tunnel to the masters:
 
 ```
-ssh -fNL 2375:localhost:2375 -p 2200 azureuser@${ACS_DNS_PREFIX}mgmt.$ACS_RESOURCE_GROUP_LOCATION.cloudapp.azure.com
+ssh -fNL 2375:localhost:2375 -p 2200 azureuser@${SIMDEM_DNS_PREFIX}mgmt.$SIMDEM_RESOURCE_GROUP_LOCATION.cloudapp.azure.com
 ```
 
 We also need to ensure the Docker CLI is communicating over this tunnel, in our case we have already set the environment variable:

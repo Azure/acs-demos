@@ -10,12 +10,12 @@ the demo. Lets check the environment setup first to ensure we are
 deleting the right resources.
 
 ```
-env | grep ACS_.*
+env | grep SIMDEM_.*
 ```
 
 If this isn't right press 'b' then 'CTRL-C', otherwise we will proceed...
 
 ```
-az group delete --name $ACS_RESOURCE_GROUP --yes
-ssh-keygen -R [${ACS_DNS_PREFIX}mgmt.$ACS_REGION.cloudapp.azure.com]:2200
+az group delete --name $SIMDEM_RESOURCE_GROUP --yes
+ssh-keygen -R [${SIMDEM_DNS_PREFIX}mgmt.$SIMDEM_LOCATION.cloudapp.azure.com]:2200
 ```

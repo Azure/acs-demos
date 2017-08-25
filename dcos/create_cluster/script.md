@@ -20,7 +20,7 @@ by copying the existing `env.json` file.
 The currently defined variables are:
 
 ```
-env | grep ACS_*
+env | grep SIMDEM_*
 ```
 
 If you are running in interactive mode simply continue and you will be
@@ -45,8 +45,8 @@ exists using this configuration. Don't worry if this command returns a
 dangling after the last demo.
 
 ```
-az group delete --name $ACS_RESOURCE_GROUP --yes
-ssh-keygen -R [${ACS_DNS_PREFIX}mgmt.$ACS_REGION.cloudapp.azure.com]:2200
+az group delete --name $SIMDEM_RESOURCE_GROUP --yes
+ssh-keygen -R [${SIMDEM_DNS_PREFIX}mgmt.$SIMDEM_LOCATION.cloudapp.azure.com]:2200
 ```
 
 ## Creating a Cluster
@@ -59,7 +59,7 @@ First, we will create a resource group for the ACS cluster to be
 deployed.
 
 ```
-az group create --name $ACS_RESOURCE_GROUP --location $ACS_REGION
+az group create --name $SIMDEM_RESOURCE_GROUP --location $SIMDEM_LOCATION
 ```
 
 Results: 
@@ -80,7 +80,7 @@ Results:
 Now, we can create the cluster.
 
 ```
-az acs create --name $ACS_CLUSTER_NAME --resource-group $ACS_RESOURCE_GROUP --dns-prefix $ACS_DNS_PREFIX --agent-count 6 --generate-ssh-keys
+az acs create --name $SIMDEM_CLUSTER_NAME --resource-group $SIMDEM_RESOURCE_GROUP --dns-prefix $SIMDEM_DNS_PREFIX --agent-count 6 --generate-ssh-keys
 ```
 
 Results:
