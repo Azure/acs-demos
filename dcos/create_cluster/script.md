@@ -2,7 +2,7 @@
 
 Here we will create a DC/OS cluster.
 
-# Prerequistes
+# Prerequisites
 
 You will need an active Azure subscription and you will need to have
 the Azure CLI installed. You'll also need to
