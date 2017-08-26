@@ -101,7 +101,7 @@ workflows:
             - azure
       - dcos:
           requires:
-            -azure
+            - azure
       - aci:
           requires:
             - azure
