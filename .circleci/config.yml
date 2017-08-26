@@ -24,6 +24,18 @@ jobs:
           command: |
             simdem -p ./incubator/azure_compute/resource_group --fastfail false test
 
+  aci:
+    docker:
+      - image: rgardler/simdem_cli:0.8.1-dev
+
+    steps:
+      - checkout
+
+      - run:
+          name: ACS Engine tests
+          command: |
+            simdem -p ./acs-engine test
+
   kubernetes:
     docker:
       - image: rgardler/simdem_cli:0.8.1-dev
@@ -61,6 +73,19 @@ jobs:
           command: |
             simdem -p ./incubator/aci test
 
+  vamp:
+    docker:
+      - image: rgardler/simdem_cli:0.8.1-dev
+
+    steps:
+      - checkout
+
+      - run:
+          name: Vamp tests
+          command: |
+            simdem -p ./vamp test
+    
+
 workflows:
   version: 2
   build_and_test:
@@ -72,9 +97,16 @@ workflows:
       - kubernetes:
           requires:
             - azure
+      - acs-engine:
+          requires:
+            - azure
       - dcos:
           requires:
-	    -azure
+            -azure
       - aci:
           requires:
             - azure
+      - vamp:
+          requires:
+            - kubernetes
+            - dcos
