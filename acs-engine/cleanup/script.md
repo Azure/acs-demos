@@ -1,6 +1,6 @@
 # Cleanup after ACS Engine demos / tutorials
 
-# Prerequisite
+# Prerequisites
 
 You will need an active Azure subscription and you will need to have
 the Azure CLI installed. You'll also need to
