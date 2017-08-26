@@ -86,23 +86,6 @@ not, create one.
 if [ ! -f "$SIMDEM_ACSE_SSH_KEY" ]; then ssh-keygen -t rsa -N "" -f $SIMDEM_ACSE_SSH_KEY; fi
 ```
 
-# Setup Azure Environment
-
-Now the client is ready we need to ensure that we have an Azure
-environment to work in. You must first install
-the
-[Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli) and
-log in to your account using `azure login`.
-
-## Ensure we are using the right Azure Subscription
-
-In case you have multiple subscriptions we need to ensure we are using
-the right one.
-
-```
-az account set --subscription $SIMDEM_ACSE_SUBSCRIPTION_ID
-```
-
 ## Create a resource group
 
 All the demo's and tutorials will operate in a single resource group,
