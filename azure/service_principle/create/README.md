@@ -39,6 +39,11 @@ Results:
 }
 ```
 
+If you already have a suitable Service Principal you can assign
+permissions to manage the Resource Group created for ACSE. `az role
+assignment create --assignee [APP_ID] --role Contributor
+--resource-group $SIMDEM_RESOURCE_GROUP`.
+
 # Validation
 
 We can test wheter the service principle already exists using the

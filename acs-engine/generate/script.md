@@ -33,6 +33,8 @@ be [logged in to Azure](../../azure/login/README.md).
 
 You should first run through the [preparation script](https://github.com/Azure/acs-demos/blob/master/acs-engine/preparation/script.md) to ensure your environment is correctly setup.
 
+ACS Engine uses a [service principle](../../azure/service_principle/create/README.md) to manage resources in Azure.
+
 ## Generate templates from a cluster definition
 
 As an example we will generate a template using a Kubernetes example
@@ -73,8 +75,9 @@ cat $SIMDEM_ACSE_WORKSPACE/kubernetes.json
 
 Results:
 
-```
-{ "apiVersion": "vlabs", 
+```expected_similarity=0.5
+{
+  "apiVersion": "vlabs", 
   "properties": { "orchestratorProfile": {
     "orchestratorType": "Kubernetes" 
   }, 
@@ -155,7 +158,7 @@ tmp_file=$(mktemp)
 ```
 
 ```
-jq ".properties.servicePrincipalProfile.servicePrincipalClientSecret |= \"$SIMDEM_ACSE_SERVICE_PRINCIPLE_PASSWORD\"" $SIMDEM_ACSE_WORKSPACE/kubernetes.json  > "$tmp_file"
+jq ".properties.servicePrincipalProfile.servicePrincipalClientSecret |= \"$SIMDEM_SERVICE_PRINCIPAL_PASSWORD\"" $SIMDEM_ACSE_WORKSPACE/kubernetes.json  > "$tmp_file"
 mv $tmp_file $SIMDEM_ACSE_WORKSPACE/kubernetes.json
 ```
 

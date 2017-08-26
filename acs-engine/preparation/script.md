@@ -93,32 +93,5 @@ not, create one.
 if [ ! -f "$SIMDEM_ACSE_SSH_KEY" ]; then ssh-keygen -t rsa -N "" -f $SIMDEM_ACSE_SSH_KEY; fi
 ```
 
-## Ensure we have a valid service principle
-
-A service principle allows Kuberntes to manage the Azure
-infrastrcuture for you. In this document we will create a new Service
-Principal, see below for details on how to reuse an existing one.:
-
-```
-az ad sp create-for-rbac --name $SIMDEM_ACSE_SERVICE_PRINCIPLE_NAME --role="Contributor" --scopes="/subscriptions/$SIMDEM_ACSE_SUBSCRIPTION_ID/resourceGroups/$SIMDEM_RESOURCE_GROUP" --password $SIMDEM_ACSE_SERVICE_PRINCIPLE_PASSWORD
-```
-
-Results:
-
-```expected_similarity=0.3
-Retrying role assignment creation: 1/36
-{
-  "appId": "657cd27f-xxxx-xxxx-xxxx-512adb26e468",
-  "displayName": "acs-engine-simdem",
-  "name": "http://acs-engine-simdem",
-  "password": "51d6a411-xxxx-xxxx-xxxx-974053b1a80a",
-  "tenant": "72f988bf-xxxx-xxxx-xxxx-2d7cd011db47"
-}
-```
-
-If you already have a suitable Service Principal you can assign
-permissions to manage the Resource Group created for ACSE. `az role
-assignment create --assignee [APP_ID] --role Contributor
---resource-group $SIMDEM_RESOURCE_GROUP`.
 
 
