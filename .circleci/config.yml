@@ -24,7 +24,7 @@ jobs:
           command: |
             simdem -p ./incubator/azure_compute/resource_group --fastfail false test
 
-  aci:
+  acs-engine:
     docker:
       - image: rgardler/simdem_cli:0.8.1-dev
 
