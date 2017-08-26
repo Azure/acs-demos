@@ -22,7 +22,7 @@ jobs:
       - run:
           name: Resource Group tests
           command: |
-            simdem -p ./incubator/azure_compute/resource_group --fastfail false test
+            simdem -p ./incubator/azure_compute/resource_group test
 
   acs-engine:
     docker:
