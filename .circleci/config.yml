@@ -24,10 +24,6 @@ jobs:
           command: |
             simdem -p ./incubator/azure_compute/resource_group test
 
-  acs-engine:
-    docker:
-      - image: rgardler/simdem_cli:0.8.1-dev
-
     steps:
       - checkout
 
@@ -58,6 +54,7 @@ jobs:
 
       - run:
           name: DC/OS tests
+          no_output_timeout: "30m"
           command: |
             simdem -p ./dcos test
 
@@ -94,9 +91,6 @@ workflows:
           requires:
             - build
       - kubernetes:
-          requires:
-            - azure
-      - acs-engine:
           requires:
             - azure
       - dcos:
