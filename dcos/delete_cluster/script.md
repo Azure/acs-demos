@@ -3,7 +3,7 @@
 Here we will remove the DC/OS demo cluster from Azure. Note that this
 deletes all resources so please use with care.
 
-# Prerequisite
+# Prerequisites
 
 You will need an active Azure subscription and you will need to have
 the Azure CLI installed. You'll need to
