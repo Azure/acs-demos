@@ -8,36 +8,12 @@ tutorials and demos we have for ACS Engine.
 This section focuses on ensuring your client machine is ready. Here we
 are using a Linux environment.
 
-## Environment Variables
-
-The demo/tutorial scripts use environment variables to ensure that
-they all work well together. The following environment variables are
-currently used:
-
-```
-env | grep ACSE.*
-```
-
-Results:
-
-```
-ACSE_WORKSPACE=~/.acs-engine/simdem
-ACSE_DNS_PREFIX=rg-acse-demo
-ACSE_LOCATION=eastus
-ACSE_RESOURCE_GROUP=acse-demo
-ACSE_SERVICE_PRINCIPLE_NAME=acs-engine-simdem
-ACSE_SERVICE_PRINCIPLE_PASSWORD=pa$$w0rd
-ACSE_VERSION=0.4.0
-ACSE_SUBSCRIPTION_ID=135fxxxx-xxxx-xxxx-xxxx-7b5f1c57xxxx
-ACSE_SSH_KEY=/home/rgardler/.ssh/id_rsa
-```
-
 ## Create Workspace
 
 We need a workspace for storing things like generated templates.
 
 ```
-mkdir -p $ACSE_WORKSPACE
+mkdir -p $SIMDEM_ACSE_WORKSPACE
 ```
 
 ## Required software
@@ -58,19 +34,19 @@ The ACS Engine project releases binaries via Github. We'll download
 it:
 
 ```
-wget -O $ACSE_WORKSPACE/acs-engine.tar.gz https://github.com/Azure/acs-engine/releases/download/v$ACSE_VERSION/acs-engine-v$ACSE_VERSION-linux-amd64.tar.gz
+wget -O $SIMDEM_ACSE_WORKSPACE/acs-engine.tar.gz https://github.com/Azure/acs-engine/releases/download/v$SIMDEM_ACSE_VERSION/acs-engine-v$SIMDEM_ACSE_VERSION-linux-amd64.tar.gz
 ```
 
 and extract it:
 
 ```
-tar -C $ACSE_WORKSPACE -zxvf $ACSE_WORKSPACE/acs-engine.tar.gz
+tar -C $SIMDEM_ACSE_WORKSPACE -zxvf $SIMDEM_ACSE_WORKSPACE/acs-engine.tar.gz
 ```
 
 Copy the executable into `/usr/local/bin`
 
 ```
-sudo cp $ACSE_WORKSPACE/linux-amd64/acs-engine /usr/local/bin/acs-engine
+sudo cp $SIMDEM_ACSE_WORKSPACE/linux-amd64/acs-engine /usr/local/bin/acs-engine
 ```
 
 Lets check it's installed:
@@ -107,7 +83,7 @@ followin line will check there is a valid SSH key available and, if
 not, create one.
 
 ```
-if [ ! -f "$ACSE_SSH_KEY" ]; then ssh-keygen -t rsa -N "" -f $ACSE_SSH_KEY; fi
+if [ ! -f "$SIMDEM_ACSE_SSH_KEY" ]; then ssh-keygen -t rsa -N "" -f $SIMDEM_ACSE_SSH_KEY; fi
 ```
 
 # Setup Azure Environment
@@ -124,7 +100,7 @@ In case you have multiple subscriptions we need to ensure we are using
 the right one.
 
 ```
-az account set --subscription $ACSE_SUBSCRIPTION_ID
+az account set --subscription $SIMDEM_ACSE_SUBSCRIPTION_ID
 ```
 
 ## Create a resource group
@@ -133,7 +109,7 @@ All the demo's and tutorials will operate in a single resource group,
 so lets get it ready.
 
 ```
-az group create --name $ACSE_RESOURCE_GROUP --location $ACSE_LOCATION
+az group create --name $SIMDEM_ACSE_RESOURCE_GROUP --location $SIMDEM_ACSE_LOCATION
 ```
 
 ## Ensure we have a valid service principle
@@ -143,7 +119,7 @@ infrastrcuture for you. In this document we will create a new Service
 Principal, see below for details on how to reuse an existing one.:
 
 ```
-az ad sp create-for-rbac --name $ACSE_SERVICE_PRINCIPLE_NAME --role="Contributor" --scopes="/subscriptions/$ACSE_SUBSCRIPTION_ID/resourceGroups/$ACSE_RESOURCE_GROUP" --password $ACSE_SERVICE_PRINCIPLE_PASSWORD
+az ad sp create-for-rbac --name $SIMDEM_ACSE_SERVICE_PRINCIPLE_NAME --role="Contributor" --scopes="/subscriptions/$SIMDEM_ACSE_SUBSCRIPTION_ID/resourceGroups/$SIMDEM_ACSE_RESOURCE_GROUP" --password $SIMDEM_ACSE_SERVICE_PRINCIPLE_PASSWORD
 ```
 
 Results:
@@ -162,6 +138,6 @@ Retrying role assignment creation: 1/36
 If you already have a suitable Service Principal you can assign
 permissions to manage the Resource Group created for ACSE. `az role
 assignment create --assignee [APP_ID] --role Contributor
---resource-group $ACSE_RESOURCE_GROUP`.
+--resource-group $SIMDEM_ACSE_RESOURCE_GROUP`.
 
 
