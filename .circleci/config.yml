@@ -84,7 +84,6 @@ jobs:
           name: Vamp tests
           command: |
             simdem -p ./vamp test
-    
 
 workflows:
   version: 2
