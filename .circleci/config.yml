@@ -72,6 +72,9 @@ workflows:
       - kubernetes:
           requires:
             - azure
+      - dcos:
+          requires:
+	    -azure
       - aci:
           requires:
             - azure
