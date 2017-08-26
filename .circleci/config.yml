@@ -62,7 +62,7 @@ jobs:
           command: |
             simdem -p ./incubator/aci test
 
-  vamp:
+  vamp_kubernetes:
     docker:
       - image: rgardler/simdem_cli:0.8.1-dev
 
@@ -72,7 +72,7 @@ jobs:
       - run:
           name: Vamp tests
           command: |
-            simdem -p ./vamp test
+            simdem -p ./vamp/kubernetes test
 
 workflows:
   version: 2
@@ -91,7 +91,7 @@ workflows:
       - aci:
           requires:
             - azure
-      - vamp:
+      - vamp_kubernetes:
           requires:
             - kubernetes
 
