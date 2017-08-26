@@ -11,19 +11,55 @@ jobs:
           name: run hello world tests
           command: |
             simdem -p . test
+            
+  azure:
+    docker:
+      - image: rgardler/simdem_cli:0.8.1-dev
+
+    steps:
+      - checkout
 
       - run:
           name: run resource group test
           command: |
             simdem -p ./incubator/azure_compute/resource_group --fastfail false test
 
-      - run:
-          name: run ACI test
-          command: |
-            simdem -p ./incubator/aci --fastfail false test
+  kubernetes:
+    docker:
+      - image: rgardler/simdem_cli:0.8.1-dev
+
+    steps:
+      - checkout
 
       - run:
           name: run kuberenetes test
           no_output_timeout: "30m"
           command: |
-            simdem -p ./kubernetes --fastfail false test
+            simdem -p ./kubernetes test
+
+  aci:
+    docker:
+      - image: rgardler/simdem_cli:0.8.1-dev
+
+    steps:
+      - checkout
+
+      - run:
+          name: run ACI test
+          command: |
+            simdem -p ./incubator/aci test
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build
+      - azure:
+          requires:
+            - build
+      - kubernetes:
+          requires:
+            - azure
+      - aci:
+          requires:
+            - azure
