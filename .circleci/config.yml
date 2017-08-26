@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  sanityCheck:
+  build:
     docker:
       - image: rgardler/simdem_cli:0.8.1-dev
 
