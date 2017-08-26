@@ -2,29 +2,11 @@
 
 Here we will create a DC/OS cluster.
 
-## Azure Login
+# Prerequistes
 
-You will need an active azure subscription. Before proceeding with
-this script ensure that you are logged in using `az login`. 
-
-## Environment Setup
-
-Since we will be creating an ACS cluster it is important that we first
-setup the environment to be unique to you, otherwise we will get
-naming conflicts between people running the tutorials. 
-
-You can do this through interactive variables here, or you can set
-values in a local `env.local.json` file. We recommend that you start
-by copying the existing `env.json` file.
-
-The currently defined variables are:
-
-```
-env | grep SIMDEM_*
-```
-
-If you are running in interactive mode simply continue and you will be
-prompted for any mising values when necessary.
+You will need an active Azure subscription and you will need to have
+the Azure CLI installed. You'll also need to
+be [logged in to Azure](../../azure/login/README.md).
 
 ## Dependencies
 
@@ -36,27 +18,11 @@ sudo pip3 install virtualenv
 sudo apt-get install openssh-client -y
 ```
 
-# Ensuring we have a clean cluster
-
-It's always wise to ensure that a demo starts in a clean state. To
-that end we will delete any existing cluster and SSH infromation that
-exists using this configuration. Don't worry if this command returns a
-"could not be found" error. It just means you didn't have anything
-dangling after the last demo.
-
-```
-az group delete --name $SIMDEM_RESOURCE_GROUP --yes
-ssh-keygen -R [${SIMDEM_DNS_PREFIX}mgmt.$SIMDEM_LOCATION.cloudapp.azure.com]:2200
-```
-
 ## Creating a Cluster
 
 We will use the Azure CLI 2.0 to quickly create an Azure Container
-Services cluster. Ensure you have the Azure CLI installed and have
-logged in using `az login`. 
-
-First, we will create a resource group for the ACS cluster to be
-deployed.
+Services cluster. First, we will create a resource group for the ACS
+cluster to be deployed.
 
 ```
 az group create --name $SIMDEM_RESOURCE_GROUP --location $SIMDEM_LOCATION
