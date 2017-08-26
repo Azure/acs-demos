@@ -10,6 +10,10 @@ public API for Azure Container Service.
 
 # Prerequisites
 
+You will need an active Azure subscription and you will need to have
+the Azure CLI installed. You'll also need to
+be [logged in to Azure](../../azure/login/README.md).
+
 It is assumed that you
 have [prepared your environment](../preparation/script.md)
 and [generated templates](../generate/script.md) for the cluster you
@@ -18,7 +22,7 @@ want to deploy. If not please follow the instructions linked.
 ### Deploy using Azure CLI
 
 ```
-az group deployment create --resource-group $ACSE_RESOURCE_GROUP --template-file $ACSE_WORKSPACE/_output/azuredeploy.json --parameters $ACSE_WORKSPACE/_output/azuredeploy.parameters.json
+az group deployment create --resource-group $SIMDEM_ACSE_RESOURCE_GROUP --template-file $SIMDEM_ACSE_WORKSPACE/_output/azuredeploy.json --parameters $SIMDEM_ACSE_WORKSPACE/_output/azuredeploy.parameters.json
 ```
 
 ## Interacting with the Cluster
