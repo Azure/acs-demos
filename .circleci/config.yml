@@ -55,5 +55,11 @@ workflows:
     jobs:
       - build
       - azure
+        requires:
+	  - build
       - kubernetes
+        requires:
+	  - azure
       - aci
+        requires:
+	  - azure
