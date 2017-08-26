@@ -3,6 +3,13 @@
 In this document we'll prepare your environment for running the
 tutorials and demos we have for ACS Engine.
 
+# Prerequisite
+
+You will need to have create
+a
+[resource group](../../incubator/azure_compute/resource_group/create/)
+in which to place your ACS cluster.
+
 # Setup the client
 
 This section focuses on ensuring your client machine is ready. Here we
@@ -86,15 +93,6 @@ not, create one.
 if [ ! -f "$SIMDEM_ACSE_SSH_KEY" ]; then ssh-keygen -t rsa -N "" -f $SIMDEM_ACSE_SSH_KEY; fi
 ```
 
-## Create a resource group
-
-All the demo's and tutorials will operate in a single resource group,
-so lets get it ready.
-
-```
-az group create --name $SIMDEM_ACSE_RESOURCE_GROUP --location $SIMDEM_ACSE_LOCATION
-```
-
 ## Ensure we have a valid service principle
 
 A service principle allows Kuberntes to manage the Azure
@@ -102,7 +100,7 @@ infrastrcuture for you. In this document we will create a new Service
 Principal, see below for details on how to reuse an existing one.:
 
 ```
-az ad sp create-for-rbac --name $SIMDEM_ACSE_SERVICE_PRINCIPLE_NAME --role="Contributor" --scopes="/subscriptions/$SIMDEM_ACSE_SUBSCRIPTION_ID/resourceGroups/$SIMDEM_ACSE_RESOURCE_GROUP" --password $SIMDEM_ACSE_SERVICE_PRINCIPLE_PASSWORD
+az ad sp create-for-rbac --name $SIMDEM_ACSE_SERVICE_PRINCIPLE_NAME --role="Contributor" --scopes="/subscriptions/$SIMDEM_ACSE_SUBSCRIPTION_ID/resourceGroups/$SIMDEM_RESOURCE_GROUP" --password $SIMDEM_ACSE_SERVICE_PRINCIPLE_PASSWORD
 ```
 
 Results:
@@ -121,6 +119,6 @@ Retrying role assignment creation: 1/36
 If you already have a suitable Service Principal you can assign
 permissions to manage the Resource Group created for ACSE. `az role
 assignment create --assignee [APP_ID] --role Contributor
---resource-group $SIMDEM_ACSE_RESOURCE_GROUP`.
+--resource-group $SIMDEM_RESOURCE_GROUP`.
 
 

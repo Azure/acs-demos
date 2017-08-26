@@ -21,7 +21,7 @@ Removing role assignments
 ## Delete the resource group
 
 ```
-az group delete --name $SIMDEM_ACSE_RESOURCE_GROUP --yes
+az group delete --name $SIMDEM_RESOURCE_GROUP --yes
 ```
 
 ## Delete the workspace
