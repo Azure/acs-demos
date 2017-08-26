@@ -102,4 +102,4 @@ workflows:
       - vamp:
           requires:
             - kubernetes
-            - dcos
+
