@@ -4,6 +4,12 @@ run using the [SimDem](http://github.com/rgardler/simdem) tool,
 although they are just markdown files so you can read through them and
 run them manually if you prefer.
 
+## Build Status
+
+We strive to ensure all demos in this suite pass at all times, of course that's not always atainable. If any are failing you can get details by clicking the badge below.
+
+[![CircleCI](https://circleci.com/gh/Azure/acs-demos.svg?style=svg)](https://circleci.com/gh/Azure/acs-demos)
+
 # Running Demo's
 
 All demo's are written in markdown format, so just work through them
