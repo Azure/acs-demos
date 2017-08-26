@@ -48,3 +48,12 @@ jobs:
           name: run ACI test
           command: |
             simdem -p ./incubator/aci test
+
+workflows:
+  version: 2
+    build_and_test:
+        jobs:
+          - build
+          - azure
+          - kubernetes
+          - aci
