@@ -24,14 +24,6 @@ jobs:
           command: |
             simdem -p ./incubator/azure_compute/resource_group test
 
-    steps:
-      - checkout
-
-      - run:
-          name: ACS Engine tests
-          command: |
-            simdem -p ./acs-engine test
-
   kubernetes:
     docker:
       - image: rgardler/simdem_cli:0.8.1-dev
