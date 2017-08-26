@@ -54,12 +54,12 @@ workflows:
   build_and_test:
     jobs:
       - build
-      - azure
-        requires:
-	  - build
-      - kubernetes
-        requires:
-	  - azure
-      - aci
-        requires:
-	  - azure
+      - azure:
+          requires:
+	    - build
+      - kubernetes:
+          requires:
+	    - azure
+      - aci:
+          requires:
+	    - azure
