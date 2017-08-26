@@ -90,7 +90,7 @@ followin line will check there is a valid SSH key available and, if
 not, create one.
 
 ```
-if [ ! -f "$SIMDEM_ACSE_SSH_KEY" ]; then ssh-keygen -t rsa -N "" -f $SIMDEM_ACSE_SSH_KEY; fi
+if [ ! -f "$SIMDEM_SSH_KEY" ]; then ssh-keygen -t rsa -N "" -f $SIMDEM_SSH_KEY; fi
 ```
 
 

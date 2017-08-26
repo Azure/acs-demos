@@ -123,13 +123,13 @@ tmp_file=$(mktemp)
 ```
 
 ```
-jq ".properties.masterProfile.dnsPrefix |= \"$SIMDEM_ACSE_DNS_PREFIX\"" $SIMDEM_ACSE_WORKSPACE/kubernetes.json  > "$tmp_file"
+jq ".properties.masterProfile.dnsPrefix |= \"$SIMDEM_DNS_PREFIX\"" $SIMDEM_ACSE_WORKSPACE/kubernetes.json  > "$tmp_file"
 mv $tmp_file $SIMDEM_ACSE_WORKSPACE/kubernetes.json
 ```
 Setting ssh keyData
 
 ```
-public_key=$(ssh-keygen -y -f $SIMDEM_ACSE_SSH_KEY)
+public_key=$(ssh-keygen -y -f $SIMDEM_SSH_KEY)
 tmp_file=$(mktemp)
 ```
 
