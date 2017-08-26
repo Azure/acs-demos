@@ -22,7 +22,7 @@ want to deploy. If not please follow the instructions linked.
 ### Deploy using Azure CLI
 
 ```
-az group deployment create --resource-group $SIMDEM_ACSE_RESOURCE_GROUP --template-file $SIMDEM_ACSE_WORKSPACE/_output/azuredeploy.json --parameters $SIMDEM_ACSE_WORKSPACE/_output/azuredeploy.parameters.json
+az group deployment create --resource-group $SIMDEM_RESOURCE_GROUP --template-file $SIMDEM_ACSE_WORKSPACE/_output/azuredeploy.json --parameters $SIMDEM_ACSE_WORKSPACE/_output/azuredeploy.parameters.json
 ```
 
 ## Interacting with the Cluster
