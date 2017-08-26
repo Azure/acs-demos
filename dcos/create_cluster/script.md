@@ -94,43 +94,24 @@ Results:
 }
 ```
 
-## Install VirtualEnv
+# Validation
 
-Many DC/OS tools use VitualEnv, so let's add that:
-
-```
-sudo pip3 install virtualenv
-```
-
-## Install the DC/OS CLI
-
-In order to manage this instance of ACS we will need the DC/OS cli,
-fortunately the Azure CLI makes it easy to install it.
+You can check that the cluster is available using the Azure CLI as
+follows:
 
 ```
-sudo az acs dcos install-cli
+az acs show -g $SIMDEM_RESOURCE_GROUP -n $SIMDEM_CLUSTER_NAME --query provisioningState
 ```
 
 Results:
 
 ```
-Downloading client to /usr/local/bin/dcos
+"Succeeded"
 ```
 
-Now we tell the DC/OS CLI to use localhost as the DCOS URL. When we
-want to connect to the cluster we will create an SSH tunnel between
-localhost (port 10000) and the cluster.
-
-```
-dcos config set core.dcos_url http://localhost:10000
-```
-
-Results:
-
-```
-[core.dcos_url]: changed from 'http://localhost:80' to 'http://localhost:10000'
-```
-
+If this says anything other than "Succeeded" you will need to ensure
+that the cluster is correctly created. If it says "Provisioning" wait
+a little longer before proceeding.
 
 # Next Steps
 

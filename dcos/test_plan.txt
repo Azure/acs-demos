@@ -1,5 +1,6 @@
 delete_cluster/script.md
 create_cluster/script.md
-spark_install/script.md
+connect_to_cluster/script.md
+spark_install/README.md
 vamp_install/script.md
 delete_cluster/script.md
