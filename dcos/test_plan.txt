@@ -1,3 +1,4 @@
+delete_cluster/script.md
 create_cluster/script.md
 spark_install/script.md
 vamp_install/script.md
