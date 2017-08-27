@@ -134,7 +134,6 @@ workflows:
       - kubernetes_delete:
           requires:
             - kubernetes_create
-            - kubernetes_proxy
             - kubernetes_scale
             - vamp_kubernetes
       - dcos:
