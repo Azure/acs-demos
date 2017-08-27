@@ -1,2 +1,2 @@
-delete_cluster/script.md
-create_cluster/script.md
+../delete_cluster/script.md
+script.md
