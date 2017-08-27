@@ -129,13 +129,12 @@ workflows:
             - kubernetes_create
       - kubernetes_scale:
           requires:
-            - kubernetes_create
+            - kubernetes_proxy
       - vamp_kubernetes:
           requires:
             - kubernetes_create
       - kubernetes_delete:
           requires:
-            - kubernetes_create
             - kubernetes_scale
             - vamp_kubernetes
       - dcos:
