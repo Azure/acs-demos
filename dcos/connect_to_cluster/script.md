@@ -2,33 +2,20 @@
 
 Here we will prepare a demo environment for managing DC/OS workloads.
 
-## Preparation
+# Prerequisites
+
+You will need an active Azure subscription and you will need to have
+the Azure CLI installed. You'll need to
+be [logged in to Azure](../../azure/login/README.md).
+
+You will first need to ensure you have
+a [working DC/OS cluster](../create_cluster/script.md).
 
 We'll be using SSH, so lets ensure it is installed:
 
 ```
 sudo apt-get install openssh-client -y
 ```
-
-## Validate cluster
-
-You can check that the cluster is available using the Azure CLI as
-follows:
-
-```
-az acs show -g $SIMDEM_RESOURCE_GROUP -n $SIMDEM_CLUSTER_NAME --query provisioningState
-```
-
-Results:
-
-```
-"Succeeded"
-```
-
-If this says anything other than "Succeeded" or "Provisioning" you
-will probably need to [cleanup](../delete_cluster/script.md) and try
-redeploying the cluster. If it says "Provisioning" wait a little while
-until you see "succeeded".
 
 ## Connect to the cluster
 
@@ -44,3 +31,54 @@ want to be able to run these commands in an automated fashion for
 demos. This option prevents SSH asking to validate the fingerprint. In
 production one should always validate SSH connections.
 
+## Install VirtualEnv
+
+Many DC/OS tools use VitualEnv, so let's add that:
+
+```
+sudo pip3 install virtualenv
+```
+
+## Install the DC/OS CLI
+
+In order to manage this instance of ACS we will need the DC/OS cli,
+fortunately the Azure CLI makes it easy to install it.
+
+```
+sudo az acs dcos install-cli
+```
+
+Results:
+
+```
+Downloading client to /usr/local/bin/dcos
+```
+
+Now we tell the DC/OS CLI to use localhost as the DCOS URL. When we
+want to connect to the cluster we will create an SSH tunnel between
+localhost (port 10000) and the cluster.
+
+```
+dcos config set core.dcos_url http://localhost:10000
+```
+
+Results:
+
+```
+[core.dcos_url]: changed from 'http://localhost:80' to 'http://localhost:10000'
+```
+
+## Validation
+
+We can check we are connected to the cluster with the DC/OS CLI, for
+exampel:
+
+```
+dcos node
+```
+
+Result:
+
+```
+FIXME
+```

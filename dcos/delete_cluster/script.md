@@ -3,17 +3,13 @@
 Here we will remove the DC/OS demo cluster from Azure. Note that this
 deletes all resources so please use with care.
 
-## Ensure we are cleaning up the right cluster
+# Prerequisites
 
-In order to cleanup we will be deleting all the resources created in
-the demo. Lets check the environment setup first to ensure we are
-deleting the right resources.
+You will need an active Azure subscription and you will need to have
+the Azure CLI installed. You'll need to
+be [logged in to Azure](../../azure/login/README.md).
 
-```
-env | grep SIMDEM_.*
-```
-
-If this isn't right press 'b' then 'CTRL-C', otherwise we will proceed...
+# Delete the resources
 
 ```
 az group delete --name $SIMDEM_RESOURCE_GROUP --yes

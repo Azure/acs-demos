@@ -87,9 +87,10 @@ So what's the IP number?
 echo $IP_NUMBER
 ```
 
-Now we can check our web service is alive, we'll give it up to 90 seconds to respond, but usually it is much faster than this:
+Now we can check our web service is alive, we'll wait a few seconds to ensure the load balancer has updated:
 
 ```
+sleep 15
 xdg-open  $IP_NUMBER
 ```
 
