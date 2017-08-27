@@ -46,6 +46,7 @@ jobs:
 
       - run:
           name: Connect to Kubernetes Cluster
+          no_output_timeout: "30m"
           command: |
             simdem -p ./kubernetes/proxy test
 
@@ -58,6 +59,7 @@ jobs:
 
       - run:
           name: Scale a Kubernetes Cluster
+          no_output_timeout: "30m"
           command: |
             simdem -p ./kubernetes/scale test
             
