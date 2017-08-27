@@ -1,0 +1,4 @@
+../../kubernetes/create_cluster/script.md
+install/script.md
+uninstall/script.md
+../../kubernetes/delete_cluster/script.md
