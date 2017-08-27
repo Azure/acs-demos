@@ -3,32 +3,13 @@
 Here we will scale a pre-existing Azure COntainer Service (Kubernetes)
 cluster.
 
-## Environment Setup
-
-The currently defined environment variables are:
-
-```
-env | grep SIMDEM_*
-```
-
-If you are running in interactive mode simply continue and you will be
-prompted for any mising values when necessary.
-
-
 ## Prerequisites
 
-We need to have [created an ACS (Kubernetes) cluster](https://raw.githubusercontent.com/Azure/acs-demos/master/kubernetes/create_cluster/script.md).
-
-## Connect to the cluster
-
-In order to connect to the cluster we need to get the credentials from
-ACS.
-
-```
-az acs kubernetes get-credentials --resource-group=$SIMDEM_RESOURCE_GROUP --name=$SIMDEM_CLUSTER_NAME
-```
+We need to have [created and connected to an ACS (Kubernetes) cluster](../proxy/README.md).
 
 ## Check the current number of nodes
+
+Lets see how mant nodes we currently have.
 
 ```
 kubectl get nodes
