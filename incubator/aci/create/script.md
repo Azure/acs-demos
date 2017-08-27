@@ -87,10 +87,11 @@ So what's the IP number?
 echo $IP_NUMBER
 ```
 
-Now we can check our web service is alive, we'll wait a few seconds to ensure the load balancer has updated:
+Now we can check our web service is alive, we'll wait a few seconds to
+ensure the load balancer has updated:
 
 ```
-sleep 15
+sleep 20
 xdg-open  $IP_NUMBER
 ```
 
