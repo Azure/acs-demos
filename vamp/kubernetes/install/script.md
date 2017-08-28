@@ -17,6 +17,8 @@ and we must be logged into our subscription.
 We must have deployed and setup the connection to an [ACS (Kubernetes)
 cluster](../../../kubernetes/proxy/README.md).)
 
+### Linux dependencies
+
 This script uses Curl for some of it's validation testing, so lets
 install that:
 
