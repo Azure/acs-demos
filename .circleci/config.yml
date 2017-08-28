@@ -52,7 +52,7 @@ jobs:
       - run:
           name: Vamp tests
           command: |
-            simdem -p ./vamp/kubernetes test
+            simdem -p ./vamp/kubernetes/install test
 
       - run:
           name: Delete Kubernetes Cluster
