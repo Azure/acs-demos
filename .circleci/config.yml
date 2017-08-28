@@ -24,7 +24,7 @@ jobs:
           command: |
             simdem -p ./incubator/azure_compute/resource_group test
 
-  kubernetes_create:
+  kubernetes:
     docker:
       - image: rgardler/simdem_cli:0.8.1-dev
 
@@ -37,38 +37,22 @@ jobs:
           command: |
             simdem -p ./kubernetes/create_cluster test
 
-  kubernetes_proxy:
-    docker:
-      - image: rgardler/simdem_cli:0.8.1-dev
-
-    steps:
-      - checkout
-
       - run:
           name: Connect to Kubernetes Cluster
           no_output_timeout: "30m"
           command: |
             simdem -p ./kubernetes/proxy test
 
-  kubernetes_scale:
-    docker:
-      - image: rgardler/simdem_cli:0.8.1-dev
-
-    steps:
-      - checkout
-
       - run:
           name: Scale a Kubernetes Cluster
           no_output_timeout: "30m"
           command: |
             simdem -p ./kubernetes/scale test
-            
-  kubernetes_delete:
-    docker:
-      - image: rgardler/simdem_cli:0.8.1-dev
 
-    steps:
-      - checkout
+      - run:
+          name: Vamp tests
+          command: |
+            simdem -p ./vamp/kubernetes test
 
       - run:
           name: Delete Kubernetes Cluster
@@ -101,18 +85,6 @@ jobs:
           command: |
             simdem -p ./incubator/aci test
 
-  vamp_kubernetes:
-    docker:
-      - image: rgardler/simdem_cli:0.8.1-dev
-
-    steps:
-      - checkout
-
-      - run:
-          name: Vamp tests
-          command: |
-            simdem -p ./vamp/kubernetes test
-
 workflows:
   version: 2
   build_and_test:
@@ -121,22 +93,9 @@ workflows:
       - azure:
           requires:
             - build
-      - kubernetes_create:
+      - kubernetes:
           requires:
             - azure
-      - kubernetes_proxy:
-          requires:
-            - kubernetes_create
-      - kubernetes_scale:
-          requires:
-            - kubernetes_proxy
-      - vamp_kubernetes:
-          requires:
-            - kubernetes_create
-      - kubernetes_delete:
-          requires:
-            - kubernetes_scale
-            - vamp_kubernetes
       - dcos:
           requires:
             - azure
