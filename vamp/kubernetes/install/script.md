@@ -11,15 +11,14 @@ ACS with [Kubernetes](https://kubernetes.io).
 
 ## Prerequisites
 
-We will be using the [Kubernetes CLI](../install_cli/README.md) so that must be installed.
-
-We also need the [Azure CLI](../../azure/login/README.md) installed
+We also need the [Azure CLI](../../../azure/login/README.md) installed
 and we must be logged into our subscription.
 
 We must have deployed and setup the connection to an [ACS (Kubernetes)
-cluster](../proxy/README.md).)
+cluster](../../../kubernetes/proxy/README.md).)
 
-This script uses Curl for some of it's validation testing, so lets install that:
+This script uses Curl for some of it's validation testing, so lets
+install that:
 
 ```
 sudo apt-get install -qy curl
