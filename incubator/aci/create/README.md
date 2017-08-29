@@ -120,5 +120,5 @@ az container logs --resource-group $SIMDEM_RESOURCE_GROUP --name $SIMDEM_ACI_INS
 
 # Next Steps
 
-  1. [Cleanup resources used in this demo](cleanup/script.md)
+  1. [Cleanup resources used in this demo](cleanup/README.md)
   2. [ACI demo index](../README.md)

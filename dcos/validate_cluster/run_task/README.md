@@ -14,9 +14,9 @@ env | grep SIMDEM_.*
 
 ## Prerequisites
 
-We first need to [create a DC/OS cluster](https://raw.githubusercontent.com/Azure/acs-demos/master/dcos/create_cluster/script.md), if you haven't done so yet, please do so no.
+We first need to [create a DC/OS cluster](https://raw.githubusercontent.com/Azure/acs-demos/master/dcos/create_cluster/README.md), if you haven't done so yet, please do so no.
 
-We will also need to ensure we have everything needed to [connect to the cluster](https://github.com/Azure/acs-demos/blob/master/dcos/create_cluster/script.md) so that we can manage it.
+We will also need to ensure we have everything needed to [connect to the cluster](https://github.com/Azure/acs-demos/blob/master/dcos/create_cluster/README.md) so that we can manage it.
 
 ## Connect to the cluster
 

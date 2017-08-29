@@ -24,7 +24,7 @@ the Azure CLI installed. You'll need to
 be [logged in to Azure](../../azure/login/README.md).
 
 You will first need to ensure you have
-a [working DC/OS cluster](../create_cluster/script.md).
+a [working DC/OS cluster](../create_cluster/README.md).
 
 
 ## Connect to the cluster
@@ -175,4 +175,4 @@ xdg-open http://localhost:10000/service/zeppelin/#/
 
 # Next Steps
 
-  1. [Delete the ACS DC/OS cluster](cleanup/script.md)
+  1. [Delete the ACS DC/OS cluster](cleanup/README.md)

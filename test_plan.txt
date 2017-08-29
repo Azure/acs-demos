@@ -1,2 +1,2 @@
-version_check/script.md
+version_check/README.md
 

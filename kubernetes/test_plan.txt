@@ -1,5 +1,5 @@
-delete_cluster/script.md
-create_cluster/script.md
+delete_cluster/README.md
+create_cluster/README.md
 proxy/README.md
-scale/script.md
-delete_cluster/script.md
+scale/README.md
+delete_cluster/README.md

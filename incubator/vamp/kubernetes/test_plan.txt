@@ -1,4 +1,4 @@
-../../kubernetes/create_cluster/script.md
-install/script.md
-uninstall/script.md
-../../kubernetes/delete_cluster/script.md
+../../kubernetes/create_cluster/README.md
+install/README.md
+uninstall/README.md
+../../kubernetes/delete_cluster/README.md

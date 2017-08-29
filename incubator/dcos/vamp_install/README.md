@@ -27,7 +27,7 @@ demo.
 
 ## Validate cluster
 
-You will first need to ensure you have a working DC/OS cluster. If you need to create one see [tutorial / demo](../../create_cluster/script.md).
+You will first need to ensure you have a working DC/OS cluster. If you need to create one see [tutorial / demo](../../create_cluster/README.md).
 
 You can check that the cluster is available using the Azure CLI as
 follows:
@@ -43,7 +43,7 @@ Results:
 ```
 
 If this says "Failed" you will need
-to [cleanup](../delete_cluster/script.md) and try redeploying the
+to [cleanup](../delete_cluster/README.md) and try redeploying the
 cluster. If it says "Provisioning" wait a little longer before
 proceeding.
 

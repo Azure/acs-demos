@@ -171,4 +171,4 @@ Now, we are all set up and ready to run the main demo script and spin up an inst
 # Next Steps
 
   1. [Install Apache Spark](install/script)
-  2. [Delete the cluster](cleanup/script.md)
+  2. [Delete the cluster](cleanup/README.md)

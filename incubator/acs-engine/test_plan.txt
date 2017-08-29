@@ -1,5 +1,5 @@
-cleanup/script.md
-preparation/script.md
-generate/script.md
-deploy/script.md
-cleanup/script.md
+cleanup/README.md
+preparation/README.md
+generate/README.md
+deploy/README.md
+cleanup/README.md

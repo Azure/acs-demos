@@ -9,7 +9,7 @@ the Azure CLI installed. You'll need to
 be [logged in to Azure](../../azure/login/README.md).
 
 You will first need to ensure you have
-a [working DC/OS cluster](../create_cluster/script.md).
+a [working DC/OS cluster](../create_cluster/README.md).
 
 We'll be using SSH, so lets ensure it is installed:
 

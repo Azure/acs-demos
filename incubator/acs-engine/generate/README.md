@@ -31,7 +31,7 @@ You will need an active Azure subscription and you will need to have
 the Azure CLI installed. You'll also need to
 be [logged in to Azure](../../azure/login/README.md).
 
-You should first run through the [preparation script](https://github.com/Azure/acs-demos/blob/master/acs-engine/preparation/script.md) to ensure your environment is correctly setup.
+You should first run through the [preparation script](https://github.com/Azure/acs-demos/blob/master/acs-engine/preparation/README.md) to ensure your environment is correctly setup.
 
 ACS Engine uses a [service principle](../../azure/service_principle/create/README.md) to manage resources in Azure.
 
@@ -197,6 +197,6 @@ apiserver.key  ca.crt                       client.key  kubectlClient.key
 
 # Next Steps
 
-  1. [Deploy ACS Engine Templates with Azure CLI](../deploy/script,md)
-  2. [Cleanup ACS Engine SimdDem](../cleanup/script.md)
+  1. [Deploy ACS Engine Templates with Azure CLI](../deploy/README.md)
+  2. [Cleanup ACS Engine SimdDem](../cleanup/README.md)
 
