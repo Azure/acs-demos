@@ -50,11 +50,6 @@ jobs:
             simdem -p ./kubernetes/scale test
 
       - run:
-          name: Vamp tests
-          command: |
-            simdem -p ./vamp/kubernetes/install test
-
-      - run:
           name: Delete Kubernetes Cluster
           no_output_timeout: "30m"
           command: |
