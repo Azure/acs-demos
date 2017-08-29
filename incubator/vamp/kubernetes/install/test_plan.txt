@@ -1,2 +1,2 @@
-script.md
-../uninstall/script.md
+README.md
+../uninstall/README.md

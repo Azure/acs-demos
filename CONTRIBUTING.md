@@ -14,7 +14,7 @@ forward - so we'll thank you.
 
 `cd MY_DEMO_NAME`
 
-`emacs script.md` *you can use Vi (or even something else) if you really want :-D
+`emacs README.md` *you can use Vi (or even something else) if you really want :-D
 
 ## Building a Demo
 
@@ -42,9 +42,9 @@ What you don’t need to do to have a PR accepted into the incubator:
 
 Some Examples:
 						
-Here’s a complete example: https://github.com/Azure/acs-demos/blob/master/kubernetes/vamp/install/script.md
+Here’s a complete example: https://github.com/Azure/acs-demos/blob/master/kubernetes/vamp/install/README.md
 						
-And a work in progress (minmal coverage of all 4 points above:  https://github.com/Azure/acs-demos/blob/master/incubator/kubernetes/spark/install/script.md
+And a work in progress (minmal coverage of all 4 points above:  https://github.com/Azure/acs-demos/blob/master/incubator/kubernetes/spark/install/README.md
 						
 # Issue a PR
 						

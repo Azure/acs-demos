@@ -1,2 +1,2 @@
-../delete_cluster/script.md
-script.md
+../delete_cluster/README.md
+README.md

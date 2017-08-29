@@ -117,5 +117,5 @@ a little longer before proceeding.
 
 You are now setup to create workloads on DC/OS.
 
-  1. [Install Apache Spark and Apache Zeppelin](../dcos_spark_install/script.md)
-  2. [Delete the ACS DC/OS cluster](../cleanup/script.md)
+  1. [Install Apache Spark and Apache Zeppelin](../dcos_spark_install/README.md)
+  2. [Delete the ACS DC/OS cluster](../cleanup/README.md)

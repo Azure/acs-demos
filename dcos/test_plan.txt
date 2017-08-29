@@ -1,5 +1,5 @@
-delete_cluster/script.md
-create_cluster/script.md
-connect_to_cluster/script.md
-validate_cluster/script.md
-delete_cluster/script.md
+delete_cluster/README.md
+create_cluster/README.md
+connect_to_cluster/README.md
+validate_cluster/README.md
+delete_cluster/README.md

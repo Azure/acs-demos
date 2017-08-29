@@ -29,6 +29,6 @@ else.
 
 # Next Steps
 
-  1. [Create a Kubernetes cluster](preparation/script.md)
-  2. [Install Apache Spark](install/script.md)
-  3. [Delete the cluster](cleanup/script.md)
+  1. [Create a Kubernetes cluster](preparation/README.md)
+  2. [Install Apache Spark](install/README.md)
+  3. [Delete the cluster](cleanup/README.md)

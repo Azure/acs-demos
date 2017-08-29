@@ -30,7 +30,7 @@ Results:
 ```
 
 If this says anything other than "succeeded" (including an empty
-response) you will need to [cleanup](../delete_cluster/script.md) and
-try [redeploying the cluster](../create_cluster/script.md). If it says
+response) you will need to [cleanup](../delete_cluster/README.md) and
+try [redeploying the cluster](../create_cluster/README.md). If it says
 "Provisioning" wait a little longer before proceeding.
 

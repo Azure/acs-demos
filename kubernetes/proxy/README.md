@@ -5,7 +5,7 @@ to install the Kubernetes CLI. This can be done through the Azure CLI:
 
 # Prerequisites
 
-You must have deployed a [Kubernetes cluster](../create_cluster/script.md).
+You must have deployed a [Kubernetes cluster](../create_cluster/README.md).
 
 Since we'll be using the [Azure CLI](../install_cli/README.md)
 you must first have installed it on your client.

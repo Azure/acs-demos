@@ -6,7 +6,7 @@ In order to manage a DC/OS cluster we must connect to it using SSH.
 
 Not surprisingly, we will need a DC/OS cluster up and
 running, if you don't yet have one then work
-through [creating a DC/OS cluster on ACS](https://raw.githubusercontent.com/Azure/acs-demos/master/dcos/create_cluster/script.md). 
+through [creating a DC/OS cluster on ACS](https://raw.githubusercontent.com/Azure/acs-demos/master/dcos/create_cluster/README.md). 
 
 ## Validate cluster
 
@@ -24,7 +24,7 @@ Results:
 ```
 
 If this says "Failed" or "error" you will need
-to [cleanup](../delete_cluster/script.md) and try redeploying the
+to [cleanup](../delete_cluster/README.md) and try redeploying the
 cluster. If it says "Provisioning" wait a little longer before
 proceeding.
 

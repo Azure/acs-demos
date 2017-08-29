@@ -7,5 +7,5 @@ Azure.
 
 # Next Steps
 
-  * [Create the cluster](install/script.md)
-  * [Delete the cluster](cleanup/script.md)
+  * [Create the cluster](install/README.md)
+  * [Delete the cluster](cleanup/README.md)

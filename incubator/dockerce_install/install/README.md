@@ -41,5 +41,5 @@ docker info
 
 # Next Steps
 
-  * [Docker CE Demo Index](../script.md)
-  * [Delete the cluster](../cleanup/script.md)
+  * [Docker CE Demo Index](../README.md)
+  * [Delete the cluster](../cleanup/README.md)

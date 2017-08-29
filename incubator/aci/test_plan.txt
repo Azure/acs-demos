@@ -1,8 +1,8 @@
 # Ensure a clean test environment
-create/cleanup/script.md
+create/cleanup/README.md
 
 # Test the creation of a hello world instance
-create/script.md
+create/README.md
 
 # Cleanup
-create/cleanup/script.md
+create/cleanup/README.md

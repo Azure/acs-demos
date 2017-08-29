@@ -15,8 +15,8 @@ the Azure CLI installed. You'll also need to
 be [logged in to Azure](../../azure/login/README.md).
 
 It is assumed that you
-have [prepared your environment](../preparation/script.md)
-and [generated templates](../generate/script.md) for the cluster you
+have [prepared your environment](../preparation/README.md)
+and [generated templates](../generate/README.md) for the cluster you
 want to deploy. If not please follow the instructions linked.
 
 ### Deploy using Azure CLI

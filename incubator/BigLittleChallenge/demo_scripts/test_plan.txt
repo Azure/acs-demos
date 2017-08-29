@@ -1,5 +1,5 @@
-../../../kubernetes/delete_cluster/script.md
-../../../kubernetes/create_cluster/script.md
+../../../kubernetes/delete_cluster/README.md
+../../../kubernetes/create_cluster/README.md
 ../../../kubernetes/proxy/README.md
 install/README.md
 play_ai_only/README.md
