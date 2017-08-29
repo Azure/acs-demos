@@ -1,3 +1,4 @@
+delete_cluster/script.md
 create_cluster/script.md
 proxy/README.md
 scale/script.md

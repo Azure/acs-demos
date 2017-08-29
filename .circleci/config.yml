@@ -22,19 +22,7 @@ jobs:
       - run:
           name: Resource Group tests
           command: |
-            simdem -p ./incubator/azure_compute/resource_group --fastfail false test
-
-  aci:
-    docker:
-      - image: rgardler/simdem_cli:0.8.1-dev
-
-    steps:
-      - checkout
-
-      - run:
-          name: ACS Engine tests
-          command: |
-            simdem -p ./acs-engine test
+            simdem -p ./incubator/azure_compute/resource_group test
 
   kubernetes:
     docker:
@@ -44,10 +32,28 @@ jobs:
       - checkout
 
       - run:
-          name: Kuberenetes tests
+          name: Create Kuberenetes Cluster
           no_output_timeout: "30m"
           command: |
-            simdem -p ./kubernetes test
+            simdem -p ./kubernetes/create_cluster test
+
+      - run:
+          name: Connect to Kubernetes Cluster
+          no_output_timeout: "30m"
+          command: |
+            simdem -p ./kubernetes/proxy test
+
+      - run:
+          name: Scale a Kubernetes Cluster
+          no_output_timeout: "30m"
+          command: |
+            simdem -p ./kubernetes/scale test
+
+      - run:
+          name: Delete Kubernetes Cluster
+          no_output_timeout: "30m"
+          command: |
+            simdem -p ./kubernetes/create_cluster test
 
   dcos:
     docker:
@@ -58,6 +64,7 @@ jobs:
 
       - run:
           name: DC/OS tests
+          no_output_timeout: "30m"
           command: |
             simdem -p ./dcos test
 
@@ -73,18 +80,6 @@ jobs:
           command: |
             simdem -p ./incubator/aci test
 
-  vamp:
-    docker:
-      - image: rgardler/simdem_cli:0.8.1-dev
-
-    steps:
-      - checkout
-
-      - run:
-          name: Vamp tests
-          command: |
-            simdem -p ./vamp test
-
 workflows:
   version: 2
   build_and_test:
@@ -96,16 +91,10 @@ workflows:
       - kubernetes:
           requires:
             - azure
-      - acs-engine:
-          requires:
-            - azure
       - dcos:
           requires:
-            -azure
+            - azure
       - aci:
           requires:
             - azure
-      - vamp:
-          requires:
-            - kubernetes
-            - dcos
+

@@ -2,29 +2,11 @@
 
 Here we will create a DC/OS cluster.
 
-## Azure Login
+# Prerequisites
 
-You will need an active azure subscription. Before proceeding with
-this script ensure that you are logged in using `az login`. 
-
-## Environment Setup
-
-Since we will be creating an ACS cluster it is important that we first
-setup the environment to be unique to you, otherwise we will get
-naming conflicts between people running the tutorials. 
-
-You can do this through interactive variables here, or you can set
-values in a local `env.local.json` file. We recommend that you start
-by copying the existing `env.json` file.
-
-The currently defined variables are:
-
-```
-env | grep SIMDEM_*
-```
-
-If you are running in interactive mode simply continue and you will be
-prompted for any mising values when necessary.
+You will need an active Azure subscription and you will need to have
+the Azure CLI installed. You'll also need to
+be [logged in to Azure](../../azure/login/README.md).
 
 ## Dependencies
 
@@ -36,27 +18,11 @@ sudo pip3 install virtualenv
 sudo apt-get install openssh-client -y
 ```
 
-# Ensuring we have a clean cluster
-
-It's always wise to ensure that a demo starts in a clean state. To
-that end we will delete any existing cluster and SSH infromation that
-exists using this configuration. Don't worry if this command returns a
-"could not be found" error. It just means you didn't have anything
-dangling after the last demo.
-
-```
-az group delete --name $SIMDEM_RESOURCE_GROUP --yes
-ssh-keygen -R [${SIMDEM_DNS_PREFIX}mgmt.$SIMDEM_LOCATION.cloudapp.azure.com]:2200
-```
-
 ## Creating a Cluster
 
 We will use the Azure CLI 2.0 to quickly create an Azure Container
-Services cluster. Ensure you have the Azure CLI installed and have
-logged in using `az login`. 
-
-First, we will create a resource group for the ACS cluster to be
-deployed.
+Services cluster. First, we will create a resource group for the ACS
+cluster to be deployed.
 
 ```
 az group create --name $SIMDEM_RESOURCE_GROUP --location $SIMDEM_LOCATION
@@ -128,43 +94,24 @@ Results:
 }
 ```
 
-## Install VirtualEnv
+# Validation
 
-Many DC/OS tools use VitualEnv, so let's add that:
-
-```
-sudo pip3 install virtualenv
-```
-
-## Install the DC/OS CLI
-
-In order to manage this instance of ACS we will need the DC/OS cli,
-fortunately the Azure CLI makes it easy to install it.
+You can check that the cluster is available using the Azure CLI as
+follows:
 
 ```
-sudo az acs dcos install-cli
+az acs show -g $SIMDEM_RESOURCE_GROUP -n $SIMDEM_CLUSTER_NAME --query provisioningState
 ```
 
 Results:
 
 ```
-Downloading client to /usr/local/bin/dcos
+"Succeeded"
 ```
 
-Now we tell the DC/OS CLI to use localhost as the DCOS URL. When we
-want to connect to the cluster we will create an SSH tunnel between
-localhost (port 10000) and the cluster.
-
-```
-dcos config set core.dcos_url http://localhost:10000
-```
-
-Results:
-
-```
-[core.dcos_url]: changed from 'http://localhost:80' to 'http://localhost:10000'
-```
-
+If this says anything other than "Succeeded" you will need to ensure
+that the cluster is correctly created. If it says "Provisioning" wait
+a little longer before proceeding.
 
 # Next Steps
 

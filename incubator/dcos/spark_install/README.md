@@ -1,46 +1,31 @@
-# Install Apache Spark and Apache Zeppelin onto an ACS DC/OS cluster
+# What are we going to do?
 
-We will:
+We'll install Apache Spark and Apache Zeppelin on Azure Container
+Service with DC/OS.
 
-  * Install Apache Spark on an ACS DC/OS cluster
-  * Install Apache Zeppelin on an ACS DC/OS cluster
+## What is Apache Spark?
 
-# Preparation
+[Apache Spark](https://spark.apache.org/) is a powerful general cluster
+computing system for Big Data. We will be
+using [DC/OS](https://dcos.io/) to deploy a Spark cluster. We will
+also install [Zeppelin](https://zeppelin.apache.org/), a web-based
+notebook for data analytics, making it easier to interact with Spark.
 
-It is assumed that you have prepared the demo environment by running
-`prep.sh`, if not you need to break from this script and run it
-now. This will have pre-created a cluster with the following
-configuration:
+## What is Apache Zeppelin?
 
-```
-env | grep SIMDEM_.*
-```
+[Apache Zepellin](http://zeppelin.apache.org/) web-based notebook that
+enables interactive data analytics. It has excellent integration with
+Apache Spark.
 
-## Setup environment for Spark demo
+# Prerequisites
 
-Here we will prepare a demo environment for running the DC/OS Spark
-demo.
+You will need an active Azure subscription and you will need to have
+the Azure CLI installed. You'll need to
+be [logged in to Azure](../../azure/login/README.md).
 
-## Validate cluster
+You will first need to ensure you have
+a [working DC/OS cluster](../create_cluster/script.md).
 
-You will first need to ensure you have a working DC/OS cluster. If you need to create one see [tutorial / demo](../../create_cluster/script.md).
-
-You can check that the cluster is available using the Azure CLI as
-follows:
-
-```
-az acs show -g $SIMDEM_RESOURCE_GROUP -n $SIMDEM_CLUSTER_NAME --query provisioningState
-```
-
-Results:
-
-```
-"Succeeded"
-```
-
-If this says anything other than "Succeeded" you will need to ensure
-that the cluster is correctly created. If it says "Provisioning" wait
-a little longer before proceeding.
 
 ## Connect to the cluster
 
@@ -64,10 +49,10 @@ at [https://localhost:10000](https://localhost:10000) and your DC/OS
 CLI will be able to communicate with the cluster:
 
 ```
-curl -i http://localhost:10000
-curl -i http://localhost:10000/#/nodes
-curl -i http://localhost:10000/#/services/overview
-curl -i http://localhost:10000/#/universe/packages
+xdg-open http://localhost:10000
+xdg-open http://localhost:10000/#/nodes
+xdg-open http://localhost:10000/#/services/overview
+xdg-open http://localhost:10000/#/universe/packages
 ```
 
 We can also use the CLI to do the same things:
@@ -114,11 +99,17 @@ dcos package install zeppelin --yes
 Results:
 
 ```
-This DC/OS Service is currently in preview. There may be bugs, incomplete features, incorrect documentation, or other discrepencies. Preview packages should never be used in production!
-Installing Marathon app for package [zeppelin] version [0.7.0]
+This DC/OS Service is currently in preview.
 
-        Documentation: https://github.com/dcos/examples/tree/master/1.8/zeppelin/
-	    Issues: https://dcos.io/community/				
+Installing Marathon app for package [zeppelin] version [0.5.6-2]
+
+DC/OS Zeppelin is being installed!
+
+
+
+	Documentation: https://github.com/dcos/examples/tree/master/1.8/zeppelin/
+	
+	Issues: https://dcos.io/community/
 ```
 
 Once deployed, Zeppelin will be available
@@ -140,7 +131,7 @@ dcos spark
 
 Results:
 
-```expected_similarity=0.6
+```
 Usage:
     dcos spark --help
     dcos spark --info
@@ -184,5 +175,4 @@ xdg-open http://localhost:10000/service/zeppelin/#/
 
 # Next Steps
 
-From here you can experiment with Zeppelin notebooks, run Spark jobs
-or explore the DC/OS Universe.
+  1. [Delete the ACS DC/OS cluster](cleanup/script.md)

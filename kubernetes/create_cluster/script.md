@@ -2,25 +2,6 @@
 
 Here we will create a Kubernetes cluster in Azure Container Service.
 
-## Environment Setup
-
-Since we will be creating an ACS cluster it is important that we first
-setup the environment to be unique to you, otherwise we will get
-naming conflicts between people running the tutorials. 
-
-You can do this through interactive variables here, or you can set
-values in a local `env.local.json` file. We recommend that you start
-by copying the existing `env.json` file.
-
-The currently defined variables are:
-
-```
-env | grep SIMDEM_*
-```
-
-If you are running in interactive mode simply continue and you will be
-prompted for any mising values when necessary.
-
 # Prerequisites
 
 You will need an active Azure subscription and you will need to have

@@ -25,9 +25,15 @@ generated files include:
      Kubernetes require certificates and additional configuration
      files (e.g. Kubernetes apiserver certificates and kubeconfig).
 
-## Preparation
+## Prerequisites
+
+You will need an active Azure subscription and you will need to have
+the Azure CLI installed. You'll also need to
+be [logged in to Azure](../../azure/login/README.md).
 
 You should first run through the [preparation script](https://github.com/Azure/acs-demos/blob/master/acs-engine/preparation/script.md) to ensure your environment is correctly setup.
+
+ACS Engine uses a [service principle](../../azure/service_principle/create/README.md) to manage resources in Azure.
 
 ## Generate templates from a cluster definition
 
@@ -43,7 +49,7 @@ the
 cluster definition as a starter, lets copy this into our workspace:
 
 ```
-wget -O $ACSE_WORKSPACE/kubernetes.json https://raw.githubusercontent.com/Azure/acs-engine/master/examples/kubernetes.json
+wget -O $SIMDEM_ACSE_WORKSPACE/kubernetes.json https://raw.githubusercontent.com/Azure/acs-engine/master/examples/kubernetes.json
 ```
 
 Results:
@@ -64,13 +70,14 @@ Saving to: ~/.acs-engine/simdem/kuberenetes.json
 Now we have a template file to work with:
 
 ```
-cat $ACSE_WORKSPACE/kubernetes.json
+cat $SIMDEM_ACSE_WORKSPACE/kubernetes.json
 ```
 
 Results:
 
-```
-{ "apiVersion": "vlabs", 
+```expected_similarity=0.5
+{
+  "apiVersion": "vlabs", 
   "properties": { "orchestratorProfile": {
     "orchestratorType": "Kubernetes" 
   }, 
@@ -116,19 +123,19 @@ tmp_file=$(mktemp)
 ```
 
 ```
-jq ".properties.masterProfile.dnsPrefix |= \"$ACSE_DNS_PREFIX\"" $ACSE_WORKSPACE/kubernetes.json  > "$tmp_file"
-mv $tmp_file $ACSE_WORKSPACE/kubernetes.json
+jq ".properties.masterProfile.dnsPrefix |= \"$SIMDEM_DNS_PREFIX\"" $SIMDEM_ACSE_WORKSPACE/kubernetes.json  > "$tmp_file"
+mv $tmp_file $SIMDEM_ACSE_WORKSPACE/kubernetes.json
 ```
 Setting ssh keyData
 
 ```
-public_key=$(ssh-keygen -y -f $ACSE_SSH_KEY)
+public_key=$(ssh-keygen -y -f $SIMDEM_SSH_KEY)
 tmp_file=$(mktemp)
 ```
 
 ```
-jq ".properties.linuxProfile.ssh.publicKeys[0].keyData |= \"$public_key\"" $ACSE_WORKSPACE/kubernetes.json  > "$tmp_file"
-mv $tmp_file $ACSE_WORKSPACE/kubernetes.json
+jq ".properties.linuxProfile.ssh.publicKeys[0].keyData |= \"$public_key\"" $SIMDEM_ACSE_WORKSPACE/kubernetes.json  > "$tmp_file"
+mv $tmp_file $SIMDEM_ACSE_WORKSPACE/kubernetes.json
 ```
 
 Setting the Service Principle.
@@ -139,8 +146,8 @@ tmp_file=$(mktemp)
 ```
 
 ```
-jq ".properties.servicePrincipalProfile.servicePrincipalClientID |= \"$client_id\"" $ACSE_WORKSPACE/kubernetes.json  > "$tmp_file"
-mv $tmp_file $ACSE_WORKSPACE/kubernetes.json
+jq ".properties.servicePrincipalProfile.servicePrincipalClientID |= \"$client_id\"" $SIMDEM_ACSE_WORKSPACE/kubernetes.json  > "$tmp_file"
+mv $tmp_file $SIMDEM_ACSE_WORKSPACE/kubernetes.json
 ```
 
 Now we need to set the client secret. This was captured in
@@ -151,21 +158,21 @@ tmp_file=$(mktemp)
 ```
 
 ```
-jq ".properties.servicePrincipalProfile.servicePrincipalClientSecret |= \"$ACSE_SERVICE_PRINCIPLE_PASSWORD\"" $ACSE_WORKSPACE/kubernetes.json  > "$tmp_file"
-mv $tmp_file $ACSE_WORKSPACE/kubernetes.json
+jq ".properties.servicePrincipalProfile.servicePrincipalClientSecret |= \"$SIMDEM_SERVICE_PRINCIPAL_PASSWORD\"" $SIMDEM_ACSE_WORKSPACE/kubernetes.json  > "$tmp_file"
+mv $tmp_file $SIMDEM_ACSE_WORKSPACE/kubernetes.json
 ```
 
 The complete config file is now:
 
 ```
-cat $ACSE_WORKSPACE/kubernetes.json
+cat $SIMDEM_ACSE_WORKSPACE/kubernetes.json
 ```
 
 
 ### Generate the templates
 
 ```
-acs-engine generate $ACSE_WORKSPACE/kubernetes.json --output-directory $ACSE_WORKSPACE/_output
+acs-engine generate $SIMDEM_ACSE_WORKSPACE/kubernetes.json --output-directory $SIMDEM_ACSE_WORKSPACE/_output
 ```
 
 Results:
@@ -177,7 +184,7 @@ INFO[0000] Generating assets...
 The assets should now be available in the _output directory:
 
 ```
-ls $ACSE_WORKSPACE/_output/
+ls $SIMDEM_ACSE_WORKSPACE/_output/
 ```
 
 Results:

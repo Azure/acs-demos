@@ -1,14 +1,13 @@
-# Ensure we are cleaning up the right cluster
+# Delete the Kubernetes resource group
 
 In order to cleanup we will be deleting all the resources created in
-the demo. Lets check the environment setup first to ensure we are
-deleting the right resources.
+the demo. 
 
-```
-echo "Delete resource group '$SIMDEM_RESOURCE_GROUP', containing '$SIMDEM_CLUSTER_NAME'"
-```
+# Prerequisites
 
-If this isn't right press 'b' then 'CTRL-C', otherwise we will proceed...
+You will need a to
+be [logged in to Azure](../../azure/login/README.md).
+
 
 # Delete the resource group
 
