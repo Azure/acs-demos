@@ -53,7 +53,7 @@ jobs:
           name: Delete Kubernetes Cluster
           no_output_timeout: "30m"
           command: |
-            simdem -p ./kubernetes/create_cluster test
+            simdem -p ./kubernetes/delete_cluster test
 
   dcos:
     docker:
