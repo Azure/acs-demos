@@ -31,11 +31,17 @@ CLI using the instructions below.  Find your subscriptionId with the
 az CLI:
 
 Use az to create a Service Principal that can perform operations on
-your resource group:
+your subscription:
 
 ```
 SUBSCRIPTION_ID=$(az account show | jq -r '.id')
-SP_JSON=$(az ad sp create-for-rbac --role="Contributor" --scopes="/subscriptions/$SUBSCRIPTION_ID/resourceGroups/$SIMDEM_RESOURCE_GROUP")
+SP_JSON=$(az ad sp create-for-rbac --role="Contributor" --scopes="/subscriptions/$SUBSCRIPTION_ID")
+```
+##Register the app
+
+```
+az provider register -n Microsoft.ContainerInstance
+az provider list -o table | grep ContainerInstance
 ```
 
 ## Install the ACI Connector
@@ -61,7 +67,7 @@ spec:
     spec:
       containers:
       - name: aci-connector
-        image: microsoft/aci-connector-k8s:latest
+        image: microsoft/aci-connector-k8s:canary
         imagePullPolicy: Always
         env:
         - name: AZURE_CLIENT_ID
@@ -88,6 +94,7 @@ kubectl get nodes
 ```
 
 ## Install the NGINX example
+We are creating the pod from a simple yaml file. 
 
 ```
 cat examples/nginx-pod.yaml
@@ -114,30 +121,10 @@ spec:
 kubectl create -f examples/nginx-pod.yaml 
 ```
 
+This command grabs the pods running on the cluster and we can see that 
+the Nginx pod is running on the connector which means it's running in as Azure Container Instance.
+
 ```
 kubectl get pods -o wide
-```
-
-Since we need to ensure our Public IPs have been assigned before
-proceeding, and because we need the IP number later we'll run a loop
-to grab the IP once assinged. This is a little cumbersome but great if
-you want to script things. If you are doing this manually you can use
-`kubectl get service --wait` to display changes as they happen.
-
-```
-NGINX_IP=""
-while [ -z $NGINX_IP ]; do sleep 10; NGINX_IP=$(kubectl get service vamp -o jsonpath="{.status.loadBalancer.ingress[*].ip}"); done
-```
-
-Now we have our IP:
-
-```
-echo $NGINX_IP
-```
-
-Take a look...
-
-```
-xdg-open $NGINX
 ```
 
