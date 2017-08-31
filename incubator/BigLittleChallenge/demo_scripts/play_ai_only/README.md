@@ -5,11 +5,7 @@ only AI players. This is useful for play testing.
 
 ## Prerequisites
 
-We must first
-have
-[deployed a Kubernetes cluster](../../../../kubernetes/create_cluster/README.md) Cluster
-and [installed Big Little Challenge](../install.README.md) game onto that cluster.
-
+We must first have installed the Big Little Challenge [game engine and Dashboard](../install/README.md).
 
 ## Deploy the first AI player
 
@@ -79,4 +75,13 @@ aiplayer   2         2         2            1           21m
 ```
 
 Once both players have registered with the game engine the game will
-start. You can watch it's progress on the game dashboard at http://$DASHBOARD_IP:8181
+start. You can watch it's progress on the game dashboard, this is
+available on a Public IP that we can retrieve using the Kubernetes CLI
+(see the [install](../install/README.md) instructions for details of
+how).
+
+
+```
+xdg-open http://$DASHBOAD_IP:8181
+```
+

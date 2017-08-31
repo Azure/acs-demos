@@ -4,19 +4,6 @@ In this tutorial we weill install the ig Little Challenge application
 onto an existing Azure Container Service Cluster using Kubernetes as
 the orchestrator.
 
-## Setup environment for Big Little Challenge
-
-Here we will prepare an environment for running Big Little Challenge.
-
-The currently defined environment variables are:
-
-```
-env | grep SIMDEM_*
-```
-
-If you are running in interactive mode simply continue and you will be
-prompted for any mising values when necessary.
-
 # Prerequisites
 
 You must have
@@ -30,7 +17,7 @@ cluster.
 
 # Install Big Little Challenge
 
-In this section we will install the application. it consists of a
+In this section we will install the application. It consists of a
 number of different pods.
 
 ## Engine Deployment
@@ -92,6 +79,8 @@ easily visible using `kubectl`:
 kubectl get service
 ```
 
+# Validation
+
 Since we need to ensure our Public IP has been assigned before
 proceeding, and because we need the IP number later we'll run a loop
 to grab the IP once assinged. This is a little cumbersome but great if
@@ -120,9 +109,6 @@ Content-Length: 2006
 Server: Werkzeug/0.11.15 Python/3.6.0
 Date: Tue, 25 Jul 2017 06:52:39 GMT
 ```
-
-
-
 
 
 
