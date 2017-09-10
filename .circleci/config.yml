@@ -65,17 +65,17 @@ jobs:
       - run:
         name: install
 	command: |
-	  simdem -p ./BigLittleChallenage/demo_scripts/install
+	  simdem -p ./BigLittleChallenage/docs/install
 
       - run:
         name: play_ai
 	command: |
-	  simdem -p ./BigLittleChallenage/demo_scripts/play_ai_only
+	  simdem -p ./BigLittleChallenage/docs/play_ai_only
 
       - run:
         name: uninstall
         command: |
-	  simdem -p ./BigLittleChallenage/demo_scripts/uninstall
+	  simdem -p ./BigLittleChallenage/docs/uninstall
 	  
   dcos:
     docker:
