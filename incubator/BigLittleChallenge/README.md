@@ -19,21 +19,35 @@ but for now it's an easy way to get started.
 
 ## Run
 
-As a containerized application you can run it anywhere containers will 
-run. We provide Docker (use `docker-compose up -d`) and Kubernetes 
-(use `./kubernetes/run.sh`) configuraiton files.
+As a containerized application you can run it anywhere containers will
+run. We provide Docker (use `docker-compose up -d`) and Kubernetes
+configuration files (see `./kubernetes`).
 
-In the default configuration the game starts up with two "AI" players 
-(they don't really contain any AI, they simply select a card at random).
-You can view the application at `http://localhost:8181` (or the 
-appropriate host if deploying remotely).
+In the default Docker configuration the game starts up with two "AI"
+players (they don't really contain any AI, they simply select a card
+at random).  You can view the application at `http://localhost:8181`
+(or the appropriate host if deploying remotely).
 
 For more information on how the game works see the `docs/trials/` folder.
+
+## Demo / tutorial
+
+Big Little Challenge comes with a number of "scripts" that can be run
+as demo's or used as tutorials. These are located in the
+`demo_scripts` folder. It is recommended to run these scrips
+using [SimDem](http://github.com/azure/simdem), a tool for
+interactively running demo's and tutorials. To get started run (after
+installing SimDem):
+
+```
+simdem incubator/BigLittleChallenge/demo_scripts tutorial
+```
 
 ## Azure Container Service
 
 The game is tested on Azure Container Service in both Swarm Mode and
-Kubernetes.
+Kubernetes. However, it should work in any native Docker or Kubernetes
+environment.
 
 ## PiSwarm: A Docker Swarm Cluster
 
