@@ -1,17 +1,5 @@
 version: 2
 jobs:
-  build:
-    docker:
-      - image: rgardler/simdem_cli:0.8.1
-
-    steps:
-      - checkout
-        
-      - run:
-          name: Hello World test
-          command: |
-            simdem -p . test
-            
   azure:
     docker:
       - image: rgardler/simdem_cli:0.8.1
@@ -106,10 +94,7 @@ workflows:
   version: 2
   build_and_test:
     jobs:
-      - build
       - azure:
-          requires:
-            - build
       - kubernetes:
           requires:
             - azure
