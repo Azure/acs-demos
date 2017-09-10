@@ -94,7 +94,7 @@ workflows:
   version: 2
   build_and_test:
     jobs:
-      - azure:
+      - azure
       - kubernetes:
           requires:
             - azure
