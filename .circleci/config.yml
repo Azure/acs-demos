@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: rgardler/simdem_cli:0.8.1-dev
+      - image: rgardler/simdem_cli:0.8.1
 
     steps:
       - checkout
@@ -14,7 +14,7 @@ jobs:
             
   azure:
     docker:
-      - image: rgardler/simdem_cli:0.8.1-dev
+      - image: rgardler/simdem_cli:0.8.1
 
     steps:
       - checkout
@@ -26,7 +26,7 @@ jobs:
 
   kubernetes:
     docker:
-      - image: rgardler/simdem_cli:0.8.1-dev
+      - image: rgardler/simdem_cli:0.8.1
 
     steps:
       - checkout
@@ -57,29 +57,29 @@ jobs:
 
   biglittlechallenge:
     docker:
-      - image: rgardler/simdem_cli:0.8.1-dev
+      - image: rgardler/simdem_cli:0.8.1
 
     steps:
       - checkout
 
       - run:
-        name: install
-        command: |
-          simdem -p ./BigLittleChallenage/docs/install
+          name: install
+          command: |
+            simdem -p ./BigLittleChallenage/docs/install
 
       - run:
-        name: play_ai
-        command: |
-          simdem -p ./BigLittleChallenage/docs/play_ai_only
+          name: play_ai
+          command: |
+            simdem -p ./BigLittleChallenage/docs/play_ai_only
 
       - run:
-        name: uninstall
-        command: |
-          simdem -p ./BigLittleChallenage/docs/uninstall
+          name: uninstall
+          command: |
+            simdem -p ./BigLittleChallenage/docs/uninstall
   
   dcos:
     docker:
-      - image: rgardler/simdem_cli:0.8.1-dev
+      - image: rgardler/simdem_cli:0.8.1
 
     steps:
       - checkout
@@ -92,7 +92,7 @@ jobs:
 
   aci:
     docker:
-      - image: rgardler/simdem_cli:0.8.1-dev
+      - image: rgardler/simdem_cli:0.8.1
 
     steps:
       - checkout
