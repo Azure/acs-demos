@@ -64,19 +64,19 @@ jobs:
 
       - run:
         name: install
-	command: |
-	  simdem -p ./BigLittleChallenage/docs/install
+        command: |
+          simdem -p ./BigLittleChallenage/docs/install
 
       - run:
         name: play_ai
-	command: |
-	  simdem -p ./BigLittleChallenage/docs/play_ai_only
+        command: |
+          simdem -p ./BigLittleChallenage/docs/play_ai_only
 
       - run:
         name: uninstall
         command: |
-	  simdem -p ./BigLittleChallenage/docs/uninstall
-	  
+          simdem -p ./BigLittleChallenage/docs/uninstall
+  
   dcos:
     docker:
       - image: rgardler/simdem_cli:0.8.1-dev
@@ -121,5 +121,5 @@ workflows:
             - azure
       - biglittlechallenge:
           requires:
-	    - kubernetes
+            - kubernetes
 
