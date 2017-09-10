@@ -55,6 +55,28 @@ jobs:
           command: |
             simdem -p ./kubernetes/delete_cluster test
 
+  biglittlechallenge:
+    docker:
+      - imageL rgardler/simdem_cli:0.8.1-dev
+
+    steps:
+      - checkout
+
+      - run:
+        name: install
+	command: |
+	  simdem -p ./BigLittleChallenage/demo_scripts/install
+
+      - run:
+        name: play_ai
+	command: |
+	  simdem -p ./BigLittleChallenage/demo_scripts/play_ai_only
+
+      - run:
+        name: uninstall
+        command: |
+	  simdem -p ./BigLittleChallenage/demo_scripts/uninstall
+	  
   dcos:
     docker:
       - image: rgardler/simdem_cli:0.8.1-dev
@@ -97,4 +119,7 @@ workflows:
       - aci:
           requires:
             - azure
+      - biglittlechallenge:
+          requires:
+	    - kubernetes
 
