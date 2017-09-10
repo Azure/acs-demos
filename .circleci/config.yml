@@ -57,7 +57,7 @@ jobs:
 
   biglittlechallenge:
     docker:
-      - imageL rgardler/simdem_cli:0.8.1-dev
+      - image: rgardler/simdem_cli:0.8.1-dev
 
     steps:
       - checkout
