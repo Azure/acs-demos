@@ -82,6 +82,6 @@ how).
 
 
 ```
-xdg-open http://$DASHBOAD_IP:8181
+xdg-open http://$DASHBOARD_IP:8181
 ```
 
