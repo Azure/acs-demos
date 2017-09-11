@@ -64,6 +64,11 @@ jobs:
           name: uninstall
           command: |
             simdem -p ./BigLittleChallenge/docs/uninstall test
+
+      - run:
+          name: uninstall
+          command: |
+            simdem -p ./BigLittleChallenge/docs/cleanup test
   
   dcos:
     docker:
