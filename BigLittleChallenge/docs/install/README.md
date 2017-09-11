@@ -7,12 +7,12 @@ the orchestrator.
 # Prerequisites
 
 You must have
-[deployed a Kubernetes cluster](../../../../kubernetes/create_cluster/README.md) 
+[deployed a Kubernetes cluster](../../../kubernetes/create_cluster/README.md) 
 in Azure Container Service onto which we will deploy the game.
 
 Once the cluster is created you will need to install the Kubernetes
 CLI and set up
-the [management proxy](../../../../kubernetes/proxy/README.md) to the
+the [management proxy](../../../kubernetes/proxy/README.md) to the
 cluster.
 
 # Install Big Little Challenge
