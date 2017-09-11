@@ -15,6 +15,10 @@ CLI and set up
 the [management proxy](../../../kubernetes/proxy/README.md) to the
 cluster.
 
+This document also uses a few Linux commands that may not be installed
+on your system, so lets check all [dependencies](./dependencies.md)
+are present.
+
 # Install Big Little Challenge
 
 In this section we will install the application. It consists of a
