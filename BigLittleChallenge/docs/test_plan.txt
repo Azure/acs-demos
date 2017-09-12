@@ -1,3 +1,4 @@
-../../../kubernetes/delete_cluster/README.md
+../../kubernetes/delete_cluster/README.md
 install/README.md
 play_ai_only/README.md
+cleanup/README.md
