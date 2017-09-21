@@ -25,6 +25,7 @@ The Kuberenetes CLI will setup a proxy to your cluster:
 
 ```
 kubectl proxy --port=8001 &
+sleep 2
 ```
 
 # Validation
