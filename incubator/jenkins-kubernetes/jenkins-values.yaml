@@ -1,21 +1,34 @@
 Master:
   Memory: "512Mi"
-  HostName: rgjenkins.eastus.cloudapp.azure.com
-  ServiceType: LoadBalancer 
+  HostName: jenkins.acs-k8s.juliencorioland.net
+  ServiceType: ClusterIP 
   InstallPlugins:
-      - kubernetes:0.11
+      - kubernetes:0.12
       - workflow-aggregator:2.5
-      - credentials-binding:1.11
-      - git:3.2.0
+      - credentials-binding:1.13
+      - git:3.5.1
       - pipeline-github-lib:1.0
-      - ghprb:1.36.1
-      - blueocean:1.0.1
+      - ghprb:1.39.0
+      - blueocean:1.1.7
 
 ScriptApproval:
     - "method groovy.json.JsonSlurperClassic parseText java.lang.String"
     - "new groovy.json.JsonSlurperClassic"
     - "staticMethod org.codehaus.groovy.runtime.DefaultGroovyMethods leftShift java.util.Map java.util.Map"
     - "staticMethod org.codehaus.groovy.runtime.DefaultGroovyMethods split java.lang.String"
+    - "method java.util.Collection toArray"
+    - "staticMethod org.kohsuke.groovy.sandbox.impl.Checker checkedCall java.lang.Object boolean boolean java.lang.String java.lang.Object[]"
+    - "staticMethod org.kohsuke.groovy.sandbox.impl.Checker checkedGetProperty java.lang.Object boolean boolean java.lang.Object"
+
+Ingress:
+  Annotations:
+    kubernetes.io/ingress.class: nginx
+    kubernetes.io/tls-acme: "true"
+
+  TLS:
+    - secretName: jenkins.acs-k8s.juliencorioland.net
+      hosts:
+        - jenkins.acs-k8s.juliencorioland.net
 
 Agent:
   Enabled: false
